@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies â swang.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Vercel Analytics & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:       #FFFFFF;
+      --off-white:   #F8F8F8;
+      --light:       #EFEFEF;
+      --border:      #E0E0E0;
+      --mid:         #9A9A9A;
+      --dark:        #6A6A6A;
+      --near-black:  #1A1A1A;
+      --orange:      #FF6B2B;
+      --orange-soft: rgba(255, 107, 43, 0.10);
+      --orange-glow: 0 0 24px rgba(255, 107, 43, 0.18);
+      --r-green:  #61BB46;
+      --r-yellow: #FBBC05;
+      --r-orange: #F5821F;
+      --r-red:    #E03A3E;
+      --r-purple: #963D97;
+      --r-blue:   #009DDC;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--near-black);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .rainbow-bar {
+      height: 3px;
+      background: linear-gradient(to right,
+        var(--r-green)  0%    16.6%,
+        var(--r-yellow) 16.6% 33.2%,
+        var(--r-orange) 33.2% 49.8%,
+        var(--r-red)    49.8% 66.4%,
+        var(--r-purple) 66.4% 83%,
+        var(--r-blue)   83%   100%
+      );
+    }
+
+    /* ââ NAV âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      color: var(--near-black);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--orange); }
+    .nav-links a.active { color: var(--orange); }
+
+    /* ââ PAGE HEADER âââââââââââââââââââââââââââââââââââââââââââââââ */
+    .page-header {
+      padding: 72px 56px 56px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .page-header-left { max-width: 560px; }
+
+    .page-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .page-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+
+    .page-desc {
+      font-size: 0.95rem;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    .page-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ââ FILTER BAR ââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .filter-bar {
+      padding: 24px 56px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-right: 8px;
+    }
+
+    .filter-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      color: var(--dark);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-pill:hover,
+    .filter-pill.active {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    /* ââ STUDIES GRID ââââââââââââââââââââââââââââââââââââââââââââââ */
+    .studies-section {
+      padding: 56px;
+    }
+
+    .studies-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .study-card {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.22s;
+      cursor: pointer;
+      min-height: 220px;
+    }
+
+    .study-card:hover { background: var(--off-white); }
+
+    .study-card:hover .study-img { background: var(--light); }
+
+    .study-img {
+      background: var(--off-white);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background 0.22s;
+    }
+
+    /* mac chrome on each card image */
+    .study-chrome {
+      height: 24px;
+      min-height: 24px;
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 5px;
+    }
+
+    .s-dot {
+      width: 8px;
+      height: 8px;
+      border: 1.5px solid var(--border);
+    }
+
+    .s-dot:first-child { border-color: var(--r-red);    background: var(--r-red);    opacity: 0.45; }
+    .s-dot:nth-child(2){ border-color: var(--r-yellow); background: var(--r-yellow); opacity: 0.45; }
+    .s-dot:nth-child(3){ border-color: var(--r-green);  background: var(--r-green);  opacity: 0.45; }
+
+    .study-img-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mid);
+      letter-spacing: 0.06em;
+    }
+
+    .study-content {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .study-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .study-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .study-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+    }
+
+    .study-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      color: var(--near-black);
+    }
+
+    .study-excerpt {
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .study-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .study-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--mid);
+    }
+
+    /* Featured / wide card â spans full width */
+    .study-card.featured {
+      grid-column: 1 / -1;
+    }
+
+    .study-card.featured .study-img {
+      min-height: 260px;
+    }
+
+    .study-card.featured .study-title {
+      font-size: 1.25rem;
+    }
+
+    /* ââ BACK LINK âââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .back-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 3px;
+      transition: all 0.2s;
+      margin-bottom: 48px;
+    }
+
+    .back-link:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+    }
+
+    /* ââ FOOTER ââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .footer-rainbow {
+      height: 3px;
+      background: linear-gradient(to right,
+        var(--r-green)  0%    16.6%,
+        var(--r-yellow) 16.6% 33.2%,
+        var(--r-orange) 33.2% 49.8%,
+        var(--r-red)    49.8% 66.4%,
+        var(--r-purple) 66.4% 83%,
+        var(--r-blue)   83%   100%
+      );
+    }
+
+    footer {
+      padding: 36px 56px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--near-black);
+    }
+
+    .footer-logo span { color: var(--orange); }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--mid);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rainbow-bar"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">swang<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#case-studies" class="active">Work</a></li>
+      <li><a href="index.html#visual">Visuals</a></li>
+      <li><a href="mailto:hello@swang.studio">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <p class="page-eyebrow">Portfolio</p>
+      <h1 class="page-title">Case Studies</h1>
+      <p class="page-desc">Business improvement through Meta campaigns, operational efficiency, digital marketing, and SEO â detailed breakdowns of real results.</p>
+    </div>
+    <p class="page-count">â 8 studies</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <button class="filter-pill active">All</button>
+    <button class="filter-pill">Meta Campaigns</button>
+    <button class="filter-pill">SEO</button>
+    <button class="filter-pill">Operational Efficiency</button>
+    <button class="filter-pill">Digital Marketing</button>
+  </div>
+
+  <!-- STUDIES GRID -->
+  <div class="studies-section">
+    <div class="studies-grid">
+
+      <!-- Featured / wide card -->
+      <a class="study-card featured" href="#">
+        <div class="study-img">
+          <div class="study-chrome">
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+          </div>
+          <div class="study-img-body">[ cover image ]</div>
+        </div>
+        <div class="study-content">
+          <div class="study-meta">
+            <span class="study-cat">Meta Campaigns</span>
+            <span class="study-date">Mar 2026</span>
+          </div>
+          <h2 class="study-title">Scaling ROAS 4x for a DTC Brand Through Creative Testing</h2>
+          <p class="study-excerpt">How a structured creative testing framework â built on rapid iteration, audience segmentation, and spend reallocation â transformed ad performance and cut wasted spend over 90 days. A full breakdown of the process, the pivots, and the numbers.</p>
+          <div class="study-tags">
+            <span class="study-tag">Meta Ads</span>
+            <span class="study-tag">Creative Testing</span>
+            <span class="study-tag">DTC</span>
+            <span class="study-tag">ROAS</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="study-card" href="#">
+        <div class="study-img">
+          <div class="study-chrome">
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+          </div>
+          <div class="study-img-body">[ cover ]</div>
+        </div>
+        <div class="study-content">
+          <div class="study-meta">
+            <span class="study-cat">SEO</span>
+            <span class="study-date">Jan 2026</span>
+          </div>
+          <h2 class="study-title">From Page 4 to #1: An E-commerce SEO Turnaround</h2>
+          <p class="study-excerpt">Technical fixes and content strategy that drove 3x organic traffic in under six months for a growing e-commerce brand.</p>
+          <div class="study-tags">
+            <span class="study-tag">SEO</span>
+            <span class="study-tag">E-commerce</span>
+            <span class="study-tag">Content</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a class="study-card" href="#">
+        <div class="study-img">
+          <div class="study-chrome">
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+          </div>
+          <div class="study-img-body">[ cover ]</div>
+        </div>
+        <div class="study-content">
+          <div class="study-meta">
+            <span class="study-cat">Operational Efficiency</span>
+            <span class="study-date">Nov 2025</span>
+          </div>
+          <h2 class="study-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h2>
+          <p class="study-excerpt">Process mapping, tooling, and team restructuring that recovered 20+ hours per week and dramatically reduced order errors.</p>
+          <div class="study-tags">
+            <span class="study-tag">Operations</span>
+            <span class="study-tag">Workflow</span>
+            <span class="study-tag">Fulfillment</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a class="study-card" href="#">
+        <div class="study-img">
+          <div class="study-chrome">
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+          </div>
+          <div class="study-img-body">[ cover ]</div>
+        </div>
+        <div class="study-content">
+          <div class="study-meta">
+            <span class="study-cat">Digital Marketing</span>
+            <span class="study-date">Sep 2025</span>
+          </div>
+          <h2 class="study-title">Full-Funnel Strategy for a Brand Launch: 0 to 10k Followers</h2>
+          <p class="study-excerpt">Building organic and paid presence from scratch â channel selection, content cadence, and the paid amplification that made it compound.</p>
+          <div class="study-tags">
+            <span class="study-tag">Brand Launch</span>
+            <span class="study-tag">Organic</span>
+            <span class="study-tag">Paid Social</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a class="study-card" href="#">
+        <div class="study-img">
+          <div class="study-chrome">
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+          </div>
+          <div class="study-img-body">[ cover ]</div>
+        </div>
+        <div class="study-content">
+          <div class="study-meta">
+            <span class="study-cat">Meta Campaigns</span>
+            <span class="study-date">Jul 2025</span>
+          </div>
+          <h2 class="study-title">Reducing CAC by 35% With Audience Restructure</h2>
+          <p class="study-excerpt">How consolidating bloated ad accounts and rebuilding audience architecture brought customer acquisition cost down and volume up.</p>
+          <div class="study-tags">
+            <span class="study-tag">Meta Ads</span>
+            <span class="study-tag">CAC</span>
+            <span class="study-tag">Audience</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a class="study-card" href="#">
+        <div class="study-img">
+          <div class="study-chrome">
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+            <div class="s-dot"></div>
+          </div>
+          <div class="study-img-body">[ cover ]</div>
+        </div>
+        <div class="study-content">
+          <div class="study-meta">
+            <span class="study-cat">SEO</span>
+            <span class="study-date">May 2025</span>
+          </div>
+          <h2 class="study-title">Local SEO Domination for a Multi-Location Service Brand</h2>
+          <p class="study-excerpt">Google Business optimization, local link building, and review strategy that pushed 12 locations to top 3 map pack results.</p>
+          <div class="study-tags">
+            <span class="study-tag">Local SEO</span>
+            <span class="study-tag">GBP</span>
+            <span class="study-tag">Multi-location</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-rainbow"></div>
+  <footer>
+    <span class="footer-logo">swang<span>.</span></span>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#visual">Visuals</a></li>
+      <li><a href="mailto:hello@swang.studio">hello@swang.studio</a></li>
+    </ul>
+    <span class="footer-copy">Â© 2026 swang.</span>
+  </footer>
+
+  <script>
+    // Filter pills
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        // Filter logic will wire to real cards when content is added
+      });
+    });
+  </script>
+
+</body>
+</html>
