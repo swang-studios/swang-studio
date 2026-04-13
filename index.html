@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swang.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Vercel Analytics & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:       #FFFFFF;
+      --off-white:   #F8F8F8;
+      --light:       #EFEFEF;
+      --border:      #E0E0E0;
+      --mid:         #9A9A9A;
+      --dark:        #6A6A6A;
+      --near-black:  #1A1A1A;
+
+      /* Retro orange glow â the Mac CRT warmth */
+      --orange:      #FF6B2B;
+      --orange-soft: rgba(255, 107, 43, 0.10);
+      --orange-glow: 0 0 24px rgba(255, 107, 43, 0.18);
+
+      /* Apple rainbow â used once, subtly */
+      --r-green:  #61BB46;
+      --r-yellow: #FBBC05;
+      --r-orange: #F5821F;
+      --r-red:    #E03A3E;
+      --r-purple: #963D97;
+      --r-blue:   #009DDC;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--near-black);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ââ RAINBOW STRIPE (one thin line, top of page only) âââââââââââ */
+    .rainbow-bar {
+      height: 3px;
+      background: linear-gradient(to right,
+        var(--r-green)  0%    16.6%,
+        var(--r-yellow) 16.6% 33.2%,
+        var(--r-orange) 33.2% 49.8%,
+        var(--r-red)    49.8% 66.4%,
+        var(--r-purple) 66.4% 83%,
+        var(--r-blue)   83%   100%
+      );
+    }
+
+    /* ââ NAV ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      color: var(--near-black);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--orange); }
+
+    /* ââ HERO ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-left {
+      padding: 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .hero-headline {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      color: var(--near-black);
+    }
+
+    .hero-headline .accent { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--dark);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 48px;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 14px 28px;
+      text-decoration: none;
+      border: 1.5px solid var(--near-black);
+      transition: all 0.22s ease;
+      display: inline-block;
+    }
+
+    .btn-filled {
+      background: var(--near-black);
+      color: var(--white);
+    }
+
+    .btn-filled:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--near-black);
+    }
+
+    .btn-ghost:hover {
+      background: var(--orange-soft);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* Hero gallery â right panel */
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      background: var(--off-white);
+    }
+
+    .g-cell {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .g-cell:hover { background: var(--light); }
+
+    /* Mac-style window chrome on gallery cells */
+    .g-chrome {
+      height: 26px;
+      min-height: 26px;
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 5px;
+    }
+
+    .g-dot {
+      width: 9px;
+      height: 9px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+    }
+
+    .g-dot:first-child { border-color: var(--r-red);    background: var(--r-red);    opacity: 0.55; }
+    .g-dot:nth-child(2){ border-color: var(--r-yellow); background: var(--r-yellow); opacity: 0.55; }
+    .g-dot:nth-child(3){ border-color: var(--r-green);  background: var(--r-green);  opacity: 0.55; }
+
+    .g-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+    }
+
+    /* tall cell spans 2 rows */
+    .g-cell.tall { grid-row: 1 / 3; }
+    .g-cell.tall .g-body { font-size: 0.7rem; }
+    .g-cell:last-child { border-right: none; }
+
+    /* ââ SECTION SHARED âââââââââââââââââââââââââââââââââââââââââââââââ */
+    .section {
+      padding: 88px 56px;
+    }
+
+    .section-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+
+    .link-arrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--near-black);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--near-black);
+      padding-bottom: 3px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .link-arrow:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+    }
+
+    /* ââ CASE STUDIES âââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .case-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .case-card {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      transition: background 0.22s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .case-card:hover { background: var(--off-white); }
+
+    .case-card:hover .card-img-placeholder {
+      background: var(--light);
+    }
+
+    /* card mac chrome */
+    .card-chrome {
+      height: 28px;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 5px;
+    }
+
+    .card-chrome .g-dot { opacity: 0.4; }
+
+    .card-tag {
+      margin-left: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .card-img-placeholder {
+      height: 180px;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--mid);
+      transition: background 0.22s;
+    }
+
+    .card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      color: var(--near-black);
+    }
+
+    .card-excerpt {
+      font-size: 0.82rem;
+      color: var(--dark);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-read-more {
+      margin-top: 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .case-card:hover .card-read-more { color: var(--orange); }
+
+    /* ââ VISUAL WORK ââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .visual-section {
+      border-top: 1px solid var(--border);
+      background: var(--near-black);
+      color: var(--white);
+    }
+
+    .visual-section .section-label { color: #555; }
+    .visual-section .section-title { color: var(--white); }
+
+    .visual-section .link-arrow {
+      color: #888;
+      border-color: #555;
+    }
+
+    .visual-section .link-arrow:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+    }
+
+    /* Filter pills */
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid #333;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+    }
+
+    .pill:hover, .pill.active {
+      border-color: var(--orange);
+      color: var(--orange);
+      box-shadow: 0 0 12px rgba(255,107,43,0.12);
+    }
+
+    /* Visual grid */
+    .visual-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 220px 220px;
+      gap: 1px;
+      background: #2A2A2A;
+      border: 1px solid #2A2A2A;
+    }
+
+    .v-cell {
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .v-cell:hover {
+      background: #1A1A1A;
+      color: var(--orange);
+    }
+
+    .v-cell:hover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 30px rgba(255,107,43,0.06);
+    }
+
+    .v-cell.featured {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+      font-size: 0.72rem;
+    }
+
+    /* ââ FOOTER âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .footer-rainbow {
+      height: 3px;
+      background: linear-gradient(to right,
+        var(--r-green)  0%    16.6%,
+        var(--r-yellow) 16.6% 33.2%,
+        var(--r-orange) 33.2% 49.8%,
+        var(--r-red)    49.8% 66.4%,
+        var(--r-purple) 66.4% 83%,
+        var(--r-blue)   83%   100%
+      );
+    }
+
+    footer {
+      padding: 36px 56px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--near-black);
+    }
+
+    .footer-logo span { color: var(--orange); }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--mid);
+    }
+
+    /* ââ CLIENTS TICKER âââââââââââââââââââââââââââââââââââââââââââââââ */
+    .ticker-wrap {
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 14px 0;
+      position: relative;
+    }
+
+    /* fade edges */
+    .ticker-wrap::before,
+    .ticker-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .ticker-wrap::before { left: 0;  background: linear-gradient(to right, var(--off-white), transparent); }
+    .ticker-wrap::after  { right: 0; background: linear-gradient(to left,  var(--off-white), transparent); }
+
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+      width: max-content;
+      animation: ticker-scroll 38s linear infinite;
+    }
+
+    .ticker-track:hover { animation-play-state: paused; }
+
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Rotating geometric shapes â placeholder for logos */
+    .t-shape {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.45;
+    }
+
+    .t-shape.circle  { border-radius: 50%; }
+    .t-shape.square  { border-radius: 2px; }
+    .t-shape.diamond { border-radius: 2px; transform: rotate(45deg); width: 14px; height: 14px; }
+    .t-shape.pill    { border-radius: 999px; width: 26px; height: 14px; }
+
+    /* Each shape gets its own slow rotation â varied speeds/directions */
+    .ticker-item:nth-child(8n+1)  .t-shape { animation: spin-cw  12s linear infinite; background: var(--r-blue); }
+    .ticker-item:nth-child(8n+2)  .t-shape { animation: spin-ccw 18s linear infinite; background: var(--r-red); }
+    .ticker-item:nth-child(8n+3)  .t-shape { animation: spin-cw  9s  linear infinite; background: var(--orange); }
+    .ticker-item:nth-child(8n+4)  .t-shape { animation: spin-ccw 14s linear infinite; background: var(--r-green); }
+    .ticker-item:nth-child(8n+5)  .t-shape { animation: spin-cw  20s linear infinite; background: var(--r-purple); }
+    .ticker-item:nth-child(8n+6)  .t-shape { animation: spin-ccw 11s linear infinite; background: var(--r-yellow); }
+    .ticker-item:nth-child(8n+7)  .t-shape { animation: spin-cw  16s linear infinite; background: var(--near-black); }
+    .ticker-item:nth-child(8n+8)  .t-shape { animation: spin-ccw 22s linear infinite; background: var(--r-orange); }
+
+    @keyframes spin-cw  { from { transform: rotate(0deg);    } to { transform: rotate(360deg);  } }
+    @keyframes spin-ccw { from { transform: rotate(0deg);    } to { transform: rotate(-360deg); } }
+    /* diamond keeps its base 45deg and spins on top */
+    .ticker-item .t-shape.diamond { animation-name: spin-diamond-cw !important; }
+    @keyframes spin-diamond-cw { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
+
+    /* divider dots between items */
+    .ticker-div {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ââ FLOATING CONTACT CTA âââââââââââââââââââââââââââââââââââââââââ */
+    .float-cta {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 999;
+      background: var(--near-black);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 14px 22px;
+      border: 1.5px solid var(--near-black);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.22s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    }
+
+    .float-cta:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      box-shadow: var(--orange-glow), 0 4px 20px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
+    }
+
+    .float-cta-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .float-cta:hover .float-cta-dot {
+      background: var(--white);
+      animation: none;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Rainbow top bar â the one Macintosh nod -->
+  <div class="rainbow-bar"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">swang<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#case-studies">Work</a></li>
+      <li><a href="#visual">Visuals</a></li>
+      <li><a href="mailto:hello@swang.studio">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ââ HERO âââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Creative Strategy &amp; Visual Direction</p>
+      <h1 class="hero-headline">
+        Sharp eye.<br>
+        Smarter<br>
+        <span class="accent">growth.</span>
+      </h1>
+      <p class="hero-sub">
+        Business improvement through data-driven campaigns, operational clarity, and digital strategy â paired with visuals that stop the scroll.
+      </p>
+      <div class="hero-ctas">
+        <a href="#case-studies" class="btn btn-filled">View Case Studies</a>
+        <a href="#visual" class="btn btn-ghost">See My Work</a>
+      </div>
+    </div>
+
+    <!-- Gallery grid â right side of hero -->
+    <div class="hero-gallery">
+      <div class="g-cell tall">
+        <div class="g-chrome">
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+        </div>
+        <div class="g-body">[ featured image ]</div>
+      </div>
+      <div class="g-cell">
+        <div class="g-chrome">
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+        </div>
+        <div class="g-body">[ image ]</div>
+      </div>
+      <div class="g-cell">
+        <div class="g-chrome">
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+        </div>
+        <div class="g-body">[ image ]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ââ CLIENTS TICKER âââââââââââââââââââââââââââââââââââââââââââââ -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack">
+      <!-- Set A -->
+      <span class="ticker-item"><div class="t-shape circle"></div> Brand Partner</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape square"></div> E-commerce Client</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape diamond"></div> DTC Brand</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape pill"></div> Influencer Collab</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape circle"></div> Agency Partner</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape square"></div> Product Brand</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape diamond"></div> Lifestyle Brand</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape pill"></div> Campaign Client</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape circle"></div> Startup</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape square"></div> Content Studio</span>
+      <span class="ticker-div"></span>
+      <!-- Set B â duplicate for seamless loop -->
+      <span class="ticker-item"><div class="t-shape circle"></div> Brand Partner</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape square"></div> E-commerce Client</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape diamond"></div> DTC Brand</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape pill"></div> Influencer Collab</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape circle"></div> Agency Partner</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape square"></div> Product Brand</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape diamond"></div> Lifestyle Brand</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape pill"></div> Campaign Client</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape circle"></div> Startup</span>
+      <span class="ticker-div"></span>
+      <span class="ticker-item"><div class="t-shape square"></div> Content Studio</span>
+      <span class="ticker-div"></span>
+    </div>
+  </div>
+
+  <!-- ââ CASE STUDIES ââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section case-section" id="case-studies">
+    <div class="section-top">
+      <div>
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title">Case Studies</h2>
+      </div>
+      <a href="case-studies.html" class="link-arrow">See All Studies â</a>
+    </div>
+
+    <div class="case-grid">
+
+      <!-- Card 1 -->
+      <a class="case-card" href="case-studies.html">
+        <div class="card-chrome">
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <span class="card-tag">Meta</span>
+        </div>
+        <div class="card-img-placeholder">[ cover ]</div>
+        <div class="card-body">
+          <p class="card-cat">Meta Campaigns</p>
+          <h3 class="card-title">Scaling ROAS 4x for a DTC Brand Through Creative Testing</h3>
+          <p class="card-excerpt">How a structured creative testing framework transformed ad performance and cut wasted spend over 90 days.</p>
+          <p class="card-read-more">Read study â</p>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="case-card" href="case-studies.html">
+        <div class="card-chrome">
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <span class="card-tag">Ops</span>
+        </div>
+        <div class="card-img-placeholder">[ cover ]</div>
+        <div class="card-body">
+          <p class="card-cat">Operational Efficiency</p>
+          <h3 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h3>
+          <p class="card-excerpt">Process mapping, tooling, and team restructuring that recovered 20+ hours per week and reduced errors.</p>
+          <p class="card-read-more">Read study â</p>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a class="case-card" href="case-studies.html">
+        <div class="card-chrome">
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <div class="g-dot"></div>
+          <span class="card-tag">SEO</span>
+        </div>
+        <div class="card-img-placeholder">[ cover ]</div>
+        <div class="card-body">
+          <p class="card-cat">SEO</p>
+          <h3 class="card-title">From Page 4 to #1: An E-commerce SEO Turnaround</h3>
+          <p class="card-excerpt">Technical fixes and content strategy that drove 3x organic traffic in under six months for a growing brand.</p>
+          <p class="card-read-more">Read study â</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ââ VISUAL WORK âââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section visual-section" id="visual">
+    <div class="section-top">
+      <div>
+        <p class="section-label">Creative Portfolio</p>
+        <h2 class="section-title">Visual Work</h2>
+      </div>
+      <a href="#" class="link-arrow">Full Gallery â</a>
+    </div>
+
+    <div class="filter-row">
+      <button class="pill active">All</button>
+      <button class="pill">Photography</button>
+      <button class="pill">Videography</button>
+      <button class="pill">Color Grading</button>
+      <button class="pill">Ecommerce</button>
+      <button class="pill">Brands</button>
+      <button class="pill">Influencers</button>
+    </div>
+
+    <div class="visual-grid">
+      <div class="v-cell featured">[ featured visual ]</div>
+      <div class="v-cell">[ img ]</div>
+      <div class="v-cell">[ img ]</div>
+      <div class="v-cell">[ img ]</div>
+      <div class="v-cell">[ img ]</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-rainbow"></div>
+  <footer>
+    <span class="footer-logo">swang<span>.</span></span>
+    <ul class="footer-links">
+      <li><a href="#case-studies">Work</a></li>
+      <li><a href="#visual">Visuals</a></li>
+      <li><a href="mailto:hello@swang.studio">hello@swang.studio</a></li>
+    </ul>
+    <span class="footer-copy">Â© 2026 swang.</span>
+  </footer>
+
+  <!-- ââ FLOATING CONTACT CTA âââââââââââââââââââââââââââââââââââââââ -->
+  <a href="mailto:hello@swang.studio" class="float-cta">
+    <span class="float-cta-dot"></span>
+    Let's Talk
+  </a>
+
+  <script>
+    // Filter pills â visual section
+    document.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        // Filter logic will connect to real images later
+      });
+    });
+  </script>
+
+</body>
+</html>
