@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Case Studies â swang.</title>
-  <meta name="description" content="Detailed breakdowns of real results â Meta campaigns, SEO, ops, and visual direction." />
+  <title>Case Studies — swang.</title>
+  <meta name="description" content="Detailed breakdowns of real results — Meta campaigns, SEO, ops, and visual direction." />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --orange: #e84b1a;
-      --black:  #0a0a0a;
-      --white:  #fafafa;
-      --gray:   #888;
+      --honey: #e8a800;
+      --honey-dark: #c78e00;
+      --black: #0a0a0a;
+      --white: #fafafa;
+      --gray: #888;
       --border: #e2e2df;
-      --bg:     #f5f5f2;
+      --bg: #f5f5f2;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--white);
@@ -28,371 +26,158 @@
       overflow-x: hidden;
     }
 
-    /* ââ NAV ââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ── NAV ───────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 200;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; justify-content: space-between; align-items: center;
       padding: 22px 48px;
       background: rgba(250,250,250,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-
     .logo { font-size: 19px; font-weight: 700; letter-spacing: -0.5px; color: var(--black); text-decoration: none; }
-
     nav ul { list-style: none; display: flex; gap: 36px; }
-
     nav ul a {
-      font-size: 10.5px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--black); text-decoration: none;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--black); text-decoration: none;
       opacity: 0.45; transition: opacity 0.2s;
     }
-
     nav ul a:hover, nav ul a.active { opacity: 1; }
 
-    /* ââ PAGE HEADER ââââââââââââââââââââââââââââââââââââ */
+    /* ── PAGE HEADER ───────────────────────────────── */
     .page-header {
       padding: 120px 48px 64px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      display: flex; justify-content: space-between; align-items: flex-end;
     }
-
     .eyebrow {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
     }
+    .eyebrow::before { content: ''; display: inline-block; width: 22px; height: 1.5px; background: var(--orange); }
+    .page-h1 { font-size: clamp(40px, 5.5vw, 72px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; }
+    .page-desc { margin-top: 18px; font-size: 14px; line-height: 1.7; color: var(--gray); max-width: 440px; }
+    .page-count { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); white-space: nowrap; }
 
-    .eyebrow::before {
-      content: ''; display: inline-block;
-      width: 22px; height: 1.5px; background: var(--orange);
-    }
-
-    .page-h1 {
-      font-size: clamp(40px, 5.5vw, 72px);
-      font-weight: 700; letter-spacing: -0.04em;
-      line-height: 0.95;
-    }
-
-    .page-desc {
-      margin-top: 18px; font-size: 14px;
-      line-height: 1.7; color: var(--gray); max-width: 440px;
-    }
-
-    .page-count {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gray); white-space: nowrap;
-    }
-
-    /* ââ FILTER BAR âââââââââââââââââââââââââââââââââââââ */
+    /* ── FILTER BAR ────────────────────────────────── */
     .filter-bar {
       padding: 20px 48px;
       border-bottom: 1px solid var(--border);
       display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
     }
-
-    .filter-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gray); margin-right: 6px;
-    }
-
+    .filter-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); margin-right: 6px; }
     .filter-pill {
-      font-family: inherit; font-size: 10.5px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 7px 16px;
-      border: 1.5px solid var(--border);
-      color: var(--gray); background: transparent;
-      cursor: pointer; transition: all 0.2s;
+      font-family: inherit; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 7px 16px; border: 1.5px solid var(--border);
+      color: var(--gray); background: transparent; cursor: pointer; transition: all 0.2s;
     }
-
     .filter-pill:hover, .filter-pill.active {
-      border-color: var(--orange);
-      color: var(--orange);
-      background: rgba(232,75,26,0.04);
+      border-color: var(--orange); color: var(--orange); background: rgba(232,75,26,0.04);
     }
 
-    /* ââ STUDY CARDS LIST âââââââââââââââââââââââââââââââ */
+    /* ── STUDY CARDS ───────────────────────────────── */
     .studies { padding: 0; }
+    .study-card { border-bottom: 1px solid var(--border); overflow: hidden; }
 
-    /* Each card is an accordion item */
-    .study-card {
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    /* ââ CARD HEADER (always visible, clickable) ââââââââ */
+    /* Card header */
     .card-header {
-      display: grid;
-      grid-template-columns: 260px 1fr auto;
-      gap: 0;
-      cursor: pointer;
-      transition: background 0.2s;
+      display: grid; grid-template-columns: 260px 1fr auto;
+      gap: 0; cursor: pointer; transition: background 0.2s;
     }
-
     .card-header:hover { background: var(--bg); }
 
-    /* Cover thumbnail */
-    .card-cover {
-      height: 200px; overflow: hidden;
-      background: #d0d0cd;
-      position: relative; flex-shrink: 0;
-    }
-
-    .card-cover img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform 0.6s ease;
-    }
-
+    .card-cover { height: 200px; overflow: hidden; background: #d0d0cd; position: relative; flex-shrink: 0; }
+    .card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
     .card-header:hover .card-cover img { transform: scale(1.05); }
 
-    /* Mac chrome dots on cover */
     .card-chrome {
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 24px; background: rgba(0,0,0,0.25);
-      display: flex; align-items: center; gap: 5px; padding: 0 10px;
-      z-index: 2;
+      position: absolute; top: 0; left: 0; right: 0; height: 24px;
+      background: rgba(0,0,0,0.25); display: flex; align-items: center;
+      gap: 5px; padding: 0 10px; z-index: 2;
     }
-
     .dot { width: 8px; height: 8px; border-radius: 50%; opacity: 0.7; }
     .dot.r { background: #ff5f56; }
     .dot.y { background: #ffbd2e; }
     .dot.g { background: #27c93f; }
 
-    /* Card meta + title */
-    .card-meta-wrap {
-      padding: 32px 36px;
-      display: flex; flex-direction: column;
-      justify-content: center;
-      border-right: 1px solid var(--border);
-    }
+    .card-meta-wrap { padding: 32px 36px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+    .card-cat { font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .card-title { font-size: clamp(16px, 2vw, 21px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 12px; }
+    .card-excerpt { font-size: 13.5px; line-height: 1.65; color: var(--gray); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+    .tag { font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border); color: var(--gray); }
 
-    .card-cat {
-      font-size: 9.5px; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 10px;
-    }
-
-    .card-title {
-      font-size: clamp(16px, 2vw, 21px);
-      font-weight: 700; letter-spacing: -0.02em;
-      line-height: 1.25; margin-bottom: 12px;
-    }
-
-    .card-excerpt {
-      font-size: 13.5px; line-height: 1.65; color: var(--gray);
-      display: -webkit-box; -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
-    }
-
-    .card-tags {
-      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px;
-    }
-
-    .tag {
-      font-size: 9.5px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      color: var(--gray);
-    }
-
-    /* Expand indicator */
-    .card-toggle {
-      padding: 32px 28px;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 6px;
-      min-width: 80px;
-    }
-
-    .toggle-icon {
-      width: 28px; height: 28px;
-      border: 1.5px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s;
-    }
-
-    .toggle-icon svg {
-      transition: transform 0.35s ease;
-    }
-
-    .study-card.open .toggle-icon {
-      border-color: var(--orange);
-      background: var(--orange);
-    }
-
+    .card-toggle { padding: 32px 28px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; min-width: 80px; }
+    .toggle-icon { width: 28px; height: 28px; border: 1.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .toggle-icon svg { transition: transform 0.35s ease; }
+    .study-card.open .toggle-icon { border-color: var(--orange); background: var(--orange); }
     .study-card.open .toggle-icon svg { transform: rotate(45deg); }
-
     .toggle-icon svg path { stroke: var(--black); transition: stroke 0.3s; }
     .study-card.open .toggle-icon svg path { stroke: var(--white); }
+    .card-date { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; color: var(--gray); }
 
-    .card-date {
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.08em; color: var(--gray);
-    }
+    /* Blog body */
+    .card-body { max-height: 0; overflow: hidden; transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1); background: var(--bg); }
+    .study-card.open .card-body { max-height: 4000px; }
+    .blog-content { padding: 56px 48px 64px; display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
 
-    /* ââ BLOG BODY (hidden by default) âââââââââââââââââ */
-    .card-body {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-      background: var(--bg);
-    }
-
-    .study-card.open .card-body {
-      max-height: 4000px; /* large enough for any content */
-    }
-
-    .blog-content {
-      padding: 56px 48px 64px;
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 64px;
-      align-items: start;
-    }
-
-    /* ââ BLOG TYPOGRAPHY ââââââââââââââââââââââââââââââââ */
-    .blog-main h2 {
-      font-size: clamp(20px, 2.5vw, 28px);
-      font-weight: 700; letter-spacing: -0.025em;
-      margin-bottom: 16px; margin-top: 40px;
-      line-height: 1.2;
-    }
-
+    /* Blog typography */
+    .blog-main h2 { font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 16px; margin-top: 40px; line-height: 1.2; }
     .blog-main h2:first-child { margin-top: 0; }
-
-    .blog-main p {
-      font-size: 15px; line-height: 1.78;
-      color: #444; margin-bottom: 20px;
-    }
-
-    .blog-main ul {
-      list-style: none; margin-bottom: 20px;
-    }
-
-    .blog-main ul li {
-      font-size: 15px; line-height: 1.7; color: #444;
-      padding: 6px 0 6px 20px; position: relative;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .blog-main ul li::before {
-      content: 'â'; position: absolute; left: 0;
-      color: var(--orange); font-weight: 700;
-    }
+    .blog-main p { font-size: 15px; line-height: 1.78; color: #444; margin-bottom: 20px; }
+    .blog-main ul { list-style: none; margin-bottom: 20px; }
+    .blog-main ul li { font-size: 15px; line-height: 1.7; color: #444; padding: 6px 0 6px 20px; position: relative; border-bottom: 1px solid var(--border); }
+    .blog-main ul li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
 
     /* Stat blocks */
-    .stat-row {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-      margin: 32px 0;
-    }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 32px 0; }
+    .stat { background: var(--white); padding: 28px 24px; text-align: center; }
+    .stat-num { font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.04em; color: var(--orange); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
 
-    .stat {
-      background: var(--white); padding: 28px 24px;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-size: clamp(28px, 3.5vw, 44px);
-      font-weight: 700; letter-spacing: -0.04em;
-      color: var(--orange); line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    /* Embedded media in blog */
-    .blog-media {
-      margin: 32px 0; overflow: hidden; background: #111;
-    }
-
+    /* Embedded media */
+    .blog-media { margin: 32px 0; overflow: hidden; background: #111; }
     .blog-media.landscape { aspect-ratio: 16/9; }
+    .blog-media.portrait { max-width: 320px; aspect-ratio: 9/16; }
+    .blog-media iframe { width: 100%; height: 100%; border: none; display: block; }
+    .blog-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .blog-media.portrait {
-      max-width: 320px; aspect-ratio: 9/16;
-    }
-
-    .blog-media iframe {
-      width: 100%; height: 100%; border: none; display: block;
-    }
-
-    .blog-media img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-    }
-
-    /* ââ SIDEBAR ââââââââââââââââââââââââââââââââââââââââ */
-    .blog-sidebar {
-      position: sticky; top: 88px;
-    }
-
-    .sidebar-card {
-      border: 1px solid var(--border);
-      padding: 28px; background: var(--white);
-      margin-bottom: 20px;
-    }
-
-    .sidebar-label {
-      font-size: 9.5px; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 16px;
-    }
-
-    .sidebar-stat {
-      display: flex; justify-content: space-between;
-      align-items: baseline; padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
+    /* Sidebar */
+    .blog-sidebar { position: sticky; top: 88px; }
+    .sidebar-card { border: 1px solid var(--border); padding: 28px; background: var(--white); margin-bottom: 20px; }
+    .sidebar-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+    .sidebar-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); }
     .sidebar-stat:last-child { border-bottom: none; }
+    .sidebar-stat-label { font-size: 12px; color: var(--gray); }
+    .sidebar-stat-val { font-size: 15px; font-weight: 700; color: var(--black); }
 
-    .sidebar-stat-label {
-      font-size: 12px; color: var(--gray);
-    }
-
-    .sidebar-stat-val {
-      font-size: 15px; font-weight: 700; color: var(--black);
-    }
-
+    /* ── HONEY YELLOW CTA ─── */
     .sidebar-cta {
-      display: block; width: 100%; padding: 14px 20px;
-      background: var(--black); color: var(--white);
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; text-align: center;
-      transition: background 0.2s; margin-top: 20px;
+      display: block; width: 100%;
+      padding: 14px 20px;
+      background: var(--honey);
+      color: var(--black);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      text-align: center; transition: background 0.2s;
+      margin-top: 20px;
     }
+    .sidebar-cta:hover { background: var(--honey-dark); color: var(--white); }
 
-    .sidebar-cta:hover { background: var(--orange); }
-
-    /* ââ FIXED CTA ââââââââââââââââââââââââââââââââââââââ */
+    /* Fixed CTA */
     .cta-pill {
       position: fixed; bottom: 30px; right: 36px; z-index: 300;
       background: var(--orange); color: var(--white);
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; padding: 14px 22px;
-      border-radius: 2px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 14px 22px; border-radius: 2px;
       box-shadow: 0 4px 20px rgba(232,75,26,0.4);
       transition: background 0.2s, transform 0.2s;
     }
-
     .cta-pill:hover { background: #c73d14; transform: translateY(-2px); }
 
-    /* ââ RESPONSIVE âââââââââââââââââââââââââââââââââââââ */
+    /* Responsive */
     @media (max-width: 900px) {
       nav { padding: 18px 24px; }
       nav ul { gap: 20px; }
@@ -410,410 +195,271 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="/" class="logo">swang.</a>
-    <ul>
-      <li><a href="/" >Home</a></li>
-      <li><a href="case-studies" class="active">Work</a></li>
-      <li><a href="mailto:hello@swang.studio">Contact</a></li>
-    </ul>
-  </nav>
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">swang.</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="case-studies.html" class="active">Work</a></li>
+    <li><a href="mailto:hello@swang.studio">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- PAGE HEADER -->
-  <div class="page-header">
-    <div>
-      <p class="eyebrow">Portfolio</p>
-      <h1 class="page-h1">Case Studies</h1>
-      <p class="page-desc">
-        Business improvement through Meta campaigns, operational efficiency,
-        digital marketing, and SEO â detailed breakdowns of real results.
-      </p>
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Portfolio</p>
+    <h1 class="page-h1">Case Studies</h1>
+    <p class="page-desc">
+      Business improvement through Meta campaigns, operational efficiency, digital marketing, and SEO — detailed breakdowns of real results.
+    </p>
+  </div>
+  <p class="page-count">↳ 3 studies</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-pill active" data-filter="all">All</button>
+  <button class="filter-pill" data-filter="meta">Meta</button>
+  <button class="filter-pill" data-filter="seo">SEO</button>
+  <button class="filter-pill" data-filter="ops">Ops</button>
+</div>
+
+<!-- STUDIES -->
+<div class="studies">
+
+  <!-- ─────────────────────────────── -->
+  <!-- STUDY 1 — Meta Campaigns -->
+  <!-- ─────────────────────────────── -->
+  <div class="study-card" data-category="meta">
+    <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
+      <div class="card-cover">
+        <div class="card-chrome">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        </div>
+        <img src="bmw.jpg" alt="Meta campaign cover" loading="lazy" />
+      </div>
+      <div class="card-meta-wrap">
+        <p class="card-cat">Meta Campaigns</p>
+        <h2 class="card-title">Scaling ROAS 4x for a DTC Brand Through Creative Testing</h2>
+        <p class="card-excerpt">How a structured creative testing framework transformed ad performance and cut wasted spend over 90 days. A full breakdown of the process, pivots, and numbers.</p>
+        <div class="card-tags">
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Creative Testing</span>
+          <span class="tag">DTC</span>
+          <span class="tag">ROAS</span>
+        </div>
+      </div>
+      <div class="card-toggle">
+        <div class="toggle-icon">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="card-date">Mar 2026</span>
+      </div>
     </div>
-    <p class="page-count">â 3 studies</p>
+    <div class="card-body">
+      <div class="blog-content">
+        <div class="blog-main">
+          <h2>The Problem</h2>
+          <p>The brand was running 12 active ad sets with overlapping audiences and no clear creative hierarchy. CPM was climbing, ROAS had dropped to 1.2x, and the team had no framework to understand what was working.</p>
+          <div class="blog-media landscape">
+            <iframe src="https://drive.google.com/file/d/1prWHO15DANp3PT-dFNAfHJTEUgdc46Sm/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
+          </div>
+          <h2>The Approach</h2>
+          <p>We rebuilt the account from scratch around a 3-layer creative testing system: concept validation → hook testing → scale. Each layer had defined KPIs before spending moved up.</p>
+          <ul>
+            <li>Consolidated 12 ad sets down to 4 structured campaigns</li>
+            <li>Introduced weekly creative sprints with 6-8 new concepts per cycle</li>
+            <li>Built a scoring dashboard tracking hook rate, watch time, and CVR</li>
+            <li>Eliminated audience overlap by restructuring using Advantage+ signals</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-num">4x</div><div class="stat-label">ROAS Improvement</div></div>
+            <div class="stat"><div class="stat-num">↓62%</div><div class="stat-label">Wasted Ad Spend</div></div>
+            <div class="stat"><div class="stat-num">90</div><div class="stat-label">Days to Result</div></div>
+          </div>
+          <h2>The Result</h2>
+          <p>By day 90, ROAS had climbed from 1.2x to 4.8x. The winning creatives were short-form video hooks under 3 seconds with direct problem-solution framing. The brand now runs a self-sustaining creative testing pipeline.</p>
+          <div class="blog-media portrait">
+            <iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" allowtransparency="true" allowfullscreen="true" scrolling="no"></iframe>
+          </div>
+        </div>
+        <aside class="blog-sidebar">
+          <div class="sidebar-card">
+            <p class="sidebar-label">Results at a Glance</p>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">ROAS</span><span class="sidebar-stat-val">4.8x</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Timeline</span><span class="sidebar-stat-val">90 days</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Spend Saved</span><span class="sidebar-stat-val">62%</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Category</span><span class="sidebar-stat-val">Meta / DTC</span></div>
+          </div>
+          <a href="mailto:hello@swang.studio?subject=Similar%20Project" class="sidebar-cta">Start a Similar Project →</a>
+        </aside>
+      </div>
+    </div>
   </div>
 
-  <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <span class="filter-label">Filter</span>
-    <button class="filter-pill active" data-filter="all">All</button>
-    <button class="filter-pill" data-filter="meta">Meta</button>
-    <button class="filter-pill" data-filter="seo">SEO</button>
-    <button class="filter-pill" data-filter="ops">Ops</button>
+  <!-- ─────────────────────────────── -->
+  <!-- STUDY 2 — Ops -->
+  <!-- ─────────────────────────────── -->
+  <div class="study-card" data-category="ops">
+    <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
+      <div class="card-cover">
+        <div class="card-chrome">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        </div>
+        <img src="pavers.jpg" alt="Operations case study" loading="lazy" />
+      </div>
+      <div class="card-meta-wrap">
+        <p class="card-cat">Operational Efficiency</p>
+        <h2 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h2>
+        <p class="card-excerpt">Process mapping, tooling, and team restructuring that recovered 20+ hours per week and dramatically reduced order errors.</p>
+        <div class="card-tags">
+          <span class="tag">Operations</span>
+          <span class="tag">Workflow</span>
+          <span class="tag">Fulfillment</span>
+        </div>
+      </div>
+      <div class="card-toggle">
+        <div class="toggle-icon">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="card-date">Nov 2025</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="blog-content">
+        <div class="blog-main">
+          <h2>The Problem</h2>
+          <p>A fast-growing brand was processing 300+ orders/week through a manual system — spreadsheets, DMs, and tribal knowledge. Error rate was 8%. The team was burning out.</p>
+          <h2>The Approach</h2>
+          <p>We ran a 2-week process audit, mapped every handoff, and identified 6 bottlenecks. Then rebuilt the system around 3 tools with clear ownership at each step.</p>
+          <ul>
+            <li>Mapped 14 manual steps, automated or eliminated 9</li>
+            <li>Introduced a shared ops dashboard with real-time status</li>
+            <li>Defined team roles and eliminated redundant approval layers</li>
+            <li>Built SOP docs so any new hire could be trained in 2 days</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-num">40%</div><div class="stat-label">Faster Fulfillment</div></div>
+            <div class="stat"><div class="stat-num">20h+</div><div class="stat-label">Recovered Per Week</div></div>
+            <div class="stat"><div class="stat-num">↓90%</div><div class="stat-label">Error Rate Drop</div></div>
+          </div>
+          <h2>The Result</h2>
+          <p>Fulfillment time dropped from 4.2 days to 2.5 days. Error rate fell from 8% to under 1%. The ops lead went from firefighting daily to reviewing a dashboard once in the morning.</p>
+          <div class="blog-media portrait">
+            <iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" allowtransparency="true" allowfullscreen="true" scrolling="no"></iframe>
+          </div>
+        </div>
+        <aside class="blog-sidebar">
+          <div class="sidebar-card">
+            <p class="sidebar-label">Results at a Glance</p>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Fulfillment Speed</span><span class="sidebar-stat-val">+40%</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Hours Recovered</span><span class="sidebar-stat-val">20h/wk</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Error Reduction</span><span class="sidebar-stat-val">↓90%</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Category</span><span class="sidebar-stat-val">Operations</span></div>
+          </div>
+          <a href="mailto:hello@swang.studio?subject=Ops%20Efficiency" class="sidebar-cta">Start a Similar Project →</a>
+        </aside>
+      </div>
+    </div>
   </div>
 
-  <!-- STUDIES -->
-  <div class="studies">
-
-    <!-- âââââââââââââââââââââââââââââââââââââââââââââ -->
-    <!-- STUDY 1 â Meta Campaigns -->
-    <!-- âââââââââââââââââââââââââââââââââââââââââââââ -->
-    <div class="study-card" data-category="meta">
-      <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
-        <div class="card-cover">
-          <div class="card-chrome">
-            <div class="dot r"></div>
-            <div class="dot y"></div>
-            <div class="dot g"></div>
-          </div>
-          <img src="media/bmw.jpg" alt="Meta campaign cover" loading="lazy" />
+  <!-- ─────────────────────────────── -->
+  <!-- STUDY 3 — SEO -->
+  <!-- ─────────────────────────────── -->
+  <div class="study-card" data-category="seo">
+    <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
+      <div class="card-cover">
+        <div class="card-chrome">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
         </div>
-        <div class="card-meta-wrap">
-          <p class="card-cat">Meta Campaigns</p>
-          <h2 class="card-title">Scaling ROAS 4x for a DTC Brand Through Creative Testing</h2>
-          <p class="card-excerpt">
-            How a structured creative testing framework transformed ad performance
-            and cut wasted spend over 90 days. A full breakdown of the process, pivots, and numbers.
-          </p>
-          <div class="card-tags">
-            <span class="tag">Meta Ads</span>
-            <span class="tag">Creative Testing</span>
-            <span class="tag">DTC</span>
-            <span class="tag">ROAS</span>
-          </div>
-        </div>
-        <div class="card-toggle">
-          <div class="toggle-icon">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M6 1v10M1 6h10" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="card-date">Mar 2026</span>
+        <img src="aerial-backyard.jpg" alt="SEO case study" loading="lazy" />
+      </div>
+      <div class="card-meta-wrap">
+        <p class="card-cat">SEO</p>
+        <h2 class="card-title">From Page 4 to #1: An E-Commerce SEO Turnaround</h2>
+        <p class="card-excerpt">Technical fixes and content strategy that drove 3x organic traffic in under six months for a growing brand.</p>
+        <div class="card-tags">
+          <span class="tag">SEO</span>
+          <span class="tag">E-Commerce</span>
+          <span class="tag">Content</span>
         </div>
       </div>
-
-      <!-- BLOG BODY -->
-      <div class="card-body">
-        <div class="blog-content">
-          <div class="blog-main">
-            <h2>The Problem</h2>
-            <p>
-              The brand was running 12 active ad sets with overlapping audiences and no clear
-              creative hierarchy. CPM was climbing, ROAS had dropped to 1.2x, and the team
-              had no framework to understand what was working.
-            </p>
-
-            <!-- Embedded video from Google Drive -->
-            <div class="blog-media landscape">
-              <iframe
-                src="https://drive.google.com/file/d/1prWHO15DANp3PT-dFNAfHJTEUgdc46Sm/preview"
-                allow="autoplay; fullscreen" allowfullscreen>
-              </iframe>
-            </div>
-
-            <h2>The Approach</h2>
-            <p>
-              We rebuilt the account from scratch around a 3-layer creative testing system:
-              concept validation â hook testing â scale. Each layer had defined KPIs before
-              spending moved up.
-            </p>
-            <ul>
-              <li>Consolidated 12 ad sets down to 4 structured campaigns</li>
-              <li>Introduced weekly creative sprints with 6-8 new concepts per cycle</li>
-              <li>Built a scoring dashboard tracking hook rate, watch time, and CVR</li>
-              <li>Eliminated audience overlap by restructuring using Advantage+ signals</li>
-            </ul>
-
-            <div class="stat-row">
-              <div class="stat">
-                <div class="stat-num">4x</div>
-                <div class="stat-label">ROAS Improvement</div>
-              </div>
-              <div class="stat">
-                <div class="stat-num">â62%</div>
-                <div class="stat-label">Wasted Ad Spend</div>
-              </div>
-              <div class="stat">
-                <div class="stat-num">90</div>
-                <div class="stat-label">Days to Result</div>
-              </div>
-            </div>
-
-            <h2>The Result</h2>
-            <p>
-              By day 90, ROAS had climbed from 1.2x to 4.8x. The winning creatives were
-              short-form video hooks under 3 seconds with direct problem-solution framing.
-              The brand now runs a self-sustaining creative testing pipeline.
-            </p>
-
-            <!-- Instagram Reel embed -->
-            <div class="blog-media portrait">
-              <iframe
-                src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/"
-                allowtransparency="true" allowfullscreen="true" scrolling="no"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-              </iframe>
-            </div>
-          </div>
-
-          <aside class="blog-sidebar">
-            <div class="sidebar-card">
-              <p class="sidebar-label">Results at a Glance</p>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">ROAS</span><span class="sidebar-stat-val">4.8x</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Timeline</span><span class="sidebar-stat-val">90 days</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Spend Saved</span><span class="sidebar-stat-val">62%</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Category</span><span class="sidebar-stat-val">Meta / DTC</span></div>
-            </div>
-            <a href="mailto:hello@swang.studio?subject=Similar%20Project" class="sidebar-cta">
-              Start a Similar Project â
-            </a>
-          </aside>
+      <div class="card-toggle">
+        <div class="toggle-icon">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </div>
+        <span class="card-date">Jan 2026</span>
       </div>
     </div>
-
-    <!-- âââââââââââââââââââââââââââââââââââââââââââââ -->
-    <!-- STUDY 2 â Operational Efficiency -->
-    <!-- âââââââââââââââââââââââââââââââââââââââââââââ -->
-    <div class="study-card" data-category="ops">
-      <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
-        <div class="card-cover">
-          <div class="card-chrome">
-            <div class="dot r"></div>
-            <div class="dot y"></div>
-            <div class="dot g"></div>
+    <div class="card-body">
+      <div class="blog-content">
+        <div class="blog-main">
+          <h2>The Problem</h2>
+          <p>The brand had 400+ pages indexed but almost no organic traffic. Core product pages sat on page 4 for high-intent keywords. The site had significant technical debt — slow load times, duplicate meta, and zero internal linking structure.</p>
+          <h2>The Approach</h2>
+          <p>Phase 1 was a full technical audit and cleanup. Phase 2 was a content strategy built around long-tail buyer intent, not just volume. Phase 3 was a link-building campaign through genuine partnerships.</p>
+          <ul>
+            <li>Fixed 62 technical issues including page speed and crawl errors</li>
+            <li>Rebuilt meta structure for 40 core product pages</li>
+            <li>Published 18 content pieces targeting buyer-intent keywords</li>
+            <li>Built 22 editorial backlinks through partnerships</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-num">3x</div><div class="stat-label">Organic Traffic</div></div>
+            <div class="stat"><div class="stat-num">#1</div><div class="stat-label">Primary Keyword</div></div>
+            <div class="stat"><div class="stat-num">6mo</div><div class="stat-label">Timeline</div></div>
           </div>
-          <img src="media/pavers.jpg" alt="Operations case study" loading="lazy" />
-        </div>
-        <div class="card-meta-wrap">
-          <p class="card-cat">Operational Efficiency</p>
-          <h2 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h2>
-          <p class="card-excerpt">
-            Process mapping, tooling, and team restructuring that recovered 20+ hours
-            per week and dramatically reduced order errors.
-          </p>
-          <div class="card-tags">
-            <span class="tag">Operations</span>
-            <span class="tag">Workflow</span>
-            <span class="tag">Fulfillment</span>
+          <h2>The Result</h2>
+          <p>Organic sessions tripled in 6 months. The primary keyword moved from position 38 to position 1. Revenue from organic search increased 2.4x over the same period.</p>
+          <div class="blog-media portrait">
+            <iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" allowtransparency="true" allowfullscreen="true" scrolling="no"></iframe>
           </div>
         </div>
-        <div class="card-toggle">
-          <div class="toggle-icon">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M6 1v10M1 6h10" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
+        <aside class="blog-sidebar">
+          <div class="sidebar-card">
+            <p class="sidebar-label">Results at a Glance</p>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Organic Traffic</span><span class="sidebar-stat-val">+3x</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Primary Keyword</span><span class="sidebar-stat-val">#1</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Organic Revenue</span><span class="sidebar-stat-val">+2.4x</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Timeline</span><span class="sidebar-stat-val">6 months</span></div>
           </div>
-          <span class="card-date">Nov 2025</span>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="blog-content">
-          <div class="blog-main">
-            <h2>The Problem</h2>
-            <p>
-              A fast-growing brand was processing 300+ orders/week through a
-              manual system â spreadsheets, DMs, and tribal knowledge. Error rate
-              was 8%. The team was burning out.
-            </p>
-
-            <h2>The Approach</h2>
-            <p>
-              We ran a 2-week process audit, mapped every handoff, and identified
-              6 bottlenecks. Then rebuilt the system around 3 tools with clear
-              ownership at each step.
-            </p>
-            <ul>
-              <li>Mapped 14 manual steps, automated or eliminated 9</li>
-              <li>Introduced a shared ops dashboard with real-time status</li>
-              <li>Defined team roles and eliminated redundant approval layers</li>
-              <li>Built SOP docs so any new hire could be trained in 2 days</li>
-            </ul>
-
-            <div class="stat-row">
-              <div class="stat">
-                <div class="stat-num">40%</div>
-                <div class="stat-label">Faster Fulfillment</div>
-              </div>
-              <div class="stat">
-                <div class="stat-num">20h+</div>
-                <div class="stat-label">Recovered Per Week</div>
-              </div>
-              <div class="stat">
-                <div class="stat-num">â90%</div>
-                <div class="stat-label">Error Rate Drop</div>
-              </div>
-            </div>
-
-            <h2>The Result</h2>
-            <p>
-              Fulfillment time dropped from 4.2 days to 2.5 days. Error rate fell
-              from 8% to under 1%. The ops lead went from firefighting daily to
-              reviewing a dashboard once in the morning.
-            </p>
-
-            <!-- Reel embed -->
-            <div class="blog-media portrait">
-              <iframe
-                src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/"
-                allowtransparency="true" allowfullscreen="true" scrolling="no"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-              </iframe>
-            </div>
-          </div>
-
-          <aside class="blog-sidebar">
-            <div class="sidebar-card">
-              <p class="sidebar-label">Results at a Glance</p>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Fulfillment Speed</span><span class="sidebar-stat-val">+40%</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Hours Recovered</span><span class="sidebar-stat-val">20h/wk</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Error Reduction</span><span class="sidebar-stat-val">â90%</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Category</span><span class="sidebar-stat-val">Operations</span></div>
-            </div>
-            <a href="mailto:hello@swang.studio?subject=Ops%20Efficiency" class="sidebar-cta">
-              Start a Similar Project â
-            </a>
-          </aside>
-        </div>
+          <a href="mailto:hello@swang.studio?subject=SEO%20Project" class="sidebar-cta">Start a Similar Project →</a>
+        </aside>
       </div>
     </div>
+  </div>
 
-    <!-- âââââââââââââââââââââââââââââââââââââââââââââ -->
-    <!-- STUDY 3 â SEO -->
-    <!-- âââââââââââââââââââââââââââââââââââââââââââââ -->
-    <div class="study-card" data-category="seo">
-      <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
-        <div class="card-cover">
-          <div class="card-chrome">
-            <div class="dot r"></div>
-            <div class="dot y"></div>
-            <div class="dot g"></div>
-          </div>
-          <img src="media/aerial-backyard.jpg" alt="SEO case study" loading="lazy" />
-        </div>
-        <div class="card-meta-wrap">
-          <p class="card-cat">SEO</p>
-          <h2 class="card-title">From Page 4 to #1: An E-Commerce SEO Turnaround</h2>
-          <p class="card-excerpt">
-            Technical fixes and content strategy that drove 3x organic traffic
-            in under six months for a growing brand.
-          </p>
-          <div class="card-tags">
-            <span class="tag">SEO</span>
-            <span class="tag">E-Commerce</span>
-            <span class="tag">Content</span>
-          </div>
-        </div>
-        <div class="card-toggle">
-          <div class="toggle-icon">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M6 1v10M1 6h10" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="card-date">Jan 2026</span>
-        </div>
-      </div>
+</div><!-- /studies -->
 
-      <div class="card-body">
-        <div class="blog-content">
-          <div class="blog-main">
-            <h2>The Problem</h2>
-            <p>
-              The brand had 400+ pages indexed but almost no organic traffic. Core
-              product pages sat on page 4 for high-intent keywords. The site had
-              significant technical debt â slow load times, duplicate meta, and
-              zero internal linking structure.
-            </p>
+<!-- FIXED CTA -->
+<a href="mailto:hello@swang.studio" class="cta-pill">Let's Talk →</a>
 
-            <h2>The Approach</h2>
-            <p>
-              Phase 1 was a full technical audit and cleanup. Phase 2 was a
-              content strategy built around long-tail buyer intent, not just
-              volume. Phase 3 was a link-building campaign through genuine partnerships.
-            </p>
-            <ul>
-              <li>Fixed 62 technical issues including page speed and crawl errors</li>
-              <li>Rebuilt meta structure for 40 core product pages</li>
-              <li>Published 18 content pieces targeting buyer-intent keywords</li>
-              <li>Built 22 editorial backlinks through partnerships</li>
-            </ul>
-
-            <div class="stat-row">
-              <div class="stat">
-                <div class="stat-num">3x</div>
-                <div class="stat-label">Organic Traffic</div>
-              </div>
-              <div class="stat">
-                <div class="stat-num">#1</div>
-                <div class="stat-label">Primary Keyword</div>
-              </div>
-              <div class="stat">
-                <div class="stat-num">6mo</div>
-                <div class="stat-label">Timeline</div>
-              </div>
-            </div>
-
-            <h2>The Result</h2>
-            <p>
-              Organic sessions tripled in 6 months. The primary keyword moved from
-              position 38 to position 1. Revenue from organic search increased 2.4x
-              over the same period.
-            </p>
-
-            <!-- Reel embed -->
-            <div class="blog-media portrait">
-              <iframe
-                src="https://www.instagram.com/reel/DWCSxyLD05o/embed/"
-                allowtransparency="true" allowfullscreen="true" scrolling="no"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-              </iframe>
-            </div>
-          </div>
-
-          <aside class="blog-sidebar">
-            <div class="sidebar-card">
-              <p class="sidebar-label">Results at a Glance</p>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Organic Traffic</span><span class="sidebar-stat-val">+3x</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Primary Keyword</span><span class="sidebar-stat-val">#1</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Organic Revenue</span><span class="sidebar-stat-val">+2.4x</span></div>
-              <div class="sidebar-stat"><span class="sidebar-stat-label">Timeline</span><span class="sidebar-stat-val">6 months</span></div>
-            </div>
-            <a href="mailto:hello@swang.studio?subject=SEO%20Project" class="sidebar-cta">
-              Start a Similar Project â
-            </a>
-          </aside>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /studies -->
-
-  <!-- FIXED CTA -->
-  <a href="mailto:hello@swang.studio" class="cta-pill">Let's Talk â</a>
-
-  <script>
-    // Accordion open/close
-    function toggleCard(card) {
-      const isOpen = card.classList.contains('open');
-      // Close all others
-      document.querySelectorAll('.study-card.open').forEach(c => {
-        if (c !== card) c.classList.remove('open');
-      });
-      card.classList.toggle('open', !isOpen);
-      if (!isOpen) {
-        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
-      }
-    }
-
-    // Filter pills
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-
-        const filter = pill.dataset.filter;
-        document.querySelectorAll('.study-card').forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-            card.classList.remove('open');
-          }
-        });
+<script>
+  function toggleCard(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.study-card.open').forEach(c => { if (c !== card) c.classList.remove('open'); });
+    card.classList.toggle('open', !isOpen);
+    if (!isOpen) { setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80); }
+  }
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const filter = pill.dataset.filter;
+      document.querySelectorAll('.study-card').forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) { card.style.display = ''; }
+        else { card.style.display = 'none'; card.classList.remove('open'); }
       });
     });
-  </script>
-
+  });
+</script>
 </body>
 </html>
