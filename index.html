@@ -35,3 +35,731 @@
       padding: 22px 48px;
       mix-blend-mode: multiply;
     }
+    nav .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--black); text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--black); text-decoration: none;
+      opacity: 0.65; transition: opacity 0.2s;
+    }
+    nav ul a:hover { opacity: 1; }
+
+    /* ─── HERO ────────────────────────────────── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 72vh; padding-top: 80px; gap: 0;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 48px 48px 60px;
+    }
+    .hero-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .hero-label::before {
+      content: ''; display: inline-block;
+      width: 24px; height: 1.5px; background: var(--accent);
+    }
+    .hero-headline {
+      font-size: clamp(38px, 4.5vw, 68px); font-weight: 700;
+      line-height: 0.95; letter-spacing: -0.03em;
+    }
+    #rw { color: var(--accent); display: inline-block; min-width: 200px; }
+    @keyframes fadeWord {
+      0%   { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hero-sub { margin-top: 24px; font-size: 14px; line-height: 1.7; color: var(--gray); max-width: 360px; }
+    .hero-actions { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; border: 1.5px solid var(--black);
+      color: var(--black); background: transparent; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover { background: var(--black); color: var(--white); }
+    .btn.filled { background: var(--black); color: var(--white); }
+    .btn.filled:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* ─── HERO RIGHT ──────────────────────────── */
+    .hero-right {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr; gap: 3px; overflow: hidden;
+    }
+    .hero-photo { overflow: hidden; background: var(--light); }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
+    .hero-photo:hover img { transform: scale(1.04); }
+    .hero-photo.tall { grid-row: 1 / 3; }
+
+    /* ─── MARQUEE ─────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--light); border-bottom: 1px solid var(--light);
+      padding: 16px 0; background: var(--warm);
+    }
+    .marquee-track {
+      display: flex; gap: 0;
+      animation: marquee 26s linear infinite; width: max-content;
+    }
+    .marquee-track span {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0 36px; white-space: nowrap; color: var(--black);
+    }
+    .marquee-track span.dot { color: var(--accent); padding: 0 6px; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── CLIENTS / TRUSTED BY ────────────────── */
+    .clients {
+      padding: 80px 0;
+      background: linear-gradient(160deg, #0f0f0f 0%, #1a1a1a 40%, #0d1a0a 100%);
+      overflow: hidden;
+    }
+    .clients-inner { padding: 0 48px; margin-bottom: 52px; }
+    .clients .section-label { color: rgba(255,255,255,0.35); }
+    .clients .section-label::before { background: rgba(255,255,255,0.35); }
+    .clients-headline {
+      font-size: clamp(26px, 3.5vw, 48px); font-weight: 700;
+      letter-spacing: -0.03em; color: var(--white);
+      margin-top: 14px; max-width: 520px; line-height: 1.1;
+    }
+    .clients-headline em { color: var(--accent); font-style: normal; }
+
+    /* scrolling logo strip */
+    .logo-marquee {
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 20px 0;
+    }
+    .logo-track {
+      display: flex; align-items: center; gap: 0;
+      width: max-content;
+      animation: logoScroll 32s linear infinite;
+    }
+    .logo-track:hover { animation-play-state: paused; }
+    .logo-item {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 52px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      height: 80px; flex-shrink: 0;
+    }
+    .logo-item img {
+      height: 48px; width: 120px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.55; transition: opacity 0.3s;
+    }
+    .logo-item.profile img {
+      filter: none; opacity: 0.85;
+      height: 56px; width: 56px;
+      border-radius: 50%; object-fit: cover;
+    }
+    .logo-item.color img { filter: none; opacity: 0.8; height: 48px; width: 120px; object-fit: contain; }
+    .logo-track:hover .logo-item img { opacity: 0.95; }
+    @keyframes logoScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── GALLERY GRID ────────────────────────── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 300px 240px;
+      gap: 3px; padding: 3px;
+    }
+    .gi { overflow: hidden; background: var(--light); position: relative; }
+    .gi img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s ease; }
+    .gi:hover img { transform: scale(1.04); }
+    .ga { grid-column: 1 / 6; grid-row: 1; }
+    .gb { grid-column: 6 / 9; grid-row: 1; }
+    .gc { grid-column: 9 / 13; grid-row: 1; }
+    .gd { grid-column: 1 / 4; grid-row: 2; }
+    .ge { grid-column: 4 / 8; grid-row: 2; }
+    .gf { grid-column: 8 / 13; grid-row: 2; }
+
+    /* ─── SECTION CHROME ──────────────────────── */
+    .section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+    }
+    .section-label::before {
+      content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
+    }
+
+    /* ─── LIVE CONTENT ────────────────────────── */
+    .reels { padding: 90px 48px; background: var(--warm); }
+    .reels-headline {
+      font-size: clamp(28px, 3.5vw, 48px); font-weight: 700;
+      letter-spacing: -0.03em; margin-top: 14px; margin-bottom: 48px; line-height: 1.1;
+    }
+    .reels-headline em { color: var(--accent); font-style: normal; }
+    .reels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .reel-card { background: var(--white); border-radius: 2px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .reel-embed { position: relative; width: 100%; padding-bottom: 125%; background: #111; }
+    .reel-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .reel-label { padding: 12px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); }
+
+    /* IM8 row */
+    .im8-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .im8-card { background: var(--white); border-radius: 2px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .im8-embed { position: relative; width: 100%; padding-bottom: 125%; background: #111; }
+    .im8-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .im8-label { padding: 14px 16px; }
+    .im8-label strong { display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .im8-label span { font-size: 11px; color: var(--gray); letter-spacing: 0.06em; }
+
+    /* ─── FEATURED WORK ───────────────────────── */
+    .work { padding: 90px 48px; }
+    .work-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .work-headline {
+      font-size: clamp(28px, 3.5vw, 48px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.1; margin-top: 14px;
+    }
+    .work-headline em { color: var(--accent); font-style: normal; }
+    .work-link {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--black); text-decoration: none;
+      border-bottom: 1.5px solid var(--accent); padding-bottom: 2px;
+      transition: color 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .work-link:hover { color: var(--accent); }
+    .cards-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--light); text-decoration: none;
+      color: var(--black); transition: border-color 0.25s, transform 0.25s; overflow: hidden;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .card-img { width: 100%; height: 220px; overflow: hidden; background: var(--light); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .card:hover .card-img img { transform: scale(1.04); }
+    .card-body { padding: 24px 24px 28px; flex: 1; display: flex; flex-direction: column; }
+    .card-tag { font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .card-title { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 10px; }
+    .card-blurb { font-size: 13px; line-height: 1.65; color: var(--gray); flex: 1; }
+    .card-cta { margin-top: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+
+    /* ─── HOW CAN MY BUSINESS BENEFIT ────────── */
+    .benefits {
+      padding: 72px 48px;
+      background: var(--warm);
+    }
+    .benefits-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .benefits-left h2 {
+      font-size: clamp(28px, 3.8vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-top: 14px;
+    }
+    .benefits-left h2 em { color: var(--accent); font-style: normal; }
+    .benefits-left p {
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--gray);
+      max-width: 380px;
+    }
+    .benefit-list { list-style: none; border-top: 1px solid var(--light); }
+    .benefit-item {
+      padding: 22px 16px;
+      border-bottom: 1px solid var(--light);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      cursor: default;
+      border-left: 3px solid transparent;
+      transition: background 0.22s ease, border-left-color 0.22s ease, padding-left 0.22s ease, transform 0.22s ease;
+      border-radius: 0 2px 2px 0;
+    }
+    .benefit-item:hover {
+      background: rgba(92,122,66,0.07);
+      border-left-color: var(--accent);
+      padding-left: 24px;
+    }
+    .benefit-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      min-width: 24px;
+      opacity: 0.6;
+      transition: opacity 0.22s;
+    }
+    .benefit-item:hover .benefit-num { opacity: 1; }
+    .benefit-text {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.4;
+      transition: color 0.22s;
+    }
+    .benefit-item:hover .benefit-text { color: var(--accent-dark); }
+
+    /* ─── ABOUT ME ────────────────────────────── */
+    .about {
+      padding: 80px 48px;
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text .section-label { color: rgba(255,255,255,0.35); }
+    .about-text .section-label::before { background: rgba(255,255,255,0.35); }
+    .about-name {
+      font-size: clamp(32px, 4vw, 58px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.0;
+      margin-top: 14px;
+    }
+    .about-name em { color: var(--accent); font-style: normal; }
+    .about-bio {
+      margin-top: 24px;
+      font-size: 15px;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.55);
+      max-width: 440px;
+    }
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .about-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55);
+    }
+    .about-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 32px;
+      padding: 13px 26px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: var(--accent);
+      color: var(--white);
+      transition: background 0.2s;
+    }
+    .about-cta:hover { background: var(--accent-dark); }
+    .about-photo-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(ellipse at center, rgba(92,122,66,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .about-photo {
+      width: 100%;
+      max-width: 400px;
+      height: 480px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      border-radius: 2px;
+    }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    footer {
+      padding: 56px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid var(--light);
+    }
+    footer .f-logo { font-size: 26px; font-weight: 700; letter-spacing: -1px; }
+    footer .f-links { display: flex; gap: 28px; }
+    footer .f-links a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--gray); transition: color 0.2s;
+    }
+    footer .f-links a:hover { color: var(--black); }
+    footer .f-copy { font-size: 11px; color: var(--gray); }
+
+    /* ─── FIXED CTA ───────────────────────────── */
+    .cta-pill {
+      position: fixed; bottom: 30px; right: 38px; z-index: 200;
+      background: var(--accent); color: var(--white);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 13px 22px; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(92,122,66,0.35);
+    }
+    .cta-pill:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+    /* ─── REVEAL ──────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 24px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 100px 24px 40px; }
+      .hero-right { height: 320px; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+      .hero-photo.tall { grid-row: auto; }
+      .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
+      .ga { grid-column: 1/3; grid-row: 1; }
+      .gb { grid-column: 1/2; grid-row: 2; }
+      .gc { grid-column: 2/3; grid-row: 2; }
+      .gd { grid-column: 1/2; grid-row: 3; }
+      .ge { grid-column: 2/3; grid-row: 3; }
+      .gf { display: none; }
+      .clients { padding: 64px 24px; }
+      .reels { padding: 64px 24px; }
+      .reels-grid { grid-template-columns: 1fr 1fr; }
+      .im8-grid { grid-template-columns: 1fr; }
+      .work { padding: 64px 24px; }
+      .cards-track { grid-template-columns: 1fr; }
+      .work-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .benefits { padding: 56px 24px; }
+      .benefits-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
+      .about-photo { max-width: 100%; height: 360px; }
+      footer { flex-direction: column; gap: 28px; align-items: flex-start; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">swang.</a>
+  <ul>
+    <li><a href="#featured-work">Work</a></li>
+    <li><a href="#reels">Reels</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label reveal">Creative Strategy &amp; Visual Direction</p>
+    <h1 class="hero-headline reveal">
+      Put your<br>
+      <span id="rw">brand</span><br>
+      in the spotlight.
+    </h1>
+    <p class="hero-sub reveal">
+      Visual direction and content that converts — for brands and creators who play to win.
+    </p>
+    <div class="hero-actions reveal">
+      <a href="#featured-work" class="btn filled">View Case Studies</a>
+      <a href="#gallery" class="btn">See My Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo tall">
+      <img src="bmw.jpg" alt="Automotive — BMW" />
+    </div>
+    <div class="hero-photo">
+      <img src="putting-green-aerial.jpg" alt="Aerial photography" />
+    </div>
+    <div class="hero-photo">
+      <img src="portrait1.jpg" alt="Portrait" />
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Visual Direction</span><span class="dot">·</span>
+    <span>Creative Strategy</span><span class="dot">·</span>
+    <span>Brand Growth</span><span class="dot">·</span>
+    <span>Content That Converts</span><span class="dot">·</span>
+    <span>Aerial Photography</span><span class="dot">·</span>
+    <span>Real Estate</span><span class="dot">·</span>
+    <span>Automotive</span><span class="dot">·</span>
+    <span>Influencer Campaigns</span><span class="dot">·</span>
+    <span>Visual Direction</span><span class="dot">·</span>
+    <span>Creative Strategy</span><span class="dot">·</span>
+    <span>Brand Growth</span><span class="dot">·</span>
+    <span>Content That Converts</span><span class="dot">·</span>
+    <span>Aerial Photography</span><span class="dot">·</span>
+    <span>Real Estate</span><span class="dot">·</span>
+    <span>Automotive</span><span class="dot">·</span>
+    <span>Influencer Campaigns</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- ═══ TRUSTED BY — moved up right after marquee ═══ -->
+<section class="clients" id="clients">
+  <div class="clients-inner">
+    <p class="section-label">Trusted By</p>
+    <h2 class="clients-headline reveal">
+      Work that <em>moves</em><br>the right people.
+    </h2>
+  </div>
+  <div class="logo-marquee">
+    <div class="logo-track">
+      <!-- set 1 -->
+      <div class="logo-item profile"><img src="1.png" alt="shaadiefit 162K" /></div>
+      <div class="logo-item profile"><img src="2.png" alt="alyssalynch 604K" /></div>
+      <div class="logo-item"><img src="3.png" alt="LinkedIn" /></div>
+      <div class="logo-item"><img src="4.png" alt="Stanford Medicine" /></div>
+      <div class="logo-item"><img src="6.png" alt="Compass" /></div>
+      <div class="logo-item color"><img src="7.png" alt="J Brand" /></div>
+      <div class="logo-item"><img src="8.png" alt="I·M·8" /></div>
+      <div class="logo-item"><img src="5.png" alt="Brand mark" /></div>
+      <!-- set 2 — duplicate for seamless loop -->
+      <div class="logo-item profile"><img src="1.png" alt="shaadiefit 162K" /></div>
+      <div class="logo-item profile"><img src="2.png" alt="alyssalynch 604K" /></div>
+      <div class="logo-item"><img src="3.png" alt="LinkedIn" /></div>
+      <div class="logo-item"><img src="4.png" alt="Stanford Medicine" /></div>
+      <div class="logo-item"><img src="6.png" alt="Compass" /></div>
+      <div class="logo-item color"><img src="7.png" alt="J Brand" /></div>
+      <div class="logo-item"><img src="8.png" alt="I·M·8" /></div>
+      <div class="logo-item"><img src="5.png" alt="Brand mark" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY GRID ═══ -->
+<div id="gallery" class="gallery">
+  <div class="gi ga"><img src="aerial-backyard.jpg" alt="Aerial backyard transformation" /></div>
+  <div class="gi gb"><img src="putting-green-sand.jpg" alt="Putting green sand detail" /></div>
+  <div class="gi gc"><img src="pgreen5.jpg" alt="Aerial putting green" /></div>
+  <div class="gi gd"><img src="bmw.jpg" alt="Automotive — BMW" /></div>
+  <div class="gi ge"><img src="pavers.jpg" alt="Geometric pavers" /></div>
+  <div class="gi gf"><img src="photo3.jpg" alt="Campaign photography" /></div>
+</div>
+
+<!-- ═══ LIVE CONTENT ═══ -->
+<section class="reels" id="reels">
+  <p class="section-label">Live Content</p>
+  <h2 class="reels-headline reveal">
+    Content reels that<br><em>stop the scroll.</em>
+  </h2>
+
+  <!-- Top 3 reels — lynch, shaadie, jam (keeping these) -->
+  <div class="reels-grid">
+    <div class="reel-card">
+      <div class="reel-embed">
+        <iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+      </div>
+      <p class="reel-label">Instagram Reel</p>
+    </div>
+    <div class="reel-card">
+      <div class="reel-embed">
+        <iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+      </div>
+      <p class="reel-label">Instagram Reel</p>
+    </div>
+    <div class="reel-card">
+      <div class="reel-embed">
+        <iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+      </div>
+      <p class="reel-label">Instagram Reel</p>
+    </div>
+  </div>
+
+  <!-- Bottom 2 — replaced with new reels -->
+  <div class="im8-grid">
+    <div class="im8-card">
+      <div class="im8-embed">
+        <iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+      </div>
+      <div class="im8-label">
+        <strong>Latest Work</strong>
+        <span>Content — Visual Direction</span>
+      </div>
+    </div>
+    <div class="im8-card">
+      <div class="im8-embed">
+        <iframe src="https://www.instagram.com/reel/DW87on7BDsQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+      </div>
+      <div class="im8-label">
+        <strong>Latest Work</strong>
+        <span>Content — Visual Direction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED WORK ═══ -->
+<section class="work" id="featured-work">
+  <div class="work-header reveal">
+    <div>
+      <p class="section-label">Featured Work</p>
+      <h2 class="work-headline">
+        From concept<br>to <em>results.</em>
+      </h2>
+    </div>
+    <a href="case-studies.html" class="work-link">All Case Studies →</a>
+  </div>
+  <div class="cards-track">
+    <a href="case-studies.html" class="card reveal">
+      <div class="card-img"><img src="design3.jpg" alt="Meta Ads Case Study" /></div>
+      <div class="card-body">
+        <p class="card-tag">Paid Media · Meta</p>
+        <h3 class="card-title">Scaling ROAS 4× for a DTC Brand Through Creative Testing</h3>
+        <p class="card-blurb">How iterative creative cycles and audience segmentation drove a direct-to-consumer brand from breakeven to 4× return on ad spend in 90 days.</p>
+        <span class="card-cta">Read Case Study →</span>
+      </div>
+    </a>
+    <a href="case-studies.html" class="card reveal">
+      <div class="card-img"><img src="photo20.jpg" alt="Operations Case Study" /></div>
+      <div class="card-body">
+        <p class="card-tag">Operations · Workflow</p>
+        <h3 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h3>
+        <p class="card-blurb">A process audit, team restructure, and tooling overhaul that slashed order-to-ship time nearly in half — without adding headcount.</p>
+        <span class="card-cta">Read Case Study →</span>
+      </div>
+    </a>
+    <a href="case-studies.html" class="card reveal">
+      <div class="card-img"><img src="photo41.jpg" alt="SEO Case Study" /></div>
+      <div class="card-body">
+        <p class="card-tag">SEO · E-Commerce</p>
+        <h3 class="card-title">From Page 4 to #1: An E-Commerce SEO Turnaround</h3>
+        <p class="card-blurb">Technical fixes, content restructuring, and targeted link-building that propelled a stagnant product page to the top of Google in 60 days.</p>
+        <span class="card-cta">Read Case Study →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ HOW CAN MY BUSINESS BENEFIT ═══ -->
+<section class="benefits">
+  <div class="benefits-inner">
+    <div class="benefits-left">
+      <p class="section-label reveal">What You Get</p>
+      <h2 class="reveal">
+        How Can My<br>Business <em>Benefit?</em>
+      </h2>
+      <p class="reveal">
+        Digital visibility and content that converts — tailored creative strategy that puts your brand in front of the right audience and keeps them engaged.
+      </p>
+    </div>
+    <ul class="benefit-list">
+      <li class="benefit-item reveal">
+        <span class="benefit-num">01</span>
+        <span class="benefit-text">Fresh &amp; Appealing content rollouts with <strong>YOUR</strong> creative direction ideas</span>
+      </li>
+      <li class="benefit-item reveal">
+        <span class="benefit-num">02</span>
+        <span class="benefit-text">Aerial &amp; Ground Media Production</span>
+      </li>
+      <li class="benefit-item reveal">
+        <span class="benefit-num">03</span>
+        <span class="benefit-text">Social Media Ad Campaign Creation &amp; Optimization</span>
+      </li>
+      <li class="benefit-item reveal">
+        <span class="benefit-num">04</span>
+        <span class="benefit-text">Digital Email Campaigns, graphic marketing designs, Social Media Advertising</span>
+      </li>
+      <li class="benefit-item reveal">
+        <span class="benefit-num">05</span>
+        <span class="benefit-text">Organic and Paid channel growth</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ME ═══ -->
+<section class="about" id="about">
+  <div class="about-text">
+    <p class="section-label">About</p>
+    <h2 class="about-name reveal">
+      Mason<br><em>Swang.</em>
+    </h2>
+    <p class="about-bio reveal">
+      Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands — from concept through execution. Whether it's a Meta campaign, a ground-level shoot, or a full digital rollout, every frame earns its place.
+    </p>
+    <div class="about-tags reveal">
+      <span class="about-tag">Creative Strategy</span>
+      <span class="about-tag">Aerial Photography</span>
+      <span class="about-tag">Visual Direction</span>
+      <span class="about-tag">Meta Campaigns</span>
+      <span class="about-tag">Brand Growth</span>
+    </div>
+    <a href="mailto:hello@swang.studio" class="about-cta reveal">Work With Me →</a>
+  </div>
+  <div class="about-photo-wrap reveal">
+    <img src="about.png" alt="Mason Swang" class="about-photo" />
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="contact">
+  <div>
+    <p class="f-logo">swang.</p>
+    <p style="font-size:12px; color:#888; margin-top:6px;">hello@swang.studio</p>
+  </div>
+  <div class="f-links">
+    <a href="#featured-work">Work</a>
+    <a href="#reels">Reels</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <p class="f-copy">© 2026 swang. All rights reserved.</p>
+</footer>
+
+<!-- FIXED CTA -->
+<a href="#contact" class="cta-pill">Let's Talk →</a>
+
+<script>
+  // ── Rotating hero word (slowed down)
+  const words = ['brand', 'company', 'product', 'vision'];
+  let wi = 0;
+  const el = document.getElementById('rw');
+  function rotateWord() {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    wi = (wi + 1) % words.length;
+    el.textContent = words[wi];
+    el.style.animation = 'fadeWord 0.5s ease';
+  }
+  setInterval(rotateWord, 3800);
+
+  // ── Scroll reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Stagger hero on load
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 150 + i * 120);
+  });
+</script>
+</body>
+</html>
