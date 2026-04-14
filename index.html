@@ -95,77 +95,62 @@
     .hero-photo:hover img { transform: scale(1.04); }
     .hero-photo.tall { grid-row: 1 / 3; }
 
-    /* ─── MARQUEE ─────────────────────────────── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--light); border-bottom: 1px solid var(--light);
-      padding: 16px 0; background: var(--warm);
-    }
-    .marquee-track {
-      display: flex; gap: 0;
-      animation: marquee 26s linear infinite; width: max-content;
-    }
-    .marquee-track span {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 0 36px; white-space: nowrap; color: var(--black);
-    }
-    .marquee-track span.dot { color: var(--accent); padding: 0 6px; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
 
     /* ─── CLIENTS / TRUSTED BY ────────────────── */
     .clients {
-      padding: 80px 0;
-      background: linear-gradient(160deg, #0f0f0f 0%, #1a1a1a 40%, #0d1a0a 100%);
+      padding: 64px 0;
+      background: #f0f0ee;
       overflow: hidden;
     }
-    .clients-inner { padding: 0 48px; margin-bottom: 52px; }
-    .clients .section-label { color: rgba(255,255,255,0.35); }
-    .clients .section-label::before { background: rgba(255,255,255,0.35); }
+    .clients-inner { padding: 0 48px; margin-bottom: 40px; }
+    .clients .section-label { color: rgba(0,0,0,0.35); }
+    .clients .section-label::before { background: rgba(0,0,0,0.35); }
     .clients-headline {
-      font-size: clamp(26px, 3.5vw, 48px); font-weight: 700;
-      letter-spacing: -0.03em; color: var(--white);
-      margin-top: 14px; max-width: 520px; line-height: 1.1;
+      font-size: clamp(22px, 2.8vw, 38px); font-weight: 700;
+      letter-spacing: -0.03em; color: var(--black);
+      margin-top: 10px; max-width: 520px; line-height: 1.1;
     }
     .clients-headline em { color: var(--accent); font-style: normal; }
 
     /* scrolling logo strip */
     .logo-marquee {
       overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 20px 0;
+      padding: 24px 0;
     }
     .logo-track {
       display: flex; align-items: center; gap: 0;
       width: max-content;
-      animation: logoScroll 52s linear infinite;
+      animation: logoScroll 60s linear infinite;
     }
     .logo-track:hover { animation-play-state: paused; }
     .logo-item {
       display: flex; align-items: center; justify-content: center;
-      padding: 0 56px;
-      border-right: 1px solid rgba(255,255,255,0.07);
-      height: 120px; flex-shrink: 0;
+      padding: 0 48px;
+      flex-shrink: 0;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
-    .logo-item:hover { background: rgba(255,255,255,0.04); }
+    .logo-item:hover { opacity: 0.7; }
     .logo-item img {
-      height: 72px; width: 160px;
+      max-height: 64px;
+      width: auto;
+      max-width: 140px;
       object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.6; transition: opacity 0.3s, transform 0.3s;
+      display: block;
+      opacity: 0.75;
+      transition: opacity 0.3s;
     }
     .logo-item.profile img {
-      filter: none; opacity: 0.9;
-      height: 88px; width: 88px;
-      border-radius: 50%; object-fit: cover;
+      max-height: 72px;
+      max-width: 72px;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      opacity: 0.9;
     }
-    .logo-item.color img { filter: none; opacity: 0.85; height: 72px; width: 160px; object-fit: contain; }
-    .logo-track:hover .logo-item img { opacity: 1; transform: scale(1.05); }
+    .logo-item.color img { opacity: 0.85; max-height: 64px; width: auto; max-width: 140px; object-fit: contain; }
+    .logo-track:hover .logo-item img { opacity: 1; }
     @keyframes logoScroll {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -488,38 +473,17 @@
   </div>
   <div class="hero-right">
     <div class="hero-photo tall">
-      <img src="bmw.jpg" alt="Automotive — BMW" />
+      <img src="portrait2.jpg" alt="Portrait" />
     </div>
     <div class="hero-photo">
-      <img src="putting-green-aerial.jpg" alt="Aerial photography" />
+      <img src="pgreen5.jpg" alt="Aerial production" />
     </div>
     <div class="hero-photo">
-      <img src="portrait1.jpg" alt="Portrait" />
+      <img src="photo3b.jpg" alt="Campaign photography" />
     </div>
   </div>
 </section>
 
-<!-- ═══ MARQUEE ═══ -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>Visual Direction</span><span class="dot">·</span>
-    <span>Creative Strategy</span><span class="dot">·</span>
-    <span>Brand Growth</span><span class="dot">·</span>
-    <span>Content That Converts</span><span class="dot">·</span>
-    <span>Aerial Photography</span><span class="dot">·</span>
-    <span>Real Estate</span><span class="dot">·</span>
-    <span>Automotive</span><span class="dot">·</span>
-    <span>Influencer Campaigns</span><span class="dot">·</span>
-    <span>Visual Direction</span><span class="dot">·</span>
-    <span>Creative Strategy</span><span class="dot">·</span>
-    <span>Brand Growth</span><span class="dot">·</span>
-    <span>Content That Converts</span><span class="dot">·</span>
-    <span>Aerial Photography</span><span class="dot">·</span>
-    <span>Real Estate</span><span class="dot">·</span>
-    <span>Automotive</span><span class="dot">·</span>
-    <span>Influencer Campaigns</span><span class="dot">·</span>
-  </div>
-</div>
 
 <!-- ═══ TRUSTED BY — moved up right after marquee ═══ -->
 <section class="clients" id="clients">
