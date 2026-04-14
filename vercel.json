@@ -1,10 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "*.html", "use": "@vercel/static" }
-  ],
   "routes": [
-    { "src": "/case-studies", "dest": "/case-studies.html" },
-    { "src": "/",             "dest": "/index.html" }
+    { "src": "/case-studies", "dest": "/case-studies.html" }
   ]
 }
