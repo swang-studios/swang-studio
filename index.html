@@ -85,6 +85,44 @@
     .btn.filled { background: var(--black); color: var(--white); }
     .btn.filled:hover { background: var(--accent); border-color: var(--accent); }
 
+    /* ─── MARQUEE ─────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--light);
+      border-bottom: 1px solid var(--light);
+      padding: 14px 0;
+      background: var(--white);
+    }
+    .marquee-track {
+      display: flex; gap: 0;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-track span {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 0 28px; white-space: nowrap;
+    }
+    .marquee-track span.dot { padding: 0 4px; color: #ccc; }
+    .marquee-track span.c1 { color: #F97316; }
+    .marquee-track span.c2 { color: #22C55E; }
+    .marquee-track span.c3 { color: #3B82F6; }
+    .marquee-track span.c4 { color: #A855F7; }
+    .marquee-track span.c5 { color: #EC4899; }
+    .marquee-track span.c6 { color: #EAB308; }
+    .marquee-track span.c7 { color: #14B8A6; }
+    .marquee-track span.c8 { color: #F43F5E; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── Rotating word colors ─────────────────── */
+    #rw { display: inline-block; min-width: 220px; transition: color 0.3s; }
+    #rw.w-brand      { color: #F97316; }
+    #rw.w-product    { color: #22C55E; }
+    #rw.w-influencer { color: #3B82F6; }
+    #rw.w-service    { color: #A855F7; }
+
     /* ─── HERO RIGHT ──────────────────────────── */
     .hero-right {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -459,7 +497,7 @@
     <p class="hero-label reveal">Creative Strategy &amp; Visual Direction</p>
     <h1 class="hero-headline reveal">
       Put your<br>
-      <span id="rw">brand</span><br>
+      <span id="rw" class="w-brand">brand</span><br>
       in the spotlight.
     </h1>
     <!-- rotating word disabled -->
@@ -484,6 +522,28 @@
   </div>
 </section>
 
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="c1">Visual Direction</span><span class="dot">·</span>
+    <span class="c2">Creative Strategy</span><span class="dot">·</span>
+    <span class="c3">Brand Growth</span><span class="dot">·</span>
+    <span class="c4">Content That Converts</span><span class="dot">·</span>
+    <span class="c5">Aerial Photography</span><span class="dot">·</span>
+    <span class="c6">Real Estate</span><span class="dot">·</span>
+    <span class="c7">Automotive</span><span class="dot">·</span>
+    <span class="c8">Influencer Campaigns</span><span class="dot">·</span>
+    <span class="c1">Visual Direction</span><span class="dot">·</span>
+    <span class="c2">Creative Strategy</span><span class="dot">·</span>
+    <span class="c3">Brand Growth</span><span class="dot">·</span>
+    <span class="c4">Content That Converts</span><span class="dot">·</span>
+    <span class="c5">Aerial Photography</span><span class="dot">·</span>
+    <span class="c6">Real Estate</span><span class="dot">·</span>
+    <span class="c7">Automotive</span><span class="dot">·</span>
+    <span class="c8">Influencer Campaigns</span><span class="dot">·</span>
+  </div>
+</div>
 
 <!-- ═══ TRUSTED BY — moved up right after marquee ═══ -->
 <section class="clients" id="clients">
@@ -700,7 +760,20 @@
 <a href="#contact" class="cta-pill">Let's Talk →</a>
 
 <script>
-  // rotating word disabled — static headline
+  // ── Rotating hero word with per-word pastel colors
+  const words  = ['brand',   'product', 'influencer', 'service'];
+  const colors = ['w-brand', 'w-product','w-influencer','w-service'];
+  let wi = 0;
+  const rwEl = document.getElementById('rw');
+  function rotateWord() {
+    rwEl.style.animation = 'none';
+    rwEl.offsetHeight;
+    wi = (wi + 1) % words.length;
+    rwEl.className = colors[wi];
+    rwEl.textContent = words[wi];
+    rwEl.style.animation = 'fadeWord 0.5s ease';
+  }
+  setInterval(rotateWord, 3200);
 
   // ── Scroll reveals
   const io = new IntersectionObserver((entries) => {
