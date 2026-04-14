@@ -127,36 +127,36 @@
     .logo-track {
       display: flex; align-items: center; gap: 0;
       width: max-content;
-      animation: logoScroll 60s linear infinite;
+      animation: logoScroll 75s linear infinite;
     }
     .logo-track:hover { animation-play-state: paused; }
     .logo-item {
       display: flex; align-items: center; justify-content: center;
-      padding: 0 48px;
+      padding: 0 56px;
       flex-shrink: 0;
       text-decoration: none;
       transition: opacity 0.2s;
     }
-    .logo-item:hover { opacity: 0.7; }
+    .logo-item:hover { opacity: 0.65; }
     .logo-item img {
-      max-height: 64px;
+      max-height: 88px;
       width: auto;
-      max-width: 140px;
+      max-width: 180px;
       object-fit: contain;
       display: block;
-      opacity: 0.75;
+      opacity: 0.78;
       transition: opacity 0.3s;
     }
     .logo-item.profile img {
-      max-height: 72px;
-      max-width: 72px;
+      max-height: 88px;
+      max-width: 88px;
       width: auto;
       height: auto;
       border-radius: 0;
       object-fit: contain;
       opacity: 0.9;
     }
-    .logo-item.color img { opacity: 0.85; max-height: 64px; width: auto; max-width: 140px; object-fit: contain; }
+    .logo-item.color img { opacity: 0.88; max-height: 88px; width: auto; max-width: 180px; object-fit: contain; }
     .logo-track:hover .logo-item img { opacity: 1; }
     @keyframes logoScroll {
       from { transform: translateX(0); }
@@ -475,7 +475,7 @@
     </p>
     <div class="hero-actions reveal">
       <a href="#featured-work" class="btn filled">View Case Studies</a>
-      <a href="#gallery" class="btn">See My Work</a>
+      <a href="#gallery" class="btn">See the Work ↓</a>
     </div>
   </div>
   <div class="hero-right">
@@ -527,11 +527,16 @@
 <!-- ═══ GALLERY GRID ═══ -->
 <div id="gallery" class="gallery">
   <div class="gi ga"><img src="aerial-backyard.jpg" alt="Aerial backyard transformation" /></div>
-  <div class="gi gb"><img src="putting-green-sand.jpg" alt="Putting green sand detail" /></div>
-  <div class="gi gc"><img src="photo41.jpg" alt="Campaign photography" /></div>
+  <div class="gi gb"><img src="pgreen6.jpg" alt="Putting green" /></div>
+  <div class="gi gc"><img src="portrait1.jpg" alt="Portrait" /></div>
   <div class="gi gd"><img src="bmw.jpg" alt="Automotive — BMW" /></div>
-  <div class="gi ge"><img src="pavers.jpg" alt="Geometric pavers" /></div>
-  <div class="gi gf"><img src="photo2b.jpg" alt="Visual direction" /></div>
+  <div class="gi ge"><img src="putting-green-aerial.jpg" alt="Aerial putting green" /></div>
+  <div class="gi gf"><img src="photo3b.jpg" alt="Campaign photography" /></div>
+</div>
+<div style="text-align:center; padding: 36px 0 48px;">
+  <a href="#gallery" class="btn" style="display:inline-flex; align-items:center; gap:10px; padding:14px 36px; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; border:1.5px solid #0a0a0a; color:#0a0a0a; text-decoration:none; transition:background 0.2s, color 0.2s;" onmouseover="this.style.background='#0a0a0a';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#0a0a0a'">
+    View Full Gallery &nbsp;→
+  </a>
 </div>
 
 <!-- ═══ LIVE CONTENT ═══ -->
