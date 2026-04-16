@@ -167,42 +167,42 @@
 
     /* CLIENTS */
     .clients {
-      padding: 64px 0;
-      background: rgba(255,255,255,0.04);
+      padding: 72px 0;
+      background: #ede5d0;
       overflow: hidden;
     }
-    .clients-inner { padding: 0 48px; margin-bottom: 40px; }
-    .clients .section-label { color: rgba(255,255,255,0.35); }
-    .clients .section-label::before { background: rgba(255,255,255,0.35); }
+    .clients-inner { padding: 0 48px; margin-bottom: 48px; }
+    .clients .section-label { color: rgba(28,36,22,0.5); }
+    .clients .section-label::before { background: rgba(28,36,22,0.5); }
     .clients-headline {
       font-size: clamp(22px, 2.8vw, 38px); font-weight: 700;
-      letter-spacing: -0.03em; color: #f0f0f0; margin-top: 10px;
+      letter-spacing: -0.03em; color: #1c2416; margin-top: 10px;
       max-width: 520px; line-height: 1.1;
     }
     .clients-headline em { color: var(--accent); font-style: normal; }
-    .logo-marquee { overflow: hidden; padding: 24px 0; }
+    .logo-marquee { overflow: hidden; padding: 40px 0; }
     .logo-track {
       display: flex; align-items: center; gap: 0;
       width: max-content;
-      animation: logoScroll 75s linear infinite;
+      animation: logoScroll 110s linear infinite;
     }
     .logo-track:hover { animation-play-state: paused; }
     .logo-item {
       display: flex; align-items: center; justify-content: center;
-      padding: 0 56px; flex-shrink: 0;
+      padding: 0 100px; flex-shrink: 0;
       text-decoration: none; transition: opacity 0.2s;
     }
     .logo-item:hover { opacity: 0.65; }
     .logo-item img {
-      max-height: 88px; width: auto; max-width: 180px;
+      max-height: 240px; width: auto; max-width: 480px;
       object-fit: contain; display: block;
-      opacity: 0.78; transition: opacity 0.3s;
+      opacity: 0.85; transition: opacity 0.3s;
     }
     .logo-item.profile img {
-      max-height: 88px; max-width: 180px;
-      object-fit: contain; opacity: 0.9;
+      max-height: 240px; max-width: 480px;
+      object-fit: contain; opacity: 1;
     }
-    .logo-item.color img { opacity: 0.88; max-height: 88px; width: auto; max-width: 180px; }
+    .logo-item.color img { opacity: 0.95; max-height: 240px; width: auto; max-width: 480px; }
     .logo-track:hover .logo-item img { opacity: 1; }
     @keyframes logoScroll {
       from { transform: translateX(0); }
