@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Thumbnail Is Doing All the Work (You're Just Not Letting It) | swang.</title>
+  <meta name="description" content="How we built thumbnails that actually make people click. Engagement, views, and why clickbait isn't a dirty word when it's done right." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0e0e0e;
+      color: #f0f0f0;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      border-bottom: 1px solid #1e1e1e;
+      position: sticky;
+      top: 0;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #f0f0f0;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+    .nav-links a {
+      color: #888;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #f0f0f0; }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 5% 3rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .blog-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8a96e;
+      border: 1px solid #c8a96e44;
+      padding: 0.3rem 0.8rem;
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #f5f5f5;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: #c8a96e; }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #999;
+      max-width: 580px;
+      margin-bottom: 2rem;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.82rem;
+      color: #666;
+    }
+    .hero-meta .dot { width: 4px; height: 4px; background: #444; border-radius: 50%; }
+
+    /* THUMBNAIL GALLERY */
+    .thumbnail-grid {
+      width: 100%;
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .thumb-item {
+      aspect-ratio: 16/9;
+      background: #1a1a1a;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #2a2a2a;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .thumb-item:hover {
+      transform: scale(1.02);
+      border-color: #c8a96e55;
+    }
+    .thumb-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .view-all-btn {
+      display: block;
+      width: fit-content;
+      margin: 0 auto 4rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      border: 1px solid #444;
+      color: #ccc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .view-all-btn:hover { background: #1e1e1e; border-color: #c8a96e; color: #c8a96e; }
+
+    /* ARTICLE BODY */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 5% 6rem;
+    }
+    .article-body p {
+      font-size: 1.05rem;
+      color: #ccc;
+      margin-bottom: 1.8rem;
+      line-height: 1.8;
+    }
+    .article-body strong { color: #f0f0f0; }
+    .pull-quote {
+      border-left: 3px solid #c8a96e;
+      padding: 1rem 1.5rem;
+      margin: 2.5rem 0;
+      background: #141414;
+      border-radius: 0 6px 6px 0;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #e0d5c0;
+      line-height: 1.65;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: #141414;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      padding: 4rem 5%;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.8rem;
+    }
+    .cta-section p { color: #888; margin-bottom: 1.8rem; font-size: 0.95rem; }
+    .cta-btn {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: #c8a96e;
+      color: #0e0e0e;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: #d9bc82; }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1e1e1e;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { color: #ccc; }
+
+    @media (max-width: 640px) {
+      .thumbnail-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-meta { flex-wrap: wrap; gap: 0.75rem; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">swang.</a>
+    <div class="nav-links">
+      <a href="index.html#featured-work">Work</a>
+      <a href="index.html#reels">Reels</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="blog-tag">Content Strategy</span>
+    <h1>The Thumbnail Is Doing All the Work.<br /><span>You're Just Not Letting It.</span></h1>
+    <p class="hero-sub">How we built thumbnails that actually make people click, and what happened to the channel when we did.</p>
+    <div class="hero-meta">
+      <span>Mason Swang</span>
+      <span class="dot"></span>
+      <span>April 2026</span>
+      <span class="dot"></span>
+      <span>3 min read</span>
+    </div>
+  </section>
+
+  <!-- THUMBNAIL GALLERY -->
+  <div class="thumbnail-grid">
+    <div class="thumb-item"><img src="images/noah-thumb-1.png" alt="Noah Thumbnail 1" onerror="this.style.background='#2a2a2a';this.style.display='block'" /></div>
+    <div class="thumb-item"><img src="images/noah-thumb-2.png" alt="Noah Thumbnail 2" onerror="this.style.background='#2a2a2a';this.style.display='block'" /></div>
+    <div class="thumb-item"><img src="images/noah-thumb-3.png" alt="Noah Thumbnail 3" onerror="this.style.background='#2a2a2a';this.style.display='block'" /></div>
+    <div class="thumb-item"><img src="images/noah-thumb-4.png" alt="Noah Thumbnail 4" onerror="this.style.background='#2a2a2a';this.style.display='block'" /></div>
+    <div class="thumb-item"><img src="images/noah-thumb-5.png" alt="Noah Thumbnail 5" onerror="this.style.background='#2a2a2a';this.style.display='block'" /></div>
+    <div class="thumb-item"><img src="images/noah-thumb-6.png" alt="Noah Thumbnail 6" onerror="this.style.background='#2a2a2a';this.style.display='block'" /></div>
+  </div>
+  <a class="view-all-btn" href="#gallery">View Full Gallery</a>
+
+  <!-- ARTICLE -->
+  <article class="article-body">
+
+    <p>
+      Nobody clicks a boring thumbnail. That sounds obvious until you look at most YouTube channels
+      and realize they are absolutely, confidently, aggressively putting up boring thumbnails.
+      Big text, no contrast, faces that express nothing. Then the creator wonders why views are flat.
+    </p>
+
+    <div class="pull-quote">
+      "The thumbnail sells the click. The title closes it. If either one is mid, you're cooked."
+    </div>
+
+    <p>
+      When we started working on Noah's YouTube thumbnails the brief was simple: stop losing the
+      scroll war. The channel had the content, the energy, and a real point of view. What it didn't
+      have was a front door that made people want to walk in. We rebuilt that. High-contrast color
+      blocking, expressive face crops, and titles that ask a question you actually want answered.
+      The kind of thumbnail where you know exactly what the vibe is before you read a word.
+      <strong>Views followed. Comments multiplied. The algorithm noticed.</strong>
+    </p>
+
+    <p>
+      Here's the thing about clickbait that people get wrong: it's only a problem when the content
+      doesn't deliver. When you over-promise and under-deliver, sure, that's a trust problem.
+      But when the thumbnail is exciting AND the video is good? That's just good marketing.
+      That's a CTA that works. Every frame of that thumbnail is a decision, and every decision
+      either earns the click or wastes it. We don't waste it.
+    </p>
+
+  </article>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Want Thumbnails That Actually Convert?</h2>
+    <p>Let's talk about your channel and build something worth clicking.</p>
+    <a class="cta-btn" href="mailto:hello@swang.studio">Let's Talk</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>swang. &copy; 2026</span>
+    <div>
+      <a href="index.html">Home</a>&nbsp;&nbsp;
+      <a href="case-studies.html">Case Studies</a>&nbsp;&nbsp;
+      <a href="mailto:hello@swang.studio">hello@swang.studio</a>
+    </div>
+  </footer>
+
+</body>
+</html>
