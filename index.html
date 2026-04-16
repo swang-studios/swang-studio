@@ -12,646 +12,242 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --accent: #5c7a42;
-      --accent-dark: #3d5229;
-      --honey: #e8a800;
-      --honey-dark: #c78e00;
-      --black: #0a0a0a;
-      --white: #fafafa;
-      --warm: #f4f1ec;
-      --gray: #888;
-      --light: #ede9e3;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: #1a2535;
-      color: #f0f0f0;
-      overflow-x: hidden;
-    }
-
-    /* Dark animated mesh background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background:
-        radial-gradient(ellipse at 18% 22%, #222 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #1c1c1c 0%, transparent 52%),
-        radial-gradient(ellipse at 50% 50%, #191919 0%, transparent 68%),
-        #1a2535;
-      animation: meshDrift 16s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes meshDrift {
-      0%   { transform: scale(1)    translate(0, 0); }
-      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
-      100% { transform: scale(1)    translate(1.5%, -1.2%); }
-    }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 48px;
-      background: rgba(22,34,52,0.90);
-      backdrop-filter: blur(14px);
-    }
-    nav .logo {
-      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
-      color: #f0f0f0; text-decoration: none;
-    }
-    nav ul { list-style: none; display: flex; gap: 36px; }
-    nav ul a {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
-      opacity: 0.65; transition: opacity 0.2s;
-    }
-    nav ul a:hover { opacity: 1; }
-
-    /* HERO */
-    .hero {
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 72vh; padding-top: 80px; gap: 0;
-    }
-    .hero-left {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 48px 48px 60px;
-    }
-    .hero-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-    }
-    .hero-label::before {
-      content: ''; display: inline-block;
-      width: 24px; height: 1.5px; background: var(--accent);
-    }
-    .hero-headline {
-      font-size: clamp(38px, 4.5vw, 68px);
-      font-weight: 700; line-height: 0.95;
-      letter-spacing: -0.03em; color: #f0f0f0;
-    }
-    #rw {
-      color: var(--accent); display: inline-block; min-width: 200px;
-    }
-    @keyframes fadeWord {
-      0%   { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .hero-sub {
-      margin-top: 24px; font-size: 14px; line-height: 1.7;
-      color: #aaa; max-width: 360px;
-    }
-    .hero-actions {
-      margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 26px; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      text-decoration: none; border: 1.5px solid #f0f0f0;
-      color: #f0f0f0; background: transparent; cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .btn:hover { background: #f0f0f0; color: #1a2535; }
-    .btn.filled {
-      background: var(--accent); color: #fff; border-color: var(--accent);
-    }
-    .btn.filled:hover {
-      background: var(--accent-dark); border-color: var(--accent-dark);
-    }
-    #rw.w-brand     { color: #F97316; }
-    #rw.w-product   { color: #22C55E; }
-    #rw.w-influencer{ color: #3B82F6; }
-    #rw.w-service   { color: #A855F7; }
-    #rw.w-creator   { color: #EC4899; }
-    #rw.w-vision    { color: #e8a800; }
-
-    /* HERO RIGHT */
-    .hero-right {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 3px; overflow: hidden;
-    }
-    .hero-photo { overflow: hidden; background: #253b52; }
-    .hero-photo img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease; display: block;
-    }
-    .hero-photo:hover img { transform: scale(1.04); }
-    .hero-photo.tall { grid-row: 1 / 3; }
-
-    /* CLIENTS */
-    .clients {
-      padding: 64px 0;
-      background: rgba(255,255,255,0.04);
-      overflow: hidden;
-    }
-    .clients-inner { padding: 0 48px; margin-bottom: 40px; }
-    .clients .section-label { color: rgba(255,255,255,0.35); }
-    .clients .section-label::before { background: rgba(255,255,255,0.35); }
-    .clients-headline {
-      font-size: clamp(22px, 2.8vw, 38px); font-weight: 700;
-      letter-spacing: -0.03em; color: #f0f0f0; margin-top: 10px;
-      max-width: 520px; line-height: 1.1;
-    }
-    .clients-headline em { color: var(--accent); font-style: normal; }
-    .logo-marquee { overflow: hidden; padding: 24px 0; }
-    .logo-track {
-      display: flex; align-items: center; gap: 0;
-      width: max-content;
-      animation: logoScroll 75s linear infinite;
-    }
-    .logo-track:hover { animation-play-state: paused; }
-    .logo-item {
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 56px; flex-shrink: 0;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .logo-item:hover { opacity: 0.65; }
-    .logo-item img {
-      max-height: 88px; width: auto; max-width: 180px;
-      object-fit: contain; display: block;
-      opacity: 0.78; transition: opacity 0.3s;
-    }
-    .logo-item.profile img {
-      max-height: 88px; max-width: 88px;
-      border-radius: 50%; object-fit: cover; opacity: 0.9;
-    }
-    .logo-item.color img { opacity: 0.88; max-height: 88px; width: auto; max-width: 180px; }
-    .logo-track:hover .logo-item img { opacity: 1; }
-    @keyframes logoScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* GALLERY */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: 300px 240px;
-      gap: 3px; padding: 3px;
-    }
-    .gi { overflow: hidden; background: #253b52; position: relative; }
-    .gi img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform 0.7s ease;
-    }
-    .gi:hover img { transform: scale(1.04); }
-    .ga { grid-column: 1/6;  grid-row: 1; }
-    .gb { grid-column: 6/9;  grid-row: 1; }
-    .gc { grid-column: 9/13; grid-row: 1; }
-    .gd { grid-column: 1/4;  grid-row: 2; }
-    .ge { grid-column: 4/8;  grid-row: 2; }
-    .gf { grid-column: 8/13; grid-row: 2; }
-
-    /* SECTION CHROME */
-    .section-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
-    }
-    .section-label::before {
-      content: ''; display: inline-block;
-      width: 18px; height: 1.5px; background: var(--accent);
-    }
-
-    /* REELS */
-    .reels { padding: 90px 48px; background: rgba(255,255,255,0.03); }
-    .reels-headline {
-      font-size: clamp(28px, 3.5vw, 48px); font-weight: 700;
-      letter-spacing: -0.03em; margin-top: 14px; margin-bottom: 48px;
-      line-height: 1.1; color: #f0f0f0;
-    }
-    .reels-headline em { color: var(--accent); font-style: normal; }
-    .reels-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-    }
-    .reel-card {
-      background: rgba(255,255,255,0.05); border-radius: 2px;
-      overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-    .reel-embed {
-      position: relative; width: 100%; padding-bottom: 125%; background: #111;
-    }
-    .reel-embed iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
-    }
-    .reel-label {
-      padding: 12px 16px; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray);
-    }
-    .im8-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;
-    }
-    .im8-card {
-      background: rgba(255,255,255,0.05); border-radius: 2px;
-      overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-    .im8-embed {
-      position: relative; width: 100%; padding-bottom: 125%; background: #111;
-    }
-    .im8-embed iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
-    }
-    .im8-label { padding: 14px 16px; }
-    .im8-label strong {
-      display: block; font-size: 13px; font-weight: 600;
-      margin-bottom: 2px; color: #f0f0f0;
-    }
-    .im8-label span { font-size: 11px; color: var(--gray); letter-spacing: 0.06em; }
-
-    /* FEATURED WORK */
-    .work { padding: 90px 48px; }
-    .work-header {
-      display: flex; justify-content: space-between;
-      align-items: flex-end; margin-bottom: 48px;
-    }
-    .work-headline {
-      font-size: clamp(28px, 3.5vw, 48px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.1; margin-top: 14px; color: #f0f0f0;
-    }
-    .work-headline em { color: var(--accent); font-style: normal; }
-    .work-link {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
-      border-bottom: 1.5px solid var(--accent); padding-bottom: 2px;
-      transition: color 0.2s; white-space: nowrap; flex-shrink: 0;
-    }
-    .work-link:hover { color: var(--accent); }
-    .cards-track {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-    }
-    .card {
-      display: flex; flex-direction: column;
-      border: 1px solid rgba(255,255,255,0.08);
-      text-decoration: none; color: #f0f0f0;
-      transition: border-color 0.25s, transform 0.25s;
-      overflow: hidden; background: rgba(255,255,255,0.04);
-    }
-    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .card-img {
-      width: 100%; height: 220px; overflow: hidden; background: #253b52;
-    }
-    .card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform 0.6s ease;
-    }
-    .card:hover .card-img img { transform: scale(1.04); }
-    .card-body {
-      padding: 24px 24px 28px; flex: 1;
-      display: flex; flex-direction: column;
-    }
-    .card-tag {
-      font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
-    }
-    .card-title {
-      font-size: 17px; font-weight: 700; letter-spacing: -0.02em;
-      line-height: 1.25; margin-bottom: 10px; color: #f0f0f0;
-    }
-    .card-blurb { font-size: 13px; line-height: 1.65; color: #999; flex: 1; }
-    .card-cta {
-      margin-top: 20px; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 6px;
-    }
-
-    /* BENEFITS */
-    .benefits { padding: 72px 48px; background: rgba(255,255,255,0.03); }
-    .benefits-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
-    }
-    .benefits-left h2 {
-      font-size: clamp(28px, 3.8vw, 52px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.05; margin-top: 14px; color: #f0f0f0;
-    }
-    .benefits-left h2 em { color: var(--accent); font-style: normal; }
-    .benefits-left p {
-      margin-top: 18px; font-size: 14px; line-height: 1.75;
-      color: #999; max-width: 380px;
-    }
-    .benefit-list { list-style: none; border-top: 1px solid rgba(255,255,255,0.08); }
-    .benefit-item {
-      padding: 22px 16px; border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex; align-items: center; gap: 20px; cursor: default;
-      border-left: 3px solid transparent;
-      transition: background 0.22s ease, border-left-color 0.22s ease, padding-left 0.22s ease;
-      border-radius: 0 2px 2px 0;
-    }
-    .benefit-item:hover {
-      background: rgba(92,122,66,0.1);
-      border-left-color: var(--accent);
-      padding-left: 24px;
-    }
-    .benefit-num {
-      font-size: 10px; font-weight: 700; color: var(--accent);
-      letter-spacing: 0.14em; min-width: 24px; opacity: 0.6;
-    }
-    .benefit-item:hover .benefit-num { opacity: 1; }
-    .benefit-text { font-size: 15px; font-weight: 500; line-height: 1.4; color: #ddd; }
-
-    /* ABOUT */
-    .about {
-      padding: 80px 48px; background: #111e2e;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-    }
-    .about-text .section-label { color: rgba(255,255,255,0.35); }
-    .about-text .section-label::before { background: rgba(255,255,255,0.35); }
-    .about-name {
-      font-size: clamp(32px, 4vw, 58px); font-weight: 700;
-      letter-spacing: -0.03em; color: #fff; line-height: 1.0; margin-top: 14px;
-    }
-    .about-name em { color: var(--accent); font-style: normal; }
-    .about-bio {
-      margin-top: 24px; font-size: 15px; line-height: 1.78;
-      color: rgba(255,255,255,0.55); max-width: 440px;
-    }
-    .about-tags {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
-    }
-    .about-tag {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 6px 14px;
-      border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.55);
-    }
-    .about-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 32px; padding: 13px 26px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; text-decoration: none;
-      background: var(--accent); color: #fff; transition: background 0.2s;
-    }
-    .about-cta:hover { background: var(--accent-dark); }
-    .about-photo-wrap {
-      position: relative; display: flex;
-      align-items: center; justify-content: center;
-    }
-    .about-photo-wrap::before {
-      content: ''; position: absolute; inset: -20px;
-      background: radial-gradient(ellipse at center, rgba(92,122,66,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .about-photo {
-      width: 100%; max-width: 400px; height: 480px;
-      object-fit: cover; object-position: top center;
-      display: block; border-radius: 2px;
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 56px 48px;
-      display: flex; justify-content: space-between; align-items: flex-end;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    footer .f-logo {
-      font-size: 26px; font-weight: 700; letter-spacing: -1px; color: #f0f0f0;
-    }
-    footer .f-contact {
-      font-size: 12px; color: #888; margin-top: 6px;
-    }
-    footer .f-contact a {
-      color: #888; text-decoration: none; transition: color 0.2s;
-    }
-    footer .f-contact a:hover { color: #f0f0f0; }
-    footer .f-links { display: flex; gap: 28px; }
-    footer .f-links a {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; text-decoration: none;
-      color: #888; transition: color 0.2s;
-    }
-    footer .f-links a:hover { color: #f0f0f0; }
-    .f-social { display: flex; gap: 18px; margin-top: 16px; }
-    .f-social a {
-      display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 50%; color: #888; text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .f-social a:hover { border-color: var(--accent); color: var(--accent); }
-    .f-social svg { width: 16px; height: 16px; fill: currentColor; }
-    footer .f-copy { font-size: 11px; color: #555; }
-
-    /* FIXED CTA */
-    .cta-pill {
-      position: fixed; bottom: 30px; right: 38px; z-index: 200;
-      background: var(--accent); color: #fff;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; text-decoration: none;
-      padding: 13px 22px; border-radius: 2px;
-      transition: background 0.2s, transform 0.2s;
-      box-shadow: 0 4px 20px rgba(92,122,66,0.35);
-    }
-    .cta-pill:hover { background: var(--accent-dark); transform: translateY(-2px); }
-
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      nav { padding: 18px 24px; }
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 100px 24px 40px; }
-      .hero-right { height: 320px; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
-      .hero-photo.tall { grid-row: auto; }
-      .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
-      .ga { grid-column: 1/3; grid-row: 1; }
-      .gb { grid-column: 1/2; grid-row: 2; }
-      .gc { grid-column: 2/3; grid-row: 2; }
-      .gd { grid-column: 1/2; grid-row: 3; }
-      .ge { grid-column: 2/3; grid-row: 3; }
-      .gf { display: none; }
-      .clients { padding: 64px 24px; }
-      .reels { padding: 64px 24px; }
-      .reels-grid { grid-template-columns: 1fr 1fr; }
-      .im8-grid { grid-template-columns: 1fr; }
-      .work { padding: 64px 24px; }
-      .cards-track { grid-template-columns: 1fr; }
-      .work-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .benefits { padding: 56px 24px; }
-      .benefits-inner { grid-template-columns: 1fr; gap: 40px; }
-      .about { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
-      .about-photo { max-width: 100%; height: 360px; }
-      footer { flex-direction: column; gap: 28px; align-items: flex-start; padding: 40px 24px; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--accent:#c9963a;--accent-dark:#a87c2a;--cream:#faf6ef;--parchment:#f2e9d9;--sand:#e8dcc8;--choc:#f5ede0;--earth:#7a6b55;--dark:#1c160d;--dark2:#3d2e1e;--gray:#8a7a65;--light-card:#ffffff}
+    html{scroll-behavior:smooth}
+    body{font-family:'Space Grotesk',-apple-system,sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 15% 20%,rgba(201,150,58,.07) 0%,transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(242,233,217,.6) 0%,transparent 55%),var(--cream);animation:meshDrift 18s ease-in-out infinite alternate;pointer-events:none}
+    @keyframes meshDrift{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.04) translate(-1%,.8%)}100%{transform:scale(1) translate(1%,-.8%)}}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;background:rgba(250,246,239,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,220,200,.5)}
+    nav .logo{font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--dark);text-decoration:none}
+    nav ul{list-style:none;display:flex;gap:36px}
+    nav ul a{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dark);text-decoration:none;opacity:.5;transition:opacity .2s}
+    nav ul a:hover{opacity:1}
+    .hero{display:grid;grid-template-columns:1fr 1fr;min-height:72vh;padding-top:80px;gap:0}
+    .hero-left{display:flex;flex-direction:column;justify-content:center;padding:48px 48px 60px}
+    .hero-label{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .hero-label::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--accent)}
+    .hero-headline{font-size:clamp(38px,4.5vw,68px);font-weight:700;line-height:.95;letter-spacing:-.03em;color:var(--dark)}
+    #rw{color:var(--accent);display:inline-block;min-width:200px}
+    @keyframes fadeWord{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+    .hero-sub{margin-top:24px;font-size:14px;line-height:1.7;color:var(--earth);max-width:360px}
+    .hero-actions{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--dark);color:var(--dark);background:transparent;cursor:pointer;transition:background .2s,color .2s}
+    .btn:hover{background:var(--dark);color:var(--cream)}
+    .btn.filled{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .btn.filled:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+    #rw.w-brand{color:#E85A2B}#rw.w-product{color:#2E9E5A}#rw.w-influencer{color:#3B72D6}#rw.w-service{color:#9B4FC7}#rw.w-creator{color:#D4357A}#rw.w-vision{color:var(--accent)}
+    .hero-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;overflow:hidden}
+    .hero-photo{overflow:hidden;background:var(--sand)}
+    .hero-photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;display:block}
+    .hero-photo:hover img{transform:scale(1.04)}
+    .hero-photo.tall{grid-row:1/3}
+    .clients{padding:64px 0;background:var(--parchment);overflow:hidden;border-top:1px solid var(--sand);border-bottom:1px solid var(--sand)}
+    .clients-inner{padding:0 48px;margin-bottom:40px}
+    .clients .section-label{color:var(--earth)}
+    .clients .section-label::before{background:var(--earth)}
+    .clients-headline{font-size:clamp(22px,2.8vw,38px);font-weight:700;letter-spacing:-.03em;color:var(--dark);margin-top:10px;max-width:520px;line-height:1.1}
+    .clients-headline em{color:var(--accent);font-style:normal}
+    .logo-marquee{overflow:hidden;padding:24px 0}
+    .logo-track{display:flex;align-items:center;gap:0;width:max-content;animation:logoScroll 75s linear infinite}
+    .logo-track:hover{animation-play-state:paused}
+    .logo-item{display:flex;align-items:center;justify-content:center;padding:0 48px;flex-shrink:0;text-decoration:none;transition:opacity .2s}
+    .logo-item:hover{opacity:.7}
+    .logo-item img{max-height:130px;width:auto;max-width:220px;object-fit:contain;display:block;opacity:.75;transition:opacity .3s}
+    .logo-item.profile img{max-height:110px;max-width:110px;border-radius:50%;object-fit:cover;opacity:.85}
+    .logo-item.color img{opacity:.82;max-height:130px;width:auto;max-width:220px}
+    .logo-track:hover .logo-item img{opacity:1}
+    @keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .gallery{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:300px 240px;gap:3px;padding:3px}
+    .gi{overflow:hidden;background:var(--sand);position:relative}
+    .gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease}
+    .gi:hover img{transform:scale(1.04)}
+    .ga{grid-column:1/6;grid-row:1}.gb{grid-column:6/9;grid-row:1}.gc{grid-column:9/13;grid-row:1}
+    .gd{grid-column:1/4;grid-row:2}.ge{grid-column:4/8;grid-row:2}.gf{grid-column:8/13;grid-row:2}
+    .section-label{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:6px}
+    .section-label::before{content:'';display:inline-block;width:18px;height:1.5px;background:var(--accent)}
+    .reels{padding:90px 48px;background:var(--choc);border-top:1px solid var(--sand)}
+    .reels-headline{font-size:clamp(28px,3.5vw,48px);font-weight:700;letter-spacing:-.03em;margin-top:14px;margin-bottom:48px;line-height:1.1;color:var(--dark)}
+    .reels-headline em{color:var(--accent);font-style:normal}
+    .reels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .reel-card{background:#fff;border-radius:2px;overflow:hidden;box-shadow:0 2px 16px rgba(28,22,13,.08);border:1px solid var(--sand)}
+    .reel-embed{position:relative;width:100%;padding-bottom:125%;background:#f0e8d8}
+    .reel-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+    .reel-label{padding:12px 16px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+    .im8-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+    .im8-card{background:#fff;border-radius:2px;overflow:hidden;box-shadow:0 2px 16px rgba(28,22,13,.08);border:1px solid var(--sand)}
+    .im8-embed{position:relative;width:100%;padding-bottom:125%;background:#f0e8d8}
+    .im8-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+    .im8-label{padding:14px 16px}
+    .im8-label strong{display:block;font-size:13px;font-weight:600;margin-bottom:2px;color:var(--dark)}
+    .im8-label span{font-size:11px;color:var(--gray);letter-spacing:.06em}
+    .work{padding:90px 48px;background:var(--cream)}
+    .work-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+    .work-headline{font-size:clamp(28px,3.5vw,48px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:14px;color:var(--dark)}
+    .work-headline em{color:var(--accent);font-style:normal}
+    .work-link{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);text-decoration:none;border-bottom:1.5px solid var(--accent);padding-bottom:2px;transition:color .2s;white-space:nowrap;flex-shrink:0}
+    .work-link:hover{color:var(--accent)}
+    .cards-track{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{display:flex;flex-direction:column;border:1px solid var(--sand);text-decoration:none;color:var(--dark);transition:border-color .25s,transform .25s;overflow:hidden;background:var(--light-card);box-shadow:0 2px 12px rgba(28,22,13,.06)}
+    .card:hover{border-color:var(--accent);transform:translateY(-3px)}
+    .card-img{width:100%;height:220px;overflow:hidden;background:var(--sand)}
+    .card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+    .card:hover .card-img img{transform:scale(1.04)}
+    .card-body{padding:24px 24px 28px;flex:1;display:flex;flex-direction:column}
+    .card-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .card-title{font-size:17px;font-weight:700;letter-spacing:-.02em;line-height:1.25;margin-bottom:10px;color:var(--dark)}
+    .card-blurb{font-size:13px;line-height:1.65;color:var(--gray);flex:1}
+    .card-cta{margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:6px}
+    .benefits{padding:72px 48px;background:var(--parchment);border-top:1px solid var(--sand);border-bottom:1px solid var(--sand)}
+    .benefits-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .benefits-left h2{font-size:clamp(28px,3.8vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-top:14px;color:var(--dark)}
+    .benefits-left h2 em{color:var(--accent);font-style:normal}
+    .benefits-left p{margin-top:18px;font-size:14px;line-height:1.75;color:var(--earth);max-width:380px}
+    .benefit-list{list-style:none;border-top:1px solid var(--sand)}
+    .benefit-item{padding:22px 16px;border-bottom:1px solid var(--sand);display:flex;align-items:center;gap:20px;cursor:default;border-left:3px solid transparent;transition:background .22s ease,border-left-color .22s ease,padding-left .22s ease;border-radius:0 2px 2px 0}
+    .benefit-item:hover{background:rgba(201,150,58,.07);border-left-color:var(--accent);padding-left:24px}
+    .benefit-num{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.14em;min-width:24px;opacity:.55}
+    .benefit-item:hover .benefit-num{opacity:1}
+    .benefit-text{font-size:15px;font-weight:500;line-height:1.4;color:var(--dark2)}
+    .about{padding:80px 48px;background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .about-text .section-label{color:rgba(201,150,58,.8)}
+    .about-text .section-label::before{background:rgba(201,150,58,.8)}
+    .about-name{font-size:clamp(32px,4vw,58px);font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1;margin-top:14px}
+    .about-name em{color:var(--accent);font-style:normal}
+    .about-bio{margin-top:24px;font-size:15px;line-height:1.78;color:rgba(255,255,255,.55);max-width:440px}
+    .about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+    .about-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(201,150,58,.3);color:rgba(255,255,255,.5)}
+    .about-cta{display:inline-flex;align-items:center;gap:8px;margin-top:32px;padding:13px 26px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;background:var(--accent);color:#fff;transition:background .2s}
+    .about-cta:hover{background:var(--accent-dark)}
+    .about-photo-wrap{position:relative;display:flex;align-items:center;justify-content:center}
+    .about-photo-wrap::before{content:'';position:absolute;inset:-20px;background:radial-gradient(ellipse at center,rgba(201,150,58,.15) 0%,transparent 70%);pointer-events:none}
+    .about-photo{width:100%;max-width:400px;height:480px;object-fit:cover;object-position:top center;display:block;border-radius:2px}
+    footer{padding:56px 48px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--sand);background:var(--parchment)}
+    footer .f-logo{font-size:26px;font-weight:700;letter-spacing:-1px;color:var(--dark)}
+    footer .f-contact{font-size:12px;color:var(--gray);margin-top:6px}
+    footer .f-contact a{color:var(--gray);text-decoration:none;transition:color .2s}
+    footer .f-contact a:hover{color:var(--dark)}
+    footer .f-links{display:flex;gap:28px}
+    footer .f-links a{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--gray);transition:color .2s}
+    footer .f-links a:hover{color:var(--dark)}
+    .f-social{display:flex;gap:10px;margin-top:10px}
+    .f-social a{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid rgba(28,22,13,.18);border-radius:50%;color:var(--gray);text-decoration:none;transition:border-color .2s,color .2s}
+    .f-social a:hover{border-color:var(--accent);color:var(--accent)}
+    .f-social svg{width:12px;height:12px;fill:currentColor}
+    footer .f-copy{font-size:11px;color:var(--gray)}
+    .cta-pill{position:fixed;bottom:30px;right:38px;z-index:200;background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:13px 22px;border-radius:2px;transition:background .2s,transform .2s;box-shadow:0 4px 20px rgba(201,150,58,.35)}
+    .cta-pill:hover{background:var(--accent-dark);transform:translateY(-2px)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:960px){
+      nav{padding:18px 24px}
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .hero-left{padding:100px 24px 40px}
+      .hero-right{height:320px;grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+      .hero-photo.tall{grid-row:auto}
+      .gallery{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px 220px}
+      .ga{grid-column:1/3;grid-row:1}.gb{grid-column:1/2;grid-row:2}.gc{grid-column:2/3;grid-row:2}
+      .gd{grid-column:1/2;grid-row:3}.ge{grid-column:2/3;grid-row:3}.gf{display:none}
+      .clients,.reels{padding:64px 24px}
+      .reels-grid{grid-template-columns:1fr 1fr}
+      .im8-grid{grid-template-columns:1fr}
+      .work{padding:64px 24px}
+      .cards-track{grid-template-columns:1fr}
+      .work-header{flex-direction:column;align-items:flex-start;gap:16px}
+      .benefits{padding:56px 24px}
+      .benefits-inner{grid-template-columns:1fr;gap:40px}
+      .about{grid-template-columns:1fr;gap:40px;padding:64px 24px}
+      .about-photo{max-width:100%;height:360px}
+      footer{flex-direction:column;gap:28px;align-items:flex-start;padding:40px 24px}
     }
   </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo">swang.</a>
-  <ul>
-    <li><a href="#featured-work">Work</a></li>
-    <li><a href="#reels">Reels</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
+<nav><a href="#" class="logo">swang.</a><ul><li><a href="#featured-work">Work</a></li><li><a href="#reels">Reels</a></li><li><a href="#contact">Contact</a></li></ul></nav>
 <section class="hero">
   <div class="hero-left">
     <p class="hero-label reveal">Creative Strategy &amp; Visual Direction</p>
-    <h1 class="hero-headline reveal">
-      Put your<br>
-      <span id="rw" class="w-brand">brand</span><br>
-      in the spotlight.
-    </h1>
-    <p class="hero-sub reveal">
-      Visual direction and content that converts. For brands and creators who play to win.
-    </p>
-    <div class="hero-actions reveal">
-      <a href="#featured-work" class="btn filled">View Case Studies</a>
-      <a href="#gallery" class="btn">See the Work</a>
-    </div>
+    <h1 class="hero-headline reveal">Put your<br><span id="rw" class="w-brand">brand</span><br>in the spotlight.</h1>
+    <p class="hero-sub reveal">Visual direction and content that converts. For brands and creators who play to win.</p>
+    <div class="hero-actions reveal"><a href="#featured-work" class="btn filled">View Case Studies</a><a href="#gallery" class="btn">See the Work</a></div>
   </div>
   <div class="hero-right">
-    <div class="hero-photo tall">
-      <img src="portrait2.jpg" alt="Portrait" />
-    </div>
-    <div class="hero-photo">
-      <img src="pgreen5.jpg" alt="Aerial production" />
-    </div>
-    <div class="hero-photo">
-      <img src="vert-homepage-1.png" alt="Vertical content" />
-    </div>
+    <div class="hero-photo tall"><img src="portrait2.jpg" alt="Portrait" /></div>
+    <div class="hero-photo"><img src="pgreen5.jpg" alt="Aerial production" /></div>
+    <div class="hero-photo"><img src="vert-homepage-1.png" alt="Vertical content" /></div>
   </div>
 </section>
-
-<!-- TRUSTED BY -->
 <section class="clients" id="clients">
-  <div class="clients-inner">
-    <p class="section-label">Worked With</p>
-    <h2 class="clients-headline reveal">
-      Brands, Influencers<br>&amp; <em>Companies.</em>
-    </h2>
-  </div>
-  <div class="logo-marquee">
-    <div class="logo-track">
-      <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
-      <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
-      <a class="logo-item" href="https://www.linkedin.com" target="_blank" rel="noopener"><img src="3.png" alt="LinkedIn" /></a>
-      <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
-      <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
-      <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
-      <a class="logo-item" href="#" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
-      <a class="logo-item" href="https://jamagansett.com" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
-      <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
-      <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
-      <a class="logo-item" href="https://www.linkedin.com" target="_blank" rel="noopener"><img src="3.png" alt="LinkedIn" /></a>
-      <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
-      <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
-      <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
-      <a class="logo-item" href="#" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
-      <a class="logo-item" href="https://jamagansett.com" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
-    </div>
-  </div>
+  <div class="clients-inner"><p class="section-label">Worked With</p><h2 class="clients-headline reveal">Brands, Influencers<br>&amp; <em>Companies.</em></h2></div>
+  <div class="logo-marquee"><div class="logo-track">
+    <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
+    <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
+    <a class="logo-item" href="https://www.linkedin.com" target="_blank" rel="noopener"><img src="3.png" alt="LinkedIn" /></a>
+    <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
+    <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
+    <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
+    <a class="logo-item" href="https://im8.com" target="_blank" rel="noopener"><img src="8.png" alt="IM8" /></a>
+    <a class="logo-item" href="https://jamagansett.com" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
+    <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
+    <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
+    <a class="logo-item" href="https://www.linkedin.com" target="_blank" rel="noopener"><img src="3.png" alt="LinkedIn" /></a>
+    <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
+    <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
+    <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
+    <a class="logo-item" href="https://im8.com" target="_blank" rel="noopener"><img src="8.png" alt="IM8" /></a>
+    <a class="logo-item" href="https://jamagansett.com" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
+  </div></div>
 </section>
-
-<!-- GALLERY GRID -->
 <div id="gallery" class="gallery">
-  <div class="gi ga"><img src="aerial-backyard.jpg" alt="Aerial backyard transformation" /></div>
+  <div class="gi ga"><img src="aerial-backyard.jpg" alt="Aerial" /></div>
   <div class="gi gb"><img src="pgreen6.jpg" alt="Putting green" /></div>
   <div class="gi gc"><img src="portrait1.jpg" alt="Portrait" /></div>
   <div class="gi gd"><img src="bmw.jpg" alt="Automotive" /></div>
   <div class="gi ge"><img src="putting-green-aerial.jpg" alt="Aerial putting green" /></div>
-  <div class="gi gf"><img src="photo3b.jpg" alt="Campaign photography" /></div>
+  <div class="gi gf"><img src="photo3b.jpg" alt="Campaign" /></div>
 </div>
-<div style="text-align:center; padding: 36px 0 48px;">
-  <a href="case-studies.html" class="btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
-    View Full Gallery &nbsp;&rarr;
-  </a>
+<div style="text-align:center;padding:36px 0 48px;background:var(--cream);">
+  <a href="case-studies.html" class="btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;">View Full Gallery &nbsp;&rarr;</a>
 </div>
-
-<!-- LIVE CONTENT -->
 <section class="reels" id="reels">
   <p class="section-label">Live Content</p>
-  <h2 class="reels-headline reveal">
-    Content reels that<br><em>stop the scroll.</em>
-  </h2>
+  <h2 class="reels-headline reveal">Content reels that<br><em>stop the scroll.</em></h2>
   <div class="reels-grid">
-    <div class="reel-card">
-      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <p class="reel-label">Instagram Reel</p>
-    </div>
-    <div class="reel-card">
-      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <p class="reel-label">Instagram Reel</p>
-    </div>
-    <div class="reel-card">
-      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <p class="reel-label">Instagram Reel</p>
-    </div>
+    <div class="reel-card"><div class="reel-embed"><iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div><p class="reel-label">Instagram Reel</p></div>
+    <div class="reel-card"><div class="reel-embed"><iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div><p class="reel-label">Instagram Reel</p></div>
+    <div class="reel-card"><div class="reel-embed"><iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div><p class="reel-label">Instagram Reel</p></div>
   </div>
   <div class="im8-grid">
-    <div class="im8-card">
-      <div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <div class="im8-label"><strong>Latest Work</strong><span>Content + Visual Direction</span></div>
-    </div>
-    <div class="im8-card">
-      <div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW87on7BDsQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <div class="im8-label"><strong>Latest Work</strong><span>Content + Visual Direction</span></div>
-    </div>
+    <div class="im8-card"><div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div><div class="im8-label"><strong>Latest Work</strong><span>Content + Visual Direction</span></div></div>
+    <div class="im8-card"><div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW87on7BDsQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div><div class="im8-label"><strong>Latest Work</strong><span>Content + Visual Direction</span></div></div>
   </div>
 </section>
-
-<!-- FEATURED WORK -->
 <section class="work" id="featured-work">
   <div class="work-header reveal">
-    <div>
-      <p class="section-label">Featured Work</p>
-      <h2 class="work-headline">From concept<br>to <em>results.</em></h2>
-    </div>
+    <div><p class="section-label">Featured Work</p><h2 class="work-headline">From concept<br>to <em>results.</em></h2></div>
     <a href="case-studies.html" class="work-link">All Case Studies</a>
   </div>
   <div class="cards-track">
     <a href="blog-noah-thumbnails.html" class="card reveal">
       <div class="card-img"><img src="1.png" alt="Noah Thumbnails" /></div>
-      <div class="card-body">
-        <p class="card-tag">Content Strategy</p>
-        <h3 class="card-title">The Thumbnail Is Doing All the Work. You're Just Not Letting It.</h3>
-        <p class="card-blurb">How a focused thumbnail strategy drove clicks, views, and gave the algorithm exactly what it wanted.</p>
-        <span class="card-cta">Read Post &rarr;</span>
-      </div>
+      <div class="card-body"><p class="card-tag">Content Strategy</p><h3 class="card-title">The Thumbnail Is Doing All the Work. You're Just Not Letting It.</h3><p class="card-blurb">How a focused thumbnail strategy drove clicks, views, and gave the algorithm exactly what it wanted.</p><span class="card-cta">Read Post &rarr;</span></div>
     </a>
     <a href="case-studies.html" class="card reveal">
       <div class="card-img"><img src="bull-boulder-thumb.png" alt="4x Return on Ad Spend" onerror="this.src='design3.jpg'" /></div>
-      <div class="card-body">
-        <p class="card-tag">Paid Media</p>
-        <h3 class="card-title">How Smarter Creative Testing Took a Brand from Breakeven to 4x Return on Ad Spend</h3>
-        <p class="card-blurb">A creative testing system and audience insights that drove a brand from breaking even to a 4x return in 90 days.</p>
-        <span class="card-cta">Read Case Study &rarr;</span>
-      </div>
+      <div class="card-body"><p class="card-tag">Paid Media</p><h3 class="card-title">How Smarter Creative Testing Took a Brand from Breakeven to 4x ROAS</h3><p class="card-blurb">A creative testing system that drove a brand from breaking even to a 4x return in 90 days.</p><span class="card-cta">Read Case Study &rarr;</span></div>
     </a>
     <a href="case-studies.html" class="card reveal">
       <div class="card-img"><img src="photo20.jpg" alt="Operations Case Study" /></div>
-      <div class="card-body">
-        <p class="card-tag">Operations Workflow</p>
-        <h3 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h3>
-        <p class="card-blurb">A process audit and team restructure that slashed order-to-ship time nearly in half without adding headcount.</p>
-        <span class="card-cta">Read Case Study &rarr;</span>
-      </div>
+      <div class="card-body"><p class="card-tag">Operations Workflow</p><h3 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h3><p class="card-blurb">A process audit and team restructure that slashed order-to-ship time nearly in half without adding headcount.</p><span class="card-cta">Read Case Study &rarr;</span></div>
     </a>
   </div>
 </section>
-
-<!-- BENEFITS -->
 <section class="benefits">
   <div class="benefits-inner">
     <div class="benefits-left">
       <p class="section-label reveal">What You Get</p>
       <h2 class="reveal">Built to<br><em>Convert.</em></h2>
-      <p class="reveal">Content and creative strategy tailored to your brand — designed to reach the right audience and keep them engaged.</p>
+      <p class="reveal">Content and creative strategy tailored to your brand. Designed to reach the right audience and keep them engaged.</p>
     </div>
     <ul class="benefit-list">
       <li class="benefit-item reveal"><span class="benefit-num">01</span><span class="benefit-text">Organic and Paid channel growth</span></li>
@@ -662,80 +258,39 @@
     </ul>
   </div>
 </section>
-
-<!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-text">
     <p class="section-label">About</p>
     <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
-    <p class="about-bio reveal">Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands from concept through execution — paid campaigns, ground-level shoots, full digital rollouts. Every frame earns its place.</p>
-    <div class="about-tags reveal">
-      <span class="about-tag">Creative Strategy</span>
-      <span class="about-tag">Aerial Photography</span>
-      <span class="about-tag">Visual Direction</span>
-      <span class="about-tag">Meta Campaigns</span>
-      <span class="about-tag">Brand Growth</span>
-    </div>
+    <p class="about-bio reveal">Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands from concept through execution &mdash; paid campaigns, ground-level shoots, full digital rollouts. Every frame earns its place.</p>
+    <div class="about-tags reveal"><span class="about-tag">Creative Strategy</span><span class="about-tag">Aerial Photography</span><span class="about-tag">Visual Direction</span><span class="about-tag">Meta Campaigns</span><span class="about-tag">Brand Growth</span></div>
     <a href="mailto:hello@swang.studio" class="about-cta reveal">Work With Me</a>
   </div>
-  <div class="about-photo-wrap reveal">
-    <img src="about.png" alt="Mason Swang" class="about-photo" />
-  </div>
+  <div class="about-photo-wrap reveal"><img src="about.png" alt="Mason Swang" class="about-photo" /></div>
 </section>
-
-<!-- FOOTER -->
 <footer id="contact">
   <div>
     <p class="f-logo">swang.</p>
     <p class="f-contact"><a href="mailto:hello@swang.studio">hello@swang.studio</a></p>
     <div class="f-social">
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-        </svg>
-      </a>
-      <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      </a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+      <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
     </div>
   </div>
-  <div class="f-links">
-    <a href="#featured-work">Work</a>
-    <a href="#reels">Reels</a>
-    <a href="#contact">Contact</a>
-  </div>
+  <div class="f-links"><a href="#featured-work">Work</a><a href="#reels">Reels</a><a href="#contact">Contact</a></div>
   <p class="f-copy">&copy; <span id="yr"></span> swang. All rights reserved.</p>
 </footer>
-
-<!-- FIXED CTA -->
 <a href="#contact" class="cta-pill">Let's Talk</a>
-
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  const words  = ['brand','product','influencer','service','creator','vision'];
-  const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-vision'];
-  let wi = 0;
-  const rwEl = document.getElementById('rw');
-  function rotateWord() {
-    rwEl.style.animation = 'none';
-    rwEl.offsetHeight;
-    wi = (wi + 1) % words.length;
-    rwEl.className = colors[wi];
-    rwEl.textContent = words[wi];
-    rwEl.style.animation = 'fadeWord 0.5s ease';
-  }
-  setInterval(rotateWord, 3200);
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), 150 + i * 120);
-  });
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const words=['brand','product','influencer','service','creator','vision'];
+  const colors=['w-brand','w-product','w-influencer','w-service','w-creator','w-vision'];
+  let wi=0;const rwEl=document.getElementById('rw');
+  function rotateWord(){rwEl.style.animation='none';rwEl.offsetHeight;wi=(wi+1)%words.length;rwEl.className=colors[wi];rwEl.textContent=words[wi];rwEl.style.animation='fadeWord 0.5s ease';}
+  setInterval(rotateWord,3200);
+  const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target);}});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.querySelectorAll('.hero .reveal').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),150+i*120);});
 </script>
 </body>
 </html>
