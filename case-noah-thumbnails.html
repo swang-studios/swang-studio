@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clickbait Thumbnails for a Sports Creator — Case Study | swang.</title>
+  <meta name="description" content="Case study: designing high-CTR YouTube thumbnails for a 70K-subscriber sports creator. Made to stand out. Built to get clicks." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #5c7a42;
+      --accent-dark: #3d5229;
+      --honey: #e8a800;
+      --gold: #c9963a;
+      --gray: #888;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      background: #1c2416;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
+        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
+        #1c2416;
+      animation: meshDrift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes meshDrift {
+      0%   { transform: scale(1)    translate(0, 0); }
+      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
+      100% { transform: scale(1)    translate(1.5%, -1.2%); }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 48px;
+      background: rgba(18,24,14,0.92);
+      backdrop-filter: blur(14px);
+    }
+    nav .logo {
+      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+      color: #f0f0f0; text-decoration: none;
+    }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
+      opacity: 0.65; transition: opacity 0.2s;
+    }
+    nav ul a:hover { opacity: 1; }
+
+    /* LAYOUT */
+    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 64px; }
+    .cs-crumb {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      margin-bottom: 28px;
+    }
+    .cs-crumb:hover { color: var(--honey); }
+    .cs-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--honey);
+    }
+    .cs-title {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.0; margin-top: 16px;
+      max-width: 900px;
+    }
+    .cs-title em { color: var(--accent); font-style: normal; }
+    .cs-lede {
+      margin-top: 24px; font-size: 17px; line-height: 1.7;
+      color: rgba(240,240,240,0.8); max-width: 700px;
+    }
+
+    .cs-hero {
+      margin-top: 48px; border-radius: 3px; overflow: hidden;
+      background: #2a3423; aspect-ratio: 16/9;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .cs-body { margin-top: 64px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
+    .cs-body p { font-size: 16px; line-height: 1.8; color: rgba(240,240,240,0.78); }
+    .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
+
+    .cs-rule {
+      height: 1px; background: rgba(255,255,255,0.08);
+      margin: 40px 0; max-width: 780px;
+    }
+
+    .cs-bullets {
+      list-style: none; margin-top: 8px;
+      display: grid; gap: 12px;
+    }
+    .cs-bullets li {
+      padding: 16px 18px; border-left: 3px solid var(--accent);
+      background: rgba(255,255,255,0.04);
+      font-size: 15px; line-height: 1.6; color: #e8e8e8;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .cs-callout {
+      margin: 48px 0; padding: 32px 36px;
+      border: 1px solid rgba(232,168,0,0.25);
+      background: linear-gradient(135deg, rgba(232,168,0,0.08), rgba(92,122,66,0.04));
+      border-radius: 3px;
+      max-width: 780px;
+    }
+    .cs-callout strong {
+      display: block; font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 700; letter-spacing: -0.02em; color: #fff;
+    }
+    .cs-callout span {
+      display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* INTERACTIVE GRAPH — CTR lift */
+    .graph-section {
+      margin: 72px 0; padding: 48px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 3px;
+    }
+    .graph-section .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .graph-section .section-label::before {
+      content: ''; display: inline-block;
+      width: 18px; height: 1.5px; background: var(--accent);
+    }
+    .graph-section h3 {
+      font-size: clamp(22px, 2.4vw, 32px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0; max-width: 620px; line-height: 1.2;
+    }
+    .graph-section .hint { font-size: 13px; color: var(--gray); margin-top: 8px; }
+    .graph {
+      margin-top: 32px;
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+      align-items: end; min-height: 260px;
+    }
+    .bar {
+      background: linear-gradient(to top, var(--accent), #8fb264);
+      border-radius: 2px 2px 0 0;
+      position: relative;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .bar:hover { filter: brightness(1.15); transform: translateY(-3px); }
+    .bar .b-val {
+      position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; font-weight: 700; color: var(--honey);
+      white-space: nowrap;
+    }
+    .bar .b-label {
+      position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #999;
+      white-space: nowrap;
+    }
+    .graph-legend {
+      display: flex; gap: 24px; margin-top: 48px; font-size: 12px; color: #999;
+    }
+    .graph-legend .pulse {
+      width: 10px; height: 10px; background: var(--honey); border-radius: 50%;
+      display: inline-block; margin-right: 8px; vertical-align: middle;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232,168,0,0.5); }
+      50%      { box-shadow: 0 0 0 8px rgba(232,168,0,0); }
+    }
+
+    /* THUMBNAIL GALLERY */
+    .thumbs-section { margin-top: 80px; }
+    .thumbs-section h2 {
+      font-size: clamp(26px, 3vw, 40px); font-weight: 700;
+      letter-spacing: -0.03em; color: #f0f0f0;
+    }
+    .thumbs-section h2 em { color: var(--accent); font-style: normal; }
+    .thumbs-section p.sub {
+      margin-top: 10px; font-size: 14px; color: var(--gray);
+    }
+    .thumbs-grid {
+      margin-top: 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .thumb {
+      position: relative; overflow: hidden; border-radius: 3px;
+      aspect-ratio: 16/9; background: #2a3423;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+
+    /* YT LINK */
+    .yt-cta {
+      margin: 48px 0 0; padding: 24px 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px; background: rgba(255,255,255,0.03);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; text-decoration: none; color: inherit;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .yt-cta:hover { border-color: var(--honey); background: rgba(232,168,0,0.06); }
+    .yt-cta strong { font-size: 15px; font-weight: 700; color: #f0f0f0; }
+    .yt-cta span { display: block; font-size: 12px; color: var(--gray); margin-top: 4px; }
+    .yt-cta .arrow {
+      font-size: 24px; color: var(--honey);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 96px; padding: 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap; gap: 20px;
+    }
+    footer .back {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); text-decoration: none;
+    }
+    footer .back:hover { color: var(--honey); }
+    footer .copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .cs-wrap { padding: 120px 24px 48px; }
+      .graph { grid-template-columns: repeat(6, 1fr); }
+      .thumbs-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .graph-section { padding: 32px 22px; }
+      footer { padding: 36px 24px; }
+    }
+    @media (max-width: 520px) {
+      .thumbs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">swang.</a>
+  <ul>
+    <li><a href="index.html#featured-work">Work</a></li>
+    <li><a href="index.html#reels">Reels</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-wrap">
+  <a href="index.html#featured-work" class="cs-crumb">&larr; Back to Work</a>
+
+  <p class="cs-tag">Content Design · YouTube</p>
+  <h1 class="cs-title">Clickbait Thumbnails <em>for a Sports Creator.</em></h1>
+  <p class="cs-lede">
+    Worked with a sports YouTuber (~70K subs) on thumbnails for big moments &mdash; NFL slates, Super Bowl content, live streams. The goal was simple: make something that pops instantly in the feed and actually gets clicked.
+  </p>
+
+  <div class="cs-hero">
+    <img src="noah-thumb-1.png" alt="Featured Noah thumbnail" />
+  </div>
+
+  <section class="cs-body">
+    <p>Everything was built around how people <em>really</em> scroll YouTube. Fast decisions, small screens, tons of competition. So instead of overthinking design, it was about making things obvious, bold, and easy to understand at a glance.</p>
+
+    <div class="cs-rule"></div>
+
+    <ul class="cs-bullets">
+      <li>Simple 2&ndash;4 word hooks, strong reactions, bright colors that stand out.</li>
+      <li>Thumbnails + live banners turned around quickly for same-day relevance.</li>
+    </ul>
+
+    <div class="cs-rule"></div>
+
+    <p>Over time, it became less about making each one perfect and more about building a style that works every time. Once viewers recognize the look, they're way more likely to click again.</p>
+    <p>Nothing fancy &mdash; just clear, scroll-stopping visuals that do their job.</p>
+  </section>
+
+  <div class="cs-callout reveal">
+    <strong>Made to stand out. Built to get clicks.</strong>
+    <span>Tailored 1280×720 designs that portray and dramatize the content of the video.</span>
+  </div>
+
+  <!-- INTERACTIVE CTR GRAPH -->
+  <section class="graph-section reveal">
+    <p class="section-label">Why series style wins</p>
+    <h3>Once viewers recognize the look, click-through compounds.</h3>
+    <p class="hint">Relative CTR lift by thumbnail iteration &mdash; stylized trend across a recurring series. Hover a bar.</p>
+    <div class="graph" id="ctrGraph" aria-hidden="true"></div>
+    <div class="graph-legend">
+      <span><span class="pulse"></span>Same-day turnaround windows</span>
+      <span>Style locks in → audience recognition → click</span>
+    </div>
+  </section>
+
+  <!-- THUMBNAIL SHOWCASE -->
+  <section class="thumbs-section reveal">
+    <h2>The <em>series</em>.</h2>
+    <p class="sub">A sample of thumbnails + banners built for same-day relevance.</p>
+    <div class="thumbs-grid">
+      <div class="thumb"><img src="noah-thumb-1.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-2.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-3.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-4.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-5.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-6.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-7.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-8.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-9.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-10.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-11.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-12.png" alt="" /></div>
+    </div>
+
+    <a class="yt-cta" href="https://www.youtube.com/@DFSbyNoah" target="_blank" rel="noopener">
+      <div>
+        <strong>Watch the channel — @DFSbyNoah</strong>
+        <span>YouTube · Sports · DFS strategy &amp; commentary</span>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+  </section>
+</div>
+
+<footer>
+  <a class="back" href="index.html#featured-work">&larr; Back to all work</a>
+  <span class="copy">&copy; <span id="yr"></span> swang. All rights reserved.</span>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Build a stylized CTR lift bar chart — relative values so it reads as a trend.
+  const bars = [
+    { label: 'V1', val: 32, note: 'baseline' },
+    { label: 'V2', val: 48, note: '+50%' },
+    { label: 'V3', val: 61, note: '+91%' },
+    { label: 'V4', val: 73, note: '+128%' },
+    { label: 'V5', val: 84, note: '+163%' },
+    { label: 'V6', val: 96, note: '+200%' }
+  ];
+  const g = document.getElementById('ctrGraph');
+  if (g) {
+    bars.forEach((b, i) => {
+      const el = document.createElement('div');
+      el.className = 'bar';
+      el.style.height = '0%';
+      el.innerHTML =
+        '<span class="b-val">' + b.note + '</span>' +
+        '<span class="b-label">' + b.label + '</span>';
+      g.appendChild(el);
+      // Animate in on scroll into view
+      setTimeout(() => { el.style.transition = 'height 1.1s cubic-bezier(.22,.61,.36,1) ' + (i*120) + 'ms'; el.style.height = b.val + '%'; }, 50);
+    });
+  }
+</script>
+</body>
+</html>

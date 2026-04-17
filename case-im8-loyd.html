@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IM8 x Jewell Loyd — Athlete Content, Done Clean | swang.</title>
+  <meta name="description" content="Case study: collaboration content for Jewell Loyd (1.3M audience) with IM8. Entertaining, brand-safe, built to fit the athlete's page." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #5c7a42;
+      --accent-dark: #3d5229;
+      --honey: #e8a800;
+      --gold: #c9963a;
+      --gray: #888;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      background: #1c2416;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
+        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
+        #1c2416;
+      animation: meshDrift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes meshDrift {
+      0%   { transform: scale(1)    translate(0, 0); }
+      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
+      100% { transform: scale(1)    translate(1.5%, -1.2%); }
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 48px;
+      background: rgba(18,24,14,0.92);
+      backdrop-filter: blur(14px);
+    }
+    nav .logo {
+      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+      color: #f0f0f0; text-decoration: none;
+    }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
+      opacity: 0.65; transition: opacity 0.2s;
+    }
+    nav ul a:hover { opacity: 1; }
+
+    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 64px; }
+    .cs-crumb {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      margin-bottom: 28px;
+    }
+    .cs-crumb:hover { color: var(--honey); }
+
+    /* IM8 HERO HEADER — logo centered with subtle ambient glow */
+    .im8-hero {
+      margin-top: 8px;
+      padding: 68px 40px;
+      text-align: center;
+      border-radius: 3px;
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse at center, rgba(92,122,66,0.22) 0%, transparent 70%),
+        linear-gradient(180deg, #1a2212 0%, #131910 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .im8-hero::before, .im8-hero::after {
+      content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+      filter: blur(70px); opacity: 0.35; pointer-events: none;
+    }
+    .im8-hero::before { background: var(--honey); top: -100px; left: -100px; }
+    .im8-hero::after  { background: var(--accent); bottom: -100px; right: -100px; }
+    .im8-logo-wrap {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 26px 40px; margin-bottom: 8px;
+    }
+    .im8-logo-wrap img {
+      max-height: 72px; width: auto;
+      filter: drop-shadow(0 8px 30px rgba(0,0,0,0.45));
+    }
+    .im8-hook {
+      position: relative; z-index: 1;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--honey);
+      margin-top: 14px;
+    }
+    .im8-title {
+      position: relative; z-index: 1;
+      margin-top: 14px;
+      font-size: clamp(32px, 4.4vw, 56px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.0; color: #fff;
+    }
+    .im8-title em { color: var(--honey); font-style: normal; }
+    .im8-sub {
+      position: relative; z-index: 1;
+      margin-top: 20px; font-size: 15px; color: rgba(255,255,255,0.7);
+      letter-spacing: 0.04em;
+    }
+
+    .cs-body { margin: 64px auto 0; display: grid; gap: 24px; max-width: 780px; }
+    .cs-body p { font-size: 16px; line-height: 1.8; color: rgba(240,240,240,0.78); }
+    .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
+    .cs-rule { height: 1px; background: rgba(255,255,255,0.08); margin: 40px 0; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .cs-bullets { list-style: none; margin: 8px auto 0; display: grid; gap: 12px; max-width: 780px; }
+    .cs-bullets li {
+      padding: 16px 18px; border-left: 3px solid var(--accent);
+      background: rgba(255,255,255,0.04);
+      font-size: 15px; line-height: 1.6; color: #e8e8e8;
+      border-radius: 0 3px 3px 0;
+    }
+    .cs-callout {
+      margin: 48px auto; padding: 32px 36px;
+      border: 1px solid rgba(232,168,0,0.25);
+      background: linear-gradient(135deg, rgba(232,168,0,0.08), rgba(92,122,66,0.04));
+      border-radius: 3px; max-width: 780px;
+    }
+    .cs-callout strong {
+      display: block; font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 700; letter-spacing: -0.02em; color: #fff;
+    }
+    .cs-callout span {
+      display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* REACH CALLOUT */
+    .reach {
+      margin: 72px auto 0;
+      max-width: 780px;
+      padding: 48px 40px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      border-radius: 3px;
+    }
+    .reach .lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .reach .big {
+      font-size: clamp(54px, 8vw, 110px); font-weight: 700;
+      letter-spacing: -0.05em; line-height: 1.0;
+      background: linear-gradient(135deg, var(--honey) 0%, #fff 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      font-variant-numeric: tabular-nums;
+    }
+    .reach .sub {
+      margin-top: 16px; font-size: 14px; color: rgba(255,255,255,0.6);
+      max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6;
+    }
+
+    /* BALANCE SLIDER GRAPHIC */
+    .balance {
+      margin: 72px auto 0;
+      max-width: 780px;
+      padding: 44px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 3px;
+    }
+    .balance .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .balance .section-label::before {
+      content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
+    }
+    .balance h3 {
+      font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0; line-height: 1.2;
+    }
+    .balance h3 em { color: var(--honey); font-style: normal; }
+    .balance-bar {
+      margin-top: 36px; position: relative;
+      height: 8px;
+      background: linear-gradient(90deg,
+        rgba(239,68,68,0.35) 0%,
+        rgba(239,68,68,0.1) 25%,
+        rgba(232,168,0,0.8) 50%,
+        rgba(239,68,68,0.1) 75%,
+        rgba(239,68,68,0.35) 100%);
+      border-radius: 4px;
+    }
+    .balance-marker {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--honey);
+      box-shadow: 0 0 0 4px rgba(232,168,0,0.2), 0 6px 18px rgba(232,168,0,0.4);
+      animation: drift 5s ease-in-out infinite;
+    }
+    @keyframes drift {
+      0%, 100% { left: 48%; }
+      50%      { left: 52%; }
+    }
+    .balance-labels {
+      display: flex; justify-content: space-between;
+      margin-top: 16px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #888;
+    }
+    .balance-labels .mid { color: var(--honey); }
+    .balance .hint {
+      margin-top: 28px; font-size: 13px; line-height: 1.7; color: #999;
+      max-width: 580px;
+    }
+
+    /* IG EMBED */
+    .ig-embed-section { margin: 72px auto 0; max-width: 780px; }
+    .ig-embed-section h2 {
+      font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0;
+    }
+    .ig-embed-section .sub {
+      font-size: 14px; color: var(--gray); margin-top: 8px;
+    }
+    .ig-wrap {
+      margin-top: 24px; background: rgba(255,255,255,0.05);
+      border-radius: 3px; overflow: hidden;
+      max-width: 540px;
+    }
+    .ig-wrap iframe { width: 100%; height: 740px; border: none; display: block; }
+
+    /* PARTNERSHIP INTENT */
+    .intent {
+      margin: 72px auto 0;
+      max-width: 780px;
+      padding: 40px 36px;
+      background: linear-gradient(135deg, rgba(92,122,66,0.12), rgba(12,16,8,0.4));
+      border: 1px solid rgba(92,122,66,0.25);
+      border-radius: 3px;
+    }
+    .intent h3 {
+      font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0;
+    }
+    .intent h3 em { color: var(--accent); font-style: normal; }
+    .intent p {
+      margin-top: 14px; font-size: 15px; line-height: 1.8;
+      color: rgba(240,240,240,0.78);
+    }
+
+    footer {
+      margin-top: 96px; padding: 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap; gap: 20px;
+    }
+    footer .back {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); text-decoration: none;
+    }
+    footer .back:hover { color: var(--honey); }
+    footer .copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .cs-wrap { padding: 120px 24px 48px; }
+      .im8-hero { padding: 48px 24px; }
+      .im8-logo-wrap img { max-height: 56px; }
+      .reach { padding: 36px 24px; }
+      .balance { padding: 32px 22px; }
+      .ig-wrap iframe { height: 640px; }
+      .intent { padding: 32px 24px; }
+      footer { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">swang.</a>
+  <ul>
+    <li><a href="index.html#featured-work">Work</a></li>
+    <li><a href="index.html#reels">Reels</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-wrap">
+  <a href="index.html#featured-work" class="cs-crumb">&larr; Back to Work</a>
+
+  <!-- IM8 HEADER BLOCK -->
+  <div class="im8-hero">
+    <div class="im8-logo-wrap">
+      <img src="8.png" alt="IM8 logo" />
+    </div>
+    <p class="im8-hook">Brand × Athlete, Done Clean</p>
+    <h1 class="im8-title">IM8 × Jewell Loyd.<br /><em>High-Level Content for High-Level Athletes.</em></h1>
+    <p class="im8-sub">Performance-driven content that fits the athlete's page, not interrupts it.</p>
+  </div>
+
+  <!-- BODY -->
+  <section class="cs-body">
+    <p>Worked on a collaboration post featuring a high-level athlete &mdash; <em>1.3M audience, Jewell Loyd</em> &mdash; alongside IM8. The goal was to create something that feels natural to her audience while still representing the brand the right way.</p>
+    <p>Not overly scripted, not overly branded &mdash; just a clean balance between performance, personality, and product.</p>
+  </section>
+
+  <div class="cs-rule"></div>
+
+  <ul class="cs-bullets">
+    <li>Built content that keeps it entertaining while still brand-safe and polished.</li>
+    <li>Positioned the product in a way that feels natural, not forced.</li>
+  </ul>
+
+  <div class="cs-rule"></div>
+
+  <section class="cs-body">
+    <p>With athlete content, it's easy to lean too far one way &mdash; either too ad-heavy or too casual. This sat right in the middle. Something that fits her page, but still gives the brand real visibility.</p>
+  </section>
+
+  <div class="cs-callout">
+    <strong>It doesn't feel like an ad &mdash; but it still does its job.</strong>
+    <span>Clean. Natural. Effective. Built to fit the moment.</span>
+  </div>
+
+  <!-- REACH -->
+  <div class="reach">
+    <div class="lbl">Athlete Reach</div>
+    <div class="big" id="reachCount">0</div>
+    <div class="sub">Jewell Loyd's audience &mdash; a 1.3-million-strong following across platforms, delivered without the content feeling like an interruption.</div>
+  </div>
+
+  <!-- BALANCE GRAPHIC -->
+  <section class="balance">
+    <p class="section-label">Where this landed</p>
+    <h3>Not too branded. Not too casual. <em>Right in the middle.</em></h3>
+    <div class="balance-bar">
+      <div class="balance-marker" aria-hidden="true"></div>
+    </div>
+    <div class="balance-labels">
+      <span>Too Ad-Heavy</span>
+      <span class="mid">The Sweet Spot</span>
+      <span>Too Casual</span>
+    </div>
+    <p class="hint">Athlete content lives or dies on this axis. Push too hard on brand &mdash; audience bounces. Lean too casual &mdash; the product disappears. The win is staying centered: entertaining, brand-safe, polished, and naturally placed.</p>
+  </section>
+
+  <!-- IG EMBED -->
+  <section class="ig-embed-section">
+    <h2>The collab.</h2>
+    <p class="sub">The post in context &mdash; athlete moment, product integration, lifestyle, clean delivery.</p>
+    <div class="ig-wrap">
+      <iframe src="https://www.instagram.com/p/DWfxCu1DEqE/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <!-- PARTNERSHIP INTENT -->
+  <section class="intent">
+    <h3>IM8 partnership &mdash; <em>built with intent.</em></h3>
+    <p>Ongoing work with IM8 focused on creating content that matches the level of the athletes they work with. Clean visuals, strong presence, and content that feels aligned with performance, not just promotion. Athlete-first, but still built with intent.</p>
+  </section>
+</div>
+
+<footer>
+  <a class="back" href="index.html#featured-work">&larr; Back to all work</a>
+  <span class="copy">&copy; <span id="yr"></span> swang. All rights reserved.</span>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // 1.3M audience counter animation (count into the "1.3M" format).
+  const el = document.getElementById('reachCount');
+  const target = 1300000;
+  const duration = 1800;
+  function format(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000)    return Math.round(n / 1000) + 'K';
+    return n.toString();
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = format(Math.floor(target * eased));
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  io.observe(el);
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@
   <meta property="og:description" content="Visual direction and content that converts. For brands and creators who play to win." />
   <meta property="og:url" content="https://www.swang.studio" />
   <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -163,6 +164,7 @@
     #rw.w-influencer{ color: #3B82F6; }
     #rw.w-service   { color: #A855F7; }
     #rw.w-creator   { color: #EC4899; }
+    #rw.w-property  { color: #14B8A6; }
     #rw.w-vision    { color: #e8a800; }
 
     /* CLIENTS */
@@ -211,11 +213,11 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* GALLERY */
+    /* GALLERY — 4 editorial tiles */
     .gallery {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: 300px 240px;
+      grid-template-rows: 340px 280px;
       gap: 3px; padding: 3px;
     }
     .gi { overflow: hidden; background: #2a3423; position: relative; }
@@ -224,12 +226,10 @@
       display: block; transition: transform 0.7s ease;
     }
     .gi:hover img { transform: scale(1.04); }
-    .ga { grid-column: 1/6;  grid-row: 1; }
-    .gb { grid-column: 6/9;  grid-row: 1; }
-    .gc { grid-column: 9/13; grid-row: 1; }
-    .gd { grid-column: 1/4;  grid-row: 2; }
-    .ge { grid-column: 4/8;  grid-row: 2; }
-    .gf { grid-column: 8/13; grid-row: 2; }
+    .ga { grid-column: 1/8;  grid-row: 1; }   /* Mercedes feature */
+    .gb { grid-column: 8/13; grid-row: 1; }   /* putting green */
+    .gc { grid-column: 1/6;  grid-row: 2; }   /* portrait */
+    .gd { grid-column: 6/13; grid-row: 2; }   /* putting green aerial */
 
     /* SECTION CHROME */
     .section-label {
@@ -310,6 +310,40 @@
     .cards-track {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
+    /* In-progress case studies block */
+    .work-inprogress {
+      border: 1px dashed rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.03);
+      padding: 60px 48px;
+      text-align: center;
+      border-radius: 3px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .work-inprogress .wi-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--honey);
+    }
+    .work-inprogress h3 {
+      font-size: clamp(20px, 2vw, 28px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0; max-width: 560px; line-height: 1.2;
+    }
+    .work-inprogress p {
+      font-size: 14px; line-height: 1.7; color: #999; max-width: 520px;
+    }
+    .work-link.disabled {
+      color: #666; border-bottom-color: rgba(255,255,255,0.1);
+      pointer-events: none;
+    }
+    /* IM8 card — logo centered on dark backdrop */
+    .card.card-im8 .card-img {
+      background: radial-gradient(ellipse at center, #222a18 0%, #101509 75%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card.card-im8 .card-img img {
+      width: 68%; height: auto; max-height: 60%;
+      object-fit: contain; filter: drop-shadow(0 4px 18px rgba(0,0,0,0.4));
+    }
+    .card.card-im8:hover .card-img img { transform: scale(1.06); }
     .card {
       display: flex; flex-direction: column;
       border: 1px solid rgba(255,255,255,0.08);
@@ -413,6 +447,76 @@
       background: var(--accent); color: #fff; transition: background 0.2s;
     }
     .about-cta:hover { background: var(--accent-dark); }
+
+    /* LEAVE A NOTE */
+    .note {
+      padding: 90px 48px;
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .note-inner {
+      max-width: 640px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .note-headline {
+      font-size: clamp(26px, 3.2vw, 42px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.1; margin-top: 12px; color: #f0f0f0;
+    }
+    .note-headline em { color: var(--honey); font-style: normal; }
+    .note-sub {
+      font-size: 14px; line-height: 1.7; color: #999; max-width: 540px;
+    }
+    .note-form {
+      margin-top: 18px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .note-form .row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .note-form input,
+    .note-form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(12,16,8,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2px;
+      color: #f0f0f0;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+    .note-form input::placeholder,
+    .note-form textarea::placeholder { color: rgba(240,240,240,0.35); }
+    .note-form input:focus,
+    .note-form textarea:focus {
+      border-color: var(--accent);
+      background: rgba(12,16,8,0.6);
+    }
+    .note-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .note-form button {
+      align-self: flex-start;
+      padding: 14px 32px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--honey); color: #1c2416;
+      border: none; border-radius: 2px; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .note-form button:hover { background: var(--honey-dark); transform: translateY(-1px); }
+    .note-status {
+      font-size: 12px; color: var(--accent); min-height: 18px;
+      letter-spacing: 0.06em;
+    }
+    .note-status.error { color: #d87474; }
+    @media (max-width: 720px) {
+      .note { padding: 56px 24px; }
+      .note-form .row { grid-template-columns: 1fr; }
+    }
     .about-photo-wrap {
       position: relative; display: flex;
       align-items: center; justify-content: center;
@@ -500,9 +604,7 @@
       .ga { grid-column: 1/3; grid-row: 1; }
       .gb { grid-column: 1/2; grid-row: 2; }
       .gc { grid-column: 2/3; grid-row: 2; }
-      .gd { grid-column: 1/2; grid-row: 3; }
-      .ge { grid-column: 2/3; grid-row: 3; }
-      .gf { display: none; }
+      .gd { grid-column: 1/3; grid-row: 3; }
       .clients { padding: 64px 24px; }
       .reels { padding: 64px 24px; }
       .reels-grid { grid-template-columns: 1fr 1fr; }
@@ -583,8 +685,8 @@
       <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
       <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
       <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
-      <a class="logo-item" href="#" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
-      <a class="logo-item" href="https://jamagansett.com" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
+      <a class="logo-item" href="https://im8health.com/" target="_blank" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
+      <a class="logo-item" href="https://jamagansett.com/" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
       <!-- duplicate for seamless loop -->
       <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
       <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
@@ -592,30 +694,28 @@
       <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
       <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
       <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
-      <a class="logo-item" href="#" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
-      <a class="logo-item" href="https://jamagansett.com" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
+      <a class="logo-item" href="https://im8health.com/" target="_blank" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
+      <a class="logo-item" href="https://jamagansett.com/" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
     </div>
   </div>
 </section>
 
-<!-- GALLERY GRID -->
+<!-- GALLERY GRID — 4-tile editorial (Mercedes, putting green, portrait, aerial putting green) -->
 <div id="gallery" class="gallery">
-  <div class="gi ga"><img src="aerial-backyard.jpg" alt="Aerial backyard transformation" /></div>
+  <div class="gi ga"><img src="bmw.jpg" alt="Automotive campaign" /></div>
   <div class="gi gb"><img src="pgreen6.jpg" alt="Putting green" /></div>
-  <div class="gi gc"><img src="portrait1.jpg" alt="Portrait" /></div>
-  <div class="gi gd"><img src="bmw.jpg" alt="Automotive" /></div>
-  <div class="gi ge"><img src="putting-green-aerial.jpg" alt="Aerial putting green" /></div>
-  <div class="gi gf"><img src="photo3b.jpg" alt="Campaign photography" /></div>
+  <div class="gi gc"><img src="portrait1.jpg" alt="Editorial portrait" /></div>
+  <div class="gi gd"><img src="putting-green-aerial.jpg" alt="Aerial putting green" /></div>
 </div>
 <div style="text-align:center; padding: 36px 0 48px;">
-  <a href="case-studies.html" class="btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
+  <a href="gallery.html" class="btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
     View Full Gallery &nbsp;&rarr;
   </a>
 </div>
 
 <!-- LIVE CONTENT -->
 <section class="reels" id="reels">
-  <p class="section-label">Live Content</p>
+  <p class="section-label">My Live Content</p>
   <h2 class="reels-headline reveal">
     Content reels that<br><em>stop the scroll.</em>
   </h2>
@@ -649,36 +749,36 @@
 <section class="work" id="featured-work">
   <div class="work-header reveal">
     <div>
-      <p class="section-label">Featured Work</p>
-      <h2 class="work-headline">From concept<br>to <em>results.</em></h2>
+      <p class="section-label">Recent Business Interactions</p>
+      <h2 class="work-headline">Real partners.<br>Real <em>results.</em></h2>
     </div>
-    <a href="case-studies.html" class="work-link">All Case Studies</a>
+    <a href="#leave-a-note" class="work-link">Leave a Note &rarr;</a>
   </div>
   <div class="cards-track">
-    <a href="blog-noah-thumbnails.html" class="card reveal">
-      <div class="card-img"><img src="1.png" alt="Noah Thumbnails" /></div>
+    <a href="case-noah-thumbnails.html" class="card reveal">
+      <div class="card-img"><img src="noah-thumb-1.png" alt="Clickbait thumbnail for a sports YouTuber" /></div>
       <div class="card-body">
-        <p class="card-tag">Content Strategy</p>
-        <h3 class="card-title">The Thumbnail Is Doing All the Work. You're Just Not Letting It.</h3>
-        <p class="card-blurb">How a focused thumbnail strategy drove clicks, views, and gave the algorithm exactly what it wanted.</p>
-        <span class="card-cta">Read Post &rarr;</span>
-      </div>
-    </a>
-    <a href="case-studies.html" class="card reveal">
-      <div class="card-img"><img src="bull-boulder-thumb.png" alt="4x Return on Ad Spend" onerror="this.src='design3.jpg'" /></div>
-      <div class="card-body">
-        <p class="card-tag">Paid Media</p>
-        <h3 class="card-title">How Smarter Creative Testing Took a Brand from Breakeven to 4x Return on Ad Spend</h3>
-        <p class="card-blurb">A creative testing system and audience insights that drove a brand from breaking even to a 4x return in 90 days.</p>
+        <p class="card-tag">Content Design</p>
+        <h3 class="card-title">Clickbait Thumbnails for a Sports Creator</h3>
+        <p class="card-blurb">Simple hooks, bright reactions, same-day turnarounds. Built for how people actually scroll YouTube &mdash; obvious, bold, hard to ignore.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
-    <a href="case-studies.html" class="card reveal">
-      <div class="card-img"><img src="photo20.jpg" alt="Operations Case Study" /></div>
+    <a href="case-pavers-turf.html" class="card reveal">
+      <div class="card-img"><img src="putting-green-aerial.jpg" alt="Pavers and Turf aerial install" /></div>
       <div class="card-body">
-        <p class="card-tag">Operations Workflow</p>
-        <h3 class="card-title">Cutting Fulfillment Time 40% Through Workflow Redesign</h3>
-        <p class="card-blurb">A process audit and team restructure that slashed order-to-ship time nearly in half without adding headcount.</p>
+        <p class="card-tag">Content System &amp; Paid Social</p>
+        <h3 class="card-title">Changing How a Contractor Drives Business</h3>
+        <p class="card-blurb">A full content-to-ads loop for Pavers and Turf by O'Neill's. 15K+ views, 50+ shares, and a real inbound pipeline &mdash; not guesswork.</p>
+        <span class="card-cta">Read Case Study &rarr;</span>
+      </div>
+    </a>
+    <a href="case-im8-loyd.html" class="card reveal card-im8">
+      <div class="card-img"><img src="8.png" alt="IM8 logo" /></div>
+      <div class="card-body">
+        <p class="card-tag">Athlete Collaboration</p>
+        <h3 class="card-title">IM8 x Jewell Loyd &mdash; Athlete Content, Done Clean</h3>
+        <p class="card-blurb">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page &mdash; not interrupt it.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -723,6 +823,28 @@
   </div>
 </section>
 
+<!-- LEAVE A NOTE -->
+<section class="note" id="leave-a-note">
+  <div class="note-inner">
+    <p class="section-label">Leave A Note</p>
+    <h2 class="note-headline reveal">
+      How did I do &mdash;<br>or how could I <em>do better?</em>
+    </h2>
+    <p class="note-sub reveal">
+      Honest feedback only. What landed, what didn't, what you'd want more of. Delivered straight to my inbox.
+    </p>
+    <form class="note-form reveal" id="noteForm" novalidate>
+      <div class="row">
+        <input type="text" name="name" placeholder="Your name (optional)" autocomplete="name" />
+        <input type="email" name="email" placeholder="Email (optional)" autocomplete="email" />
+      </div>
+      <textarea name="message" placeholder="What's on your mind?" required></textarea>
+      <button type="submit">Send Note</button>
+      <p class="note-status" id="noteStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer id="contact">
   <div>
@@ -744,6 +866,7 @@
   <div class="f-links">
     <a href="#featured-work">Work</a>
     <a href="#reels">Reels</a>
+    <a href="#leave-a-note">Leave a Note</a>
     <a href="#contact">Contact</a>
   </div>
   <p class="f-copy">&copy; <span id="yr"></span> swang. All rights reserved.</p>
@@ -757,8 +880,8 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   // Rotating hero word
-  const words  = ['brand','product','influencer','service','creator','vision'];
-  const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-vision'];
+  const words  = ['brand','product','influencer','service','creator','property','vision'];
+  const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-property','w-vision'];
   let wi = 0;
   const rwEl = document.getElementById('rw');
   function rotateWord() {
@@ -770,6 +893,62 @@
     rwEl.style.animation = 'fadeWord 0.5s ease';
   }
   setInterval(rotateWord, 3200);
+
+  // ------------------------------------------------------------
+  // LEAVE A NOTE — posts to form service if configured, else mailto
+  // To wire up Formspree / Web3Forms later, set NOTE_ENDPOINT to
+  // your endpoint URL (e.g. "https://formspree.io/f/abc123") and
+  // set NOTE_SERVICE to 'formspree' or 'web3forms'.
+  // ------------------------------------------------------------
+  const NOTE_ENDPOINT = ''; // leave empty = mailto fallback
+  const NOTE_SERVICE  = ''; // 'formspree' | 'web3forms' | ''
+  const NOTE_TO       = 'hello@swang.studio';
+
+  const noteForm   = document.getElementById('noteForm');
+  const noteStatus = document.getElementById('noteStatus');
+  if (noteForm) {
+    noteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(noteForm);
+      const name    = (fd.get('name')    || '').toString().trim();
+      const email   = (fd.get('email')   || '').toString().trim();
+      const message = (fd.get('message') || '').toString().trim();
+      noteStatus.classList.remove('error');
+      if (!message) {
+        noteStatus.textContent = 'Please write a note before sending.';
+        noteStatus.classList.add('error');
+        return;
+      }
+      if (NOTE_ENDPOINT) {
+        try {
+          noteStatus.textContent = 'Sending…';
+          const res = await fetch(NOTE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message, _subject: 'swang.studio — note from visitor' })
+          });
+          if (res.ok) {
+            noteForm.reset();
+            noteStatus.textContent = 'Thanks — note received. I read every one.';
+            return;
+          }
+          throw new Error('Form service responded ' + res.status);
+        } catch (err) {
+          console.warn('Form service failed, falling back to mailto:', err);
+        }
+      }
+      // Mailto fallback — pre-fills the user's default mail client.
+      const subject = encodeURIComponent('Note from swang.studio visitor');
+      const bodyLines = [];
+      if (name)  bodyLines.push('From: ' + name);
+      if (email) bodyLines.push('Reply-to: ' + email);
+      bodyLines.push('');
+      bodyLines.push(message);
+      const body = encodeURIComponent(bodyLines.join('\n'));
+      window.location.href = 'mailto:' + NOTE_TO + '?subject=' + subject + '&body=' + body;
+      noteStatus.textContent = 'Opening your email app…';
+    });
+  }
 
   // Scroll reveal
   const io = new IntersectionObserver((entries) => {

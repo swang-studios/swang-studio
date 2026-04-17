@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changing How a Contractor Drives Business — Pavers and Turf by O'Neill's | swang.</title>
+  <meta name="description" content="Case study: built a content + ad system for Pavers and Turf by O'Neill's. 15K+ views, 50+ shares, and an inbound pipeline that runs itself." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #5c7a42;
+      --accent-dark: #3d5229;
+      --honey: #e8a800;
+      --gold: #c9963a;
+      --gray: #888;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      background: #1c2416;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
+        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
+        #1c2416;
+      animation: meshDrift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes meshDrift {
+      0%   { transform: scale(1)    translate(0, 0); }
+      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
+      100% { transform: scale(1)    translate(1.5%, -1.2%); }
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 48px;
+      background: rgba(18,24,14,0.92);
+      backdrop-filter: blur(14px);
+    }
+    nav .logo {
+      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+      color: #f0f0f0; text-decoration: none;
+    }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
+      opacity: 0.65; transition: opacity 0.2s;
+    }
+    nav ul a:hover { opacity: 1; }
+
+    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 64px; }
+    .cs-crumb {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      margin-bottom: 28px;
+    }
+    .cs-crumb:hover { color: var(--honey); }
+    .cs-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--honey);
+    }
+    .cs-title {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.0; margin-top: 16px;
+      max-width: 900px;
+    }
+    .cs-title em { color: var(--accent); font-style: normal; }
+    .cs-lede {
+      margin-top: 24px; font-size: 17px; line-height: 1.7;
+      color: rgba(240,240,240,0.8); max-width: 700px;
+    }
+    .cs-hero {
+      margin-top: 48px; border-radius: 3px; overflow: hidden;
+      background: #2a3423; aspect-ratio: 16/9;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-body { margin-top: 64px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
+    .cs-body p { font-size: 16px; line-height: 1.8; color: rgba(240,240,240,0.78); }
+    .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
+    .cs-rule { height: 1px; background: rgba(255,255,255,0.08); margin: 40px 0; max-width: 780px; }
+    .cs-bullets { list-style: none; margin-top: 8px; display: grid; gap: 12px; }
+    .cs-bullets li {
+      padding: 16px 18px; border-left: 3px solid var(--accent);
+      background: rgba(255,255,255,0.04);
+      font-size: 15px; line-height: 1.6; color: #e8e8e8;
+      border-radius: 0 3px 3px 0;
+    }
+    .cs-callout {
+      margin: 48px 0; padding: 32px 36px;
+      border: 1px solid rgba(232,168,0,0.25);
+      background: linear-gradient(135deg, rgba(232,168,0,0.08), rgba(92,122,66,0.04));
+      border-radius: 3px; max-width: 780px;
+    }
+    .cs-callout strong {
+      display: block; font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 700; letter-spacing: -0.02em; color: #fff;
+    }
+    .cs-callout span {
+      display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* METRICS BAR */
+    .metrics {
+      margin: 72px 0 0;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .metric {
+      padding: 28px 24px; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px; background: rgba(255,255,255,0.04);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .metric:hover { border-color: var(--accent); background: rgba(92,122,66,0.08); }
+    .metric .big {
+      font-size: clamp(32px, 4vw, 52px); font-weight: 700;
+      letter-spacing: -0.03em; color: var(--honey); line-height: 1.0;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric .lbl {
+      margin-top: 10px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase; color: #bbb;
+    }
+    .metric .desc {
+      margin-top: 6px; font-size: 12px; color: var(--gray); line-height: 1.5;
+    }
+
+    /* LOOP DIAGRAM */
+    .loop-section {
+      margin: 72px 0; padding: 48px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 3px;
+    }
+    .loop-section .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .loop-section .section-label::before {
+      content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
+    }
+    .loop-section h3 {
+      font-size: clamp(22px, 2.4vw, 32px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0; max-width: 620px; line-height: 1.2;
+    }
+    .loop-section .hint { font-size: 13px; color: var(--gray); margin-top: 8px; }
+    .loop {
+      margin-top: 36px;
+      display: grid; grid-template-columns: repeat(4, 1fr) 1fr;
+      gap: 10px; align-items: stretch;
+    }
+    .node {
+      padding: 20px 16px; text-align: center;
+      background: rgba(12,16,8,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .node:hover { border-color: var(--honey); transform: translateY(-3px); }
+    .node .n-icon {
+      width: 42px; height: 42px; margin: 0 auto 10px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: rgba(92,122,66,0.15);
+      color: var(--accent); font-size: 18px; font-weight: 700;
+    }
+    .node .n-title {
+      font-size: 13px; font-weight: 700; color: #f0f0f0;
+      letter-spacing: 0.04em;
+    }
+    .node .n-desc { margin-top: 6px; font-size: 11px; color: #999; line-height: 1.5; }
+    .arrow-node {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: var(--honey); font-weight: 700;
+      animation: flow 2.4s ease-in-out infinite;
+    }
+    @keyframes flow {
+      0%, 100% { transform: translateX(0); opacity: 0.4; }
+      50%      { transform: translateX(4px); opacity: 1; }
+    }
+    .loop-return {
+      grid-column: 1 / -1;
+      margin-top: 14px; text-align: center;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      position: relative; padding: 12px 0;
+    }
+    .loop-return::before, .loop-return::after {
+      content: ''; position: absolute; top: 50%;
+      width: 30%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .loop-return::before { left: 2%; }
+    .loop-return::after { right: 2%; }
+
+    /* PLATFORM LINKS */
+    .platforms { margin: 72px 0 0; max-width: 780px; }
+    .platforms h2 {
+      font-size: clamp(24px, 2.8vw, 34px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0;
+    }
+    .platform-list {
+      margin-top: 24px; display: grid; gap: 10px;
+    }
+    .platform-list a {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 20px; text-decoration: none; color: #f0f0f0;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      border-radius: 3px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .platform-list a:hover {
+      border-color: var(--honey); background: rgba(232,168,0,0.06);
+      transform: translateX(4px);
+    }
+    .platform-list strong {
+      font-size: 14px; font-weight: 700; display: block;
+    }
+    .platform-list .url {
+      font-size: 11px; color: var(--gray); margin-top: 3px; font-family: ui-monospace, SF Mono, monospace;
+      display: block;
+    }
+    .platform-list .arrow { color: var(--honey); font-size: 18px; }
+
+    /* IG embed wrapper */
+    .ig-embed-section { margin: 72px 0 0; max-width: 780px; }
+    .ig-embed-section h2 {
+      font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0;
+    }
+    .ig-embed-section .sub {
+      font-size: 14px; color: var(--gray); margin-top: 8px;
+    }
+    .ig-wrap {
+      margin-top: 24px; background: rgba(255,255,255,0.05);
+      border-radius: 3px; overflow: hidden;
+      max-width: 540px;
+    }
+    .ig-wrap iframe { width: 100%; height: 740px; border: none; display: block; }
+
+    footer {
+      margin-top: 96px; padding: 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap; gap: 20px;
+    }
+    footer .back {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); text-decoration: none;
+    }
+    footer .back:hover { color: var(--honey); }
+    footer .copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .cs-wrap { padding: 120px 24px 48px; }
+      .metrics { grid-template-columns: 1fr; }
+      .loop {
+        grid-template-columns: 1fr;
+      }
+      .arrow-node { transform: rotate(90deg); }
+      .loop-section { padding: 32px 22px; }
+      .ig-wrap iframe { height: 640px; }
+      footer { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">swang.</a>
+  <ul>
+    <li><a href="index.html#featured-work">Work</a></li>
+    <li><a href="index.html#reels">Reels</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="cs-wrap">
+  <a href="index.html#featured-work" class="cs-crumb">&larr; Back to Work</a>
+
+  <p class="cs-tag">Content System · Paid Social · Local</p>
+  <h1 class="cs-title">Changing How a <em>Contractor</em> Drives Business.</h1>
+  <p class="cs-lede">
+    Pavers and Turf by O'Neill's had strong work, but no real system behind it. No paid social presence, inconsistent posting, and nothing set up to actually generate inbound leads.
+  </p>
+
+  <div class="cs-hero">
+    <img src="putting-green-aerial.jpg" alt="Aerial of a Pavers and Turf by O'Neill's install" />
+  </div>
+
+  <section class="cs-body">
+    <p>This wasn't a quality issue &mdash; it was <em>visibility</em>. The installs were there, but nothing was packaging or pushing them in a way that brought in consistent business.</p>
+
+    <div class="cs-rule"></div>
+
+    <ul class="cs-bullets">
+      <li>Built a content + ad system around real projects (photo, video, transformations).</li>
+      <li>Launched geo-targeted campaigns with clear offers and lead capture.</li>
+    </ul>
+
+    <div class="cs-rule"></div>
+
+    <p>Everything shifted from random posting to a loop. Projects became content, content became ads, and ads brought in real inquiries. Simple, but done consistently.</p>
+  </section>
+
+  <div class="cs-callout">
+    <strong>Now it runs like a pipeline &mdash; not guesswork.</strong>
+    <span>From one-off installs to a content → ads → inbound leads loop that compounds.</span>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="big" data-target="15000" data-suffix="+">0</div>
+      <div class="lbl">Views</div>
+      <div class="desc">Targeted sports-content drop to the right local + niche audience.</div>
+    </div>
+    <div class="metric">
+      <div class="big" data-target="50" data-suffix="+">0</div>
+      <div class="lbl">Shares</div>
+      <div class="desc">Organic amplification from local sports + landscaping communities.</div>
+    </div>
+    <div class="metric">
+      <div class="big">Strong</div>
+      <div class="lbl">Local Engagement</div>
+      <div class="desc">Sustained comment + DM activity in-geo, feeding the lead loop.</div>
+    </div>
+  </div>
+
+  <!-- LOOP DIAGRAM -->
+  <section class="loop-section">
+    <p class="section-label">The Loop</p>
+    <h3>Projects become content. Content becomes ads. Ads bring leads back in.</h3>
+    <p class="hint">Hover any step.</p>
+    <div class="loop">
+      <div class="node">
+        <div class="n-icon">1</div>
+        <div class="n-title">Project</div>
+        <div class="n-desc">Real install, shot on-site (photo + video)</div>
+      </div>
+      <div class="arrow-node" aria-hidden="true">&rarr;</div>
+      <div class="node">
+        <div class="n-icon">2</div>
+        <div class="n-title">Content</div>
+        <div class="n-desc">Edited for feed: before/after, transformation reels</div>
+      </div>
+      <div class="arrow-node" aria-hidden="true">&rarr;</div>
+      <div class="node">
+        <div class="n-icon">3</div>
+        <div class="n-title">Ads</div>
+        <div class="n-desc">Geo-targeted with clear offer + lead capture</div>
+      </div>
+      <div class="loop-return">Inbound leads → next project → repeat</div>
+    </div>
+  </section>
+
+  <!-- PLATFORMS -->
+  <section class="platforms">
+    <h2>Platform presence.</h2>
+    <div class="platform-list">
+      <a href="https://paversandturf.com/" target="_blank" rel="noopener">
+        <div><strong>Website</strong><span class="url">paversandturf.com</span></div>
+        <span class="arrow">&rarr;</span>
+      </a>
+      <a href="https://www.yelp.com/biz/pavers-and-turf-by-oneills-livermore" target="_blank" rel="noopener">
+        <div><strong>Reviews &mdash; Yelp</strong><span class="url">yelp.com/biz/pavers-and-turf-by-oneills-livermore</span></div>
+        <span class="arrow">&rarr;</span>
+      </a>
+      <a href="https://www.instagram.com/paversandturfbyoneills/" target="_blank" rel="noopener">
+        <div><strong>Main Instagram</strong><span class="url">@paversandturfbyoneills</span></div>
+        <span class="arrow">&rarr;</span>
+      </a>
+      <a href="https://www.instagram.com/oneillsignature/" target="_blank" rel="noopener">
+        <div><strong>Sports Division</strong><span class="url">@oneillsignature</span></div>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- IG EMBED -->
+  <section class="ig-embed-section">
+    <h2>Content that hit.</h2>
+    <p class="sub">Targeted sports content pushed to the right audience &mdash; local, niche, primed to share.</p>
+    <div class="ig-wrap">
+      <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <a class="back" href="index.html#featured-work">&larr; Back to all work</a>
+  <span class="copy">&copy; <span id="yr"></span> swang. All rights reserved.</span>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Count-up metric animation, triggered when in view.
+  function animateCount(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const val = Math.floor(target * eased);
+      el.textContent = val.toLocaleString() + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('.metric .big[data-target]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animateCount(e.target); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => io.observe(c));
+</script>
+</body>
+</html>
