@@ -197,7 +197,7 @@
     }
     .thumbs-grid {
       margin-top: 32px;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
     }
     .thumb {
       position: relative; overflow: hidden; border-radius: 3px;
@@ -271,7 +271,7 @@
   </p>
 
   <div class="cs-hero">
-    <img src="noah-thumb-1.png" alt="Featured Noah thumbnail" />
+    <img src="noah-thumb-12.png" alt="11/19 NBA PROPS — featured thumbnail" />
   </div>
 
   <section class="cs-body">
@@ -295,35 +295,17 @@
     <span>Tailored 1280×720 designs that portray and dramatize the content of the video.</span>
   </div>
 
-  <!-- INTERACTIVE CTR GRAPH -->
-  <section class="graph-section reveal">
-    <p class="section-label">Why series style wins</p>
-    <h3>Once viewers recognize the look, click-through compounds.</h3>
-    <p class="hint">Relative CTR lift by thumbnail iteration &mdash; stylized trend across a recurring series. Hover a bar.</p>
-    <div class="graph" id="ctrGraph" aria-hidden="true"></div>
-    <div class="graph-legend">
-      <span><span class="pulse"></span>Same-day turnaround windows</span>
-      <span>Style locks in → audience recognition → click</span>
-    </div>
-  </section>
-
   <!-- THUMBNAIL SHOWCASE -->
   <section class="thumbs-section reveal">
     <h2>The <em>series</em>.</h2>
     <p class="sub">A sample of thumbnails + banners built for same-day relevance.</p>
     <div class="thumbs-grid">
-      <div class="thumb"><img src="noah-thumb-1.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-2.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-3.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-4.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-5.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-6.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-7.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-8.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-9.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-10.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-11.png" alt="" /></div>
-      <div class="thumb"><img src="noah-thumb-12.png" alt="" /></div>
+      <div class="thumb"><img src="noah-thumb-11.png" alt="11/18 NBA Props" /></div>
+      <div class="thumb"><img src="noah-thumb-12.png" alt="11/19 NBA Props" /></div>
+      <div class="thumb"><img src="noah-thumb-13.png" alt="11/21 NBA Props" /></div>
+      <div class="thumb"><img src="noah-thumb-5.png" alt="NBA Props Picks Plays Live" /></div>
+      <div class="thumb"><img src="noah-thumb-14.png" alt="Picks Props NFL Plays Live" /></div>
+      <div class="thumb"><img src="noah-thumb-15.png" alt="Superbowl Picks" /></div>
     </div>
 
     <a class="yt-cta" href="https://www.youtube.com/@DFSbyNoah" target="_blank" rel="noopener">
@@ -343,30 +325,6 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-
-  // Build a stylized CTR lift bar chart — relative values so it reads as a trend.
-  const bars = [
-    { label: 'V1', val: 32, note: 'baseline' },
-    { label: 'V2', val: 48, note: '+50%' },
-    { label: 'V3', val: 61, note: '+91%' },
-    { label: 'V4', val: 73, note: '+128%' },
-    { label: 'V5', val: 84, note: '+163%' },
-    { label: 'V6', val: 96, note: '+200%' }
-  ];
-  const g = document.getElementById('ctrGraph');
-  if (g) {
-    bars.forEach((b, i) => {
-      const el = document.createElement('div');
-      el.className = 'bar';
-      el.style.height = '0%';
-      el.innerHTML =
-        '<span class="b-val">' + b.note + '</span>' +
-        '<span class="b-label">' + b.label + '</span>';
-      g.appendChild(el);
-      // Animate in on scroll into view
-      setTimeout(() => { el.style.transition = 'height 1.1s cubic-bezier(.22,.61,.36,1) ' + (i*120) + 'ms'; el.style.height = b.val + '%'; }, 50);
-    });
-  }
 </script>
 </body>
 </html>
