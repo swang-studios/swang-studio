@@ -206,6 +206,53 @@
     .loop-return::before { left: 2%; }
     .loop-return::after { right: 2%; }
 
+    /* META vs GOOGLE COMPARISON */
+    .compare {
+      margin-top: 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .compare-col {
+      padding: 28px 26px; border-radius: 3px;
+      background: rgba(12,16,8,0.45);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .compare-col:hover { transform: translateY(-3px); }
+    .compare-google { border-left: 3px solid #d87474; }
+    .compare-google:hover { border-color: #d87474; }
+    .compare-meta   { border-left: 3px solid var(--honey); }
+    .compare-meta:hover   { border-color: var(--honey); }
+    .compare-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #bbb; margin-bottom: 14px;
+    }
+    .compare-stat {
+      font-size: clamp(34px, 4vw, 50px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.0;
+      font-variant-numeric: tabular-nums;
+    }
+    .compare-google .compare-stat { color: #d87474; }
+    .compare-meta   .compare-stat { color: var(--honey); }
+    .compare-unit {
+      margin-top: 6px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray);
+    }
+    .compare-col ul {
+      list-style: none; margin-top: 18px;
+      display: grid; gap: 10px;
+    }
+    .compare-col li {
+      font-size: 13px; line-height: 1.55; color: rgba(240,240,240,0.78);
+      padding-left: 16px; position: relative;
+    }
+    .compare-col li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+    }
+    .compare-meta li::before   { background: var(--honey); }
+    .compare-google li::before { background: #d87474; }
+
     /* PLATFORM LINKS */
     .platforms { margin: 72px 0 0; max-width: 780px; }
     .platforms h2 {
@@ -275,6 +322,7 @@
       .arrow-node { transform: rotate(90deg); }
       .loop-section { padding: 32px 22px; }
       .ig-wrap iframe { height: 640px; }
+      .compare { grid-template-columns: 1fr; }
       footer { padding: 36px 24px; }
     }
   </style>
@@ -293,79 +341,88 @@
 <div class="cs-wrap">
   <a href="index.html#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Content System · Paid Social · Local</p>
-  <h1 class="cs-title">Changing How a <em>Contractor</em> Drives Business.</h1>
+  <p class="cs-tag">Meta Campaign · Geo-Targeted · Local Contractor</p>
+  <h1 class="cs-title">A Meta Campaign Anyone <em>Can Start.</em></h1>
   <p class="cs-lede">
-    Pavers and Turf by O'Neill's had strong work, but no real system behind it. No paid social presence, inconsistent posting, and nothing set up to actually generate inbound leads.
+    Local contractor advertising on Meta is a wide-open lane. Most of the spend in the category piles into Google search at $8&ndash;$30 a click, and the social side sits almost untouched &mdash; cheap, geo-precise, and starving for actual content. Pavers and Turf by O'Neill's is the proof.
   </p>
 
   <div class="cs-hero">
     <img src="putting-green-aerial.jpg" alt="Aerial of a Pavers and Turf by O'Neill's install" />
   </div>
 
-  <section class="cs-body">
-    <p>This wasn't a quality issue &mdash; it was <em>visibility</em>. The installs were there, but nothing was packaging or pushing them in a way that brought in consistent business.</p>
-
-    <div class="cs-rule"></div>
-
-    <ul class="cs-bullets">
-      <li>Built a content + ad system around real projects (photo, video, transformations).</li>
-      <li>Launched geo-targeted campaigns with clear offers and lead capture.</li>
-    </ul>
-
-    <div class="cs-rule"></div>
-
-    <p>Everything shifted from random posting to a loop. Projects became content, content became ads, and ads brought in real inquiries. Simple, but done consistently.</p>
-  </section>
-
-  <div class="cs-callout">
-    <strong>Now it runs like a pipeline &mdash; not guesswork.</strong>
-    <span>From one-off installs to a content → ads → inbound leads loop that compounds.</span>
-  </div>
-
-  <!-- METRICS -->
-  <div class="metrics">
-    <div class="metric">
-      <div class="big" data-target="15000" data-suffix="+">0</div>
-      <div class="lbl">Views</div>
-      <div class="desc">Targeted sports-content drop to the right local + niche audience.</div>
-    </div>
-    <div class="metric">
-      <div class="big" data-target="50" data-suffix="+">0</div>
-      <div class="lbl">Shares</div>
-      <div class="desc">Organic amplification from local sports + landscaping communities.</div>
-    </div>
-    <div class="metric">
-      <div class="big">Strong</div>
-      <div class="lbl">Local Engagement</div>
-      <div class="desc">Sustained comment + DM activity in-geo, feeding the lead loop.</div>
-    </div>
-  </div>
-
-  <!-- LOOP DIAGRAM -->
+  <!-- LOOP DIAGRAM — promoted to the top, the actual thesis -->
   <section class="loop-section">
     <p class="section-label">The Loop</p>
-    <h3>Projects become content. Content becomes ads. Ads bring leads back in.</h3>
-    <p class="hint">Hover any step.</p>
+    <h3>Projects become content. Content becomes ads. Ads bring the next project back.</h3>
+    <p class="hint">It's an inverse-built funnel: the work is the inventory and the ad spend is the multiplier. Hover any step.</p>
     <div class="loop">
       <div class="node">
         <div class="n-icon">1</div>
         <div class="n-title">Project</div>
-        <div class="n-desc">Real install, shot on-site (photo + video)</div>
+        <div class="n-desc">A real install, captured on-site (photo + video, ground + aerial)</div>
       </div>
       <div class="arrow-node" aria-hidden="true">&rarr;</div>
       <div class="node">
         <div class="n-icon">2</div>
         <div class="n-title">Content</div>
-        <div class="n-desc">Edited for feed: before/after, transformation reels</div>
+        <div class="n-desc">Cut for feed: before / after, transformation reel, hook on frame one</div>
       </div>
       <div class="arrow-node" aria-hidden="true">&rarr;</div>
       <div class="node">
         <div class="n-icon">3</div>
-        <div class="n-title">Ads</div>
-        <div class="n-desc">Geo-targeted with clear offer + lead capture</div>
+        <div class="n-title">Meta Campaign</div>
+        <div class="n-desc">Geo-targeted, lookalike-stacked, lead-capture creative on Reels + Feed</div>
       </div>
-      <div class="loop-return">Inbound leads → next project → repeat</div>
+      <div class="loop-return">Qualified inbound → next install → fresh content → cheaper CPM → repeat</div>
+    </div>
+  </section>
+
+  <!-- UNTAPPED MARKET — the thesis -->
+  <section class="cs-body">
+    <p><em>Why this works.</em> The home-services category on Meta is one of the last places in paid social where geo-targeted ad inventory is genuinely cheap. You're not bidding against direct-to-consumer brands burning $40 CPMs &mdash; you're bidding against a handful of other local contractors, most of whom aren't even running creative.</p>
+    <p>The flywheel is inverse-built: instead of writing copy to fit an ad, the install <em>is</em> the ad. Every job site becomes the next campaign's raw material. The cost of the content collapses because it's already happening &mdash; you're just showing up to capture it.</p>
+  </section>
+
+  <!-- META vs GOOGLE COMPARISON -->
+  <section class="loop-section" style="margin-top:32px;">
+    <p class="section-label">Meta vs Google · Local Contractor Lane</p>
+    <h3>Same buyer. Wildly different cost to reach them.</h3>
+    <div class="compare">
+      <div class="compare-col compare-google">
+        <div class="compare-tag">Google Search Ads</div>
+        <div class="compare-stat">$8&ndash;$30</div>
+        <div class="compare-unit">per click</div>
+        <ul>
+          <li>Bid auction packed with national franchises and lead-aggregator middlemen</li>
+          <li>Intent is high, but the cost to enter is brutal for a local operator</li>
+          <li>You pay for words, not the work &mdash; no creative leverage</li>
+        </ul>
+      </div>
+      <div class="compare-col compare-meta">
+        <div class="compare-tag">Meta (Pavers and Turf)</div>
+        <div class="compare-stat">$1&ndash;$3</div>
+        <div class="compare-unit">per qualified click, geo-targeted</div>
+        <ul>
+          <li>Almost no local competition running real creative in the same radius</li>
+          <li>Each install becomes the ad &mdash; content cost effectively rolls into the job</li>
+          <li>Lookalikes compound off real customers, not keywords</li>
+        </ul>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:18px;">
+      Numbers are directional &mdash; based on observed local-contractor benchmarks. The point isn't the exact figure, it's the <em>order of magnitude</em>. You can run a serious Meta test on what gets eaten by a single Google week.
+    </p>
+  </section>
+
+  <!-- LIVE EXAMPLE — small, italicized, with the stats inline -->
+  <section class="ig-embed-section">
+    <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.01em;color:#bbb;">A live example from the campaign.</h2>
+    <p class="sub" style="font-style:italic;color:#999;max-width:560px;">
+      One sports-anchored creative from the Pavers + Turf push &mdash; <em>15,000+ views</em>, <em>50+ shares</em>, sustained local DM activity. It's one entry in the loop, not the loop itself. The system is what compounds.
+    </p>
+    <div class="ig-wrap" style="max-width:380px;">
+      <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" style="height:560px;"></iframe>
     </div>
   </section>
 
@@ -392,14 +449,10 @@
     </div>
   </section>
 
-  <!-- IG EMBED -->
-  <section class="ig-embed-section">
-    <h2>Content that hit.</h2>
-    <p class="sub">Targeted sports content pushed to the right audience &mdash; local, niche, primed to share.</p>
-    <div class="ig-wrap">
-      <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
-    </div>
-  </section>
+  <div class="cs-callout">
+    <strong>The takeaway: any local operator can run this.</strong>
+    <span>If you've got the work and the geography, the rest is a content cadence and a Meta campaign that turns each job into the next one.</span>
+  </div>
 </div>
 
 <footer>

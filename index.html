@@ -639,16 +639,16 @@
 <section class="hero">
   <div class="hero-backdrop">
     <div class="hero-tile feature">
-      <img src="hero-feature.jpg" alt="Feature brand shot" onerror="this.onerror=null;this.src='bmw.jpg'" />
+      <img src="bmw.jpg" alt="Automotive brand shoot" />
     </div>
     <div class="hero-tile">
-      <img src="hero-small-top.jpg" alt="Brand moment" onerror="this.onerror=null;this.src='portrait1.jpg'" />
+      <img src="photo3b.jpg" alt="Editorial brand moment" />
     </div>
     <div class="hero-tile">
-      <img src="hero-small-bottom.jpg" alt="Brand moment" onerror="this.onerror=null;this.src='pgreen6.jpg'" />
+      <img src="putting-green-sand.jpg" alt="Aerial detail" />
     </div>
     <div class="hero-tile tall">
-      <img src="hero-tall.jpg" alt="Vertical brand shot" onerror="this.onerror=null;this.src='vert-homepage-1.png'" />
+      <img src="vert-homepage-1.png" alt="Vertical brand shot" />
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -752,7 +752,7 @@
       <p class="section-label">Recent Business Interactions</p>
       <h2 class="work-headline">Real partners.<br>Real <em>results.</em></h2>
     </div>
-    <a href="#leave-a-note" class="work-link">Leave a Note &rarr;</a>
+    <a href="#leave-a-review" class="work-link">Leave a Review &rarr;</a>
   </div>
   <div class="cards-track">
     <a href="case-noah-thumbnails.html" class="card reveal">
@@ -767,9 +767,9 @@
     <a href="case-pavers-turf.html" class="card reveal">
       <div class="card-img"><img src="putting-green-aerial.jpg" alt="Pavers and Turf aerial install" /></div>
       <div class="card-body">
-        <p class="card-tag">Content System &amp; Paid Social</p>
-        <h3 class="card-title">Changing How a Contractor Drives Business</h3>
-        <p class="card-blurb">A full content-to-ads loop for Pavers and Turf by O'Neill's. 15K+ views, 50+ shares, and a real inbound pipeline &mdash; not guesswork.</p>
+        <p class="card-tag">Meta Campaign &amp; Geo-Targeting</p>
+        <h3 class="card-title">A Meta Campaign Anyone Can Start</h3>
+        <p class="card-blurb">Local contractor advertising is wide open on Meta &mdash; cheap, geo-precise, and untapped next to Google CPC. Pavers and Turf is the proof of the loop.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -816,30 +816,31 @@
       <span class="about-tag">Meta Campaigns</span>
       <span class="about-tag">Brand Growth</span>
     </div>
-    <a href="mailto:hello@swang.studio" class="about-cta reveal">Work With Me</a>
+    <a href="#leave-a-review" class="about-cta reveal">Work With Me</a>
   </div>
   <div class="about-photo-wrap reveal">
     <img src="about.png" alt="Mason Swang" class="about-photo" />
   </div>
 </section>
 
-<!-- LEAVE A NOTE -->
-<section class="note" id="leave-a-note">
+<!-- LEAVE A REVIEW / CONTACT — seamless on-site submission -->
+<section class="note" id="leave-a-review">
   <div class="note-inner">
-    <p class="section-label">Leave A Note</p>
+    <p class="section-label">Leave A Review</p>
     <h2 class="note-headline reveal">
-      How did I do &mdash;<br>or how could I <em>do better?</em>
+      Tell me what <em>worked.</em>
     </h2>
     <p class="note-sub reveal">
-      Honest feedback only. What landed, what didn't, what you'd want more of. Delivered straight to my inbox.
+      Feedback, a project idea, or just saying hi — drop it below. I read every one.
     </p>
     <form class="note-form reveal" id="noteForm" novalidate>
+      <input type="hidden" name="source" value="leave-a-review" />
       <div class="row">
-        <input type="text" name="name" placeholder="Your name (optional)" autocomplete="name" />
+        <input type="text" name="name" placeholder="Name (optional)" autocomplete="name" />
         <input type="email" name="email" placeholder="Email (optional)" autocomplete="email" />
       </div>
       <textarea name="message" placeholder="What's on your mind?" required></textarea>
-      <button type="submit">Send Note</button>
+      <button type="submit">Submit</button>
       <p class="note-status" id="noteStatus" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -866,14 +867,14 @@
   <div class="f-links">
     <a href="#featured-work">Work</a>
     <a href="#reels">Reels</a>
-    <a href="#leave-a-note">Leave a Note</a>
+    <a href="#leave-a-review">Leave a Review</a>
     <a href="#contact">Contact</a>
   </div>
   <p class="f-copy">&copy; <span id="yr"></span> swang. All rights reserved.</p>
 </footer>
 
 <!-- FIXED CTA -->
-<a href="#contact" class="cta-pill">Let's Talk</a>
+<a href="#leave-a-review" class="cta-pill">Let's Talk</a>
 
 <script>
   // Dynamic year
@@ -895,15 +896,11 @@
   setInterval(rotateWord, 3200);
 
   // ------------------------------------------------------------
-  // LEAVE A NOTE — posts to form service if configured, else mailto
-  // To wire up Formspree / Web3Forms later, set NOTE_ENDPOINT to
-  // your endpoint URL (e.g. "https://formspree.io/f/abc123") and
-  // set NOTE_SERVICE to 'formspree' or 'web3forms'.
+  // SEAMLESS SUBMISSIONS — posts to /api/submit (in-house serverless
+  // function on Vercel). No mailto, no third-party redirect.
+  // Submissions are tallied in Vercel function logs and emailed to
+  // hello@swang.studio when RESEND_API_KEY is set in Vercel env.
   // ------------------------------------------------------------
-  const NOTE_ENDPOINT = ''; // leave empty = mailto fallback
-  const NOTE_SERVICE  = ''; // 'formspree' | 'web3forms' | ''
-  const NOTE_TO       = 'hello@swang.studio';
-
   const noteForm   = document.getElementById('noteForm');
   const noteStatus = document.getElementById('noteStatus');
   if (noteForm) {
@@ -913,40 +910,32 @@
       const name    = (fd.get('name')    || '').toString().trim();
       const email   = (fd.get('email')   || '').toString().trim();
       const message = (fd.get('message') || '').toString().trim();
+      const source  = (fd.get('source')  || 'site').toString().trim();
       noteStatus.classList.remove('error');
       if (!message) {
-        noteStatus.textContent = 'Please write a note before sending.';
+        noteStatus.textContent = 'Leave a short note before submitting.';
         noteStatus.classList.add('error');
         return;
       }
-      if (NOTE_ENDPOINT) {
-        try {
-          noteStatus.textContent = 'Sending…';
-          const res = await fetch(NOTE_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, message, _subject: 'swang.studio — note from visitor' })
-          });
-          if (res.ok) {
-            noteForm.reset();
-            noteStatus.textContent = 'Thanks — note received. I read every one.';
-            return;
-          }
-          throw new Error('Form service responded ' + res.status);
-        } catch (err) {
-          console.warn('Form service failed, falling back to mailto:', err);
-        }
+      const submitBtn = noteForm.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      noteStatus.textContent = 'Sending…';
+      try {
+        const res = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message, source, page: location.pathname })
+        });
+        if (!res.ok) throw new Error('Submit responded ' + res.status);
+        noteForm.reset();
+        noteStatus.textContent = 'Got it — I read every one. Talk soon.';
+      } catch (err) {
+        console.warn('Submit failed:', err);
+        noteStatus.textContent = 'Something hiccuped — try again in a moment.';
+        noteStatus.classList.add('error');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
       }
-      // Mailto fallback — pre-fills the user's default mail client.
-      const subject = encodeURIComponent('Note from swang.studio visitor');
-      const bodyLines = [];
-      if (name)  bodyLines.push('From: ' + name);
-      if (email) bodyLines.push('Reply-to: ' + email);
-      bodyLines.push('');
-      bodyLines.push(message);
-      const body = encodeURIComponent(bodyLines.join('\n'));
-      window.location.href = 'mailto:' + NOTE_TO + '?subject=' + subject + '&body=' + body;
-      noteStatus.textContent = 'Opening your email app…';
     });
   }
 

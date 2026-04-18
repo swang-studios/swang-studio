@@ -1,6 +1,5 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/case-studies", "dest": "/case-studies.html" }
+  "rewrites": [
+    { "source": "/case-studies", "destination": "/case-studies.html" }
   ]
 }

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — swang. | Aerial, Landscape &amp; Editorial Photography</title>
+  <meta name="description" content="The full gallery: aerial, landscape, editorial, and brand work by Mason Swang." />
+  <meta property="og:title" content="Gallery — swang." />
+  <meta property="og:description" content="Aerial, landscape, editorial and brand photography by Mason Swang." />
+  <meta property="og:url" content="https://www.swang.studio/gallery.html" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #5c7a42;
+      --accent-dark: #3d5229;
+      --honey: #e8a800;
+      --gray: #888;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      background: #1c2416; color: #f0f0f0; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
+        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
+        #1c2416;
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 48px;
+      background: rgba(18,24,14,0.92);
+      backdrop-filter: blur(14px);
+    }
+    nav .logo {
+      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+      color: #f0f0f0; text-decoration: none;
+    }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
+      opacity: 0.65; transition: opacity 0.2s;
+    }
+    nav ul a:hover { opacity: 1; }
+
+    /* HEADER */
+    .g-head {
+      padding: 140px 48px 40px; max-width: 1100px; margin: 0 auto;
+    }
+    .g-crumb {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      text-decoration: none; display: inline-flex; align-items: center;
+      gap: 8px; margin-bottom: 24px;
+    }
+    .g-crumb:hover { color: var(--honey); }
+    .g-title {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.0;
+    }
+    .g-title em { color: var(--accent); font-style: normal; }
+    .g-sub {
+      margin-top: 18px; font-size: 15px; line-height: 1.7;
+      color: rgba(240,240,240,0.7); max-width: 620px;
+    }
+
+    /* FILTER TABS */
+    .g-tabs {
+      max-width: 1100px; margin: 0 auto; padding: 12px 48px 8px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .g-tab {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; padding: 10px 18px;
+      background: transparent; color: rgba(240,240,240,0.6);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 2px; cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .g-tab:hover { color: #fff; border-color: var(--accent); }
+    .g-tab.active {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+
+    /* MASONRY GRID */
+    .g-grid {
+      max-width: 1400px; margin: 28px auto 72px;
+      padding: 0 12px;
+      column-count: 4; column-gap: 10px;
+    }
+    .g-item {
+      break-inside: avoid; margin-bottom: 10px;
+      overflow: hidden; background: #2a3423;
+      position: relative; cursor: zoom-in;
+      border-radius: 2px;
+      transition: transform 0.25s ease;
+    }
+    .g-item:hover { transform: translateY(-2px); }
+    .g-item img {
+      width: 100%; height: auto; display: block;
+      transition: transform 0.6s ease, filter 0.3s ease;
+    }
+    .g-item:hover img { transform: scale(1.02); }
+    .g-item[data-cat]::after {
+      content: attr(data-cat);
+      position: absolute; bottom: 10px; left: 10px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 10px; color: #fff;
+      background: rgba(12,16,8,0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 2px;
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+    }
+    .g-item:hover::after { opacity: 1; transform: translateY(0); }
+
+    /* LIGHTBOX */
+    .lb {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(8,11,5,0.95);
+      backdrop-filter: blur(10px);
+      display: none; align-items: center; justify-content: center;
+      padding: 32px;
+    }
+    .lb.open { display: flex; }
+    .lb-img {
+      max-width: 96vw; max-height: 92vh;
+      width: auto; height: auto;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+    }
+    .lb-close, .lb-prev, .lb-next {
+      position: absolute; background: rgba(255,255,255,0.08);
+      color: #f0f0f0; border: 1px solid rgba(255,255,255,0.18);
+      width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; font-size: 18px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover {
+      background: rgba(255,255,255,0.18); border-color: var(--accent);
+    }
+    .lb-close { top: 24px; right: 24px; }
+    .lb-prev  { left: 24px;  top: 50%; transform: translateY(-50%); }
+    .lb-next  { right: 24px; top: 50%; transform: translateY(-50%); }
+    .lb-caption {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(240,240,240,0.75);
+      background: rgba(12,16,8,0.5);
+      padding: 8px 14px; border-radius: 2px;
+    }
+
+    /* CTA */
+    .g-outro {
+      max-width: 820px; margin: 48px auto 100px;
+      padding: 48px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      text-align: center;
+    }
+    .g-outro h2 {
+      font-size: clamp(24px, 2.8vw, 34px); font-weight: 700;
+      letter-spacing: -0.02em; color: #f0f0f0; line-height: 1.15;
+    }
+    .g-outro h2 em { color: var(--accent); font-style: normal; }
+    .g-outro p {
+      margin-top: 14px; font-size: 14px; line-height: 1.7;
+      color: rgba(240,240,240,0.7); max-width: 540px; margin-left: auto; margin-right: auto;
+    }
+    .g-outro a {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 26px; padding: 14px 28px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      background: var(--accent); color: #fff;
+      border-radius: 2px; transition: background 0.2s;
+    }
+    .g-outro a:hover { background: var(--accent-dark); }
+
+    footer {
+      padding: 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap; gap: 20px;
+    }
+    footer .f-logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #f0f0f0; }
+    footer .f-contact { font-size: 12px; color: #888; margin-top: 4px; }
+    footer .f-contact a { color: #888; text-decoration: none; }
+    footer .f-contact a:hover { color: #f0f0f0; }
+    footer .f-copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 1100px) { .g-grid { column-count: 3; } }
+    @media (max-width: 760px) {
+      nav { padding: 18px 24px; }
+      .g-head { padding: 120px 24px 32px; }
+      .g-tabs { padding: 8px 24px; }
+      .g-grid { column-count: 2; padding: 0 8px; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 420px) {
+      .g-grid { column-count: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">swang.</a>
+  <ul>
+    <li><a href="index.html#featured-work">Work</a></li>
+    <li><a href="index.html#reels">Reels</a></li>
+    <li><a href="index.html#leave-a-review">Review</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="g-head">
+  <a class="g-crumb" href="index.html">&larr; Back Home</a>
+  <h1 class="g-title">The Full <em>Gallery.</em></h1>
+  <p class="g-sub">
+    Aerial, landscape, editorial, and brand work — a running shelf of the stills
+    that make it onto the feed. Click any frame to open it.
+  </p>
+</header>
+
+<div class="g-tabs" role="tablist">
+  <button class="g-tab active" data-filter="all" type="button">All</button>
+  <button class="g-tab" data-filter="aerial" type="button">Aerial</button>
+  <button class="g-tab" data-filter="landscape" type="button">Landscape</button>
+  <button class="g-tab" data-filter="portrait" type="button">Editorial</button>
+  <button class="g-tab" data-filter="brand" type="button">Brand</button>
+</div>
+
+<main class="g-grid" id="gGrid">
+  <div class="g-item" data-cat="aerial"><img src="putting-green-aerial.jpg" alt="Aerial putting green" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="bmw.jpg" alt="Automotive brand shoot" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="portrait1.jpg" alt="Editorial portrait" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="pgreen6.jpg" alt="Putting green landscape" loading="lazy" /></div>
+  <div class="g-item" data-cat="aerial"><img src="aerial-backyard.jpg" alt="Aerial backyard installation" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="putting-green-sand.jpg" alt="Putting green with sand detail" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="portrait2.jpg" alt="Editorial portrait, second light" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="pgreen5.jpg" alt="Putting green install" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo1b.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="design3.jpg" alt="Brand still" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo2.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo2b.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo3.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo3b.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo20.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo41.jpg" alt="Landscape frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="pavers.jpg" alt="Pavers install" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="vert-homepage-1.png" alt="Vertical brand frame" loading="lazy" /></div>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" aria-hidden="true" role="dialog">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lb-prev"  id="lbPrev"  aria-label="Previous">&lsaquo;</button>
+  <img class="lb-img" id="lbImg" alt="" />
+  <button class="lb-next"  id="lbNext"  aria-label="Next">&rsaquo;</button>
+  <p class="lb-caption" id="lbCaption"></p>
+</div>
+
+<section class="g-outro">
+  <h2>See something you want<br>for your <em>brand?</em></h2>
+  <p>Shoots, edits, full content rollouts — same sensibility, built for how your audience actually scrolls.</p>
+  <a href="index.html#leave-a-review">Start a Project &rarr;</a>
+</section>
+
+<footer>
+  <div>
+    <p class="f-logo">swang.</p>
+    <p class="f-contact"><a href="mailto:hello@swang.studio">hello@swang.studio</a></p>
+  </div>
+  <p class="f-copy">&copy; <span id="yr"></span> swang. All rights reserved.</p>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Filter tabs
+  const tabs = document.querySelectorAll('.g-tab');
+  const items = Array.from(document.querySelectorAll('.g-item'));
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const f = tab.dataset.filter;
+      items.forEach(i => {
+        i.style.display = (f === 'all' || i.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCaption');
+  let visible = items;
+  let idx = 0;
+  function open(i) {
+    visible = items.filter(x => x.style.display !== 'none');
+    idx = visible.indexOf(items[i]);
+    if (idx < 0) idx = 0;
+    show();
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function show() {
+    const img = visible[idx].querySelector('img');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt || '';
+    lbCap.textContent = (visible[idx].dataset.cat || '').toUpperCase();
+  }
+  function next() { idx = (idx + 1) % visible.length; show(); }
+  function prev() { idx = (idx - 1 + visible.length) % visible.length; show(); }
+  items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbNext').addEventListener('click', next);
+  document.getElementById('lbPrev').addEventListener('click', prev);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+</body>
+</html>
