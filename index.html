@@ -917,6 +917,13 @@
         noteStatus.classList.add('error');
         return;
       }
+      // Client-side email check so we catch typos before hitting the server.
+      // Empty email is allowed — folks can drop an anonymous note.
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        noteStatus.textContent = "That email doesn't look right — fix it, or leave it blank.";
+        noteStatus.classList.add('error');
+        return;
+      }
       const submitBtn = noteForm.querySelector('button[type="submit"]');
       if (submitBtn) submitBtn.disabled = true;
       noteStatus.textContent = 'Sending…';
@@ -926,12 +933,20 @@
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, message, source, page: location.pathname })
         });
-        if (!res.ok) throw new Error('Submit responded ' + res.status);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const reason = (data && data.error) ? String(data.error) : ('error ' + res.status);
+          throw new Error(reason);
+        }
         noteForm.reset();
         noteStatus.textContent = 'Got it — I read every one. Talk soon.';
       } catch (err) {
         console.warn('Submit failed:', err);
-        noteStatus.textContent = 'Something hiccuped — try again in a moment.';
+        const raw = (err && err.message) ? err.message : '';
+        let friendly = 'Something hiccuped — try again in a moment.';
+        if (/bad email/i.test(raw))           friendly = "That email doesn't look right — fix it, or leave it blank.";
+        else if (/message required/i.test(raw)) friendly = 'Please write a message before sending.';
+        noteStatus.textContent = friendly;
         noteStatus.classList.add('error');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
