@@ -16,7 +16,7 @@
 import nodemailer from 'nodemailer';
 
 // Default relay target. Override with FORMSUBMIT_TARGET env var.
-const DEFAULT_FORMSUBMIT_TARGET = 'mason.ogservices@gmail.com';
+const DEFAULT_FORMSUBMIT_TARGET = 'hello@swang.studio';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
