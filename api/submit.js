@@ -1,25 +1,22 @@
 // /api/submit — in-house submission collector for swang.studio
 // -----------------------------------------------------------------------------
-// Every form on the site (Leave a Review, Work With Me, Let's Talk) POSTs here.
-// No mailto redirects. No third-party UI. The submission:
-//   1. is validated server-side,
-//   2. gets written to Vercel function logs (visible in Vercel → Logs),
-//   3. is emailed to hello@swang.studio via one of the wired delivery paths:
-//        a) Gmail SMTP  — primary. Set GMAIL_USER + GMAIL_APP_PASSWORD.
-//        b) Resend API  — fallback.  Set RESEND_API_KEY.
-//      If neither is configured the submission is still captured in logs.
+// Every form on the site POSTs here. The submission is:
+//   1. validated server-side,
+//   2. written to Vercel function logs (visible in Vercel → Logs),
+//   3. relayed to one or more of the wired delivery paths (in order):
+//        a) Gmail SMTP via Nodemailer  — set GMAIL_USER + GMAIL_APP_PASSWORD
+//        b) Resend API                 — set RESEND_API_KEY
+//        c) FormSubmit relay (no-auth) — set FORMSUBMIT_TARGET or default below
 //
-// To enable Gmail (Google Workspace) delivery:
-//   1. Turn on 2-Step Verification for the sending account.
-//   2. Visit https://myaccount.google.com/apppasswords — create one for "swang site form".
-//   3. In Vercel → Project → Settings → Environment Variables (Production):
-//        GMAIL_USER         = hello@swang.studio   (or whichever Workspace inbox)
-//        GMAIL_APP_PASSWORD = <16-char app password, no spaces>
-//        SUBMIT_TO          = hello@swang.studio   (optional, defaults to GMAIL_USER)
-//   4. Redeploy (next push does it automatically).
+// The FormSubmit path is the zero-setup default — works with no env vars.
+// FIRST POST to a new address triggers a one-time confirmation email to that
+// address; click the "Confirm" link in it and all subsequent POSTs deliver.
 // -----------------------------------------------------------------------------
 
 import nodemailer from 'nodemailer';
+
+// Default relay target. Override with FORMSUBMIT_TARGET env var.
+const DEFAULT_FORMSUBMIT_TARGET = 'mason.ogservices@gmail.com';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -51,12 +48,11 @@ export default async function handler(req, res) {
   const subject = `swang.studio — ${source} (${name || 'anonymous'})`;
   const html = renderHtml({ submittedAt, name, email, message, source, page });
   const text = renderText({ submittedAt, name, email, message, source, page });
-  const to   = process.env.SUBMIT_TO || process.env.GMAIL_USER || 'hello@swang.studio';
 
   let delivery = 'logs-only';
   let deliveryError = null;
 
-  // ---- Primary path: Gmail SMTP via Nodemailer -------------------------------
+  // ---- Path A: Gmail SMTP via Nodemailer -------------------------------------
   if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
     try {
       const transporter = nodemailer.createTransport({
@@ -70,7 +66,7 @@ export default async function handler(req, res) {
       });
       await transporter.sendMail({
         from: `"swang.studio" <${process.env.GMAIL_USER}>`,
-        to,
+        to: process.env.SUBMIT_TO || process.env.GMAIL_USER,
         replyTo: email || undefined,
         subject,
         text,
@@ -83,7 +79,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // ---- Fallback path: Resend API --------------------------------------------
+  // ---- Path B: Resend API ----------------------------------------------------
   if (delivery === 'logs-only' && process.env.RESEND_API_KEY) {
     try {
       const r = await fetch('https://api.resend.com/emails', {
@@ -94,7 +90,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: process.env.SUBMIT_FROM || 'swang.studio <onboarding@resend.dev>',
-          to: [to],
+          to: [process.env.SUBMIT_TO || 'hello@swang.studio'],
           reply_to: email || undefined,
           subject,
           html,
@@ -113,10 +109,48 @@ export default async function handler(req, res) {
     }
   }
 
+  // ---- Path C: FormSubmit (zero-auth relay, default) -------------------------
+  // FormSubmit accepts POST form-data or JSON to https://formsubmit.co/<email>.
+  // Using /ajax/<email> returns JSON instead of a redirect. No signup needed.
+  if (delivery === 'logs-only') {
+    const target = (process.env.FORMSUBMIT_TARGET || DEFAULT_FORMSUBMIT_TARGET).trim();
+    if (target) {
+      try {
+        const r = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(target)}`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            _subject: subject,
+            _template: 'table',
+            _replyto: email || undefined,
+            _captcha: 'false',
+            Name: name || '(anonymous)',
+            Email: email || '(none)',
+            Page: page || '/',
+            Source: source,
+            SubmittedAt: submittedAt,
+            Message: message,
+          }),
+        });
+        if (r.ok) {
+          delivery = 'formsubmit';
+        } else {
+          const t = await r.text();
+          deliveryError = `formsubmit: ${r.status} ${t.slice(0, 200)}`;
+          console.warn('[swang.studio submission] formsubmit failed', r.status, t);
+        }
+      } catch (err) {
+        deliveryError = `formsubmit: ${err && err.message ? err.message : String(err)}`;
+        console.warn('[swang.studio submission] formsubmit threw', deliveryError);
+      }
+    }
+  }
+
   console.log('[swang.studio submission] delivery=' + delivery + (deliveryError ? ' lastError=' + deliveryError : ''));
 
-  // The site UI only cares that the submission was accepted. Don't leak env
-  // errors to the browser. Log is enough for debugging.
   return res.status(200).json({ ok: true });
 }
 
