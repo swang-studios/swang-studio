@@ -1,0 +1,12 @@
+{
+  "name": "swang-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "swang.studio — static site with a small Vercel serverless function for form submissions.",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}
