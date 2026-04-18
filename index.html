@@ -639,13 +639,13 @@
 <section class="hero">
   <div class="hero-backdrop">
     <div class="hero-tile feature">
-      <img src="bmw.jpg" alt="Automotive brand shoot" />
+      <img src="photo3.jpg" alt="Automotive editorial — Mercedes SLR" />
     </div>
     <div class="hero-tile">
-      <img src="photo3b.jpg" alt="Editorial brand moment" />
+      <img src="photo2.jpg" alt="BMW M3 beachside campaign" />
     </div>
     <div class="hero-tile">
-      <img src="putting-green-sand.jpg" alt="Aerial detail" />
+      <img src="photo2b.jpg" alt="Architectural lifestyle shot" />
     </div>
     <div class="hero-tile tall">
       <img src="vert-homepage-1.png" alt="Vertical brand shot" />
@@ -700,12 +700,12 @@
   </div>
 </section>
 
-<!-- GALLERY GRID — 4-tile editorial (Mercedes, putting green, portrait, aerial putting green) -->
+<!-- GALLERY GRID — 4-tile editorial (automotive, lifestyle, architectural, aerial) -->
 <div id="gallery" class="gallery">
-  <div class="gi ga"><img src="bmw.jpg" alt="Automotive campaign" /></div>
-  <div class="gi gb"><img src="pgreen6.jpg" alt="Putting green" /></div>
-  <div class="gi gc"><img src="portrait1.jpg" alt="Editorial portrait" /></div>
-  <div class="gi gd"><img src="putting-green-aerial.jpg" alt="Aerial putting green" /></div>
+  <div class="gi ga"><img src="photo3.jpg" alt="Mercedes SLR Stirling Moss editorial" /></div>
+  <div class="gi gb"><img src="photo2.jpg" alt="BMW M3 beachside campaign" /></div>
+  <div class="gi gc"><img src="photo2b.jpg" alt="Mid-century architectural lifestyle" /></div>
+  <div class="gi gd"><img src="putting-green-aerial.jpg" alt="Aerial property work" /></div>
 </div>
 <div style="text-align:center; padding: 36px 0 48px;">
   <a href="gallery.html" class="btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
@@ -752,7 +752,7 @@
       <p class="section-label">Recent Business Interactions</p>
       <h2 class="work-headline">Real partners.<br>Real <em>results.</em></h2>
     </div>
-    <a href="#leave-a-review" class="work-link">Leave a Review &rarr;</a>
+    <a href="#leave-a-review" class="work-link">Let's Talk &rarr;</a>
   </div>
   <div class="cards-track">
     <a href="case-noah-thumbnails.html" class="card reveal">
@@ -823,24 +823,24 @@
   </div>
 </section>
 
-<!-- LEAVE A REVIEW / CONTACT — seamless on-site submission -->
+<!-- LET'S TALK / CONTACT — quick chat-box style hit-up form -->
 <section class="note" id="leave-a-review">
   <div class="note-inner">
-    <p class="section-label">Leave A Review</p>
+    <p class="section-label">Let's Talk</p>
     <h2 class="note-headline reveal">
-      Tell me what <em>worked.</em>
+      Hit me <em>up.</em>
     </h2>
     <p class="note-sub reveal">
-      Feedback, a project idea, or just saying hi — drop it below. I read every one.
+      Project, collab, or quick question — send a note and I'll get back to you.
     </p>
     <form class="note-form reveal" id="noteForm" novalidate>
-      <input type="hidden" name="source" value="leave-a-review" />
+      <input type="hidden" name="source" value="lets-talk" />
       <div class="row">
-        <input type="text" name="name" placeholder="Name (optional)" autocomplete="name" />
-        <input type="email" name="email" placeholder="Email (optional)" autocomplete="email" />
+        <input type="text" name="name" placeholder="Name" autocomplete="name" required />
+        <input type="email" name="email" placeholder="Email" autocomplete="email" required />
       </div>
       <textarea name="message" placeholder="What's on your mind?" required></textarea>
-      <button type="submit">Submit</button>
+      <button type="submit">Send</button>
       <p class="note-status" id="noteStatus" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -867,7 +867,7 @@
   <div class="f-links">
     <a href="#featured-work">Work</a>
     <a href="#reels">Reels</a>
-    <a href="#leave-a-review">Leave a Review</a>
+    <a href="#leave-a-review">Let's Talk</a>
     <a href="#contact">Contact</a>
   </div>
   <p class="f-copy">&copy; <span id="yr"></span> swang. All rights reserved.</p>
@@ -912,15 +912,23 @@
       const message = (fd.get('message') || '').toString().trim();
       const source  = (fd.get('source')  || 'site').toString().trim();
       noteStatus.classList.remove('error');
-      if (!message) {
-        noteStatus.textContent = 'Leave a short note before submitting.';
+      if (!name) {
+        noteStatus.textContent = 'Add your name before sending.';
         noteStatus.classList.add('error');
         return;
       }
-      // Client-side email check so we catch typos before hitting the server.
-      // Empty email is allowed — folks can drop an anonymous note.
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        noteStatus.textContent = "That email doesn't look right — fix it, or leave it blank.";
+      if (!email) {
+        noteStatus.textContent = 'Add your email before sending.';
+        noteStatus.classList.add('error');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        noteStatus.textContent = "That email doesn't look right — fix it and try again.";
+        noteStatus.classList.add('error');
+        return;
+      }
+      if (!message) {
+        noteStatus.textContent = 'Leave a short note before sending.';
         noteStatus.classList.add('error');
         return;
       }
