@@ -1,5 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/case-studies", "destination": "/case-studies.html" }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
