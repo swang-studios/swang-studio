@@ -549,6 +549,20 @@
       letter-spacing: 0.06em;
     }
     .note-status.error { color: #a8432a; }
+    .note-direct {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      letter-spacing: 0.01em;
+    }
+    .note-direct a {
+      color: var(--honey-deep);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      font-weight: 600;
+    }
+    .note-direct a:hover { color: var(--ink); }
     @media (max-width: 720px) {
       .note { padding: 56px 24px; }
       .note-form .row { grid-template-columns: 1fr; }
@@ -884,6 +898,11 @@
       <button type="submit">Send</button>
       <p class="note-status" id="noteStatus" role="status" aria-live="polite"></p>
     </form>
+    <p class="note-direct">
+      Prefer email? Write to
+      <a href="mailto:hello@swang.studio?subject=swang.studio%20%E2%80%94%20hello">hello@swang.studio</a>
+      directly.
+    </p>
   </div>
 </section>
 
