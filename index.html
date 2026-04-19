@@ -20,9 +20,9 @@
       --bg-warm:    #efdfbb;  /* slightly deeper */
       --bg-soft:    #fbf3e1;  /* lightest cream */
       --surface:    #f3e7cc;  /* warm section surface */
-      --ink:        #2b1d0e;  /* espresso — primary text */
-      --ink-soft:   #6b5232;  /* warm taupe — body text */
-      --ink-mute:   #9b7e52;  /* muted taupe — meta text */
+      --ink:        #2b1d0e;  /* espresso, primary text */
+      --ink-soft:   #6b5232;  /* warm taupe, body text */
+      --ink-mute:   #9b7e52;  /* muted taupe, meta text */
       --line:       rgba(43,29,14,0.12);  /* warm border */
       --line-strong:rgba(43,29,14,0.22);
       --honey:      #c78c2b;  /* primary honey amber */
@@ -30,7 +30,7 @@
       --honey-glow: #e7b148;  /* bright honey highlight */
       --terra:      #b4682f;  /* terracotta accent */
       --dark:       #32200f;  /* deep umber for contrast */
-      /* legacy aliases — keep existing rules working */
+      /* legacy aliases, keep existing rules working */
       --accent:     #c78c2b;
       --accent-dark:#a06a17;
       --honey-dark: #a06a17;
@@ -90,7 +90,7 @@
     }
     nav ul a:hover { opacity: 1; color: var(--honey-deep); }
 
-    /* HERO — gallery backdrop + frosted glass overlay */
+    /* HERO, gallery backdrop + frosted glass overlay */
     .hero {
       position: relative;
       min-height: 86vh;
@@ -175,7 +175,7 @@
     .btn.filled:hover {
       background: var(--honey-deep); border-color: var(--honey-deep); color: #fff;
     }
-    /* Rotating hero word — earthy, warm accents on cream */
+    /* Rotating hero word, earthy, warm accents on cream */
     #rw.w-brand     { color: #C26A2E; }  /* terracotta */
     #rw.w-product   { color: #7D8A4E; }  /* warm olive */
     #rw.w-influencer{ color: #8C6A3F; }  /* walnut */
@@ -205,18 +205,26 @@
       width: max-content;
       animation: logoScroll 110s linear infinite;
     }
-    .logo-track:hover { animation-play-state: paused; }
+    /* hover-lift on a single logo pauses the wheel only while hovered;
+       leaving the logo lets the wheel resume its slow rotation. */
+    .logo-track:has(.logo-item:hover) { animation-play-state: paused; }
     .logo-item {
       display: flex; align-items: center; justify-content: center;
       padding: 0 100px; flex-shrink: 0;
-      text-decoration: none; transition: opacity 0.2s;
+      cursor: default; user-select: none;
+      transition: transform 0.35s cubic-bezier(.22,.61,.36,1),
+                  filter 0.35s ease;
     }
-    .logo-item:hover { opacity: 0.65; }
+    .logo-item:hover {
+      transform: translateY(-10px);
+      filter: drop-shadow(0 14px 28px rgba(50,32,15,0.22));
+    }
     .logo-item img {
       max-height: 240px; width: auto; max-width: 480px;
       object-fit: contain; display: block;
-      opacity: 0.85; transition: opacity 0.3s;
+      opacity: 0.92; transition: opacity 0.3s;
       filter: saturate(0.95);
+      pointer-events: none; /* hover target is the wrapper */
     }
     .logo-item.profile img {
       max-height: 240px; max-width: 480px;
@@ -224,14 +232,14 @@
       border-radius: 22px;
       filter: drop-shadow(0 10px 28px rgba(50,32,15,0.14));
     }
-    .logo-item.color img { opacity: 0.95; max-height: 240px; width: auto; max-width: 480px; }
-    .logo-track:hover .logo-item img { opacity: 1; }
+    .logo-item.color img { opacity: 0.98; max-height: 240px; width: auto; max-width: 480px; }
+    .logo-item:hover img { opacity: 1; }
     @keyframes logoScroll {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
 
-    /* GALLERY — 4 editorial tiles */
+    /* GALLERY, 4 editorial tiles */
     .gallery {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -354,7 +362,7 @@
       color: var(--ink-mute); border-bottom-color: var(--line);
       pointer-events: none;
     }
-    /* IM8 card — logo centered on warm backdrop */
+    /* IM8 card, logo centered on warm backdrop */
     .card.card-im8 .card-img {
       background: radial-gradient(ellipse at center, #f5dfa6 0%, #d7b36c 75%);
       display: flex; align-items: center; justify-content: center;
@@ -438,7 +446,7 @@
     .benefit-item:hover .benefit-num { opacity: 1; }
     .benefit-text { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); }
 
-    /* ABOUT — warm honey feature section on rich umber */
+    /* ABOUT, warm honey feature section on rich umber */
     .about {
       padding: 80px 48px;
       background:
@@ -476,7 +484,7 @@
     }
     .about-cta:hover { background: var(--honey-glow); color: var(--ink); }
 
-    /* LEAVE A NOTE — warm honey chat box */
+    /* LEAVE A NOTE, warm honey chat box */
     .note {
       padding: 90px 48px;
       background:
@@ -690,11 +698,11 @@
   </ul>
 </nav>
 
-<!-- HERO — feature + two stacked + tall vertical, frosted glass headline -->
+<!-- HERO, feature + two stacked + tall vertical, frosted glass headline -->
 <section class="hero">
   <div class="hero-backdrop">
     <div class="hero-tile feature">
-      <img src="photo2.jpg" alt="Automotive brand shoot — BMW M3 duo at the coast" />
+      <img src="photo2.jpg" alt="Automotive brand shoot, BMW M3 duo at the coast" />
     </div>
     <div class="hero-tile">
       <img src="photo3b.jpg" alt="Aerial putting green nestled in landscape" />
@@ -703,7 +711,7 @@
       <img src="photo41.jpg" alt="Pickleball court property editorial" />
     </div>
     <div class="hero-tile tall">
-      <img src="portrait2.jpg" alt="Aerial property — roof and lawn" />
+      <img src="portrait2.jpg" alt="Aerial property, roof and lawn" />
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -734,28 +742,31 @@
   </div>
   <div class="logo-marquee">
     <div class="logo-track">
-      <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
-      <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
-      <a class="logo-item" href="https://www.linkedin.com" target="_blank" rel="noopener"><img src="3.png" alt="LinkedIn" /></a>
-      <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
-      <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
-      <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
-      <a class="logo-item" href="https://im8health.com/" target="_blank" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
-      <a class="logo-item" href="https://jamagansett.com/" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
+      <div class="logo-item profile"><img src="shaadiefitlogo.png" alt="shaadiefit" /></div>
+      <div class="logo-item profile"><img src="alyssalynchlogo.png" alt="alyssalynch" /></div>
+      <div class="logo-item"><img src="3.png" alt="LinkedIn" /></div>
+      <div class="logo-item"><img src="4.png" alt="Stanford Medicine" /></div>
+      <div class="logo-item"><img src="6.png" alt="Compass" /></div>
+      <div class="logo-item color"><img src="7.png" alt="J Brand" /></div>
+      <div class="logo-item"><img src="8.png" alt="I·M·8" /></div>
+      <div class="logo-item"><img src="5.png" alt="Jam Amagansett" /></div>
+      <!-- Pavers and Turf slot, drop paversturflogo.png into the repo to activate -->
+      <!-- <div class="logo-item"><img src="paversturflogo.png" alt="Pavers and Turf" /></div> -->
       <!-- duplicate for seamless loop -->
-      <a class="logo-item profile" href="https://www.instagram.com/shaadiefit/" target="_blank" rel="noopener"><img src="shaadiefitlogo.png" alt="shaadiefit" /></a>
-      <a class="logo-item profile" href="https://www.instagram.com/alyssalynch/" target="_blank" rel="noopener"><img src="alyssalynchlogo.png" alt="alyssalynch" /></a>
-      <a class="logo-item" href="https://www.linkedin.com" target="_blank" rel="noopener"><img src="3.png" alt="LinkedIn" /></a>
-      <a class="logo-item" href="https://med.stanford.edu" target="_blank" rel="noopener"><img src="4.png" alt="Stanford Medicine" /></a>
-      <a class="logo-item" href="https://www.compass.com" target="_blank" rel="noopener"><img src="6.png" alt="Compass" /></a>
-      <a class="logo-item color" href="https://jbrand.com" target="_blank" rel="noopener"><img src="7.png" alt="J Brand" /></a>
-      <a class="logo-item" href="https://im8health.com/" target="_blank" rel="noopener"><img src="8.png" alt="I·M·8" /></a>
-      <a class="logo-item" href="https://jamagansett.com/" target="_blank" rel="noopener"><img src="5.png" alt="Jam Amagansett" /></a>
+      <div class="logo-item profile"><img src="shaadiefitlogo.png" alt="shaadiefit" /></div>
+      <div class="logo-item profile"><img src="alyssalynchlogo.png" alt="alyssalynch" /></div>
+      <div class="logo-item"><img src="3.png" alt="LinkedIn" /></div>
+      <div class="logo-item"><img src="4.png" alt="Stanford Medicine" /></div>
+      <div class="logo-item"><img src="6.png" alt="Compass" /></div>
+      <div class="logo-item color"><img src="7.png" alt="J Brand" /></div>
+      <div class="logo-item"><img src="8.png" alt="I·M·8" /></div>
+      <div class="logo-item"><img src="5.png" alt="Jam Amagansett" /></div>
+      <!-- <div class="logo-item"><img src="paversturflogo.png" alt="Pavers and Turf" /></div> -->
     </div>
   </div>
 </section>
 
-<!-- GALLERY GRID — 4-tile editorial (automotive, architectural, aerial property, aerial green) -->
+<!-- GALLERY GRID, 4-tile editorial (automotive, architectural, aerial property, aerial green) -->
 <div id="gallery" class="gallery">
   <div class="gi ga"><img src="aerial-backyard.jpg" alt="Mercedes SLR Stirling Moss editorial" /></div>
   <div class="gi gb"><img src="photo2b.jpg" alt="Mid-century architectural lifestyle" /></div>
@@ -815,7 +826,7 @@
       <div class="card-body">
         <p class="card-tag">Content Design</p>
         <h3 class="card-title">Clickbait Thumbnails for a Sports Creator</h3>
-        <p class="card-blurb">Simple hooks, bright reactions, same-day turnarounds. Built for how people actually scroll YouTube &mdash; obvious, bold, hard to ignore.</p>
+        <p class="card-blurb">Simple hooks, bright reactions, same-day turnarounds. Built for how people actually scroll YouTube, obvious, bold, hard to ignore.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -824,7 +835,7 @@
       <div class="card-body">
         <p class="card-tag">Meta Campaign &amp; Geo-Targeting</p>
         <h3 class="card-title">A Meta Campaign Anyone Can Start</h3>
-        <p class="card-blurb">Local contractor advertising is wide open on Meta &mdash; cheap, geo-precise, and untapped next to Google CPC. Pavers and Turf is the proof of the loop.</p>
+        <p class="card-blurb">Local contractor advertising is wide open on Meta, cheap, geo-precise, and untapped next to Google CPC. Pavers and Turf is the proof of the loop.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -832,8 +843,8 @@
       <div class="card-img"><img src="8.png" alt="IM8 logo" /></div>
       <div class="card-body">
         <p class="card-tag">Athlete Collaboration</p>
-        <h3 class="card-title">IM8 x Jewell Loyd &mdash; Athlete Content, Done Clean</h3>
-        <p class="card-blurb">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page &mdash; not interrupt it.</p>
+        <h3 class="card-title">IM8 x Jewell Loyd: Athlete Content, Done Clean</h3>
+        <p class="card-blurb">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page, not interrupt it.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -846,7 +857,7 @@
     <div class="benefits-left">
       <p class="section-label reveal">What You Get</p>
       <h2 class="reveal">Built to<br><em>Convert.</em></h2>
-      <p class="reveal">Content and creative strategy tailored to your brand — designed to reach the right audience and keep them engaged.</p>
+      <p class="reveal">Content and creative strategy tailored to your brand, designed to reach the right audience and keep them engaged.</p>
     </div>
     <ul class="benefit-list">
       <li class="benefit-item reveal"><span class="benefit-num">01</span><span class="benefit-text">Organic and Paid channel growth</span></li>
@@ -863,7 +874,7 @@
   <div class="about-text">
     <p class="section-label">About</p>
     <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
-    <p class="about-bio reveal">Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands from concept through execution — paid campaigns, ground-level shoots, full digital rollouts. Every frame earns its place.</p>
+    <p class="about-bio reveal">Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands from concept through execution, paid campaigns, ground-level shoots, full digital rollouts. Every frame earns its place.</p>
     <div class="about-tags reveal">
       <span class="about-tag">Creative Strategy</span>
       <span class="about-tag">Aerial Photography</span>
@@ -878,7 +889,7 @@
   </div>
 </section>
 
-<!-- LET'S TALK / CONTACT — quick chat-box style hit-up form -->
+<!-- LET'S TALK / CONTACT, quick chat-box style hit-up form -->
 <section class="note" id="leave-a-review">
   <div class="note-inner">
     <p class="section-label">Let's Talk</p>
@@ -886,7 +897,7 @@
       Hit me <em>up.</em>
     </h2>
     <p class="note-sub reveal">
-      Project, collab, or quick question — send a note and I'll get back to you.
+      Project, collab, or quick question, send a note and I'll get back to you.
     </p>
     <form class="note-form reveal" id="noteForm" novalidate>
       <input type="hidden" name="source" value="lets-talk" />
@@ -956,7 +967,7 @@
   setInterval(rotateWord, 3200);
 
   // ------------------------------------------------------------
-  // SEAMLESS SUBMISSIONS — posts to /api/submit (in-house serverless
+  // SEAMLESS SUBMISSIONS, posts to /api/submit (in-house serverless
   // function on Vercel). No mailto, no third-party redirect.
   // Submissions are tallied in Vercel function logs and emailed to
   // hello@swang.studio when RESEND_API_KEY is set in Vercel env.
@@ -983,7 +994,7 @@
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        noteStatus.textContent = "That email doesn't look right — fix it and try again.";
+        noteStatus.textContent = "That email doesn't look right, fix it and try again.";
         noteStatus.classList.add('error');
         return;
       }
@@ -1007,19 +1018,19 @@
           throw new Error(reason);
         }
         noteForm.reset();
-        noteStatus.textContent = 'Got it — I read every one. Talk soon.';
+        noteStatus.textContent = 'Got it, I read every one. Talk soon.';
       } catch (err) {
         console.warn('Submit failed:', err);
         const raw = (err && err.message) ? err.message : '';
         const isValidation = /bad email|message required/i.test(raw);
-        let friendly = 'Something hiccuped — try again, or email hello@swang.studio directly.';
-        if (/bad email/i.test(raw))           friendly = "That email doesn't look right — fix it, or leave it blank.";
+        let friendly = 'Something hiccuped, try again, or email hello@swang.studio directly.';
+        if (/bad email/i.test(raw))           friendly = "That email doesn't look right, fix it, or leave it blank.";
         else if (/message required/i.test(raw)) friendly = 'Please write a message before sending.';
         // Show friendly text; on transient failures append a mailto fallback link.
         noteStatus.textContent = friendly + ' ';
         if (!isValidation) {
-          const subject = encodeURIComponent('Hit me up — ' + (name || 'site visitor'));
-          const body    = encodeURIComponent(message + (email ? ('\n\n— ' + (name || '') + ' <' + email + '>') : ''));
+          const subject = encodeURIComponent('Hit me up, ' + (name || 'site visitor'));
+          const body    = encodeURIComponent(message + (email ? ('\n\n, ' + (name || '') + ' <' + email + '>') : ''));
           const a = document.createElement('a');
           a.href = 'mailto:hello@swang.studio?subject=' + subject + '&body=' + body;
           a.textContent = 'Open email instead →';
