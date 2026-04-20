@@ -272,16 +272,17 @@
       -webkit-text-fill-color: transparent !important;
     }
 
-    /* property — brick→slate gradient text (no glyph mark, the word IS the texture)
-       Scope the clip to .rw-text directly — .rw-text is a child of #rw, so the
-       background has to live on the text-bearing element or the gradient
-       never reaches the glyphs and the word renders invisible. */
-    #rw.w-property .rw-text {
-      background: linear-gradient(118deg,
-        #B55538 0%, #8F4324 34%,
-        #6B5A4A 58%, #5D7E9A 92%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
+    /* property — a little house emoji that bobs/clicks beside the pastel word,
+       same rhythm family as the creator camera */
+    #rw .rw-mark.house {
+      top: -8px; right: -28px;
+      font-size: 0.34em;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
+      transform-origin: 50% 80%;
+    }
+    #rw.w-property .rw-mark.house {
+      opacity: 0.95;
+      animation: rwCameraClick 3.0s ease-out infinite;
     }
 
     /* vision — a cartoon eye emoji that pans side to side, with a soft blink scale */
@@ -365,7 +366,7 @@
     #rw.w-influencer{ color: #4DA8DA; }  /* baby blue */
     #rw.w-service   { color: #D97A2A; }  /* service orange */
     #rw.w-creator   { color: #8C5BC4; }  /* vivid violet */
-    /* #rw.w-property handled above via gradient text-fill */
+    #rw.w-property  { color: #E8AA8A; }  /* pastel terracotta-peach */
     #rw.w-vision    { color: #C9892E; }  /* brighter gold */
 
     /* CLIENTS */
@@ -957,6 +958,7 @@
           <span class="rw-mark money m3" aria-hidden="true">$</span>
           <span class="rw-mark wrench"   aria-hidden="true">&#128295;</span>
           <span class="rw-mark camera"   aria-hidden="true">&#128248;</span>
+          <span class="rw-mark house"    aria-hidden="true">&#127969;</span>
           <span class="rw-mark eye"      aria-hidden="true">&#128065;</span>
         </span>
         <span class="rw-ticker"        aria-hidden="true"></span>
