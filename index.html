@@ -113,13 +113,9 @@
     .hero-tile.tall    { grid-column: 3; grid-row: 1 / 3; }
     .hero:hover .hero-tile.feature img,
     .hero:hover .hero-tile.tall img { transform: scale(1.03); }
-    .hero-scrim {
-      position: absolute; inset: 0; z-index: 1;
-      background:
-        radial-gradient(ellipse at 50% 55%, rgba(246,234,210,0.45) 0%, rgba(246,234,210,0.15) 48%, transparent 70%),
-        linear-gradient(180deg, rgba(246,234,210,0.18) 0%, rgba(50,32,15,0.25) 100%);
-      pointer-events: none;
-    }
+    /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
+       The cream-glass look now lives ONLY on .hero-glass. */
+    .hero-scrim { display: none; }
     .hero-glass {
       position: relative; z-index: 2;
       max-width: 680px;
@@ -175,14 +171,14 @@
     .btn.filled:hover {
       background: var(--honey-deep); border-color: var(--honey-deep); color: #fff;
     }
-    /* Rotating hero word, earthy, warm accents on cream */
-    #rw.w-brand     { color: #C26A2E; }  /* terracotta */
-    #rw.w-product   { color: #7D8A4E; }  /* warm olive */
-    #rw.w-influencer{ color: #8C6A3F; }  /* walnut */
-    #rw.w-service   { color: #A06A17; }  /* deep honey */
-    #rw.w-creator   { color: #B4682F; }  /* burnt amber */
-    #rw.w-property  { color: #6B8E7E; }  /* sage */
-    #rw.w-vision    { color: #c78c2b; }  /* honey */
+    /* Rotating hero word, classic Macintosh-era pastels on cream (Apr 19 PM2) */
+    #rw.w-brand     { color: #E8B7B1; }  /* dusty rose */
+    #rw.w-product   { color: #B8D0B3; }  /* sage green */
+    #rw.w-influencer{ color: #C4C2E0; }  /* periwinkle */
+    #rw.w-service   { color: #F2D39E; }  /* warm peach */
+    #rw.w-creator   { color: #E6C7E1; }  /* soft lavender */
+    #rw.w-property  { color: #A8D3D0; }  /* mint blue */
+    #rw.w-vision    { color: #F1C9A5; }  /* melon */
 
     /* CLIENTS */
     .clients {
@@ -237,6 +233,22 @@
     @keyframes logoScroll {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
+    }
+
+    /* MOBILE, shrink logo wheel so 2 to 3 logos sit in-frame per rotation */
+    @media (max-width: 760px) {
+      .logo-marquee { padding: 28px 0; }
+      .logo-track { animation-duration: 70s; }
+      .logo-item { padding: 0 22px; }
+      .logo-item img,
+      .logo-item.color img,
+      .logo-item.profile img { max-height: 90px; max-width: 160px; }
+    }
+    @media (max-width: 440px) {
+      .logo-item { padding: 0 14px; }
+      .logo-item img,
+      .logo-item.color img,
+      .logo-item.profile img { max-height: 72px; max-width: 130px; }
     }
 
     /* GALLERY, 4 editorial tiles */
@@ -644,6 +656,28 @@
       background: var(--honey-deep); transform: translateY(-2px);
       box-shadow: 0 10px 28px rgba(160,106,23,0.45);
     }
+    /* Mobile, compact BLUE translucent-glass CTA (Apr 19 PM2 — was cream glass) */
+    @media (max-width: 760px) {
+      .cta-pill {
+        bottom: 16px; right: 16px;
+        padding: 10px 16px;
+        font-size: 10px; letter-spacing: 0.12em;
+        background: rgba(74, 134, 197, 0.22);   /* --blue-2 — pool-water blue */
+        color: var(--ink);
+        border: 1px solid rgba(74, 134, 197, 0.55);
+        backdrop-filter: blur(14px) saturate(150%);
+        -webkit-backdrop-filter: blur(14px) saturate(150%);
+        box-shadow: 0 4px 14px rgba(60,40,10,0.16),
+                    inset 0 -2px 0 rgba(74, 134, 197, 0.20);
+      }
+      .cta-pill:hover {
+        background: rgba(74, 134, 197, 0.32);
+        color: var(--ink); border-color: rgba(74, 134, 197, 0.85);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(60,40,10,0.22),
+                    inset 0 -2px 0 rgba(74, 134, 197, 0.20);
+      }
+    }
 
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -678,7 +712,12 @@
       .benefits { padding: 56px 24px; }
       .benefits-inner { grid-template-columns: 1fr; gap: 40px; }
       .about { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
-      .about-photo { max-width: 100%; height: 360px; }
+      .about-photo {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        object-position: center center;
+      }
       footer {
         flex-direction: column; gap: 28px;
         align-items: flex-start; padding: 40px 24px;

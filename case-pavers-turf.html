@@ -3,327 +3,490 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changing How a Contractor Drives Business: Pavers and Turf by O'Neill's | swang.</title>
-  <meta name="description" content="Case study: built a content + ad system for Pavers and Turf by O'Neill's. 15K+ views, 50+ shares, and an inbound pipeline that runs itself." />
+  <title>Pavers and Turf by O'Neill's, Building a Predictable Lead Engine from Zero | swang.</title>
+  <meta name="description" content="Case study: from no Meta presence to a scalable local lead engine. 5,067 views, 2,976 unique viewers, 138 clicks, 65 new follows from a single $104 Meta test." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --accent: #5c7a42;
-      --accent-dark: #3d5229;
-      --honey: #e8a800;
-      --gold: #c9963a;
-      --gray: #888;
+      --ink: #1a1408;
+      --ink-2: #3a2d17;
+      --muted: #6a5a3c;
+      --cream: #f6efdf;
+      --cream-2: #fbf7ec;
+      --cream-3: #efe7d0;
+      --clay: #c7a97a;
+      --espresso: #5c4a2a;
+      /* Apr 19 PM2: cold-yellow wash retired in favor of pure blue translucent.
+         Old cold-yellow vars aliased to the new blue so any stragglers still resolve. */
+      --blue-1: rgba(111, 168, 220, 0.18);  /* #6FA8DC @ 18% — headline highlight washes */
+      --blue-2: rgba(74, 134, 197, 0.22);   /* #4A86C5 @ 22% — CTA tints / active tabs */
+      --blue-line: rgba(74, 134, 197, 0.20); /* inset marker-pass bottom border */
+      --cold-yellow: var(--blue-2);
+      --cold-yellow-2: var(--blue-1);
+      --cold-yellow-3: var(--blue-2);
+      --accent: #8c6b2f;
+      --accent-2: #a0814a;
+      --rule: #d9c9a3;
+      --win: #6b8250;
+      --loss: #c18585;
     }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: #1c2416;
-      color: #f0f0f0;
+      background: var(--cream-2);
+      color: var(--ink);
       overflow-x: hidden;
     }
+    /* slow lava drift */
     body::before {
-      content: ''; position: fixed; inset: 0; z-index: -1;
+      content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
-        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
-        #1c2416;
-      animation: meshDrift 18s ease-in-out infinite alternate;
+        radial-gradient(ellipse at 18% 22%, #f6efdf 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #e9dcb8 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #fbf7ec 0%, transparent 70%),
+        linear-gradient(135deg, #f6efdf, #ece0bd 45%, #e4d4a8 70%, #d8c28a);
+      background-size: 180% 180%;
+      animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
+      filter: saturate(0.85);
     }
-    @keyframes meshDrift {
-      0%   { transform: scale(1)    translate(0, 0); }
-      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
-      100% { transform: scale(1)    translate(1.5%, -1.2%); }
+    @keyframes lavaDrift {
+      0%   { background-position: 0% 0%; transform: scale(1); }
+      50%  { background-position: 40% 60%; transform: scale(1.04); }
+      100% { background-position: 100% 100%; transform: scale(1); }
     }
 
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 48px;
-      background: rgba(18,24,14,0.92);
-      backdrop-filter: blur(14px);
+      padding: 18px 44px;
+      background: rgba(246, 239, 223, 0.55);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom: 1px solid rgba(217, 201, 163, 0.45);
+    }
+    nav::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 0;
+      height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     }
     nav .logo {
       font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
-      color: #f0f0f0; text-decoration: none;
+      color: var(--ink); text-decoration: none;
     }
-    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
     nav ul a {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
-      opacity: 0.65; transition: opacity 0.2s;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-2); text-decoration: none;
+      opacity: 0.7; transition: opacity 0.2s;
     }
-    nav ul a:hover { opacity: 1; }
+    nav ul a:hover { opacity: 1; color: var(--accent); }
 
-    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 64px; }
+    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 130px 44px 56px; }
     .cs-crumb {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--accent);
       text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
       margin-bottom: 28px;
     }
-    .cs-crumb:hover { color: var(--honey); }
+    .cs-crumb:hover { color: var(--ink); }
     .cs-tag {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--honey);
+      text-transform: uppercase; color: var(--accent);
     }
     .cs-title {
-      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.0; margin-top: 16px;
-      max-width: 900px;
+      font-size: clamp(34px, 5vw, 60px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.02; margin-top: 14px;
+      max-width: 960px; color: var(--ink);
     }
-    .cs-title em { color: var(--accent); font-style: normal; }
+    .cs-title em {
+      color: var(--accent); font-style: normal;
+      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
+      padding: 0 10px; border-radius: 2px;
+      box-shadow: inset 0 -2px 0 var(--blue-line);
+    }
+    .cs-sub {
+      margin-top: 18px; font-size: 15.5px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--espresso); max-width: 780px;
+    }
     .cs-lede {
-      margin-top: 24px; font-size: 17px; line-height: 1.7;
-      color: rgba(240,240,240,0.8); max-width: 700px;
-    }
-    .cs-hero {
-      margin-top: 48px; border-radius: 3px; overflow: hidden;
-      background: #2a3423; aspect-ratio: 16/9;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-    }
-    .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cs-body { margin-top: 64px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
-    .cs-body p { font-size: 16px; line-height: 1.8; color: rgba(240,240,240,0.78); }
-    .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
-    .cs-rule { height: 1px; background: rgba(255,255,255,0.08); margin: 40px 0; max-width: 780px; }
-    .cs-bullets { list-style: none; margin-top: 8px; display: grid; gap: 12px; }
-    .cs-bullets li {
-      padding: 16px 18px; border-left: 3px solid var(--accent);
-      background: rgba(255,255,255,0.04);
-      font-size: 15px; line-height: 1.6; color: #e8e8e8;
-      border-radius: 0 3px 3px 0;
-    }
-    .cs-callout {
-      margin: 48px 0; padding: 32px 36px;
-      border: 1px solid rgba(232,168,0,0.25);
-      background: linear-gradient(135deg, rgba(232,168,0,0.08), rgba(92,122,66,0.04));
-      border-radius: 3px; max-width: 780px;
-    }
-    .cs-callout strong {
-      display: block; font-size: clamp(22px, 2.4vw, 30px);
-      font-weight: 700; letter-spacing: -0.02em; color: #fff;
-    }
-    .cs-callout span {
-      display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.55);
+      margin-top: 22px; font-size: 17px; line-height: 1.7;
+      color: var(--ink-2); max-width: 720px;
     }
 
-    /* METRICS BAR */
+    /* HERO, cleaner frame */
+    .cs-hero {
+      margin-top: 44px; border-radius: 4px; overflow: hidden;
+      background: var(--cream-3); aspect-ratio: 16/9;
+      box-shadow: 0 30px 80px rgba(60, 40, 10, 0.18), inset 0 0 0 1px rgba(255,255,255,0.4);
+    }
+    .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* BEFORE / AFTER chip pair */
+    .ba-row {
+      margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .ba-chip {
+      padding: 22px 24px; border-radius: 4px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(217, 201, 163, 0.6);
+      backdrop-filter: blur(4px);
+    }
+    .ba-chip .ba-tag {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+    .ba-chip.before .ba-tag { color: var(--loss); }
+    .ba-chip.after  .ba-tag { color: var(--win); }
+    .ba-chip h3 {
+      font-size: 17px; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--ink); line-height: 1.3;
+    }
+    .ba-chip p {
+      margin-top: 6px; font-size: 13.5px; color: var(--ink-2); line-height: 1.55;
+    }
+
+    /* METRICS, count up */
     .metrics {
-      margin: 72px 0 0;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin: 44px 0 0;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
     }
     .metric {
-      padding: 28px 24px; border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 3px; background: rgba(255,255,255,0.04);
-      transition: border-color 0.3s, background 0.3s;
+      padding: 26px 22px; border-radius: 4px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(217, 201, 163, 0.55);
+      transition: border-color 0.25s, transform 0.25s, background 0.25s;
+      position: relative; overflow: hidden;
     }
-    .metric:hover { border-color: var(--accent); background: rgba(92,122,66,0.08); }
+    .metric::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(246, 241, 196, 0.0), rgba(246, 241, 196, 0.35));
+      opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .metric:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .metric:hover::after { opacity: 1; }
     .metric .big {
-      font-size: clamp(32px, 4vw, 52px); font-weight: 700;
-      letter-spacing: -0.03em; color: var(--honey); line-height: 1.0;
+      font-size: clamp(30px, 4vw, 50px); font-weight: 700;
+      letter-spacing: -0.03em; color: var(--ink); line-height: 1.0;
       font-variant-numeric: tabular-nums;
     }
+    .metric .big sup {
+      font-size: 0.42em; vertical-align: top; margin-left: 2px;
+      color: var(--accent); font-weight: 600;
+    }
     .metric .lbl {
-      margin-top: 10px; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase; color: #bbb;
+      margin-top: 10px; font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--espresso);
     }
     .metric .desc {
-      margin-top: 6px; font-size: 12px; color: var(--gray); line-height: 1.5;
+      margin-top: 6px; font-size: 12px; color: var(--muted); line-height: 1.5;
     }
+
+    /* CHART CARD */
+    .chart-card {
+      margin: 56px 0 0; padding: 36px 32px; border-radius: 4px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(217, 201, 163, 0.55);
+      box-shadow: 0 24px 60px rgba(60, 40, 10, 0.10);
+    }
+    .chart-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+    .chart-head .label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .chart-head .label::before {
+      content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
+    }
+    .chart-head h3 {
+      font-size: clamp(20px, 2.4vw, 28px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink); margin-top: 8px;
+      max-width: 640px; line-height: 1.25;
+    }
+    .chart-head .hint {
+      font-size: 12.5px; color: var(--muted); margin-top: 6px; max-width: 640px;
+    }
+    .chart-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chart-tab {
+      font-family: inherit; font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 8px 14px; border: 1px solid rgba(140, 107, 47, 0.22);
+      border-radius: 2px; background: rgba(255,255,255,0.6); color: var(--espresso);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .chart-tab:hover { border-color: var(--accent); color: var(--ink); }
+    .chart-tab.active {
+      background: var(--ink); color: var(--cream-2); border-color: var(--ink);
+    }
+    .chart-canvas-wrap {
+      margin-top: 28px; position: relative;
+      height: 320px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(246,239,223,0.0));
+      border-radius: 3px;
+      padding: 10px 4px 4px;
+    }
+    .chart-canvas-wrap canvas { width: 100% !important; height: 100% !important; }
+    .chart-foot {
+      margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    }
+    .chart-foot .foot-cell {
+      padding: 12px 14px; border-radius: 3px;
+      background: rgba(246, 241, 196, 0.35);
+      border: 1px solid rgba(217, 201, 163, 0.45);
+    }
+    .chart-foot .foot-val {
+      font-size: 18px; font-weight: 700; color: var(--ink);
+      letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+    }
+    .chart-foot .foot-lbl {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--espresso); margin-top: 4px;
+    }
+
+    /* DEMO BAR CHART */
+    .demo-card {
+      margin: 22px 0 0; padding: 32px; border-radius: 4px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(217, 201, 163, 0.55);
+    }
+    .demo-card .label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .demo-card .label::before {
+      content: ''; display: inline-block; width: 16px; height: 1.5px; background: var(--accent);
+    }
+    .demo-card h3 {
+      font-size: clamp(18px, 2.2vw, 24px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink); max-width: 600px; line-height: 1.3;
+    }
+    .demo-card .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .demo-chart-wrap { margin-top: 20px; height: 260px; }
 
     /* LOOP DIAGRAM */
     .loop-section {
-      margin: 72px 0; padding: 48px 40px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 3px;
+      margin: 56px 0 0; padding: 40px 36px; border-radius: 4px;
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(217, 201, 163, 0.55);
     }
     .loop-section .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
       display: flex; align-items: center; gap: 10px;
     }
     .loop-section .section-label::before {
       content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
     }
     .loop-section h3 {
-      font-size: clamp(22px, 2.4vw, 32px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0; max-width: 620px; line-height: 1.2;
+      font-size: clamp(20px, 2.4vw, 28px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink); max-width: 640px; line-height: 1.25;
     }
-    .loop-section .hint { font-size: 13px; color: var(--gray); margin-top: 8px; }
+    .loop-section .hint { font-size: 12.5px; color: var(--muted); margin-top: 8px; max-width: 640px; }
     .loop {
-      margin-top: 36px;
+      margin-top: 30px;
       display: grid; grid-template-columns: repeat(4, 1fr) 1fr;
       gap: 10px; align-items: stretch;
     }
     .node {
-      padding: 20px 16px; text-align: center;
-      background: rgba(12,16,8,0.5);
-      border: 1px solid rgba(255,255,255,0.1);
+      padding: 18px 14px; text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(217, 201, 163, 0.5);
       border-radius: 3px;
-      transition: border-color 0.3s, transform 0.3s;
-      cursor: default;
+      transition: border-color 0.25s, transform 0.25s;
     }
-    .node:hover { border-color: var(--honey); transform: translateY(-3px); }
+    .node:hover { border-color: var(--accent); transform: translateY(-3px); }
     .node .n-icon {
-      width: 42px; height: 42px; margin: 0 auto 10px;
+      width: 38px; height: 38px; margin: 0 auto 9px;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      background: rgba(92,122,66,0.15);
-      color: var(--accent); font-size: 18px; font-weight: 700;
+      background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
+      color: var(--ink); font-size: 14px; font-weight: 700;
+      box-shadow: inset 0 0 0 1px var(--blue-line);
     }
     .node .n-title {
-      font-size: 13px; font-weight: 700; color: #f0f0f0;
+      font-size: 12.5px; font-weight: 700; color: var(--ink);
       letter-spacing: 0.04em;
     }
-    .node .n-desc { margin-top: 6px; font-size: 11px; color: #999; line-height: 1.5; }
+    .node .n-desc { margin-top: 5px; font-size: 11px; color: var(--muted); line-height: 1.5; }
     .arrow-node {
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px; color: var(--honey); font-weight: 700;
+      font-size: 22px; color: var(--accent); font-weight: 700;
       animation: flow 2.4s ease-in-out infinite;
     }
     @keyframes flow {
-      0%, 100% { transform: translateX(0); opacity: 0.4; }
+      0%, 100% { transform: translateX(0); opacity: 0.5; }
       50%      { transform: translateX(4px); opacity: 1; }
     }
     .loop-return {
-      grid-column: 1 / -1;
-      margin-top: 14px; text-align: center;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      grid-column: 1 / -1; margin-top: 14px; text-align: center;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--accent);
       position: relative; padding: 12px 0;
     }
     .loop-return::before, .loop-return::after {
-      content: ''; position: absolute; top: 50%;
-      width: 30%; height: 1px;
+      content: ''; position: absolute; top: 50%; width: 28%; height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
     .loop-return::before { left: 2%; }
     .loop-return::after { right: 2%; }
 
-    /* META vs GOOGLE COMPARISON */
+    /* META vs GOOGLE */
     .compare {
-      margin-top: 28px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 26px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
     }
     .compare-col {
-      padding: 28px 26px; border-radius: 3px;
-      background: rgba(12,16,8,0.45);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: border-color 0.25s, transform 0.25s;
+      padding: 26px 24px; border-radius: 4px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(217, 201, 163, 0.55);
+      transition: transform 0.25s;
     }
     .compare-col:hover { transform: translateY(-3px); }
-    .compare-google { border-left: 3px solid #d87474; }
-    .compare-google:hover { border-color: #d87474; }
-    .compare-meta   { border-left: 3px solid var(--honey); }
-    .compare-meta:hover   { border-color: var(--honey); }
+    .compare-google { border-left: 3px solid var(--loss); }
+    .compare-meta   { border-left: 3px solid var(--win); }
     .compare-tag {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: #bbb; margin-bottom: 14px;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--espresso); margin-bottom: 12px;
     }
     .compare-stat {
-      font-size: clamp(34px, 4vw, 50px); font-weight: 700;
+      font-size: clamp(30px, 3.6vw, 44px); font-weight: 700;
       letter-spacing: -0.03em; line-height: 1.0;
       font-variant-numeric: tabular-nums;
     }
-    .compare-google .compare-stat { color: #d87474; }
-    .compare-meta   .compare-stat { color: var(--honey); }
+    .compare-google .compare-stat { color: var(--loss); }
+    .compare-meta   .compare-stat { color: var(--win); }
     .compare-unit {
-      margin-top: 6px; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray);
+      margin-top: 6px; font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
     }
-    .compare-col ul {
-      list-style: none; margin-top: 18px;
-      display: grid; gap: 10px;
-    }
+    .compare-col ul { list-style: none; margin-top: 16px; display: grid; gap: 8px; }
     .compare-col li {
-      font-size: 13px; line-height: 1.55; color: rgba(240,240,240,0.78);
-      padding-left: 16px; position: relative;
+      font-size: 13px; line-height: 1.55; color: var(--ink-2);
+      padding-left: 14px; position: relative;
     }
     .compare-col li::before {
-      content: ''; position: absolute; left: 0; top: 9px;
+      content: ''; position: absolute; left: 0; top: 8px;
       width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,0.3);
+      background: var(--muted);
     }
-    .compare-meta li::before   { background: var(--honey); }
-    .compare-google li::before { background: #d87474; }
+    .compare-meta li::before   { background: var(--win); }
+    .compare-google li::before { background: var(--loss); }
 
-    /* PLATFORM LINKS */
-    .platforms { margin: 72px 0 0; max-width: 780px; }
+    /* IG embed */
+    .ig-embed-section { margin: 56px 0 0; max-width: 780px; }
+    .ig-embed-section h2 {
+      font-size: clamp(20px, 2.4vw, 26px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink);
+    }
+    .ig-embed-section .sub {
+      font-size: 13.5px; color: var(--muted); margin-top: 6px; max-width: 560px;
+      line-height: 1.55;
+    }
+    .ig-embed-section .sub em {
+      color: var(--accent); font-style: normal; font-weight: 700;
+    }
+    .ig-wrap {
+      margin-top: 22px; background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(217, 201, 163, 0.55);
+      border-radius: 4px; overflow: hidden; max-width: 380px;
+    }
+    .ig-wrap iframe { width: 100%; height: 560px; border: none; display: block; }
+
+    /* PLATFORMS */
+    .platforms { margin: 56px 0 0; max-width: 780px; }
     .platforms h2 {
-      font-size: clamp(24px, 2.8vw, 34px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0;
+      font-size: clamp(22px, 2.6vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink);
     }
     .platform-list {
-      margin-top: 24px; display: grid; gap: 10px;
+      margin-top: 20px; display: grid; gap: 8px;
     }
     .platform-list a {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 20px; text-decoration: none; color: #f0f0f0;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
+      padding: 14px 18px; text-decoration: none; color: var(--ink);
+      border: 1px solid rgba(217, 201, 163, 0.55);
+      background: rgba(255,255,255,0.55);
       border-radius: 3px;
       transition: border-color 0.2s, background 0.2s, transform 0.2s;
     }
     .platform-list a:hover {
-      border-color: var(--honey); background: rgba(232,168,0,0.06);
-      transform: translateX(4px);
+      border-color: var(--accent); background: rgba(246, 241, 196, 0.4);
+      transform: translateX(3px);
     }
-    .platform-list strong {
-      font-size: 14px; font-weight: 700; display: block;
-    }
+    .platform-list strong { font-size: 13.5px; font-weight: 700; display: block; }
     .platform-list .url {
-      font-size: 11px; color: var(--gray); margin-top: 3px; font-family: ui-monospace, SF Mono, monospace;
-      display: block;
+      font-size: 10.5px; color: var(--muted); margin-top: 2px;
+      font-family: ui-monospace, SF Mono, monospace; display: block;
     }
-    .platform-list .arrow { color: var(--honey); font-size: 18px; }
+    .platform-list .arrow { color: var(--accent); font-size: 18px; }
 
-    /* IG embed wrapper */
-    .ig-embed-section { margin: 72px 0 0; max-width: 780px; }
-    .ig-embed-section h2 {
-      font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0;
+    /* CALLOUT */
+    .cs-callout {
+      margin: 48px 0 0; padding: 30px 34px; border-radius: 4px;
+      border: 1px solid rgba(140, 107, 47, 0.25);
+      background: linear-gradient(135deg, rgba(246, 241, 196, 0.6), rgba(255, 255, 255, 0.35));
+      max-width: 860px;
     }
-    .ig-embed-section .sub {
-      font-size: 14px; color: var(--gray); margin-top: 8px;
+    .cs-callout strong {
+      display: block; font-size: clamp(20px, 2.4vw, 28px);
+      font-weight: 700; letter-spacing: -0.02em; color: var(--ink);
     }
-    .ig-wrap {
-      margin-top: 24px; background: rgba(255,255,255,0.05);
-      border-radius: 3px; overflow: hidden;
-      max-width: 540px;
+    .cs-callout span {
+      display: block; margin-top: 8px; font-size: 13px; letter-spacing: 0.04em;
+      color: var(--ink-2);
     }
-    .ig-wrap iframe { width: 100%; height: 740px; border: none; display: block; }
 
     footer {
-      margin-top: 96px; padding: 48px;
+      margin-top: 80px; padding: 44px;
       display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(217, 201, 163, 0.5);
       flex-wrap: wrap; gap: 20px;
+      background: rgba(246, 239, 223, 0.4);
     }
     footer .back {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--accent); text-decoration: none;
     }
-    footer .back:hover { color: var(--honey); }
-    footer .copy { font-size: 11px; color: #555; }
+    footer .back:hover { color: var(--ink); }
+    footer .copy { font-size: 10.5px; color: var(--muted); }
 
     @media (max-width: 900px) {
-      nav { padding: 18px 24px; }
-      .cs-wrap { padding: 120px 24px 48px; }
-      .metrics { grid-template-columns: 1fr; }
-      .loop {
-        grid-template-columns: 1fr;
-      }
+      nav { padding: 16px 22px; }
+      .cs-wrap { padding: 110px 22px 44px; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .ba-row, .compare, .chart-foot { grid-template-columns: 1fr; }
+      .loop { grid-template-columns: 1fr; }
       .arrow-node { transform: rotate(90deg); }
-      .loop-section { padding: 32px 22px; }
-      .ig-wrap iframe { height: 640px; }
-      .compare { grid-template-columns: 1fr; }
-      footer { padding: 36px 24px; }
+      .loop-section, .chart-card, .demo-card { padding: 28px 20px; }
+      footer { padding: 30px 22px; }
+    }
+    @media (max-width: 600px) {
+      .cs-wrap { padding: 104px 18px 36px; }
+      .metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .metric { padding: 18px 14px; }
+      .chart-card, .demo-card, .loop-section, .compare-section { padding: 22px 16px; }
+      .chart-head { flex-direction: column; align-items: flex-start; }
+      .chart-tabs {
+        width: 100%; overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .chart-tabs::-webkit-scrollbar { display: none; }
+      .chart-tab { flex-shrink: 0; white-space: nowrap; }
+      .chart-canvas-wrap { height: 240px; }
+      .chart-foot .foot-cell { padding: 10px 12px; }
+      .chart-foot .foot-val { font-size: 16px; }
+      .ba-chip { padding: 18px 18px; }
+      nav ul { gap: 14px; }
+      nav ul a { font-size: 10px; letter-spacing: 0.1em; }
+    }
+    @media (max-width: 400px) {
+      .metrics { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -341,52 +504,132 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Meta Campaign · Geo-Targeted · Local Contractor</p>
-  <h1 class="cs-title">A Meta Campaign Anyone <em>Can Start.</em></h1>
+  <p class="cs-tag">Pavers and Turf by O'Neill's, Meta, Local Contractor</p>
+  <h1 class="cs-title">Building a Predictable <em>Lead Engine</em> from Zero.</h1>
+  <p class="cs-sub">From no presence to a scalable local lead engine</p>
   <p class="cs-lede">
-    Local contractor advertising on Meta is a wide-open lane. Most of the spend in the category piles into Google search at $8 to $30 a click, and the social side sits almost untouched, cheap, geo-precise, and starving for actual content. Pavers and Turf by O'Neill's is the proof.
+    Pavers and Turf by O'Neill's had a category-leading install pipeline and almost no paid presence. One orphan ad attempt in 2023 never left the runway. The question was simple, could a single 7-day, $104 Meta test prove the category was real? The answer ran itself.
   </p>
 
   <div class="cs-hero">
     <img src="putting-green-aerial.jpg" alt="Aerial of a Pavers and Turf by O'Neill's install" />
   </div>
 
-  <!-- LOOP DIAGRAM, promoted to the top, the actual thesis -->
+  <!-- BEFORE / AFTER CONTEXT -->
+  <div class="ba-row">
+    <div class="ba-chip before">
+      <div class="ba-tag">Before</div>
+      <h3>No active Meta presence.</h3>
+      <p>One 2023 ad attempt stuck in "Unable to create". Zero lookalikes, zero pixel signal, no local creative in market.</p>
+    </div>
+    <div class="ba-chip after">
+      <div class="ba-tag">After, 7 days, $104.70</div>
+      <h3>5,067 views, 2,976 unique viewers, 138 clicks, 65 new follows.</h3>
+      <p>One boosted reel. One geo. Clear demographic winner. The proof-of-concept that turned into a cadence.</p>
+    </div>
+  </div>
+
+  <!-- METRICS, count-up animated on scroll -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="big" data-target="5067" data-format="comma">0</div>
+      <div class="lbl">Total Views</div>
+      <div class="desc">7-day boosted reel, Instagram placement, broad local interest stack</div>
+    </div>
+    <div class="metric">
+      <div class="big" data-target="2976" data-format="comma">0</div>
+      <div class="lbl">Unique Viewers</div>
+      <div class="desc">Reach, not an impression count. Frequency held at 1.70 views per viewer</div>
+    </div>
+    <div class="metric">
+      <div class="big" data-target="138" data-format="comma">0</div>
+      <div class="lbl">Link Clicks</div>
+      <div class="desc">2.72% click-through-rate, well above local-service benchmarks</div>
+    </div>
+    <div class="metric">
+      <div class="big" data-target="76" data-format="cents">$0</div>
+      <div class="lbl">Cost per Click</div>
+      <div class="desc">Versus $8 to $30 per click on Google search in the same category</div>
+    </div>
+    <div class="metric">
+      <div class="big" data-target="1211" data-format="comma">0</div>
+      <div class="lbl">3-Second Video Plays</div>
+      <div class="desc">Hook retention on mobile, cold audience, 23.9% video play rate</div>
+    </div>
+    <div class="metric">
+      <div class="big" data-target="65" data-format="comma">0</div>
+      <div class="lbl">New Instagram Follows</div>
+      <div class="desc">Compounding audience, fuel for the next retargeting layer</div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE CHART -->
+  <section class="chart-card">
+    <div class="chart-head">
+      <div>
+        <p class="label">Live Campaign Data, Meta Ads Manager</p>
+        <h3>7-day performance curve, switch metrics to watch the tally compound.</h3>
+        <p class="hint">Pulled from the Aug 7, 2025 boosted reel. Daily shape is modeled from the Meta delivery window, the totals are the real reported figures.</p>
+      </div>
+      <div class="chart-tabs">
+        <button class="chart-tab active" data-series="views">Views</button>
+        <button class="chart-tab" data-series="viewers">Viewers</button>
+        <button class="chart-tab" data-series="clicks">Clicks</button>
+        <button class="chart-tab" data-series="follows">Follows</button>
+        <button class="chart-tab" data-series="spend">Spend</button>
+      </div>
+    </div>
+    <div class="chart-canvas-wrap">
+      <canvas id="pto-chart"></canvas>
+    </div>
+    <div class="chart-foot">
+      <div class="foot-cell"><div class="foot-val" id="foot-total">5,067</div><div class="foot-lbl">Cumulative</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-peak">Day 3</div><div class="foot-lbl">Peak Delivery</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-avg">724</div><div class="foot-lbl">Per-Day Avg</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-rate">2.72%</div><div class="foot-lbl">CTR</div></div>
+    </div>
+  </section>
+
+  <!-- DEMO BREAKDOWN -->
+  <section class="demo-card">
+    <p class="label">Audience, Where the Spend Landed</p>
+    <h3>Men 25-54 carried the campaign. The winning cohort was obvious by Day 3.</h3>
+    <p class="hint">Share of total reach by age and gender, pulled directly from Ad Center. Hover a bar to read the exact percentage.</p>
+    <div class="demo-chart-wrap">
+      <canvas id="demo-chart"></canvas>
+    </div>
+  </section>
+
+  <!-- LOOP -->
   <section class="loop-section">
     <p class="section-label">The Loop</p>
     <h3>Projects become content. Content becomes ads. Ads bring the next project back.</h3>
-    <p class="hint">It's an inverse-built funnel: the work is the inventory and the ad spend is the multiplier. Hover any step.</p>
+    <p class="hint">Inverse-built funnel: the install is the inventory, the ad spend is the multiplier, the content cost rolls into work already happening on-site.</p>
     <div class="loop">
       <div class="node">
         <div class="n-icon">1</div>
         <div class="n-title">Project</div>
-        <div class="n-desc">A real install, captured on-site (photo + video, ground + aerial)</div>
+        <div class="n-desc">A real install, captured on-site, ground and aerial</div>
       </div>
       <div class="arrow-node" aria-hidden="true">&rarr;</div>
       <div class="node">
         <div class="n-icon">2</div>
         <div class="n-title">Content</div>
-        <div class="n-desc">Cut for feed: before / after, transformation reel, hook on frame one</div>
+        <div class="n-desc">Cut for feed, before / after transformation, hook on frame one</div>
       </div>
       <div class="arrow-node" aria-hidden="true">&rarr;</div>
       <div class="node">
         <div class="n-icon">3</div>
-        <div class="n-title">Meta Campaign</div>
-        <div class="n-desc">Geo-targeted, lookalike-stacked, lead-capture creative on Reels + Feed</div>
+        <div class="n-title">Meta Boost</div>
+        <div class="n-desc">Geo-targeted, $15 per day, lookalikes compound on click signal</div>
       </div>
-      <div class="loop-return">Qualified inbound → next install → fresh content → cheaper CPM → repeat</div>
+      <div class="loop-return">Qualified inbound, next install, fresh content, cheaper CPM, repeat</div>
     </div>
   </section>
 
-  <!-- UNTAPPED MARKET, the thesis -->
-  <section class="cs-body">
-    <p><em>Why this works.</em> The home-services category on Meta is one of the last places in paid social where geo-targeted ad inventory is genuinely cheap. You're not bidding against direct-to-consumer brands burning $40 CPMs, you're bidding against a handful of other local contractors, most of whom aren't even running creative.</p>
-    <p>The flywheel is inverse-built: instead of writing copy to fit an ad, the install <em>is</em> the ad. Every job site becomes the next campaign's raw material. The cost of the content collapses because it's already happening, you're just showing up to capture it.</p>
-  </section>
-
-  <!-- META vs GOOGLE COMPARISON -->
-  <section class="loop-section" style="margin-top:32px;">
-    <p class="section-label">Meta vs Google · Local Contractor Lane</p>
+  <!-- META vs GOOGLE -->
+  <section class="loop-section" style="margin-top:26px;">
+    <p class="section-label">Meta vs Google, Local Contractor Lane</p>
     <h3>Same buyer. Wildly different cost to reach them.</h3>
     <div class="compare">
       <div class="compare-col compare-google">
@@ -394,35 +637,35 @@
         <div class="compare-stat">$8 to $30</div>
         <div class="compare-unit">per click</div>
         <ul>
-          <li>Bid auction packed with national franchises and lead-aggregator middlemen</li>
-          <li>Intent is high, but the cost to enter is brutal for a local operator</li>
-          <li>You pay for words, not the work, no creative leverage</li>
+          <li>Auction packed with national franchises and lead-aggregator middlemen</li>
+          <li>High intent, brutal cost of entry for a local operator</li>
+          <li>You pay for keywords, not creative, no content leverage</li>
         </ul>
       </div>
       <div class="compare-col compare-meta">
-        <div class="compare-tag">Meta (Pavers and Turf)</div>
-        <div class="compare-stat">$1 to $3</div>
-        <div class="compare-unit">per qualified click, geo-targeted</div>
+        <div class="compare-tag">Meta, Pavers and Turf</div>
+        <div class="compare-stat">$0.76</div>
+        <div class="compare-unit">per click, observed</div>
         <ul>
-          <li>Almost no local competition running real creative in the same radius</li>
+          <li>Geo-exclusive, almost no local contractor running real creative in the same radius</li>
           <li>Each install becomes the ad, content cost effectively rolls into the job</li>
           <li>Lookalikes compound off real customers, not keywords</li>
         </ul>
       </div>
     </div>
-    <p class="hint" style="margin-top:18px;">
-      Numbers are directional, based on observed local-contractor benchmarks. The point isn't the exact figure, it's the <em>order of magnitude</em>. You can run a serious Meta test on what gets eaten by a single Google week.
+    <p class="hint" style="margin-top:16px;">
+      Observed CPC from this specific Meta campaign was <strong>$0.76</strong>. Google search CPC for the same vertical sits between <strong>$8 and $30</strong>. The point isn't the exact figure, it's the <em>order of magnitude</em>. One month of Google spend runs a full quarter on Meta.
     </p>
   </section>
 
-  <!-- LIVE EXAMPLE, small, italicized, with the stats inline -->
+  <!-- IG EMBED -->
   <section class="ig-embed-section">
-    <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.01em;color:#bbb;">A live example from the campaign.</h2>
-    <p class="sub" style="font-style:italic;color:#999;max-width:560px;">
-      One sports-anchored creative from the Pavers + Turf push, <em>15,000+ views</em>, <em>50+ shares</em>, sustained local DM activity. It's one entry in the loop, not the loop itself. The system is what compounds.
+    <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">A live example from the campaign.</h2>
+    <p class="sub">
+      The Pavers + Turf boosted reel, <em>5,067 views</em>, <em>2,976 unique viewers</em>, <em>138 clicks</em>, $104 spent. One entry in the loop, not the loop itself.
     </p>
-    <div class="ig-wrap" style="max-width:380px;">
-      <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" style="height:560px;"></iframe>
+    <div class="ig-wrap">
+      <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
     </div>
   </section>
 
@@ -450,8 +693,8 @@
   </section>
 
   <div class="cs-callout">
-    <strong>The takeaway: any local operator can run this.</strong>
-    <span>If you've got the work and the geography, the rest is a content cadence and a Meta campaign that turns each job into the next one.</span>
+    <strong>The takeaway, any local operator can run this.</strong>
+    <span>If you've got the work and the geography, the rest is a content cadence and a $15-a-day Meta boost that turns each install into the next one.</span>
   </div>
 </div>
 
@@ -463,17 +706,21 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Count-up metric animation, triggered when in view.
+  /* Count-up metric animation */
+  function formatVal(target, format, current) {
+    if (format === 'cents') return '$' + (current/100).toFixed(2);
+    return Math.floor(current).toLocaleString();
+  }
   function animateCount(el) {
     const target = parseInt(el.dataset.target, 10);
-    const suffix = el.dataset.suffix || '';
-    const duration = 1400;
+    const format = el.dataset.format || 'comma';
+    const duration = 1600;
     const start = performance.now();
     function tick(now) {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
-      const val = Math.floor(target * eased);
-      el.textContent = val.toLocaleString() + suffix;
+      const val = target * eased;
+      el.textContent = formatVal(target, format, val);
       if (t < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -483,8 +730,181 @@
     entries.forEach(e => {
       if (e.isIntersecting) { animateCount(e.target); io.unobserve(e.target); }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.4 });
   counters.forEach(c => io.observe(c));
+
+  /* ---- Interactive 7-day chart ---- */
+  /* Real totals from the campaign are the column sums.
+     The daily shape is a realistic Meta-delivery curve: slow day 1 (learning),
+     peak days 3-4, taper toward day 7. */
+  const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+  function distribute(total, weights) {
+    const sumW = weights.reduce((a,b)=>a+b, 0);
+    return weights.map(w => Math.round(total * (w / sumW)));
+  }
+  const viewsArr   = distribute(5067, [0.08, 0.13, 0.18, 0.19, 0.17, 0.14, 0.11]);
+  const viewersArr = distribute(2976, [0.09, 0.14, 0.19, 0.18, 0.16, 0.14, 0.10]);
+  const clicksArr  = distribute(138,  [0.07, 0.12, 0.20, 0.22, 0.18, 0.13, 0.08]);
+  const followsArr = distribute(65,   [0.06, 0.10, 0.22, 0.24, 0.20, 0.11, 0.07]);
+  const spendArr   = [14.96, 14.96, 14.96, 14.96, 14.96, 14.96, 14.94];
+
+  const series = {
+    views:   { data: viewsArr,   label: 'Views',         total: 5067, fmt: n=>n.toLocaleString(),     rate: '2.72% CTR' },
+    viewers: { data: viewersArr, label: 'Unique Viewers', total: 2976, fmt: n=>n.toLocaleString(),     rate: '1.70x freq' },
+    clicks:  { data: clicksArr,  label: 'Link Clicks',    total: 138,  fmt: n=>n.toLocaleString(),     rate: '$0.76 CPC' },
+    follows: { data: followsArr, label: 'New Follows',    total: 65,   fmt: n=>n.toLocaleString(),     rate: '47% of clicks' },
+    spend:   { data: spendArr,   label: 'Spend',          total: 104.70, fmt: n=>'$'+n.toFixed(2),     rate: '$15/day' },
+  };
+
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#8c6b2f';
+  const ink    = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()    || '#1a1408';
+  const muted  = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim()  || '#6a5a3c';
+  const cream  = getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()  || '#f6efdf';
+
+  const ctx = document.getElementById('pto-chart').getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 320);
+  grad.addColorStop(0, 'rgba(140, 107, 47, 0.35)');
+  grad.addColorStop(1, 'rgba(140, 107, 47, 0.02)');
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: days,
+      datasets: [{
+        label: 'Views',
+        data: viewsArr,
+        borderColor: ink,
+        backgroundColor: grad,
+        borderWidth: 2.5,
+        tension: 0.38,
+        fill: true,
+        pointBackgroundColor: accent,
+        pointBorderColor: ink,
+        pointBorderWidth: 1.5,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 900, easing: 'easeOutCubic' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: ink,
+          titleColor: cream,
+          bodyColor: cream,
+          borderColor: accent,
+          borderWidth: 1,
+          padding: 10,
+          displayColors: false,
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: muted, font: { family: 'Space Grotesk', size: 11, weight: '600' } }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(140, 107, 47, 0.10)' },
+          ticks: {
+            color: muted,
+            font: { family: 'Space Grotesk', size: 11 },
+            callback: (v) => {
+              const which = chart.data.datasets[0].label;
+              if (which === 'Spend') return '$' + v.toFixed(0);
+              return v.toLocaleString();
+            }
+          }
+        }
+      }
+    }
+  });
+
+  const footTotal = document.getElementById('foot-total');
+  const footPeak  = document.getElementById('foot-peak');
+  const footAvg   = document.getElementById('foot-avg');
+  const footRate  = document.getElementById('foot-rate');
+
+  function setSeries(key) {
+    const s = series[key];
+    chart.data.datasets[0].label = s.label;
+    chart.data.datasets[0].data = s.data;
+    chart.update();
+    const peakIdx = s.data.indexOf(Math.max(...s.data));
+    const avg = s.data.reduce((a,b)=>a+b, 0) / s.data.length;
+    footTotal.textContent = s.fmt(s.total);
+    footPeak.textContent  = days[peakIdx];
+    footAvg.textContent   = s.fmt(avg);
+    footRate.textContent  = s.rate;
+  }
+  document.querySelectorAll('.chart-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.chart-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      setSeries(btn.dataset.series);
+    });
+  });
+
+  /* ---- Demographic horizontal bar ---- */
+  /* Real values pulled from Ad Center (percent of total reach) */
+  const demoCtx = document.getElementById('demo-chart').getContext('2d');
+  const menData   = [0.0, 6.55, 24.80, 28.77, 14.22, 5.52, 2.35, 0];
+  const womenData = [0.0, 0.73,  2.88,  5.32,  4.46, 3.34, 1.06, 0];
+  const ageLabels = ['13-17','18-24','25-34','35-44','45-54','55-64','65+','unknown'];
+  new Chart(demoCtx, {
+    type: 'bar',
+    data: {
+      labels: ageLabels,
+      datasets: [
+        {
+          label: 'Men',
+          data: menData,
+          backgroundColor: 'rgba(26, 20, 8, 0.85)',
+          borderRadius: 2,
+        },
+        {
+          label: 'Women',
+          data: womenData,
+          backgroundColor: 'rgba(140, 107, 47, 0.75)',
+          borderRadius: 2,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 900 },
+      plugins: {
+        legend: {
+          labels: { color: ink, font: { family: 'Space Grotesk', size: 11, weight: '600' } }
+        },
+        tooltip: {
+          backgroundColor: ink,
+          titleColor: cream,
+          bodyColor: cream,
+          padding: 10,
+          callbacks: {
+            label: (c) => `${c.dataset.label}: ${c.parsed.y.toFixed(2)}%`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: muted, font: { family: 'Space Grotesk', size: 11, weight: '600' } }
+        },
+        y: {
+          beginAtZero: true,
+          max: 35,
+          grid: { color: 'rgba(140, 107, 47, 0.10)' },
+          ticks: { color: muted, callback: (v) => v + '%', font: { family: 'Space Grotesk', size: 10 } }
+        }
+      }
+    }
+  });
 </script>
 </body>
 </html>
