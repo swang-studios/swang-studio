@@ -139,15 +139,125 @@
     }
     .hero-headline {
       font-size: clamp(36px, 4.2vw, 60px);
-      font-weight: 700; line-height: 0.95;
+      font-weight: 800; line-height: 0.95;
       letter-spacing: -0.03em; color: var(--ink);
     }
     #rw {
-      color: var(--honey-deep); display: inline-block; min-width: 200px;
+      color: var(--honey-deep);
+      display: inline-block; position: relative;
+      min-width: 240px;
+      font-weight: 800;           /* bolder than the rest of the headline */
     }
+    #rw .rw-text { position: relative; z-index: 2; }
     @keyframes fadeWord {
       0%   { opacity: 0; transform: translateY(8px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Per-word micro-flourishes — all lowkey, slow, never loud */
+    #rw .rw-mark {
+      position: absolute;
+      opacity: 0;                 /* only its own class-scoped rule makes it visible */
+      pointer-events: none;
+      font-weight: 400;
+      transition: opacity 0.4s ease;
+    }
+    /* brand — sparkle glint (top-right) */
+    #rw.w-brand .rw-mark.glint {
+      opacity: 0.85; top: -6px; right: -18px;
+      font-size: 0.32em; color: #FF8BA0;
+      animation: rwGlint 3.4s ease-in-out infinite;
+    }
+    /* product — soft pulsing dot (like a product tag) */
+    #rw.w-product .rw-mark.dot {
+      opacity: 0.8; top: 10px; right: -16px;
+      width: 0.22em; height: 0.22em; border-radius: 50%;
+      background: #4EAE66;
+      animation: rwDotPulse 2.4s ease-in-out infinite;
+    }
+    /* influencer — subtle camera flash halo behind the word */
+    #rw.w-influencer .rw-mark.flash {
+      opacity: 1; inset: -16% -8%; z-index: 1;
+      background: radial-gradient(ellipse at 50% 50%,
+        rgba(108, 188, 232, 0.38) 0%,
+        rgba(108, 188, 232, 0.12) 40%,
+        transparent 72%);
+      border-radius: 50%;
+      animation: rwFlash 2.8s ease-in-out infinite;
+      mix-blend-mode: multiply;
+    }
+    /* influencer — tiny live follower ticker pill, floats to the right of the word */
+    #rw .rw-ticker {
+      position: absolute;
+      left: calc(100% + 14px); top: 50%;
+      font-size: 0.2em; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #3F8FBF;
+      background: rgba(108, 188, 232, 0.16);
+      border: 1px solid rgba(108, 188, 232, 0.28);
+      padding: 4px 10px; border-radius: 999px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(-50%) translateX(-4px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    #rw.w-influencer .rw-ticker {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+    /* On narrow screens the ticker drops below to avoid spilling out */
+    @media (max-width: 640px) {
+      #rw .rw-ticker {
+        left: 0; top: calc(100% + 4px);
+        transform: translateY(-2px);
+      }
+      #rw.w-influencer .rw-ticker {
+        transform: translateY(0);
+      }
+    }
+    /* service — tiny wrench glyph, slow lazy twist */
+    #rw.w-service .rw-mark.wrench {
+      opacity: 0.85; top: -4px; right: -26px;
+      font-size: 0.28em;
+      transform-origin: 50% 50%;
+      animation: rwTwist 4.2s ease-in-out infinite;
+    }
+    /* creator — soft four-point sparkle */
+    #rw.w-creator .rw-mark.sparkle {
+      opacity: 0.8; top: -6px; right: -18px;
+      font-size: 0.32em; color: #A57AE0;
+      animation: rwGlint 4s ease-in-out infinite;
+    }
+    /* property — no glyph; the word itself becomes brick→slate gradient text */
+    #rw.w-property {
+      background: linear-gradient(118deg,
+        #B55538 0%, #8F4324 34%,
+        #6B5A4A 58%, #5D7E9A 92%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    /* vision — tiny glint, soft gold */
+    #rw.w-vision .rw-mark.vglint {
+      opacity: 0.9; top: -4px; right: -18px;
+      font-size: 0.28em; color: #E3B23C;
+      animation: rwGlint 3.8s ease-in-out infinite;
+    }
+
+    @keyframes rwGlint {
+      0%, 70%, 100% { opacity: 0.25; transform: scale(0.9) rotate(0deg); }
+      85%           { opacity: 1;    transform: scale(1.25) rotate(90deg); }
+    }
+    @keyframes rwDotPulse {
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      50%      { opacity: 1;    transform: scale(1.35); }
+    }
+    @keyframes rwFlash {
+      0%, 65%, 100% { opacity: 0.25; }
+      80%           { opacity: 1; }
+    }
+    @keyframes rwTwist {
+      0%, 100% { transform: rotate(-14deg); }
+      50%      { transform: rotate(18deg); }
     }
     .hero-sub {
       margin-top: 20px; font-size: 14px; line-height: 1.7;
@@ -171,14 +281,14 @@
     .btn.filled:hover {
       background: var(--honey-deep); border-color: var(--honey-deep); color: #fff;
     }
-    /* Rotating hero word, classic Macintosh-era pastels on cream (Apr 19 PM2) */
-    #rw.w-brand     { color: #E8B7B1; }  /* dusty rose */
-    #rw.w-product   { color: #B8D0B3; }  /* sage green */
-    #rw.w-influencer{ color: #C4C2E0; }  /* periwinkle */
-    #rw.w-service   { color: #F2D39E; }  /* warm peach */
-    #rw.w-creator   { color: #E6C7E1; }  /* soft lavender */
-    #rw.w-property  { color: #A8D3D0; }  /* mint blue */
-    #rw.w-vision    { color: #F1C9A5; }  /* melon */
+    /* Rotating hero word, bolder lowkey palette (Apr 19 PM3) */
+    #rw.w-brand     { color: #E0526B; }  /* bold coral rose */
+    #rw.w-product   { color: #4EAE66; }  /* putting-green green */
+    #rw.w-influencer{ color: #4DA8DA; }  /* baby blue */
+    #rw.w-service   { color: #D97A2A; }  /* service orange */
+    #rw.w-creator   { color: #8C5BC4; }  /* vivid violet */
+    /* #rw.w-property handled above via gradient text-fill */
+    #rw.w-vision    { color: #C9892E; }  /* brighter gold */
 
     /* CLIENTS */
     .clients {
@@ -758,7 +868,16 @@
     <p class="hero-label">Creative Strategy &amp; Visual Direction</p>
     <h1 class="hero-headline">
       Put your<br>
-      <span id="rw" class="w-brand">brand</span><br>
+      <span id="rw" class="w-brand">
+        <span class="rw-mark flash" aria-hidden="true"></span>
+        <span class="rw-text">brand</span>
+        <span class="rw-mark glint"   aria-hidden="true">&#10022;</span>
+        <span class="rw-mark dot"     aria-hidden="true"></span>
+        <span class="rw-mark wrench"  aria-hidden="true">&#128295;</span>
+        <span class="rw-mark sparkle" aria-hidden="true">&#10022;</span>
+        <span class="rw-mark vglint"  aria-hidden="true">&#10022;</span>
+        <span class="rw-ticker"       aria-hidden="true"></span>
+      </span><br>
       in the spotlight.
     </h1>
     <p class="hero-sub">
@@ -990,18 +1109,38 @@
   // Dynamic year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Rotating hero word
+  // Rotating hero word, with per-word lowkey flourishes
   const words  = ['brand','product','influencer','service','creator','property','vision'];
   const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-property','w-vision'];
   let wi = 0;
-  const rwEl = document.getElementById('rw');
+  const rwEl   = document.getElementById('rw');
+  const rwText = rwEl.querySelector('.rw-text');
+  const rwTick = rwEl.querySelector('.rw-ticker');
+
+  // Influencer follower ticker — only ticks while influencer is on
+  let followers = 0, tickerId = null;
+  function startInfluencerTicker() {
+    if (tickerId || !rwTick) return;
+    followers = 14200 + Math.floor(Math.random() * 2800);
+    rwTick.textContent = '+' + followers.toLocaleString() + ' followers';
+    tickerId = setInterval(() => {
+      followers += Math.floor(Math.random() * 3) + 1;
+      rwTick.textContent = '+' + followers.toLocaleString() + ' followers';
+    }, 480);
+  }
+  function stopInfluencerTicker() {
+    if (tickerId) { clearInterval(tickerId); tickerId = null; }
+  }
+
   function rotateWord() {
     rwEl.style.animation = 'none';
     rwEl.offsetHeight;
     wi = (wi + 1) % words.length;
     rwEl.className = colors[wi];
-    rwEl.textContent = words[wi];
+    rwText.textContent = words[wi];
     rwEl.style.animation = 'fadeWord 0.5s ease';
+    if (colors[wi] === 'w-influencer') startInfluencerTicker();
+    else stopInfluencerTicker();
   }
   setInterval(rotateWord, 3200);
 
