@@ -151,7 +151,9 @@ export default async function handler(req, res) {
 
   console.log('[swang.studio submission] delivery=' + delivery + (deliveryError ? ' lastError=' + deliveryError : ''));
 
-  return res.status(200).json({ ok: true });
+  // Debug fields so we can see *which* delivery path ran and whether anything
+  // errored, without needing Vercel log access. ok:true keeps form UX normal.
+  return res.status(200).json({ ok: true, delivery, deliveryError });
 }
 
 function renderHtml({ submittedAt, name, email, message, source, page }) {

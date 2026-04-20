@@ -624,11 +624,7 @@
       position: relative; display: flex;
       align-items: center; justify-content: center;
     }
-    .about-photo-wrap::before {
-      content: ''; position: absolute; inset: -20px;
-      background: radial-gradient(ellipse at center, rgba(231,177,72,0.28) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    /* glow behind portrait removed per Apr 19 — clean frame, no halo */
     .about-photo {
       width: 100%; max-width: 400px; height: 480px;
       object-fit: cover; object-position: top center;
