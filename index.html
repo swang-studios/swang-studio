@@ -1257,36 +1257,9 @@
     if (colors[wi] === 'w-product') chaChing();
   }
 
-  // Post-flash blank: after creator, the rotator dims (like post-shutter blindness)
-  // for a beat before vision shows up.
-  function enterBlank() {
-    rwEl.style.animation = 'none';
-    rwEl.offsetHeight;
-    rwEl.className = 'w-blank';
-    stopInfluencerTicker();
-  }
-
+  // Simple, even rotation — no blank gap.
   const ROTATE_MS = 2700;
-  const BLANK_MS  = 900;
-  function scheduleNext() {
-    const currentIsCreator = colors[wi] === 'w-creator';
-    if (currentIsCreator) {
-      // Let creator play for its slot, then go blank, then rotate to vision.
-      setTimeout(() => {
-        enterBlank();
-        setTimeout(() => {
-          rotateWord();      // this advances to vision
-          scheduleNext();
-        }, BLANK_MS);
-      }, ROTATE_MS);
-    } else {
-      setTimeout(() => {
-        rotateWord();
-        scheduleNext();
-      }, ROTATE_MS);
-    }
-  }
-  scheduleNext();
+  setInterval(rotateWord, ROTATE_MS);
 
   // ------------------------------------------------------------
   // SEAMLESS SUBMISSIONS, posts to /api/submit (in-house serverless
