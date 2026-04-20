@@ -272,8 +272,11 @@
       -webkit-text-fill-color: transparent !important;
     }
 
-    /* property — brick→slate gradient text (no glyph mark, the word IS the texture) */
-    #rw.w-property {
+    /* property — brick→slate gradient text (no glyph mark, the word IS the texture)
+       Scope the clip to .rw-text directly — .rw-text is a child of #rw, so the
+       background has to live on the text-bearing element or the gradient
+       never reaches the glyphs and the word renders invisible. */
+    #rw.w-property .rw-text {
       background: linear-gradient(118deg,
         #B55538 0%, #8F4324 34%,
         #6B5A4A 58%, #5D7E9A 92%);
