@@ -425,6 +425,43 @@
     }
     .platform-list .arrow { color: var(--accent); font-size: 18px; }
 
+    /* AD-LEVEL BREAKDOWN GRID */
+    .ad-grid {
+      display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px;
+    }
+    .ad-row {
+      display: grid; grid-template-columns: 1.3fr 2fr 1fr;
+      align-items: center; gap: 16px;
+      padding: 12px 16px; border-radius: 3px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(217, 201, 163, 0.5);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ad-row:hover { border-color: var(--accent); transform: translateX(2px); }
+    .ad-row.top-ad { border-left: 3px solid var(--win); background: rgba(246, 241, 196, 0.45); }
+    .ad-name { font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; }
+    .ad-name .ad-badge {
+      display: inline-block; margin-left: 6px; padding: 2px 7px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--cream-2); background: var(--ink); border-radius: 2px; vertical-align: 2px;
+    }
+    .ad-bar-wrap { height: 10px; background: rgba(140, 107, 47, 0.10); border-radius: 5px; overflow: hidden; }
+    .ad-fill {
+      height: 100%; border-radius: 5px; width: 0;
+      background: linear-gradient(90deg, var(--accent), #b7893d);
+      transition: width 1.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .ad-row.top-ad .ad-fill { background: linear-gradient(90deg, #5c7a42, #7b9a5e); }
+    .ad-stats {
+      text-align: right; font-size: 11.5px; color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .ad-stats .ad-leads, .ad-stats .ad-cpl { color: var(--ink); font-weight: 700; font-size: 13px; }
+    @media (max-width: 720px) {
+      .ad-row { grid-template-columns: 1fr; gap: 8px; padding: 14px 14px; }
+      .ad-stats { text-align: left; }
+    }
+
     /* CALLOUT */
     .cs-callout {
       margin: 48px 0 0; padding: 30px 34px; border-radius: 4px;
@@ -504,11 +541,11 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Pavers and Turf by O'Neill's — Meta, Local</p>
-  <h1 class="cs-title">$104 in. <em>$0.76 a click</em> out.</h1>
-  <p class="cs-sub">A local Meta test on track for 10,000+ closings at under $5 per lead.</p>
+  <p class="cs-tag">Pavers and Turf by O'Neill's — Meta, Local · 17-Week Build</p>
+  <h1 class="cs-title">$26 a lead, cold. <em>$5 a lead</em>, 17 weeks later.</h1>
+  <p class="cs-sub">A creative-refresh playbook that took a local Meta account from 12 leads a week to 59 — without touching the budget.</p>
   <p class="cs-lede">
-    One geo. One boosted reel. Seven days. The math held — and it scales.
+    We launched in December with no audience, no priors, and a scrappy mix of static and short-form. Week one came in at $26 a lead. Two creative refreshes later — same $290/week spend — the Bocce reel alone is pulling 193 leads at $5.25, and the blended CPA is sitting at $5.
   </p>
 
   <div class="cs-hero">
@@ -518,24 +555,24 @@
   <!-- RESULTS, four numbers, count-up on scroll -->
   <div class="metrics" style="grid-template-columns: repeat(4, 1fr);">
     <div class="metric">
-      <div class="big" data-target="76" data-format="cents">$0</div>
-      <div class="lbl">Cost per Click</div>
-      <div class="desc">Google search runs $8–$30 in the same category</div>
+      <div class="big" data-target="81" data-format="percent">0%</div>
+      <div class="lbl">CPA Reduction</div>
+      <div class="desc">$26 at launch &rarr; $5 by week 17</div>
     </div>
     <div class="metric">
-      <div class="big" data-target="5067" data-format="comma">0</div>
-      <div class="lbl">Local Views</div>
-      <div class="desc">2,976 unique people in the service radius</div>
+      <div class="big" data-target="59" data-format="comma">0</div>
+      <div class="lbl">Leads / Week</div>
+      <div class="desc">Week 17 cadence. Up from 12 at launch.</div>
     </div>
     <div class="metric">
-      <div class="big" data-target="138" data-format="comma">0</div>
-      <div class="lbl">Link Clicks</div>
-      <div class="desc">2.72% CTR on a $104 spend</div>
+      <div class="big" data-target="193" data-format="comma">0</div>
+      <div class="lbl">Top-Ad Leads</div>
+      <div class="desc">Bocce reel alone, at $5.25 per lead</div>
     </div>
     <div class="metric">
-      <div class="big">&lt;$5</div>
-      <div class="lbl">Projected Cost / Lead</div>
-      <div class="desc">Roadmap to 10,000+ closings as the cadence scales</div>
+      <div class="big" data-target="475" data-format="comma">0</div>
+      <div class="lbl">Total Conversions</div>
+      <div class="desc">17 weeks, ~$290/week flat spend</div>
     </div>
   </div>
 
@@ -543,62 +580,97 @@
   <section class="chart-card">
     <div class="chart-head">
       <div>
-        <p class="label">Live Campaign Data, Meta Ads Manager</p>
-        <h3>7-day performance curve, switch metrics to watch the tally compound.</h3>
-        <p class="hint">Pulled from the Aug 7, 2025 boosted reel. Daily shape is modeled from the Meta delivery window, the totals are the real reported figures.</p>
+        <p class="label">17 Weeks, Meta Ads Manager</p>
+        <h3>Two creative refreshes, one order of magnitude. Toggle the series to watch the curve bend.</h3>
+        <p class="hint">Real week-over-week numbers pulled straight from the account. The dashed markers at weeks 6 and 11 are the creative refreshes &mdash; new ads in, losers paused.</p>
       </div>
       <div class="chart-tabs">
-        <button class="chart-tab active" data-series="views">Views</button>
-        <button class="chart-tab" data-series="viewers">Viewers</button>
+        <button class="chart-tab active" data-series="conversions">Leads</button>
+        <button class="chart-tab" data-series="cpa">CPA</button>
+        <button class="chart-tab" data-series="ctr">CTR</button>
         <button class="chart-tab" data-series="clicks">Clicks</button>
-        <button class="chart-tab" data-series="follows">Follows</button>
-        <button class="chart-tab" data-series="spend">Spend</button>
       </div>
     </div>
     <div class="chart-canvas-wrap">
       <canvas id="pto-chart"></canvas>
     </div>
     <div class="chart-foot">
-      <div class="foot-cell"><div class="foot-val" id="foot-total">5,067</div><div class="foot-lbl">Cumulative</div></div>
-      <div class="foot-cell"><div class="foot-val" id="foot-peak">Day 3</div><div class="foot-lbl">Peak Delivery</div></div>
-      <div class="foot-cell"><div class="foot-val" id="foot-avg">724</div><div class="foot-lbl">Per-Day Avg</div></div>
-      <div class="foot-cell"><div class="foot-val" id="foot-rate">2.72%</div><div class="foot-lbl">CTR</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-total">475</div><div class="foot-lbl">Cumulative</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-peak">Wk 17</div><div class="foot-lbl">Peak Week</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-avg">28</div><div class="foot-lbl">Per-Week Avg</div></div>
+      <div class="foot-cell"><div class="foot-val" id="foot-rate">&minus;80%</div><div class="foot-lbl">CPA Shift</div></div>
     </div>
   </section>
 
-  <!-- META vs GOOGLE -->
+  <!-- THE 3-BEAT JOURNEY -->
+  <section class="loop-section" style="margin-top:26px;">
+    <p class="section-label">How it played out</p>
+    <h3>Launch. Iterate. Unlock.</h3>
+    <div class="compare" style="grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px;">
+      <div class="compare-col">
+        <div class="compare-tag">Weeks 1&ndash;5 &middot; Launch</div>
+        <div class="compare-stat">$26 &rarr; $15</div>
+        <div class="compare-unit">CPA, cold start</div>
+        <p class="hint" style="margin-top:12px;">Opened with a spread of static and short-form. Week one ran hot at $26 a lead while the algo was still learning the geo. By week 5 it had nearly halved.</p>
+      </div>
+      <div class="compare-col">
+        <div class="compare-tag">Weeks 6&ndash;10 &middot; Iterate</div>
+        <div class="compare-stat">$13&ndash;$19</div>
+        <div class="compare-unit">CPA, refresh #1</div>
+        <p class="hint" style="margin-top:12px;">First creative refresh. Paused the losers, dropped in new hooks, tightened the audience. CPA stabilized in the mid-teens while the lead count crept from 17 to 22 a week.</p>
+      </div>
+      <div class="compare-col compare-meta">
+        <div class="compare-tag">Weeks 11&ndash;17 &middot; Unlock</div>
+        <div class="compare-stat">$8 &rarr; $5</div>
+        <div class="compare-unit">CPA, refresh #2</div>
+        <p class="hint" style="margin-top:12px;">Second refresh introduced the Bocce reel &mdash; a TikTok-style transition edit shot on a live install. The algo found its pocket. Leads jumped from 22 to 59 a week, CPA collapsed to $5.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD-LEVEL BREAKDOWN -->
+  <section class="loop-section" style="margin-top:26px;">
+    <p class="section-label">What the winners looked like</p>
+    <h3>One creative did the heavy lifting.</h3>
+    <div class="ad-grid" id="ad-grid" aria-label="Top ads by leads"></div>
+    <p class="hint" style="margin-top:18px;">
+      The Bocce reel pulled <em>40% of total leads</em> at $5.25 each &mdash; a TikTok-style quick-cut transition edit of an existing install, no extra production. The pattern is clear: more videos in that register, fewer static images.
+    </p>
+  </section>
+
+  <!-- META vs GOOGLE (shortened) -->
   <section class="loop-section" style="margin-top:26px;">
     <p class="section-label">Why Meta, not Google</p>
-    <h3>Same buyer. Wildly different cost to reach them.</h3>
+    <h3>Same buyer. Different cost to reach them.</h3>
     <div class="compare">
       <div class="compare-col compare-google">
         <div class="compare-tag">Google Search</div>
-        <div class="compare-stat">$8–$30</div>
+        <div class="compare-stat">$8&ndash;$30</div>
         <div class="compare-unit">per click</div>
       </div>
       <div class="compare-col compare-meta">
-        <div class="compare-tag">Meta, local geo</div>
-        <div class="compare-stat">$0.76</div>
+        <div class="compare-tag">Meta, local geo &middot; wk 17</div>
+        <div class="compare-stat">$0.08</div>
         <div class="compare-unit">per click</div>
       </div>
     </div>
     <p class="hint" style="margin-top:16px;">
-      Same buyer in the same service radius. One month of Google runs a full quarter on Meta — and the content rolls into the installs already happening on-site.
+      Google search runs $8&ndash;$30 a click in the paver / turf category. By week 17 Meta at geo-level is running <em>$0.08</em> a click on this account. Same buyer, same service radius &mdash; a cheaper way in, and it scales with the installs already being photographed on-site.
     </p>
   </section>
 
-  <!-- THE CREATIVE, IG REEL AS THE GRAPHIC -->
+  <!-- THE WINNING CREATIVE -->
   <section class="ig-embed-section">
-    <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ad that ran.</h2>
-    <p class="sub">One boosted reel. $104 total spend. <em>5,067 views</em>, <em>138 clicks</em>, <em>$0.76 CPC</em>.</p>
+    <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ad that ran away with it.</h2>
+    <p class="sub">The Bocce reel &mdash; TikTok-style transitions cut from a live install. <em>193 leads</em>, <em>$5.25 CPL</em>, <em>$1,012 total spend</em>.</p>
     <div class="ig-wrap">
       <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
     </div>
   </section>
 
   <div class="cs-callout">
-    <strong>The roadmap: 10,000+ closings at &lt;$5 a lead.</strong>
-    <span>The $104 test proved the unit economics. Scaled cadence + local geo stacking = the full lead engine.</span>
+    <strong>The playbook: refresh every 5 weeks. Let the algo do the rest.</strong>
+    <span>Week 1's $26 CPA wasn't a failure &mdash; it was the entry price. Two creative refreshes later we're at $5, and the budget never moved. The creative did the work.</span>
   </div>
 </div>
 
@@ -612,7 +684,8 @@
 
   /* Count-up metric animation */
   function formatVal(target, format, current) {
-    if (format === 'cents') return '$' + (current/100).toFixed(2);
+    if (format === 'cents')   return '$' + (current/100).toFixed(2);
+    if (format === 'percent') return '-' + Math.floor(current) + '%';
     return Math.floor(current).toLocaleString();
   }
   function animateCount(el) {
@@ -637,95 +710,173 @@
   }, { threshold: 0.4 });
   counters.forEach(c => io.observe(c));
 
-  /* ---- Interactive 7-day chart ---- */
-  /* Real totals from the campaign are the column sums.
-     The daily shape is a realistic Meta-delivery curve: slow day 1 (learning),
-     peak days 3-4, taper toward day 7. */
-  const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
-  function distribute(total, weights) {
-    const sumW = weights.reduce((a,b)=>a+b, 0);
-    return weights.map(w => Math.round(total * (w / sumW)));
-  }
-  const viewsArr   = distribute(5067, [0.08, 0.13, 0.18, 0.19, 0.17, 0.14, 0.11]);
-  const viewersArr = distribute(2976, [0.09, 0.14, 0.19, 0.18, 0.16, 0.14, 0.10]);
-  const clicksArr  = distribute(138,  [0.07, 0.12, 0.20, 0.22, 0.18, 0.13, 0.08]);
-  const followsArr = distribute(65,   [0.06, 0.10, 0.22, 0.24, 0.20, 0.11, 0.07]);
-  const spendArr   = [14.96, 14.96, 14.96, 14.96, 14.96, 14.96, 14.94];
+  /* ---- Interactive 17-week chart ---- */
+  /* Real WoW numbers pulled straight from Meta Ads Manager, 12/8/25 - 3/30/26. */
+  const weeks = ['12/8','12/15','12/22','12/29','1/5','1/12','1/19','1/26','2/2','2/9','2/16','2/23','3/2','3/9','3/16','3/23','3/30'];
+  const conversionsArr = [12, 8, 14, 13, 20, 19, 17, 16, 18, 22, 34, 36, 34, 58, 49, 46, 59];
+  const cpaArr         = [26, 36, 21, 23, 15, 15, 18, 19, 16, 13, 8, 8, 9, 5, 6, 6, 5];
+  const ctrArr         = [32.12, 17.26, 7.06, 8.02, 30.19, 31.19, 34.31, 28.92, 38.06, 36.59, 38.10, 42.20, 51.29, 49.38, 48.77, 48.80, 50.91];
+  const clicksArr      = [1230, 729, 427, 590, 1717, 1322, 1239, 1813, 2916, 2589, 3148, 3762, 4511, 4192, 4059, 3576, 3738];
+
+  /* Creative-refresh week indexes (drawn as dashed vertical markers). */
+  const refreshIdx = [5, 10]; // 1/12 and 2/16
+
+  const sumConv = conversionsArr.reduce((a,b)=>a+b, 0); // 475
+  const avgConv = Math.round(sumConv / conversionsArr.length);
+  const latestCpa = cpaArr[cpaArr.length - 1];
 
   const series = {
-    views:   { data: viewsArr,   label: 'Views',         total: 5067, fmt: n=>n.toLocaleString(),     rate: '2.72% CTR' },
-    viewers: { data: viewersArr, label: 'Unique Viewers', total: 2976, fmt: n=>n.toLocaleString(),     rate: '1.70x freq' },
-    clicks:  { data: clicksArr,  label: 'Link Clicks',    total: 138,  fmt: n=>n.toLocaleString(),     rate: '$0.76 CPC' },
-    follows: { data: followsArr, label: 'New Follows',    total: 65,   fmt: n=>n.toLocaleString(),     rate: '47% of clicks' },
-    spend:   { data: spendArr,   label: 'Spend',          total: 104.70, fmt: n=>'$'+n.toFixed(2),     rate: '$15/day' },
+    conversions: {
+      data: conversionsArr, label: 'Leads / Week', type: 'bar',
+      total: sumConv, totalFmt: v => v.toLocaleString(),
+      avg: avgConv, avgFmt: v => Math.round(v).toString(),
+      peakLabel: 'Peak Week',
+      rate: '+5\u00d7 Volume',
+      tickFmt: v => v.toString(),
+      tipFmt: v => v + ' leads',
+    },
+    cpa: {
+      data: cpaArr, label: 'Cost / Lead', type: 'line',
+      total: latestCpa, totalFmt: v => '$' + v,
+      avg: (cpaArr.reduce((a,b)=>a+b,0) / cpaArr.length), avgFmt: v => '$' + v.toFixed(0),
+      peakLabel: 'Lowest Wk',
+      rate: '\u221280% CPA',
+      tickFmt: v => '$' + v,
+      tipFmt: v => '$' + v + ' per lead',
+      invertPeak: true,
+    },
+    ctr: {
+      data: ctrArr, label: 'CTR %', type: 'line',
+      total: ctrArr[ctrArr.length - 1], totalFmt: v => v.toFixed(2) + '%',
+      avg: (ctrArr.reduce((a,b)=>a+b,0) / ctrArr.length), avgFmt: v => v.toFixed(1) + '%',
+      peakLabel: 'Peak Week',
+      rate: '+19 pp',
+      tickFmt: v => v + '%',
+      tipFmt: v => v.toFixed(2) + '%',
+    },
+    clicks: {
+      data: clicksArr, label: 'Clicks / Week', type: 'bar',
+      total: clicksArr.reduce((a,b)=>a+b,0), totalFmt: v => v.toLocaleString(),
+      avg: (clicksArr.reduce((a,b)=>a+b,0) / clicksArr.length), avgFmt: v => Math.round(v).toLocaleString(),
+      peakLabel: 'Peak Week',
+      rate: '$0.08 CPC',
+      tickFmt: v => v.toLocaleString(),
+      tipFmt: v => v.toLocaleString() + ' clicks',
+    },
   };
 
   const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#8c6b2f';
   const ink    = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()    || '#1a1408';
   const muted  = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim()  || '#6a5a3c';
   const cream  = getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()  || '#f6efdf';
+  const win    = getComputedStyle(document.documentElement).getPropertyValue('--win').trim()    || '#5c7a42';
 
   const ctx = document.getElementById('pto-chart').getContext('2d');
-  const grad = ctx.createLinearGradient(0, 0, 0, 320);
-  grad.addColorStop(0, 'rgba(140, 107, 47, 0.35)');
-  grad.addColorStop(1, 'rgba(140, 107, 47, 0.02)');
 
-  const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: days,
-      datasets: [{
-        label: 'Views',
-        data: viewsArr,
-        borderColor: ink,
-        backgroundColor: grad,
-        borderWidth: 2.5,
-        tension: 0.38,
-        fill: true,
-        pointBackgroundColor: accent,
-        pointBorderColor: ink,
-        pointBorderWidth: 1.5,
-        pointRadius: 4,
-        pointHoverRadius: 7,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 900, easing: 'easeOutCubic' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: ink,
-          titleColor: cream,
-          bodyColor: cream,
-          borderColor: accent,
-          borderWidth: 1,
-          padding: 10,
-          displayColors: false,
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: muted, font: { family: 'Space Grotesk', size: 11, weight: '600' } }
+  /* Custom plugin: dashed vertical lines + "Refresh n" label at each refreshIdx. */
+  const refreshLinesPlugin = {
+    id: 'refreshLines',
+    afterDatasetsDraw(c) {
+      const { ctx: g, chartArea, scales } = c;
+      if (!chartArea) return;
+      const xScale = scales.x;
+      g.save();
+      g.strokeStyle = 'rgba(140, 107, 47, 0.55)';
+      g.lineWidth = 1.25;
+      g.setLineDash([5, 4]);
+      g.fillStyle = 'rgba(26, 20, 8, 0.85)';
+      g.font = '700 9.5px "Space Grotesk", sans-serif';
+      refreshIdx.forEach((idx, i) => {
+        const px = xScale.getPixelForValue(idx);
+        g.beginPath();
+        g.moveTo(px, chartArea.top);
+        g.lineTo(px, chartArea.bottom);
+        g.stroke();
+        const label = 'REFRESH ' + (i + 1);
+        const tx = Math.min(px + 6, chartArea.right - g.measureText(label).width - 4);
+        g.fillText(label, tx, chartArea.top + 12);
+      });
+      g.restore();
+    }
+  };
+
+  function makeGradient(color) {
+    const grad = ctx.createLinearGradient(0, 0, 0, 320);
+    grad.addColorStop(0, color.replace(/, *[\d.]+\)$/, ', 0.38)'));
+    grad.addColorStop(1, color.replace(/, *[\d.]+\)$/, ', 0.02)'));
+    return grad;
+  }
+
+  let chart = null;
+  function buildChart(key) {
+    const s = series[key];
+    if (chart) chart.destroy();
+    const isLine = s.type === 'line';
+    const baseColor = key === 'cpa' ? 'rgba(92, 122, 66, 1)' : 'rgba(140, 107, 47, 1)';
+    const dataset = {
+      label: s.label,
+      data: s.data,
+      borderColor: key === 'cpa' ? win : ink,
+      borderWidth: 2.5,
+      tension: 0.36,
+    };
+    if (isLine) {
+      dataset.backgroundColor = makeGradient(baseColor);
+      dataset.fill = true;
+      dataset.pointBackgroundColor = key === 'cpa' ? win : accent;
+      dataset.pointBorderColor = ink;
+      dataset.pointBorderWidth = 1.5;
+      dataset.pointRadius = 4;
+      dataset.pointHoverRadius = 7;
+    } else {
+      dataset.backgroundColor = 'rgba(140, 107, 47, 0.58)';
+      dataset.hoverBackgroundColor = 'rgba(140, 107, 47, 0.88)';
+      dataset.borderRadius = 4;
+      dataset.borderSkipped = false;
+    }
+
+    chart = new Chart(ctx, {
+      type: s.type,
+      data: { labels: weeks, datasets: [dataset] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 900, easing: 'easeOutCubic' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: ink,
+            titleColor: cream,
+            bodyColor: cream,
+            borderColor: accent,
+            borderWidth: 1,
+            padding: 10,
+            displayColors: false,
+            callbacks: {
+              title: (items) => 'Week of ' + items[0].label,
+              label: (item) => s.tipFmt(item.parsed.y),
+            }
+          }
         },
-        y: {
-          beginAtZero: true,
-          grid: { color: 'rgba(140, 107, 47, 0.10)' },
-          ticks: {
-            color: muted,
-            font: { family: 'Space Grotesk', size: 11 },
-            callback: (v) => {
-              const which = chart.data.datasets[0].label;
-              if (which === 'Spend') return '$' + v.toFixed(0);
-              return v.toLocaleString();
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: muted, font: { family: 'Space Grotesk', size: 10.5, weight: '600' }, maxRotation: 0, autoSkipPadding: 12 }
+          },
+          y: {
+            beginAtZero: true,
+            grid: { color: 'rgba(140, 107, 47, 0.10)' },
+            ticks: {
+              color: muted,
+              font: { family: 'Space Grotesk', size: 11 },
+              callback: s.tickFmt,
             }
           }
         }
-      }
-    }
-  });
+      },
+      plugins: [refreshLinesPlugin]
+    });
+  }
 
   const footTotal = document.getElementById('foot-total');
   const footPeak  = document.getElementById('foot-peak');
@@ -734,16 +885,18 @@
 
   function setSeries(key) {
     const s = series[key];
-    chart.data.datasets[0].label = s.label;
-    chart.data.datasets[0].data = s.data;
-    chart.update();
-    const peakIdx = s.data.indexOf(Math.max(...s.data));
-    const avg = s.data.reduce((a,b)=>a+b, 0) / s.data.length;
-    footTotal.textContent = s.fmt(s.total);
-    footPeak.textContent  = days[peakIdx];
-    footAvg.textContent   = s.fmt(avg);
+    buildChart(key);
+    const peakIdx = s.invertPeak
+      ? s.data.indexOf(Math.min(...s.data))
+      : s.data.indexOf(Math.max(...s.data));
+    footTotal.textContent = s.totalFmt(s.total);
+    footPeak.textContent  = 'Wk ' + (peakIdx + 1);
+    footAvg.textContent   = s.avgFmt(s.avg);
     footRate.textContent  = s.rate;
   }
+
+  buildChart('conversions');
+
   document.querySelectorAll('.chart-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.chart-tab').forEach(b => b.classList.remove('active'));
@@ -752,6 +905,41 @@
     });
   });
 
+  /* ---- Ad-level breakdown (horizontal bars) ---- */
+  const topAds = [
+    { name: 'Bocce &middot; TikTok-style transitions', leads: 193, cpl: 5.25, spend: 1012.72, top: true },
+    { name: 'Paver Building video',                    leads: 11,  cpl: 3.49, spend: 38.39 },
+    { name: 'Stolls Backyard video',                   leads: 10,  cpl: 8.29, spend: 82.94 },
+    { name: 'Carousel',                                leads: 9,   cpl: 8.00, spend: 71.97 },
+    { name: 'Backyard video #1',                       leads: 5,   cpl: 4.82, spend: 24.08 },
+    { name: 'Golf reel',                               leads: 1,   cpl: 3.07, spend: 3.07 },
+    { name: 'Dirt \u2192 Turf transform',              leads: 1,   cpl: 2.21, spend: 2.21 },
+  ];
+  const adGrid = document.getElementById('ad-grid');
+  if (adGrid) {
+    const maxLeads = Math.max(...topAds.map(a => a.leads));
+    topAds.forEach((a, i) => {
+      const pct = (a.leads / maxLeads) * 100;
+      const row = document.createElement('div');
+      row.className = 'ad-row' + (a.top ? ' top-ad' : '');
+      row.innerHTML =
+        '<div class="ad-name">' + a.name + (a.top ? ' <span class="ad-badge">Top</span>' : '') + '</div>' +
+        '<div class="ad-bar-wrap"><div class="ad-fill" data-target="' + pct + '"></div></div>' +
+        '<div class="ad-stats"><span class="ad-leads">' + a.leads + '</span> leads &middot; <span class="ad-cpl">$' + a.cpl.toFixed(2) + '</span> each</div>';
+      adGrid.appendChild(row);
+    });
+    const adIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.ad-fill').forEach(f => {
+            f.style.width = f.dataset.target + '%';
+          });
+          adIo.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    adIo.observe(adGrid);
+  }
 </script>
 </body>
 </html>
