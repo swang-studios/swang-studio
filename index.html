@@ -241,7 +241,17 @@
       animation: rwTwist 3.6s ease-in-out infinite;
     }
 
-    /* creator — iPhone-style shutter flash: white radial pop, single beat */
+    /* creator — camera icon next to the word + shutter flash + post-flash blank */
+    #rw .rw-mark.camera {
+      top: -8px; right: -28px;
+      font-size: 0.34em;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
+      transform-origin: 50% 80%;
+    }
+    #rw.w-creator .rw-mark.camera {
+      opacity: 0.95;
+      animation: rwCameraClick 3.0s ease-out infinite;
+    }
     #rw .rw-mark.shutter {
       inset: -28% -12%;
       border-radius: 50%;
@@ -255,6 +265,11 @@
     }
     #rw.w-creator .rw-mark.shutter {
       animation: rwShutter 3.0s ease-out infinite;
+    }
+    /* Post-flash blank — rotator goes dark briefly after creator, before vision */
+    #rw.w-blank .rw-text {
+      color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
     }
 
     /* property — brick→slate gradient text (no glyph mark, the word IS the texture) */
@@ -297,10 +312,17 @@
       60%      { transform: rotate(-2deg)  translateY(0); }
     }
     @keyframes rwShutter {
-      0%, 55%, 100% { opacity: 0;    transform: scale(0.82); }
-      58%           { opacity: 1;    transform: scale(1.04); }
-      66%           { opacity: 0.45; transform: scale(1.12); }
-      75%           { opacity: 0;    transform: scale(1.18); }
+      0%            { opacity: 0;    transform: scale(0.82); }
+      40%           { opacity: 0;    transform: scale(0.88); }
+      48%           { opacity: 1;    transform: scale(1.04); }
+      58%           { opacity: 0.45; transform: scale(1.12); }
+      70%           { opacity: 0;    transform: scale(1.18); }
+      100%          { opacity: 0;    transform: scale(1.18); }
+    }
+    @keyframes rwCameraClick {
+      0%, 38%, 100% { transform: translateY(0)    rotate(-4deg) scale(1); }
+      46%           { transform: translateY(-1px) rotate(0deg)  scale(1.08); }
+      52%           { transform: translateY(0)    rotate(2deg)  scale(1); }
     }
     @keyframes rwEyeLook {
       0%, 10%  { transform: translateX(0)     scaleY(1); }
@@ -931,6 +953,7 @@
           <span class="rw-mark money m2" aria-hidden="true">$</span>
           <span class="rw-mark money m3" aria-hidden="true">$</span>
           <span class="rw-mark wrench"   aria-hidden="true">&#128295;</span>
+          <span class="rw-mark camera"   aria-hidden="true">&#128248;</span>
           <span class="rw-mark eye"      aria-hidden="true">&#128065;</span>
         </span>
         <span class="rw-ticker"        aria-hidden="true"></span>
@@ -1233,7 +1256,37 @@
     else stopInfluencerTicker();
     if (colors[wi] === 'w-product') chaChing();
   }
-  setInterval(rotateWord, 3200);
+
+  // Post-flash blank: after creator, the rotator dims (like post-shutter blindness)
+  // for a beat before vision shows up.
+  function enterBlank() {
+    rwEl.style.animation = 'none';
+    rwEl.offsetHeight;
+    rwEl.className = 'w-blank';
+    stopInfluencerTicker();
+  }
+
+  const ROTATE_MS = 3200;
+  const BLANK_MS  = 900;
+  function scheduleNext() {
+    const currentIsCreator = colors[wi] === 'w-creator';
+    if (currentIsCreator) {
+      // Let creator play for its slot, then go blank, then rotate to vision.
+      setTimeout(() => {
+        enterBlank();
+        setTimeout(() => {
+          rotateWord();      // this advances to vision
+          scheduleNext();
+        }, BLANK_MS);
+      }, ROTATE_MS);
+    } else {
+      setTimeout(() => {
+        rotateWord();
+        scheduleNext();
+      }, ROTATE_MS);
+    }
+  }
+  scheduleNext();
 
   // ------------------------------------------------------------
   // SEAMLESS SUBMISSIONS, posts to /api/submit (in-house serverless
