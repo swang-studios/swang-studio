@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clickbait Thumbnails for a Sports Creator, Case Study | swang.</title>
+  <title>swang. | Creative Growth — Noah Thumbnails</title>
   <meta name="description" content="Case study: designing high-CTR YouTube thumbnails for a 70K-subscriber sports creator. Made to stand out. Built to get clicks." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -91,9 +91,38 @@
     }
     .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .cs-body { margin-top: 64px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
-    .cs-body p { font-size: 16px; line-height: 1.8; color: rgba(240,240,240,0.78); }
+    .cs-body { margin-top: 56px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
+    .cs-body p { font-size: 16px; line-height: 1.75; color: rgba(240,240,240,0.82); }
     .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
+
+    /* Highlight row (presentational stats) */
+    .highlight-row {
+      margin: 36px 0 48px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      max-width: 780px;
+    }
+    .h-stat {
+      padding: 18px 20px; border-left: 3px solid var(--honey);
+      background: rgba(232,168,0,0.06);
+      border-radius: 0 3px 3px 0;
+    }
+    .h-num {
+      display: block; font-size: clamp(18px, 2vw, 22px);
+      font-weight: 700; letter-spacing: -0.01em; color: #fff;
+    }
+    .h-sub {
+      display: block; margin-top: 4px; font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+    @media (max-width: 720px) {
+      .highlight-row { grid-template-columns: 1fr; }
+    }
+
+    /* Active thumb highlight */
+    .thumb { cursor: pointer; outline: 2px solid transparent; transition: transform 0.3s, box-shadow 0.3s, outline-color 0.2s; }
+    .thumb.active { outline-color: var(--honey); box-shadow: 0 0 0 4px rgba(232,168,0,0.15); }
+    #featuredThumb { transition: opacity 0.25s ease; }
 
     .cs-rule {
       height: 1px; background: rgba(255,255,255,0.08);
@@ -264,54 +293,39 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Content Design · YouTube</p>
-  <h1 class="cs-title">Clickbait Thumbnails <em>for a Sports Creator.</em></h1>
-  <p class="cs-lede">
-    Worked with a sports YouTuber (~70K subs) on thumbnails for big moments, NFL slates, Super Bowl content, live streams. The goal was simple: make something that pops instantly in the feed and actually gets clicked.
-  </p>
+  <p class="cs-tag">Content Design · YouTube · ~70K subs</p>
+  <h1 class="cs-title">Built for <em>the scroll.</em></h1>
 
   <div class="cs-hero">
-    <img src="noah-thumb-12.png" alt="11/19 NBA PROPS, featured thumbnail" />
+    <img id="featuredThumb" src="noah-thumb-12.png" alt="Featured thumbnail" />
   </div>
 
   <section class="cs-body">
-    <p>Everything was built around how people <em>really</em> scroll YouTube. Fast decisions, small screens, tons of competition. So instead of overthinking design, it was about making things obvious, bold, and easy to understand at a glance.</p>
-
-    <div class="cs-rule"></div>
-
-    <ul class="cs-bullets">
-      <li>Simple 2 to 4 word hooks, strong reactions, bright colors that stand out.</li>
-      <li>Thumbnails + live banners turned around quickly for same-day relevance.</li>
-    </ul>
-
-    <div class="cs-rule"></div>
-
-    <p>Over time, it became less about making each one perfect and more about building a style that works every time. Once viewers recognize the look, they're way more likely to click again.</p>
-    <p>Nothing fancy, just clear, scroll-stopping visuals that do their job.</p>
+    <p>Thumbnails for a sports creator on big-moment content — NFL slates, Super Bowl, live streams. Bold hooks, 2–4 word reactions, high-contrast color, same-day turnaround. The goal is one thing: <em>stop the scroll and earn the click.</em></p>
   </section>
 
-  <div class="cs-callout reveal">
-    <strong>Made to stand out. Built to get clicks.</strong>
-    <span>Tailored 1280×720 designs that portray and dramatize the content of the video.</span>
+  <div class="highlight-row reveal">
+    <div class="h-stat"><span class="h-num">1280×720</span><span class="h-sub">tailored, not templated</span></div>
+    <div class="h-stat"><span class="h-num">same-day</span><span class="h-sub">turnaround on live slates</span></div>
+    <div class="h-stat"><span class="h-num">2–4 words</span><span class="h-sub">max hook on every frame</span></div>
   </div>
 
-  <!-- THUMBNAIL SHOWCASE -->
+  <!-- INTERACTIVE THUMBNAIL GRID: click to feature -->
   <section class="thumbs-section reveal">
-    <h2>The <em>series</em>.</h2>
-    <p class="sub">A sample of thumbnails + banners built for same-day relevance.</p>
-    <div class="thumbs-grid">
-      <div class="thumb"><img src="noah-thumb-11.png" alt="11/18 NBA Props" /></div>
-      <div class="thumb"><img src="noah-thumb-12.png" alt="11/19 NBA Props" /></div>
-      <div class="thumb"><img src="noah-thumb-13.png" alt="11/21 NBA Props" /></div>
-      <div class="thumb"><img src="noah-thumb-5.png" alt="NBA Props Picks Plays Live" /></div>
-      <div class="thumb"><img src="noah-thumb-14.png" alt="Picks Props NFL Plays Live" /></div>
-      <div class="thumb"><img src="noah-thumb-15.png" alt="Superbowl Picks" /></div>
+    <p class="sub">Tap any thumbnail to feature it above.</p>
+    <div class="thumbs-grid" id="thumbsGrid">
+      <div class="thumb active" data-src="noah-thumb-12.png"><img src="noah-thumb-12.png" alt="11/19 NBA Props" /></div>
+      <div class="thumb" data-src="noah-thumb-11.png"><img src="noah-thumb-11.png" alt="11/18 NBA Props" /></div>
+      <div class="thumb" data-src="noah-thumb-13.png"><img src="noah-thumb-13.png" alt="11/21 NBA Props" /></div>
+      <div class="thumb" data-src="noah-thumb-5.png"><img src="noah-thumb-5.png" alt="NBA Props Picks Plays Live" /></div>
+      <div class="thumb" data-src="noah-thumb-14.png"><img src="noah-thumb-14.png" alt="Picks Props NFL Plays Live" /></div>
+      <div class="thumb" data-src="noah-thumb-15.png"><img src="noah-thumb-15.png" alt="Superbowl Picks" /></div>
     </div>
 
     <a class="yt-cta" href="https://www.youtube.com/@DFSbyNoah" target="_blank" rel="noopener">
       <div>
-        <strong>Watch the channel, @DFSbyNoah</strong>
-        <span>YouTube · Sports · DFS strategy &amp; commentary</span>
+        <strong>Watch @DFSbyNoah on YouTube</strong>
+        <span>Sports · DFS strategy &amp; commentary</span>
       </div>
       <span class="arrow">&rarr;</span>
     </a>
@@ -325,6 +339,27 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Interactive: click any thumb to feature it above
+  (function() {
+    const featured = document.getElementById('featuredThumb');
+    const grid = document.getElementById('thumbsGrid');
+    if (!featured || !grid) return;
+    grid.addEventListener('click', (e) => {
+      const thumb = e.target.closest('.thumb');
+      if (!thumb) return;
+      const src = thumb.getAttribute('data-src');
+      if (!src) return;
+      featured.style.opacity = '0';
+      setTimeout(() => {
+        featured.src = src;
+        featured.style.opacity = '1';
+      }, 180);
+      grid.querySelectorAll('.thumb.active').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      featured.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  })();
 </script>
 </body>
 </html>

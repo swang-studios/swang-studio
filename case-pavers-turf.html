@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pavers and Turf by O'Neill's — Meta Case Study | swang.</title>
+  <title>swang. | Creative Growth — Pavers and Turf</title>
   <meta name="description" content="A $104 local Meta test hit $0.76 CPC and projects to 10,000+ closings at under $5 per lead." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -397,6 +397,144 @@
     }
     .ig-wrap iframe { width: 100%; height: 560px; border: none; display: block; }
 
+    /* Ad Library link card */
+    .ad-library-cta {
+      display: block; margin-top: 22px; padding: 22px 26px;
+      background: linear-gradient(135deg, rgba(232, 111, 42, 0.08), rgba(184, 138, 92, 0.06));
+      border: 1px solid rgba(232, 111, 42, 0.35);
+      border-radius: 4px; text-decoration: none; color: inherit;
+      max-width: 560px;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .ad-library-cta:hover {
+      border-color: rgba(232, 111, 42, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(90, 50, 20, 0.1);
+    }
+    .ad-library-label {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: #e86f2a;
+    }
+    .ad-library-title {
+      display: block; margin-top: 8px;
+      font-size: clamp(18px, 2.4vw, 22px); font-weight: 700;
+      letter-spacing: -0.01em; color: var(--ink);
+    }
+    .ad-library-sub {
+      display: block; margin-top: 6px;
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+    }
+
+    /* Embedded ad gallery (front-page-of-ads vibe) */
+    .ad-gallery-section { margin: 56px 0 0; max-width: 1100px; }
+    .ad-gallery-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
+    }
+    .ad-gallery-head h2 {
+      font-size: clamp(20px, 2.4vw, 26px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink);
+    }
+    .ad-gallery-head .sub {
+      font-size: 12px; color: var(--muted);
+    }
+    .ad-gallery-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .ad-card {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(217, 201, 163, 0.6);
+      border-radius: 6px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ad-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px rgba(90, 50, 20, 0.12);
+    }
+    .ad-card .ad-media {
+      aspect-ratio: 9 / 16;
+      background: #1a1408;
+      overflow: hidden; position: relative;
+    }
+    .ad-card .ad-media iframe,
+    .ad-card .ad-media img {
+      width: 100%; height: 100%; border: 0; display: block;
+      object-fit: cover;
+    }
+    .ad-card .ad-meta {
+      padding: 12px 14px; display: flex; flex-direction: column; gap: 4px;
+      background: rgba(255,255,255,0.75);
+    }
+    .ad-card .ad-meta .n { font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+    .ad-card .ad-meta .d { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+    .ad-card .ad-tag {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      padding: 4px 9px; border-radius: 999px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #fff;
+      background: rgba(232, 111, 42, 0.9);
+    }
+
+    /* Live-look sticky popup */
+    .live-look {
+      position: fixed;
+      right: 20px; bottom: 20px;
+      width: 220px;
+      background: #1a1408;
+      border: 1px solid rgba(232, 111, 42, 0.45);
+      border-radius: 6px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      overflow: hidden;
+      z-index: 90;
+      transform: translateY(140%); opacity: 0;
+      transition: transform 0.5s cubic-bezier(.17,.67,.3,1.3), opacity 0.3s;
+    }
+    .live-look.visible { transform: translateY(0); opacity: 1; }
+    .live-look .ll-strip {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 10px 6px;
+      background: linear-gradient(90deg, #e86f2a, #b88a5c);
+    }
+    .live-look .ll-strip .ll-live {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #fff;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .live-look .ll-strip .ll-live::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,0.8);
+      animation: ll-pulse 1.4s infinite;
+    }
+    @keyframes ll-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.8); }
+      50%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+    }
+    .live-look .ll-close {
+      background: transparent; border: 0; cursor: pointer;
+      font-size: 14px; line-height: 1; color: rgba(255,255,255,0.9);
+      padding: 2px 6px;
+    }
+    .live-look .ll-media {
+      aspect-ratio: 9 / 16; background: #000;
+    }
+    .live-look .ll-media iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .live-look .ll-foot {
+      padding: 8px 10px; background: rgba(255,255,255,0.97);
+      font-size: 10.5px; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .live-look .ll-foot a {
+      font-size: 10px; font-weight: 700; color: #e86f2a; text-decoration: none;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .live-look .ll-foot a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      .live-look { width: 160px; right: 10px; bottom: 10px; }
+    }
+
     /* PLATFORMS */
     .platforms { margin: 56px 0 0; max-width: 780px; }
     .platforms h2 {
@@ -541,12 +679,9 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Pavers and Turf by O'Neill's — Meta, Local · 17-Week Build</p>
-  <h1 class="cs-title">$26 a lead, cold. <em>$5 a lead</em>, 17 weeks later.</h1>
-  <p class="cs-sub">A creative-refresh playbook that took a local Meta account from 12 leads a week to 59 — without touching the budget.</p>
-  <p class="cs-lede">
-    We launched in December with no audience, no priors, and a scrappy mix of static and short-form. Week one came in at $26 a lead. Two creative refreshes later — same $290/week spend — the Bocce reel alone is pulling 193 leads at $5.25, and the blended CPA is sitting at $5.
-  </p>
+  <p class="cs-tag">Pavers and Turf by O'Neill's · Meta</p>
+  <h1 class="cs-title">$5 leads. <em>Flat budget.</em></h1>
+  <p class="cs-sub">17 weeks. Read the numbers. Let the winners scale.</p>
 
   <div class="cs-hero">
     <img src="putting-green-aerial.jpg" alt="Aerial of a Pavers and Turf by O'Neill's install" />
@@ -557,22 +692,22 @@
     <div class="metric">
       <div class="big" data-target="81" data-format="percent">0%</div>
       <div class="lbl">CPA Reduction</div>
-      <div class="desc">$26 at launch &rarr; $5 by week 17</div>
+      <div class="desc">$26 → $5</div>
     </div>
     <div class="metric">
       <div class="big" data-target="59" data-format="comma">0</div>
       <div class="lbl">Leads / Week</div>
-      <div class="desc">Week 17 cadence. Up from 12 at launch.</div>
+      <div class="desc">Up from 12</div>
     </div>
     <div class="metric">
       <div class="big" data-target="193" data-format="comma">0</div>
       <div class="lbl">Top-Ad Leads</div>
-      <div class="desc">Bocce reel alone, at $5.25 per lead</div>
+      <div class="desc">One reel</div>
     </div>
     <div class="metric">
       <div class="big" data-target="475" data-format="comma">0</div>
-      <div class="lbl">Total Conversions</div>
-      <div class="desc">17 weeks, ~$290/week flat spend</div>
+      <div class="lbl">Total Leads</div>
+      <div class="desc">17 weeks</div>
     </div>
   </div>
 
@@ -580,9 +715,9 @@
   <section class="chart-card">
     <div class="chart-head">
       <div>
-        <p class="label">17 Weeks, Meta Ads Manager</p>
-        <h3>Two creative refreshes, one order of magnitude. Toggle the series to watch the curve bend.</h3>
-        <p class="hint">Real week-over-week numbers pulled straight from the account. The dashed markers at weeks 6 and 11 are the creative refreshes &mdash; new ads in, losers paused.</p>
+        <p class="label">17 Weeks · Real Data</p>
+        <h3>Toggle the series. Watch the curve bend.</h3>
+        <p class="hint">Dashed lines = creative refreshes. New ads in, losers paused.</p>
       </div>
       <div class="chart-tabs">
         <button class="chart-tab active" data-series="conversions">Leads</button>
@@ -602,77 +737,84 @@
     </div>
   </section>
 
-  <!-- THE 3-BEAT JOURNEY -->
-  <section class="loop-section" style="margin-top:26px;">
-    <p class="section-label">How it played out</p>
-    <h3>Launch. Iterate. Unlock.</h3>
-    <div class="compare" style="grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px;">
-      <div class="compare-col">
-        <div class="compare-tag">Weeks 1&ndash;5 &middot; Launch</div>
-        <div class="compare-stat">$26 &rarr; $15</div>
-        <div class="compare-unit">CPA, cold start</div>
-        <p class="hint" style="margin-top:12px;">Opened with a spread of static and short-form. Week one ran hot at $26 a lead while the algo was still learning the geo. By week 5 it had nearly halved.</p>
-      </div>
-      <div class="compare-col">
-        <div class="compare-tag">Weeks 6&ndash;10 &middot; Iterate</div>
-        <div class="compare-stat">$13&ndash;$19</div>
-        <div class="compare-unit">CPA, refresh #1</div>
-        <p class="hint" style="margin-top:12px;">First creative refresh. Paused the losers, dropped in new hooks, tightened the audience. CPA stabilized in the mid-teens while the lead count crept from 17 to 22 a week.</p>
-      </div>
-      <div class="compare-col compare-meta">
-        <div class="compare-tag">Weeks 11&ndash;17 &middot; Unlock</div>
-        <div class="compare-stat">$8 &rarr; $5</div>
-        <div class="compare-unit">CPA, refresh #2</div>
-        <p class="hint" style="margin-top:12px;">Second refresh introduced the Bocce reel &mdash; a TikTok-style transition edit shot on a live install. The algo found its pocket. Leads jumped from 22 to 59 a week, CPA collapsed to $5.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- AD-LEVEL BREAKDOWN -->
-  <section class="loop-section" style="margin-top:26px;">
-    <p class="section-label">What the winners looked like</p>
-    <h3>One creative did the heavy lifting.</h3>
-    <div class="ad-grid" id="ad-grid" aria-label="Top ads by leads"></div>
-    <p class="hint" style="margin-top:18px;">
-      The Bocce reel pulled <em>40% of total leads</em> at $5.25 each &mdash; a TikTok-style quick-cut transition edit of an existing install, no extra production. The pattern is clear: more videos in that register, fewer static images.
-    </p>
-  </section>
-
-  <!-- META vs GOOGLE (shortened) -->
-  <section class="loop-section" style="margin-top:26px;">
-    <p class="section-label">Why Meta, not Google</p>
-    <h3>Same buyer. Different cost to reach them.</h3>
-    <div class="compare">
-      <div class="compare-col compare-google">
-        <div class="compare-tag">Google Search</div>
-        <div class="compare-stat">$8&ndash;$30</div>
-        <div class="compare-unit">per click</div>
-      </div>
-      <div class="compare-col compare-meta">
-        <div class="compare-tag">Meta, local geo &middot; wk 17</div>
-        <div class="compare-stat">$0.08</div>
-        <div class="compare-unit">per click</div>
-      </div>
-    </div>
-    <p class="hint" style="margin-top:16px;">
-      Google search runs $8&ndash;$30 a click in the paver / turf category. By week 17 Meta at geo-level is running <em>$0.08</em> a click on this account. Same buyer, same service radius &mdash; a cheaper way in, and it scales with the installs already being photographed on-site.
-    </p>
-  </section>
-
-  <!-- THE WINNING CREATIVE -->
+  <!-- LIVE ADS LINK (FB Ad Library) -->
   <section class="ig-embed-section">
-    <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ad that ran away with it.</h2>
-    <p class="sub">The Bocce reel &mdash; TikTok-style transitions cut from a live install. <em>193 leads</em>, <em>$5.25 CPL</em>, <em>$1,012 total spend</em>.</p>
-    <div class="ig-wrap">
-      <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+    <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ads that ran away with it.</h2>
+    <p class="sub">TikTok-style transitions cut from live installs. <em>193 leads</em> from one reel alone, <em>$5.25 CPL</em>.</p>
+    <a class="ad-library-cta" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
+      <span class="ad-library-label">Meta Ad Library</span>
+      <span class="ad-library-title">View the live ads here &rarr;</span>
+      <span class="ad-library-sub">All active creative for Pavers and Turf by O'Neill's, sorted by total impressions.</span>
+    </a>
+  </section>
+
+  <!-- AD GALLERY (front-page-of-ads vibe) -->
+  <section class="ad-gallery-section">
+    <div class="ad-gallery-head">
+      <h2>A look at the creative.</h2>
+      <span class="sub">Live in the Meta Ad Library &mdash; sorted by impressions.</span>
+    </div>
+    <div class="ad-gallery-grid">
+      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
+        <div class="ad-media">
+          <span class="ad-tag">Top</span>
+          <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe>
+        </div>
+        <div class="ad-meta">
+          <span class="n">Bocce · TikTok-style transitions</span>
+          <span class="d">193 leads · $5.25 CPL · $1,012 spend</span>
+        </div>
+      </a>
+      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
+        <div class="ad-media">
+          <img src="putting-green-aerial.jpg" alt="Aerial of a putting green install" />
+        </div>
+        <div class="ad-meta">
+          <span class="n">Putting-green aerial</span>
+          <span class="d">Wide shot. Scale. "Look-at-this" first frame.</span>
+        </div>
+      </a>
+      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
+        <div class="ad-media">
+          <img src="pavers.jpg" alt="Paver installation detail" />
+        </div>
+        <div class="ad-meta">
+          <span class="n">Paver build · progress cut</span>
+          <span class="d">Before/after. Craftsman proof. Low-fi, high-trust.</span>
+        </div>
+      </a>
+      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
+        <div class="ad-media">
+          <img src="aerial-backyard.jpg" alt="Backyard turf install aerial" />
+        </div>
+        <div class="ad-meta">
+          <span class="n">Backyard turf · drone pass</span>
+          <span class="d">One clean fly-over. Finished look, no narration.</span>
+        </div>
+      </a>
     </div>
   </section>
 
   <div class="cs-callout">
-    <strong>The playbook: refresh every 5 weeks. Let the algo do the rest.</strong>
-    <span>Week 1's $26 CPA wasn't a failure &mdash; it was the entry price. Two creative refreshes later we're at $5, and the budget never moved. The creative did the work.</span>
+    <strong>Flat budget. Weekly reads. Compounding returns.</strong>
+    <span>$26 &rarr; $5 per lead in 17 weeks. Spend never moved &mdash; the creative did the work.</span>
   </div>
 </div>
+
+<!-- Live-look sticky popup -->
+<aside class="live-look" id="liveLook" aria-hidden="true">
+  <div class="ll-strip">
+    <span class="ll-live">Live in ad library</span>
+    <button class="ll-close" id="llClose" aria-label="Dismiss">&times;</button>
+  </div>
+  <div class="ll-media">
+    <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe>
+  </div>
+  <div class="ll-foot">
+    <span>Top creative · $5.25 CPL</span>
+    <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">View all &rarr;</a>
+  </div>
+</aside>
 
 <footer>
   <a class="back" href="/#featured-work">&larr; Back to all work</a>
@@ -681,6 +823,31 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* Live-look popup: slides in after user scrolls past the hero, auto-dismisses, respects close */
+  (function() {
+    const ll = document.getElementById('liveLook');
+    const close = document.getElementById('llClose');
+    if (!ll || !close) return;
+    let dismissed = false;
+    let shown = false;
+    close.addEventListener('click', () => {
+      dismissed = true;
+      ll.classList.remove('visible');
+      ll.setAttribute('aria-hidden', 'true');
+    });
+    // Trigger on scroll past ~80% of viewport height
+    function onScroll() {
+      if (dismissed || shown) return;
+      if (window.scrollY > window.innerHeight * 0.7) {
+        ll.classList.add('visible');
+        ll.setAttribute('aria-hidden', 'false');
+        shown = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
 
   /* Count-up metric animation */
   function formatVal(target, format, current) {

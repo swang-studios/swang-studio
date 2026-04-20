@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="swang. monogram">
   <title>swang. monogram</title>
-  <!-- Modern flat-top shield -->
+  <!-- October: light-brown shield, pumpkin S -->
   <path d="M 28 28 L 172 28 L 172 120 L 100 180 L 28 120 Z"
-        fill="#1c2416"
-        stroke="#c9963a"
+        fill="#b88a5c"
+        stroke="#5a3214"
         stroke-width="5"
         stroke-linejoin="miter"/>
-  <!-- Geometric block S -->
+  <!-- Geometric block S in pumpkin -->
   <path d="M 60 55 L 140 55 L 140 77 L 82 77 L 82 89 L 140 89 L 140 145 L 60 145 L 60 123 L 118 123 L 118 111 L 60 111 Z"
-        fill="#c9963a"/>
+        fill="#e86f2a"/>
 </svg>

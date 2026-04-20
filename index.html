@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swang. | Creative Strategy, Visual Direction &amp; Aerial Photography</title>
-  <meta name="description" content="Mason Swang is a creative strategist, visual director, and aerial photographer based in California. Content that converts for brands, influencers, and companies who play to win." />
-  <meta property="og:title" content="swang. Creative Strategy &amp; Visual Direction" />
+  <title>swang. | Creative Growth</title>
+  <meta name="description" content="Mason Swang — creative growth for brands and creators. Strategy, visual direction, and content that compounds." />
+  <meta property="og:title" content="swang. | Creative Growth" />
   <meta property="og:description" content="Visual direction and content that converts. For brands and creators who play to win." />
   <meta property="og:url" content="https://www.swang.studio" />
   <meta property="og:type" content="website" />
@@ -188,6 +188,25 @@
     }
     .hero-actions {
       margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap;
+      align-items: center;
+    }
+    /* Tertiary "just browsing" link — sits next to the buttons but reads quieter */
+    .hero-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 500;
+      letter-spacing: 0.04em; color: var(--muted, #7a6a52);
+      text-decoration: none; border-bottom: 1px solid transparent;
+      padding: 6px 2px;
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .hero-ghost:hover {
+      color: var(--ink); border-bottom-color: currentColor;
+    }
+    .hero-ghost .arrow {
+      transition: transform 0.2s;
+    }
+    .hero-ghost:hover .arrow {
+      transform: translateX(3px);
     }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -805,8 +824,9 @@
       Visual direction and content that converts. For brands and creators who play to win.
     </p>
     <div class="hero-actions">
-      <a href="#featured-work" class="btn filled">View Case Studies</a>
-      <a href="#gallery" class="btn">See the Work</a>
+      <a href="#leave-a-review" class="btn filled">Connect With Me &darr;</a>
+      <a href="#featured-work" class="btn">View Case Studies</a>
+      <a href="#gallery" class="hero-ghost">or just browse the work <span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>

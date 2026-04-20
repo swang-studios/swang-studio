@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery | swang. | Aerial, Landscape &amp; Brand Photography</title>
+  <title>swang. | Creative Growth — Gallery</title>
   <meta name="description" content="The full gallery — aerial, landscape, portrait, and brand work by Mason Swang." />
   <meta property="og:title" content="Gallery, swang." />
   <meta property="og:description" content="Aerial, landscape, portrait, and brand photography by Mason Swang." />
@@ -120,6 +120,46 @@
 
     /* Filter tabs removed — single unified gallery */
     .g-tabs { display: none !important; }
+
+    /* REELS ROW */
+    .reels-row { max-width: 1400px; margin: 0 auto; padding: 24px 12px 8px; }
+    .reels-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; padding: 0 4px; }
+    .reels-head .reels-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--honey, #e8a800);
+    }
+    .reels-head h2 {
+      font-size: clamp(22px, 2.6vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink, #f3e8d4);
+    }
+    .reels-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+    }
+    .reel-embed {
+      aspect-ratio: 9 / 16;
+      background: #0b0b0b; overflow: hidden;
+      border-radius: 4px; border: 1px solid rgba(243, 232, 212, 0.08);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      transition: transform 0.32s cubic-bezier(.22,.9,.28,1), box-shadow 0.32s;
+    }
+    .reel-embed:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(0,0,0,0.5); }
+    .reel-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+    @media (max-width: 1100px) { .reels-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px)  { .reels-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .reels-grid { grid-template-columns: 1fr; } }
+
+    .gallery-divider {
+      max-width: 1400px; margin: 40px auto 0; padding: 0 20px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .gallery-divider::before,
+    .gallery-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(243, 232, 212, 0.12);
+    }
+    .gallery-divider span {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(243, 232, 212, 0.5);
+    }
 
     /* MASONRY GRID */
     .g-grid {
@@ -313,10 +353,27 @@
   <a class="g-crumb" href="/">&larr; Back Home</a>
   <h1 class="g-title">The Full <em>Gallery.</em></h1>
   <p class="g-sub">
-    Aerials, landscape, portrait, and brand frames. A running shelf of the stills
-    that make it onto the feed. Click any frame to open it.
+    Aerials, landscape, portrait, brand. Stills and reels. A running shelf of what makes it onto the feed.
   </p>
 </header>
+
+<!-- REELS ROW (embedded motion work) -->
+<section class="reels-row" id="reelsRow">
+  <div class="reels-head">
+    <span class="reels-label">In Motion</span>
+    <h2>Reels &amp; short-form.</h2>
+  </div>
+  <div class="reels-grid">
+    <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DW87on7BDsQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<div class="gallery-divider"><span>Stills</span></div>
 
 <main class="g-grid" id="gGrid">
   <!-- Aerials / drone -->
