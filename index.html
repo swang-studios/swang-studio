@@ -155,188 +155,32 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Per-word micro-flourishes — each one thematic to its word, all lowkey */
+    /* Per-word emoji mark — one glyph per word, unified position/rhythm.
+       Every mark uses the same bob keyframe so swaps feel seamless. */
     #rw .rw-mark {
       position: absolute;
-      opacity: 0;                 /* only its own class-scoped rule turns one on */
-      pointer-events: none;
+      top: -8px; right: -28px;
+      font-size: 0.34em;
       font-weight: 400;
-      transition: opacity 0.4s ease;
-    }
-
-    /* brand — a small shopping bag that bobs, like a fresh purchase */
-    #rw .rw-mark.bag {
-      top: -8px; right: -26px;
-      font-size: 0.36em;
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
-      transform-origin: 50% 80%;
-    }
-    #rw.w-brand .rw-mark.bag {
-      opacity: 0.95;
-      animation: rwBagBob 3.2s ease-in-out infinite;
-    }
-
-    /* product — three floating money chips ($) rising up like cha-ching pops */
-    #rw .rw-mark.money {
-      font-size: 0.4em;
-      font-weight: 800;
-      color: #4EAE66;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.6),
-                   0 2px 6px rgba(78,174,102,0.35);
-      bottom: 14%;
-    }
-    #rw .rw-mark.money.m1 { right: -2px;  }
-    #rw .rw-mark.money.m2 { right: -18px; }
-    #rw .rw-mark.money.m3 { right:  10px; }
-    #rw.w-product .rw-mark.money.m1 { animation: rwCoinFly 2.6s ease-out 0.0s infinite; }
-    #rw.w-product .rw-mark.money.m2 { animation: rwCoinFly 2.6s ease-out 0.7s infinite; }
-    #rw.w-product .rw-mark.money.m3 { animation: rwCoinFly 2.6s ease-out 1.4s infinite; }
-
-    /* influencer — subtle camera flash halo behind the word (UNCHANGED, this is the model) */
-    #rw.w-influencer .rw-mark.flash {
-      opacity: 1; inset: -16% -8%; z-index: 1;
-      background: radial-gradient(ellipse at 50% 50%,
-        rgba(108, 188, 232, 0.38) 0%,
-        rgba(108, 188, 232, 0.12) 40%,
-        transparent 72%);
-      border-radius: 50%;
-      animation: rwFlash 2.8s ease-in-out infinite;
-      mix-blend-mode: multiply;
-    }
-    /* influencer — live follower ticker, floats right of the word */
-    #rw .rw-ticker {
-      position: absolute;
-      left: calc(100% + 14px); top: 50%;
-      font-size: 0.2em; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: #3F8FBF;
-      background: rgba(108, 188, 232, 0.16);
-      border: 1px solid rgba(108, 188, 232, 0.28);
-      padding: 4px 10px; border-radius: 999px;
-      white-space: nowrap;
       opacity: 0;
-      transform: translateY(-50%) translateX(-4px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    #rw.w-influencer .rw-ticker {
-      opacity: 1;
-      transform: translateY(-50%) translateX(0);
-    }
-    @media (max-width: 640px) {
-      #rw .rw-ticker {
-        left: 0; top: calc(100% + 4px);
-        transform: translateY(-2px);
-      }
-      #rw.w-influencer .rw-ticker { transform: translateY(0); }
-    }
-
-    /* service — tiny wrench glyph, small wiggle (no full swing) */
-    #rw .rw-mark.wrench {
-      top: -4px; right: -26px;
-      font-size: 0.3em;
-      transform-origin: 50% 70%;
-    }
-    #rw.w-service .rw-mark.wrench {
-      opacity: 0.95;
-      animation: rwTwist 3.6s ease-in-out infinite;
-    }
-
-    /* creator — camera icon next to the word + shutter flash + post-flash blank */
-    #rw .rw-mark.camera {
-      top: -8px; right: -28px;
-      font-size: 0.34em;
+      pointer-events: none;
       filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
       transform-origin: 50% 80%;
+      transition: opacity 0.5s ease;
+      animation: rwBob 2.4s ease-in-out infinite;
     }
-    #rw.w-creator .rw-mark.camera {
+    #rw.w-brand     .rw-mark.bag,
+    #rw.w-product   .rw-mark.box,
+    #rw.w-influencer .rw-mark.phone,
+    #rw.w-service   .rw-mark.wrench,
+    #rw.w-creator   .rw-mark.camera,
+    #rw.w-property  .rw-mark.house,
+    #rw.w-vision    .rw-mark.eye {
       opacity: 0.95;
-      animation: rwCameraClick 3.0s ease-out infinite;
     }
-    #rw .rw-mark.shutter {
-      inset: -28% -12%;
-      border-radius: 50%;
-      background: radial-gradient(circle at 50% 50%,
-        rgba(255,255,255,0.92) 0%,
-        rgba(220, 228, 255, 0.42) 18%,
-        rgba(180, 200, 255, 0.12) 42%,
-        transparent 60%);
-      mix-blend-mode: screen;
-      z-index: 1;
-    }
-    #rw.w-creator .rw-mark.shutter {
-      animation: rwShutter 3.0s ease-out infinite;
-    }
-    /* Post-flash blank — rotator goes dark briefly after creator, before vision */
-    #rw.w-blank .rw-text {
-      color: transparent !important;
-      -webkit-text-fill-color: transparent !important;
-    }
-
-    /* property — a little house emoji that bobs/clicks beside the pastel word,
-       same rhythm family as the creator camera */
-    #rw .rw-mark.house {
-      top: -8px; right: -28px;
-      font-size: 0.34em;
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
-      transform-origin: 50% 80%;
-    }
-    #rw.w-property .rw-mark.house {
-      opacity: 0.95;
-      animation: rwCameraClick 3.0s ease-out infinite;
-    }
-
-    /* vision — a cartoon eye emoji that pans side to side, with a soft blink scale */
-    #rw .rw-mark.eye {
-      top: -4px; right: -24px;
-      font-size: 0.32em;
-      transform-origin: 50% 50%;
-    }
-    #rw.w-vision .rw-mark.eye {
-      opacity: 0.95;
-      animation: rwEyeLook 4.2s ease-in-out infinite;
-    }
-
-    @keyframes rwBagBob {
-      0%, 100% { transform: translateY(0)    rotate(-6deg); }
-      50%      { transform: translateY(-3px) rotate(6deg); }
-    }
-    @keyframes rwCoinFly {
-      0%   { opacity: 0;   transform: translateY(4px)   scale(0.55); }
-      14%  { opacity: 1;   transform: translateY(-10px) scale(1); }
-      55%  { opacity: 0.9; transform: translateY(-32px) scale(1); }
-      100% { opacity: 0;   transform: translateY(-58px) scale(0.85); }
-    }
-    @keyframes rwFlash {
-      0%, 65%, 100% { opacity: 0.25; }
-      80%           { opacity: 1; }
-    }
-    @keyframes rwTwist {
-      0%, 100% { transform: rotate(-6deg)  translateY(0); }
-      30%      { transform: rotate(6deg)   translateY(-1px); }
-      60%      { transform: rotate(-2deg)  translateY(0); }
-    }
-    @keyframes rwShutter {
-      0%            { opacity: 0;    transform: scale(0.82); }
-      40%           { opacity: 0;    transform: scale(0.88); }
-      48%           { opacity: 1;    transform: scale(1.04); }
-      58%           { opacity: 0.45; transform: scale(1.12); }
-      70%           { opacity: 0;    transform: scale(1.18); }
-      100%          { opacity: 0;    transform: scale(1.18); }
-    }
-    @keyframes rwCameraClick {
-      0%, 38%, 100% { transform: translateY(0)    rotate(-4deg) scale(1); }
-      46%           { transform: translateY(-1px) rotate(0deg)  scale(1.08); }
-      52%           { transform: translateY(0)    rotate(2deg)  scale(1); }
-    }
-    @keyframes rwEyeLook {
-      0%, 10%  { transform: translateX(0)     scaleY(1); }
-      24%      { transform: translateX(-3px)  scaleY(1); }
-      44%      { transform: translateX(-3px)  scaleY(1); }
-      46%      { transform: translateX(-3px)  scaleY(0.15); }
-      48%      { transform: translateX(-3px)  scaleY(1); }
-      62%      { transform: translateX(3px)   scaleY(1); }
-      82%      { transform: translateX(3px)   scaleY(1); }
-      92%, 100%{ transform: translateX(0)     scaleY(1); }
+    @keyframes rwBob {
+      0%, 100% { transform: translateY(0)    rotate(-3deg); }
+      50%      { transform: translateY(-3px) rotate(3deg); }
     }
     .hero-sub {
       margin-top: 20px; font-size: 14px; line-height: 1.7;
@@ -949,19 +793,15 @@
       Put your<br>
       <span id="rw" class="w-brand">
         <span class="rw-inner">
-          <span class="rw-mark flash"    aria-hidden="true"></span>
-          <span class="rw-mark shutter"  aria-hidden="true"></span>
           <span class="rw-text">brand</span>
-          <span class="rw-mark bag"      aria-hidden="true">&#128717;</span>
-          <span class="rw-mark money m1" aria-hidden="true">$</span>
-          <span class="rw-mark money m2" aria-hidden="true">$</span>
-          <span class="rw-mark money m3" aria-hidden="true">$</span>
-          <span class="rw-mark wrench"   aria-hidden="true">&#128295;</span>
-          <span class="rw-mark camera"   aria-hidden="true">&#128248;</span>
-          <span class="rw-mark house"    aria-hidden="true">&#127969;</span>
-          <span class="rw-mark eye"      aria-hidden="true">&#128065;</span>
+          <span class="rw-mark bag"    aria-hidden="true">&#128717;</span>
+          <span class="rw-mark box"    aria-hidden="true">&#128230;</span>
+          <span class="rw-mark phone"  aria-hidden="true">&#128241;</span>
+          <span class="rw-mark wrench" aria-hidden="true">&#128295;</span>
+          <span class="rw-mark camera" aria-hidden="true">&#128248;</span>
+          <span class="rw-mark house"  aria-hidden="true">&#127969;</span>
+          <span class="rw-mark eye"    aria-hidden="true">&#128065;</span>
         </span>
-        <span class="rw-ticker"        aria-hidden="true"></span>
       </span><br>
       in the spotlight.
     </h1>
@@ -1194,61 +1034,12 @@
   // Dynamic year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Rotating hero word, with per-word thematic flourishes
+  // Rotating hero word — even cadence, one emoji per word, all on the same bob.
   const words  = ['brand','product','influencer','service','creator','property','vision'];
   const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-property','w-vision'];
   let wi = 0;
   const rwEl   = document.getElementById('rw');
   const rwText = rwEl.querySelector('.rw-text');
-  const rwTick = rwEl.querySelector('.rw-ticker');
-
-  // Influencer follower ticker — only ticks while influencer is on
-  let followers = 0, tickerId = null;
-  function startInfluencerTicker() {
-    if (tickerId || !rwTick) return;
-    followers = 14200 + Math.floor(Math.random() * 2800);
-    rwTick.textContent = '+' + followers.toLocaleString() + ' followers';
-    tickerId = setInterval(() => {
-      followers += Math.floor(Math.random() * 3) + 1;
-      rwTick.textContent = '+' + followers.toLocaleString() + ' followers';
-    }, 480);
-  }
-  function stopInfluencerTicker() {
-    if (tickerId) { clearInterval(tickerId); tickerId = null; }
-  }
-
-  // Product cha-ching — Web Audio API, unlocked after first user gesture (autoplay policy).
-  // Two quick bell tones = cha-ching; a third higher tone adds the Shopify-style tail.
-  let audioCtx = null, audioReady = false, soundOn = true;
-  function unlockAudio() {
-    if (audioReady) return;
-    try {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      audioReady = true;
-    } catch (e) { /* no audio, no problem */ }
-  }
-  ['pointerdown','keydown','touchstart','scroll','wheel'].forEach(ev =>
-    window.addEventListener(ev, unlockAudio, { once: true, passive: true })
-  );
-  function chaChing() {
-    if (!soundOn || !audioReady || !audioCtx) return;
-    const t0 = audioCtx.currentTime;
-    const ding = (freq, start, dur, peak) => {
-      const osc = audioCtx.createOscillator();
-      const g   = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.value = freq;
-      g.gain.setValueAtTime(0.0001, t0 + start);
-      g.gain.exponentialRampToValueAtTime(peak, t0 + start + 0.012);
-      g.gain.exponentialRampToValueAtTime(0.0001, t0 + start + dur);
-      osc.connect(g).connect(audioCtx.destination);
-      osc.start(t0 + start);
-      osc.stop(t0 + start + dur + 0.04);
-    };
-    ding(987.77,  0.00, 0.32, 0.055); // B5  — cha
-    ding(1318.51, 0.10, 0.40, 0.050); // E6  — ching
-    ding(1760.00, 0.24, 0.55, 0.030); // A6  — Shopify tail
-  }
 
   function rotateWord() {
     rwEl.style.animation = 'none';
@@ -1257,12 +1048,9 @@
     rwEl.className = colors[wi];
     rwText.textContent = words[wi];
     rwEl.style.animation = 'fadeWord 0.5s ease';
-    if (colors[wi] === 'w-influencer') startInfluencerTicker();
-    else stopInfluencerTicker();
-    if (colors[wi] === 'w-product') chaChing();
   }
 
-  // Simple, even rotation — no blank gap.
+  // Steady rotation — every word gets the same airtime.
   const ROTATE_MS = 2700;
   setInterval(rotateWord, ROTATE_MS);
 
