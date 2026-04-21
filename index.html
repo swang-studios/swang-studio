@@ -93,12 +93,24 @@
       border-bottom-color: rgba(159,212,245,0.14);
     }
     html[data-theme="dark"] .hero-glass {
-      background: rgba(20, 35, 64, 0.78);
-      border-color: rgba(159,212,245,0.22);
+      background: rgba(12, 22, 40, 0.42);
+      border-top-color: rgba(159,212,245,0.45);
+      border-bottom-color: rgba(159,212,245,0.45);
+      border-left-color: rgba(159,212,245,0.18);
+      border-right-color: rgba(159,212,245,0.18);
       box-shadow:
-        0 30px 80px rgba(0,0,0,0.55),
+        0 24px 64px rgba(0,0,0,0.55),
         inset 0 1px 0 rgba(159,212,245,0.15);
     }
+    /* Force light text inside the overhang on dark mode — label, headline, sub, ghost link */
+    html[data-theme="dark"] .hero-label    { color: #eaf3fb; }
+    html[data-theme="dark"] .hero-label::before { background: #eaf3fb; }
+    html[data-theme="dark"] .hero-headline { color: #f5fbff; }
+    html[data-theme="dark"] .hero-sub      { color: rgba(234,243,251,0.82); }
+    html[data-theme="dark"] .hero-ghost    { color: rgba(234,243,251,0.78); }
+    html[data-theme="dark"] .hero-ghost:hover { color: #eaf3fb; }
+    html[data-theme="dark"] .btn           { color: #eaf3fb; border-color: rgba(234,243,251,0.65); }
+    html[data-theme="dark"] .btn.filled    { color: #fff; }
     html[data-theme="dark"] .hero-tile { background: #0a1220; }
     html[data-theme="dark"] .cta-pill {
       background: rgba(20, 35, 64, 0.62);
@@ -136,6 +148,24 @@
     html[data-theme="dark"] .gi,
     html[data-theme="dark"] .reel-tile { background: #0a1220; }
     html[data-theme="dark"] footer { border-top-color: var(--line); }
+    /* Lift dull logos out of the dark background — invert near-black marks,
+       keep the profile/color logos (photos) as-is. */
+    html[data-theme="dark"] .logo-item img {
+      filter: invert(1) brightness(1.08) saturate(1.05);
+      opacity: 1;
+    }
+    html[data-theme="dark"] .logo-item.profile img,
+    html[data-theme="dark"] .logo-item.color img {
+      filter: none;
+      opacity: 1;
+    }
+    html[data-theme="dark"] .logo-item:hover img {
+      filter: invert(1) brightness(1.2) saturate(1.1);
+    }
+    html[data-theme="dark"] .logo-item.profile:hover img,
+    html[data-theme="dark"] .logo-item.color:hover img {
+      filter: drop-shadow(0 14px 28px rgba(159,212,245,0.35));
+    }
     html[data-theme="dark"] .logo-item:hover {
       filter: drop-shadow(0 14px 28px rgba(159,212,245,0.25));
     }
@@ -273,20 +303,38 @@
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
        The cream-glass look now lives ONLY on .hero-glass. */
     .hero-scrim { display: none; }
+    /* Transparent OVERHANG banner — spans horizontally across the middle of the gallery,
+       thin horizontal rules top + bottom create the "lining" / ledger look. */
     .hero-glass {
-      position: relative; z-index: 2;
-      max-width: 560px;
-      margin: clamp(64px, 10vh, 120px) 0 clamp(64px, 10vh, 120px) clamp(24px, 5vw, 72px);
-      padding: 54px 52px 48px;
-      background: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(22px) saturate(1.2);
-      -webkit-backdrop-filter: blur(22px) saturate(1.2);
-      border: 1px solid rgba(93, 179, 232, 0.30);
-      border-radius: 3px;
+      position: absolute; z-index: 2;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 1200px);
+      max-width: none;
+      margin: 0;
+      padding: clamp(26px, 3.4vw, 42px) clamp(24px, 4vw, 56px);
+      background: rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(18px) saturate(1.25);
+      -webkit-backdrop-filter: blur(18px) saturate(1.25);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.85);
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
+      border-right: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 2px;
       box-shadow:
-        0 30px 80px rgba(11,14,20,0.18),
-        inset 0 1px 0 rgba(255,255,255,0.9),
-        0 0 0 1px rgba(255,255,255,0.6);
+        0 24px 64px rgba(11,14,20,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(22px, 4vw, 56px);
+      flex-wrap: wrap;
+    }
+    .hero-glass-copy { flex: 1 1 480px; min-width: 0; }
+    .hero-glass-actions {
+      flex: 0 0 auto;
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 12px;
     }
     .hero-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
@@ -347,7 +395,7 @@
       color: rgba(11,14,20,0.72); max-width: 420px;
     }
     .hero-actions {
-      margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap;
+      margin-top: 0; display: flex; gap: 12px; flex-wrap: wrap;
       align-items: center;
     }
     /* Tertiary "just browsing" link — sits next to the buttons but reads quieter */
@@ -960,9 +1008,10 @@
     .benefit-item:hover .benefit-num { opacity: 1; }
     .benefit-text { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); }
 
-    /* ABOUT, warm honey feature section on rich umber — portrait removed Apr 21, text only, centered column */
+    /* ABOUT + LET'S TALK now share one continuous dark background — the seam
+       between the two sections is removed so they read as one block. */
     .about {
-      padding: 120px 48px;
+      padding: 120px 48px 80px;
       background:
         radial-gradient(ellipse at 20% 30%, rgba(93,179,232,0.18) 0%, transparent 55%),
         radial-gradient(ellipse at 80% 75%, rgba(46,127,194,0.16) 0%, transparent 55%),
@@ -1002,15 +1051,21 @@
     .about-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
     .about-ctas .about-cta { margin-top: 0; }
 
-    /* LEAVE A NOTE, warm honey chat box */
+    /* LEAVE A NOTE — shares the About section's dark umber so they merge into
+       one continuous block. No top-rule, subtle gradient continues the About glow. */
     .note {
-      padding: 90px 48px;
+      padding: 40px 48px 110px;
       background:
-        radial-gradient(ellipse at 80% 0%, rgba(159,212,245,0.22) 0%, transparent 55%),
-        radial-gradient(ellipse at 10% 100%, rgba(93,179,232,0.14) 0%, transparent 50%),
-        var(--bg-soft);
-      border-top: 1px solid var(--line);
+        radial-gradient(ellipse at 80% 0%, rgba(159,212,245,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 100%, rgba(93,179,232,0.10) 0%, transparent 50%),
+        var(--dark);
+      border-top: none;
     }
+    .note .section-label       { color: var(--honey-glow); }
+    .note .section-label::before { background: var(--honey-glow); }
+    .note-headline             { color: #eaf3fb; }
+    .note-headline em          { color: var(--honey-glow); }
+    .note-sub                  { color: rgba(234,243,251,0.72); }
     .note-inner {
       max-width: 640px; margin: 0 auto;
       display: flex; flex-direction: column; gap: 18px;
@@ -1229,7 +1284,17 @@
       }
       .hero-tile.feature { grid-column: 1 / 3; grid-row: 1; }
       .hero-tile.tall    { grid-column: 2; grid-row: 2 / 4; }
-      .hero-glass { margin: 32px 18px; padding: 36px 26px; max-width: none; }
+      .hero-glass {
+        position: relative; left: auto; top: auto; transform: none;
+        width: calc(100% - 32px);
+        margin: 28px 16px;
+        padding: 28px 22px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+      }
+      .hero-glass-copy { flex: 1 1 auto; }
+      .hero-glass-actions { align-items: flex-start; }
       .gallery {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 220px 220px 220px;
@@ -1274,34 +1339,43 @@
   </div>
 </nav>
 
-<!-- COVER — editorial magazine-cover landing (Apr 21 v1) -->
-<section class="cover">
-  <div class="cover-masthead">
-    <div class="cover-tab">
-      <span>swang<em>.</em>&mdash; the cover</span>
-      <span class="vol">Vol. 02 &middot; Spring 2026</span>
+<!-- HERO — 4-tile gallery backdrop with a wide transparent overhang banner (Apr 21 v2) -->
+<section class="hero">
+  <div class="hero-backdrop">
+    <div class="hero-tile feature">
+      <img src="photo2.jpg" alt="Automotive brand shoot, BMW M3 duo at the coast" />
     </div>
-    <h1 class="cover-wordmark">Put it<br><em>on the record.</em></h1>
-    <p class="cover-byline">
-      Visual direction &amp; creative growth for the brands, creators, and operators who&rsquo;d rather their work <span>speak first.</span>
-    </p>
-    <div class="cover-meta">
-      <span>Mason Swang &middot; hello@swang.studio</span>
-      <a href="#featured-work" class="cover-scroll">Scroll for the index</a>
+    <div class="hero-tile">
+      <img src="photo3b.jpg" alt="Aerial putting green nestled in landscape" />
+    </div>
+    <div class="hero-tile">
+      <img src="photo41.jpg" alt="Pickleball court property editorial" />
+    </div>
+    <div class="hero-tile tall">
+      <img src="portrait2.jpg" alt="Aerial property, roof and lawn" />
     </div>
   </div>
-
-  <div class="cover-mosaic" id="cover-mosaic">
-    <a class="cover-tile t1" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
-    <a class="cover-tile t2" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
-    <a class="cover-tile t3" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
-    <a class="cover-tile t4" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
-    <a class="cover-tile t5" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
-    <a class="cover-tile t6" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
-    <a class="cover-tile t7" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+  <div class="hero-scrim"></div>
+  <div class="hero-glass reveal">
+    <div class="hero-glass-copy">
+      <p class="hero-label">Content Refreshes &middot; Paid Advertising &middot; Content Creation</p>
+      <h1 class="hero-headline">
+        Put your
+        <span id="rw" class="w-brand"><span class="rw-inner"><span class="rw-text">brand</span><span class="rw-mark bag">&#128717;</span><span class="rw-mark box">&#128230;</span><span class="rw-mark phone">&#128241;</span><span class="rw-mark wrench">&#128295;</span><span class="rw-mark camera">&#128247;</span><span class="rw-mark house">&#127969;</span><span class="rw-mark eye">&#128065;</span></span></span>
+        in the spotlight.
+      </h1>
+      <p class="hero-sub">
+        Visual direction and content that converts. For brands and creators who play to win.
+      </p>
+    </div>
+    <div class="hero-glass-actions">
+      <div class="hero-actions">
+        <a href="#contact" class="btn filled">Connect With Me &darr;</a>
+        <a href="#featured-work" class="btn">View Case Studies</a>
+      </div>
+      <a href="#gallery" class="hero-ghost">or just browse the work <span class="arrow">&rarr;</span></a>
+    </div>
   </div>
-
-  <button type="button" class="cover-reshuffle" onclick="window.swangShuffleCover && window.swangShuffleCover()">Reshuffle</button>
 </section>
 
 <!-- INDEX — table of contents strip (Apr 21 v1) -->
