@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    // Flash-of-light prevention — apply saved theme before paint.
+    try { if (localStorage.getItem('swang-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) {}
+  </script>
   <title>swang. | Creative Growth</title>
   <meta name="description" content="Mason Swang — creative growth for brands and creators. Strategy, visual direction, and content that compounds." />
   <meta property="og:title" content="swang. | Creative Growth" />
@@ -50,6 +54,113 @@
       --mac-purple: #8A5FC2;
       --mac-blue:   #3E9BDB;
     }
+
+    /* ----- FROZONE AFTER HOURS — night-mode override -------------------- */
+    /* Keeps the ice-blue soul but dips the whole surface into deep navy so
+       pure black/grey never shows up. Activated by [data-theme="dark"] on
+       <html>; theme toggle button lives in the nav. */
+    html[data-theme="dark"] {
+      --bg:         #0b1628;
+      --bg-warm:    #0f1c33;
+      --bg-soft:    #142340;
+      --surface:    #0f1c33;
+      --ink:        #eaf3fb;
+      --ink-soft:   #b8c8dc;
+      --ink-mute:   #6f82a0;
+      --line:       rgba(234,243,251,0.12);
+      --line-strong:rgba(234,243,251,0.22);
+      --honey:      #6FC3F2;
+      --honey-deep: #9FD4F5;
+      --honey-glow: #5DB3E8;
+      --dark:       #eaf3fb;
+      --accent:     #6FC3F2;
+      --accent-dark:#9FD4F5;
+      --honey-dark: #9FD4F5;
+      --black:      #eaf3fb;
+      --white:      #0b1628;
+      --warm:       #0f1c33;
+      --light:      #0f1c33;
+    }
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(111,195,242,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(74,134,197,0.10) 0%, transparent 50%),
+        linear-gradient(180deg, #0b1628 0%, #0d1a2e 100%);
+    }
+    html[data-theme="dark"] nav {
+      background: rgba(14, 25, 44, 0.72);
+      border-bottom-color: rgba(159,212,245,0.14);
+    }
+    html[data-theme="dark"] .hero-glass {
+      background: rgba(20, 35, 64, 0.78);
+      border-color: rgba(159,212,245,0.22);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(159,212,245,0.15);
+    }
+    html[data-theme="dark"] .hero-tile { background: #0a1220; }
+    html[data-theme="dark"] .cta-pill {
+      background: rgba(20, 35, 64, 0.62);
+      color: var(--ink);
+      border-color: rgba(159,212,245,0.28);
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(159,212,245,0.18);
+    }
+    html[data-theme="dark"] .btn:hover { background: var(--honey-deep); color: #0b1628; }
+    html[data-theme="dark"] .about-cta { background: var(--honey-deep); color: #0b1628; }
+    html[data-theme="dark"] .about-cta:hover { background: var(--honey-glow); color: #0b1628; }
+    html[data-theme="dark"] .about-tag { border-color: rgba(159,212,245,0.28); color: rgba(234,243,251,0.8); }
+    html[data-theme="dark"] .note-form input,
+    html[data-theme="dark"] .note-form textarea {
+      background: rgba(20, 35, 64, 0.6);
+      color: var(--ink);
+    }
+    html[data-theme="dark"] .note-form input::placeholder,
+    html[data-theme="dark"] .note-form textarea::placeholder { color: rgba(234,243,251,0.4); }
+    html[data-theme="dark"] .note-mail {
+      background: rgba(20, 35, 64, 0.72);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+    html[data-theme="dark"] .note-mail:hover {
+      border-color: var(--honey-deep);
+      color: var(--honey-deep);
+      box-shadow: 0 16px 36px rgba(159,212,245,0.22);
+    }
+    html[data-theme="dark"] .cta-pill:hover {
+      background: rgba(20, 35, 64, 0.82);
+      border-color: rgba(159,212,245,0.55);
+    }
+    html[data-theme="dark"] .hero-tile,
+    html[data-theme="dark"] .gi,
+    html[data-theme="dark"] .reel-tile { background: #0a1220; }
+    html[data-theme="dark"] footer { border-top-color: var(--line); }
+    html[data-theme="dark"] .logo-item:hover {
+      filter: drop-shadow(0 14px 28px rgba(159,212,245,0.25));
+    }
+
+    /* Theme toggle button — tiny icon in the nav, sun/moon swap */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      width: 34px; height: 34px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 18px; padding: 0; cursor: pointer;
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--surface);
+      border-color: var(--honey-deep);
+      color: var(--honey-deep);
+      transform: rotate(-12deg);
+    }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .sun  { display: none; }
+    .theme-toggle .moon { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .moon { display: none; }
+
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
@@ -107,6 +218,7 @@
       font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
       color: var(--ink); text-decoration: none;
     }
+    nav .nav-right { display: flex; align-items: center; gap: 8px; }
     nav ul { list-style: none; display: flex; gap: 36px; }
     nav ul a {
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
@@ -331,6 +443,11 @@
       .logo-item img,
       .logo-item.color img,
       .logo-item.profile img { max-height: 72px; max-width: 130px; }
+      nav { padding: 14px 16px; }
+      nav ul { gap: 14px; }
+      nav ul a { font-size: 12px; }
+      .theme-toggle { margin-left: 6px; width: 28px; height: 28px; }
+      .theme-toggle svg { width: 12px; height: 12px; }
     }
 
     /* GALLERY, 4 editorial tiles */
@@ -631,15 +748,6 @@
     .about-cta:hover { background: var(--honey-glow); color: var(--ink); }
     .about-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
     .about-ctas .about-cta { margin-top: 0; }
-    .about-cta-ghost {
-      background: transparent;
-      color: rgba(234, 243, 251, 0.82);
-      border: 1px solid rgba(159, 212, 245, 0.45);
-    }
-    .about-cta-ghost:hover {
-      background: rgba(159, 212, 245, 0.14);
-      color: #eaf3fb; border-color: var(--honey-glow);
-    }
 
     /* LEAVE A NOTE, warm honey chat box */
     .note {
@@ -848,6 +956,10 @@
     /* RESPONSIVE */
     @media (max-width: 960px) {
       nav { padding: 18px 24px; }
+      nav ul { gap: 20px; }
+      nav .nav-right { gap: 4px; }
+      .theme-toggle { margin-left: 10px; width: 30px; height: 30px; }
+      .theme-toggle svg { width: 13px; height: 13px; }
       .hero { min-height: auto; padding-top: 80px; }
       .hero-backdrop {
         grid-template-columns: 1fr 1fr;
@@ -886,11 +998,17 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="logo">swang.</a>
-  <ul>
-    <li><a href="#featured-work">Work</a></li>
-    <li><a href="#reels">Reels</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul>
+      <li><a href="#featured-work">Work</a></li>
+      <li><a href="#reels">Reels</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO, feature + two stacked + tall vertical, frosted glass headline -->
@@ -1106,7 +1224,6 @@
     </div>
     <div class="about-ctas reveal">
       <a href="#leave-a-review" class="about-cta">Work With Me</a>
-      <a href="resume.pdf" class="about-cta about-cta-ghost" download>Download Resume</a>
     </div>
   </div>
 </section>
@@ -1196,6 +1313,19 @@
   document.querySelectorAll('.hero .reveal').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 150 + i * 120);
   });
+
+  // Frozone After Hours theme toggle
+  window.swangToggleTheme = function() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
+    }
+  };
 </script>
 </body>
 </html>

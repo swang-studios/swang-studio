@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    try { if (localStorage.getItem('swang-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) {}
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>swang. | Creative Growth — Gallery</title>
   <meta name="description" content="The full gallery — aerial, landscape, portrait, and brand work by Mason Swang." />
@@ -53,6 +56,67 @@
       --mac-purple: #8A5FC2;
       --mac-blue:   #3E9BDB;
     }
+
+    /* ----- FROZONE AFTER HOURS — night-mode override -------------------- */
+    html[data-theme="dark"] {
+      --mocha-deep: #eaf3fb;
+      --mocha-mid:  #b8c8dc;
+      --mocha-warm: #7a8ba5;
+      --cream:      #eaf3fb;
+      --cream-2:    #ffffff;
+      --cream-dim:  rgba(234,243,251,0.78);
+      --ice:        #6FC3F2;
+      --ice-2:      #9FD4F5;
+      --ice-soft:   rgba(111,195,242,0.14);
+      --ice-mid:    rgba(111,195,242,0.28);
+      --ice-line:   rgba(159,212,245,0.55);
+      --ice-glow:   rgba(159,212,245,0.38);
+      --page-bg:    #0b1628;
+      --page-bg-2:  #0f1c33;
+      --page-bg-3:  #142340;
+      --muted:      rgba(234,243,251,0.5);
+      --rule:       rgba(234,243,251,0.12);
+    }
+    html[data-theme="dark"] body { background: var(--page-bg); color: var(--cream); }
+    html[data-theme="dark"] nav {
+      background: rgba(14, 25, 44, 0.72);
+      border-bottom-color: rgba(159,212,245,0.14);
+    }
+
+    /* Theme toggle — sun/moon pill, same style as homepage */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(11,14,20,0.22);
+      width: 34px; height: 34px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 18px; padding: 0; cursor: pointer;
+      color: var(--cream);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: var(--page-bg-2);
+      border-color: var(--ice-2);
+      color: var(--ice-2);
+      transform: rotate(-12deg);
+    }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .sun  { display: none; }
+    .theme-toggle .moon { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle { border-color: rgba(234,243,251,0.22); }
+    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .moon { display: none; }
+    nav .nav-right { display: flex; align-items: center; gap: 8px; }
+    @media (max-width: 960px) {
+      nav ul { gap: 20px !important; }
+      nav .nav-right { gap: 4px; }
+      .theme-toggle { margin-left: 10px; width: 30px; height: 30px; }
+      .theme-toggle svg { width: 13px; height: 13px; }
+    }
+    @media (max-width: 440px) {
+      .theme-toggle { margin-left: 6px; width: 28px; height: 28px; }
+      .theme-toggle svg { width: 12px; height: 12px; }
+    }
+
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
@@ -391,12 +455,18 @@
 
 <nav>
   <a href="/" class="logo">swang.</a>
-  <ul>
-    <li><a href="/#featured-work">Work</a></li>
-    <li><a href="/#reels">Reels</a></li>
-    <li><a href="/case-studies">Case Studies</a></li>
-    <li><a href="/#leave-a-review">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul>
+      <li><a href="/#featured-work">Work</a></li>
+      <li><a href="/#reels">Reels</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
+      <li><a href="/#leave-a-review">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <header class="g-head">
@@ -564,7 +634,6 @@
 
   <div class="g-item" data-cat="misc"><img src="bmw.jpg" alt="BMW on the coast, overcast" loading="lazy" /></div>
   <div class="g-item" data-cat="misc"><img src="m5-horizontal-1.png" alt="BMW M5, horizontal frame 1" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="m5-horizontal-2.png" alt="BMW M5, horizontal frame 2" loading="lazy" /></div>
   <div class="g-item" data-cat="misc"><img src="rollsroyce.png" alt="Rolls Royce, editorial still" loading="lazy" /></div>
   <div class="g-item" data-cat="misc"><img src="concert-band.png" alt="Concert, band shot" loading="lazy" /></div>
   <div class="g-item" data-cat="misc"><img src="concert-boat.png" alt="Concert, from the water" loading="lazy" /></div>
@@ -644,6 +713,19 @@
     else if (e.key === 'ArrowRight') next();
     else if (e.key === 'ArrowLeft') prev();
   });
+
+  // Frozone After Hours theme toggle
+  window.swangToggleTheme = function() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
+    }
+  };
 </script>
 </body>
 </html>
