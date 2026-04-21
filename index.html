@@ -303,39 +303,51 @@
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
        The cream-glass look now lives ONLY on .hero-glass. */
     .hero-scrim { display: none; }
-    /* Transparent OVERHANG banner — spans horizontally across the middle of the gallery,
-       thin horizontal rules top + bottom create the "lining" / ledger look. */
+    /* Transparent OVERHANG banner — thin horizontal strip "lining" the middle of
+       the gallery. Single-line headline, label + CTAs on a clean horizontal axis. */
     .hero-glass {
       position: absolute; z-index: 2;
-      left: 50%; top: 50%;
+      left: 50%; top: 58%;
       transform: translate(-50%, -50%);
-      width: min(92vw, 1200px);
+      width: min(94vw, 1280px);
       max-width: none;
       margin: 0;
-      padding: clamp(26px, 3.4vw, 42px) clamp(24px, 4vw, 56px);
-      background: rgba(255, 255, 255, 0.42);
-      backdrop-filter: blur(18px) saturate(1.25);
-      -webkit-backdrop-filter: blur(18px) saturate(1.25);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.85);
-      border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
-      border-left: 1px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 2px;
+      padding: clamp(18px, 2.2vw, 26px) clamp(22px, 3.4vw, 44px);
+      background: rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(20px) saturate(1.35);
+      -webkit-backdrop-filter: blur(20px) saturate(1.35);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.9);
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
       box-shadow:
-        0 24px 64px rgba(11,14,20,0.22),
-        inset 0 1px 0 rgba(255,255,255,0.6);
+        0 22px 56px rgba(11,14,20,0.24),
+        inset 0 1px 0 rgba(255,255,255,0.55);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: clamp(22px, 4vw, 56px);
+      gap: clamp(20px, 3vw, 44px);
       flex-wrap: wrap;
     }
-    .hero-glass-copy { flex: 1 1 480px; min-width: 0; }
+    .hero-glass-copy { flex: 1 1 540px; min-width: 0; }
     .hero-glass-actions {
       flex: 0 0 auto;
       display: flex; flex-direction: column;
-      align-items: flex-end; gap: 12px;
+      align-items: flex-end; gap: 10px;
     }
+    /* Tighter typography INSIDE the slim banner — keeps headline to one line on desktop */
+    .hero-glass .hero-label { margin-bottom: 10px; font-size: 10px; }
+    .hero-glass .hero-headline {
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.04;
+      white-space: nowrap;
+    }
+    .hero-glass .hero-sub {
+      margin-top: 8px; font-size: 12.5px; line-height: 1.55;
+      max-width: 520px;
+    }
+    .hero-glass #rw .rw-mark { top: -6px; right: -22px; font-size: 0.3em; }
     .hero-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--honey-deep);
@@ -1008,16 +1020,57 @@
     .benefit-item:hover .benefit-num { opacity: 1; }
     .benefit-text { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); }
 
-    /* ABOUT + LET'S TALK now share one continuous dark background — the seam
-       between the two sections is removed so they read as one block. */
+    /* ABOUT + LET'S TALK — unified section, 2-column grid on desktop with a
+       4:5 headshot placeholder on the right. Single background continues as one block. */
     .about {
-      padding: 120px 48px 80px;
+      padding: 120px 48px 110px;
       background:
         radial-gradient(ellipse at 20% 30%, rgba(93,179,232,0.18) 0%, transparent 55%),
         radial-gradient(ellipse at 80% 75%, rgba(46,127,194,0.16) 0%, transparent 55%),
         var(--dark);
       display: flex;
       justify-content: center;
+    }
+    .about-grid {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+    .about-left  { max-width: 560px; }
+    .about-right { display: flex; justify-content: center; padding-top: 40px; }
+    .about-photo-slot {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 4 / 5;
+      background: #ffffff;
+      border: 1px solid rgba(234,243,251,0.25);
+      border-radius: 3px;
+      box-shadow:
+        0 30px 70px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+    .about-contact {
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(159,212,245,0.22);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .about-contact .note-headline {
+      font-size: clamp(24px, 2.6vw, 34px); font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1.1; margin-top: 6px;
+    }
+    .about-contact .note-sub { font-size: 13.5px; max-width: 480px; }
+    .about-contact .note-mail { align-self: flex-start; margin-top: 6px; }
+    @media (max-width: 860px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-right { padding-top: 0; }
+      .about-photo-slot { max-width: 340px; }
     }
     .about-text { max-width: 620px; }
     .about-text .about-bio { max-width: 560px; }
@@ -1288,13 +1341,15 @@
         position: relative; left: auto; top: auto; transform: none;
         width: calc(100% - 32px);
         margin: 28px 16px;
-        padding: 28px 22px;
+        padding: 24px 20px;
         flex-direction: column;
         align-items: stretch;
-        gap: 18px;
+        gap: 16px;
       }
       .hero-glass-copy { flex: 1 1 auto; }
       .hero-glass-actions { align-items: flex-start; }
+      .hero-glass .hero-headline { white-space: normal; font-size: clamp(28px, 7vw, 42px); }
+      .hero-glass .hero-sub { font-size: 13px; }
       .gallery {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 220px 220px 220px;
@@ -1327,7 +1382,7 @@
   <a href="#" class="logo">swang.</a>
   <div class="nav-right">
     <ul>
-      <li><a href="#featured-work">Work</a></li>
+      <li><a href="#featured-work">Case Studies</a></li>
       <li><a href="#reels">Reels</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1339,20 +1394,20 @@
   </div>
 </nav>
 
-<!-- HERO — 4-tile gallery backdrop with a wide transparent overhang banner (Apr 21 v2) -->
+<!-- HERO — 4-tile gallery backdrop with a thin transparent overhang banner (Apr 21 v3) -->
 <section class="hero">
   <div class="hero-backdrop">
     <div class="hero-tile feature">
-      <img src="photo2.jpg" alt="Automotive brand shoot, BMW M3 duo at the coast" />
+      <img src="aerial-backyard.jpg" alt="Aerial editorial, backyard and landscape" />
     </div>
     <div class="hero-tile">
-      <img src="photo3b.jpg" alt="Aerial putting green nestled in landscape" />
+      <img src="photo2b.jpg" alt="Mid-century architectural lifestyle" />
     </div>
     <div class="hero-tile">
-      <img src="photo41.jpg" alt="Pickleball court property editorial" />
+      <img src="brand-still-1.png" alt="Brand still life, editorial" />
     </div>
     <div class="hero-tile tall">
-      <img src="portrait2.jpg" alt="Aerial property, roof and lawn" />
+      <img src="stoflet-vertical-1.png" alt="Editorial vertical, vol. 02" />
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -1381,7 +1436,7 @@
 <!-- INDEX — table of contents strip (Apr 21 v1) -->
 <nav class="cover-index" aria-label="Section index">
   <span class="cover-index-label">Index</span>
-  <a href="#featured-work"><span class="num">01</span>Featured Work</a>
+  <a href="#featured-work"><span class="num">01</span>Case Studies</a>
   <a href="#reels"><span class="num">02</span>Reels</a>
   <a href="#about"><span class="num">03</span>About</a>
   <a href="#leave-a-review"><span class="num">04</span>Let&rsquo;s Talk</a>
@@ -1485,7 +1540,7 @@
 <section class="work" id="featured-work">
   <div class="work-header reveal">
     <div>
-      <p class="section-label">Recent Business Interactions</p>
+      <p class="section-label">Case Studies</p>
       <h2 class="work-headline">Real partners.<br>Real <em>results.</em></h2>
     </div>
     <a href="#leave-a-review" class="work-link">Let's Talk &rarr;</a>
@@ -1540,39 +1595,39 @@
 </section>
 
 <!-- ABOUT -->
+<!-- ABOUT + LET'S TALK — one unified section. Left: condensed bio + contact.
+     Right: 4:5 headshot slot (white placeholder until a PNG is dropped in). -->
 <section class="about" id="about">
-  <div class="about-text">
-    <p class="section-label">About</p>
-    <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
-    <p class="about-bio reveal">Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands from concept through execution, paid campaigns, ground-level shoots, full digital rollouts. Every frame earns its place.</p>
-    <div class="about-tags reveal">
-      <span class="about-tag">Creative Strategy</span>
-      <span class="about-tag">Aerial Photography</span>
-      <span class="about-tag">Visual Direction</span>
-      <span class="about-tag">Meta Campaigns</span>
-      <span class="about-tag">Brand Growth</span>
-    </div>
-    <div class="about-ctas reveal">
-      <a href="#leave-a-review" class="about-cta">Work With Me</a>
-    </div>
-  </div>
-</section>
+  <div class="about-grid">
+    <div class="about-left">
+      <p class="section-label">About</p>
+      <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
+      <p class="about-bio reveal">Creative strategist, visual director, and aerial photographer based in California. I build content ecosystems that grow brands, paid campaigns, ground-level shoots, full digital rollouts. Every frame earns its place.</p>
+      <div class="about-tags reveal">
+        <span class="about-tag">Creative Strategy</span>
+        <span class="about-tag">Aerial Photography</span>
+        <span class="about-tag">Visual Direction</span>
+        <span class="about-tag">Meta Campaigns</span>
+        <span class="about-tag">Brand Growth</span>
+      </div>
 
-<!-- LET'S TALK / CONTACT — direct mailto, no form, no backend. -->
-<section class="note" id="leave-a-review">
-  <div class="note-inner">
-    <p class="section-label">Get in Touch</p>
-    <h2 class="note-headline reveal">
-      Let's make something <em>good.</em>
-    </h2>
-    <p class="note-sub reveal">
-      Projects, collabs, quick questions. Reach out directly and I'll get back same day.
-    </p>
-    <a class="note-mail reveal"
-       href="mailto:hello@swang.studio?subject=swang.studio%20%E2%80%94%20hello">
-      hello@swang.studio
-      <span class="note-mail-arrow" aria-hidden="true">&rarr;</span>
-    </a>
+      <div class="about-contact reveal" id="leave-a-review">
+        <p class="section-label">Get in Touch</p>
+        <h3 class="note-headline">Let's make something <em>good.</em></h3>
+        <p class="note-sub">Projects, collabs, quick questions. Reach out directly and I'll get back same day.</p>
+        <a class="note-mail"
+           href="mailto:hello@swang.studio?subject=swang.studio%20%E2%80%94%20hello">
+          hello@swang.studio
+          <span class="note-mail-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-right">
+      <!-- 4:5 headshot placeholder. Drop headshot.png into the repo and set
+           background-image below, or replace the div with <img>. -->
+      <figure class="about-photo-slot" aria-label="Mason Swang — headshot"></figure>
+    </div>
   </div>
 </section>
 
@@ -1590,7 +1645,7 @@
     </div>
   </div>
   <div class="f-links">
-    <a href="#featured-work">Work</a>
+    <a href="#featured-work">Case Studies</a>
     <a href="#reels">Reels</a>
     <a href="#about">About</a>
     <a href="#leave-a-review">Let's Talk</a>
