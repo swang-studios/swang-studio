@@ -15,7 +15,8 @@
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -169,12 +170,21 @@
     html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .moon { display: none; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: none;
+    }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--ink);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Icy-white drift — calm mesh behind everything, soft platinum → sky */
@@ -358,6 +368,241 @@
     .hero-ghost:hover .arrow {
       transform: translateX(3px);
     }
+
+    /* ---------- COVER — editorial magazine-cover landing (Apr 21 v1) ---------- */
+    .cover {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(340px, 1fr) 1.7fr;
+      gap: 0;
+      padding: 120px 56px 60px;
+      min-height: 88vh;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      overflow: hidden;
+    }
+    .cover-masthead {
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 48px 24px 4px;
+      gap: 32px;
+      min-height: 0;
+    }
+    .cover-tab {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic; font-weight: 400; font-size: 14px;
+      letter-spacing: 0.04em;
+      color: var(--honey-deep);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 14px;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    }
+    .cover-tab .vol {
+      font-family: 'Space Grotesk', sans-serif; font-style: normal;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(11,14,20,0.55);
+    }
+    html[data-theme="dark"] .cover-tab .vol { color: rgba(234,243,251,0.55); }
+
+    .cover-wordmark {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(68px, 11.5vw, 164px);
+      line-height: 0.88;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      margin: 0;
+    }
+    .cover-wordmark em {
+      font-style: italic; font-weight: 300;
+      color: var(--honey-deep);
+    }
+    .cover-byline {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(17px, 1.75vw, 22px);
+      line-height: 1.42;
+      max-width: 30ch;
+      color: var(--ink);
+      opacity: 0.9;
+    }
+    .cover-byline span { color: var(--honey-deep); font-style: italic; }
+    .cover-meta {
+      display: flex; flex-direction: column; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(11,14,20,0.58);
+    }
+    html[data-theme="dark"] .cover-meta { color: rgba(234,243,251,0.6); }
+    .cover-meta a {
+      color: inherit; text-decoration: none;
+      border-bottom: 1px dotted currentColor; padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      align-self: flex-start;
+    }
+    .cover-meta a:hover { color: var(--honey-deep); border-bottom-color: var(--honey-deep); }
+    .cover-scroll::before {
+      content: "\2193"; display: inline-block; margin-right: 8px;
+      animation: coverbob 2.2s ease-in-out infinite;
+    }
+    @keyframes coverbob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+
+    /* MOSAIC */
+    .cover-mosaic {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 12px;
+      height: min(78vh, 760px);
+      min-height: 520px;
+    }
+    .cover-tile {
+      position: relative; overflow: hidden;
+      background: var(--dark);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: block;
+      text-decoration: none;
+    }
+    .cover-tile img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s ease, filter 0.4s ease;
+      display: block;
+    }
+    .cover-tile:hover { transform: translateY(-3px); }
+    .cover-tile:hover img { transform: scale(1.045); }
+    .cover-caption {
+      position: absolute; left: 12px; bottom: 10px;
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic; font-size: 11px;
+      color: rgba(255,255,255,0.94);
+      text-shadow: 0 1px 14px rgba(0,0,0,0.6);
+      letter-spacing: 0.03em;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(4px);
+      pointer-events: none;
+    }
+    .cover-tile:hover .cover-caption { opacity: 1; transform: translateY(0); }
+
+    .cover-tile.t1 { grid-column: 1 / span 2; grid-row: 1 / span 3; }
+    .cover-tile.t2 { grid-column: 3 / span 2; grid-row: 1 / span 2; }
+    .cover-tile.t3 { grid-column: 3;         grid-row: 3 / span 2; }
+    .cover-tile.t4 { grid-column: 4;         grid-row: 3 / span 3; }
+    .cover-tile.t5 { grid-column: 1;         grid-row: 4 / span 3; }
+    .cover-tile.t6 { grid-column: 2;         grid-row: 4 / span 3; }
+    .cover-tile.t7 { grid-column: 3;         grid-row: 5 / span 2; }
+
+    .cover-reshuffle {
+      position: absolute;
+      top: 120px; right: 56px;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(74,134,197,0.25);
+      border-radius: 999px;
+      padding: 7px 14px 7px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+      z-index: 6;
+    }
+    html[data-theme="dark"] .cover-reshuffle {
+      background: rgba(20,35,64,0.55);
+      border-color: rgba(159,212,245,0.28);
+    }
+    .cover-reshuffle:hover { transform: translateY(-1px); border-color: var(--honey-deep); }
+    .cover-reshuffle::before {
+      content: "\21BB"; display: inline-block;
+      transition: transform 0.5s ease;
+      font-size: 12px;
+    }
+    .cover-reshuffle:hover::before { transform: rotate(180deg); }
+
+    /* INDEX — table of contents strip */
+    .cover-index {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 22px 56px;
+      border-bottom: 1px solid var(--rule);
+      background: var(--bg);
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic; font-size: 14px;
+      color: var(--ink);
+      flex-wrap: wrap;
+    }
+    .cover-index-label {
+      font-family: 'Space Grotesk', sans-serif; font-style: normal;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(11,14,20,0.55);
+      padding-right: 28px; margin-right: 12px;
+      border-right: 1px solid var(--rule);
+    }
+    html[data-theme="dark"] .cover-index-label { color: rgba(234,243,251,0.55); }
+    .cover-index a {
+      color: inherit; text-decoration: none;
+      padding: 4px 22px;
+      white-space: nowrap;
+      transition: color 0.2s;
+      display: inline-flex; align-items: baseline; gap: 8px;
+    }
+    .cover-index a .num {
+      font-family: 'Space Grotesk', sans-serif; font-style: normal;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em;
+      color: var(--honey-deep);
+    }
+    .cover-index a:hover { color: var(--honey-deep); }
+    .cover-index a + a { border-left: 1px solid var(--rule); }
+
+    @media (max-width: 960px) {
+      .cover {
+        grid-template-columns: 1fr;
+        padding: 92px 22px 36px;
+        min-height: auto;
+        gap: 28px;
+      }
+      .cover-masthead { padding: 0; gap: 20px; justify-content: flex-start; }
+      .cover-tab { font-size: 12px; padding-bottom: 12px; gap: 10px; }
+      .cover-tab .vol { font-size: 9px; letter-spacing: 0.18em; }
+      .cover-wordmark { font-size: clamp(58px, 16vw, 104px); line-height: 0.9; }
+      .cover-byline { font-size: 16px; line-height: 1.45; max-width: none; }
+      .cover-meta { font-size: 9.5px; letter-spacing: 0.18em; gap: 8px; }
+      .cover-mosaic {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 180px 180px 180px;
+        height: auto; min-height: 0;
+        gap: 8px;
+      }
+      .cover-tile.t5, .cover-tile.t6, .cover-tile.t7 { display: none; }
+      .cover-tile.t1 { grid-column: 1; grid-row: 1 / span 2; }
+      .cover-tile.t2 { grid-column: 2; grid-row: 1; }
+      .cover-tile.t3 { grid-column: 2; grid-row: 2; }
+      .cover-tile.t4 { grid-column: 1 / span 2; grid-row: 3; }
+      .cover-reshuffle { top: 80px; right: 22px; }
+      .cover-index {
+        padding: 16px 22px;
+        font-size: 13px;
+        gap: 4px;
+      }
+      .cover-index-label {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+        padding: 0 0 10px 0;
+        margin: 0 0 8px 0;
+        text-align: center;
+      }
+      .cover-index a { padding: 4px 12px; }
+      .cover-index a + a { border-left: none; }
+    }
+    /* ---------- END COVER ---------- */
+
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 13px 26px; font-size: 11px; font-weight: 600;
@@ -1029,51 +1274,44 @@
   </div>
 </nav>
 
-<!-- HERO, feature + two stacked + tall vertical, frosted glass headline -->
-<section class="hero">
-  <div class="hero-backdrop">
-    <div class="hero-tile feature">
-      <img src="photo2.jpg" alt="Automotive brand shoot, BMW M3 duo at the coast" />
+<!-- COVER — editorial magazine-cover landing (Apr 21 v1) -->
+<section class="cover">
+  <div class="cover-masthead">
+    <div class="cover-tab">
+      <span>swang<em>.</em>&mdash; the cover</span>
+      <span class="vol">Vol. 02 &middot; Spring 2026</span>
     </div>
-    <div class="hero-tile">
-      <img src="photo3b.jpg" alt="Aerial putting green nestled in landscape" />
-    </div>
-    <div class="hero-tile">
-      <img src="photo41.jpg" alt="Pickleball court property editorial" />
-    </div>
-    <div class="hero-tile tall">
-      <img src="vert-homepage-1.png" alt="Cast iron flagstick vertical brand still" />
-    </div>
-  </div>
-  <div class="hero-scrim"></div>
-  <div class="hero-glass reveal">
-    <p class="hero-label">Creative Strategy &amp; Visual Direction</p>
-    <h1 class="hero-headline">
-      Put your<br>
-      <span id="rw" class="w-brand">
-        <span class="rw-inner">
-          <span class="rw-text">brand</span>
-          <span class="rw-mark bag"    aria-hidden="true">&#128717;</span>
-          <span class="rw-mark box"    aria-hidden="true">&#128230;</span>
-          <span class="rw-mark phone"  aria-hidden="true">&#128241;</span>
-          <span class="rw-mark wrench" aria-hidden="true">&#128295;</span>
-          <span class="rw-mark camera" aria-hidden="true">&#128248;</span>
-          <span class="rw-mark house"  aria-hidden="true">&#127969;</span>
-          <span class="rw-mark eye"    aria-hidden="true">&#128065;</span>
-        </span>
-      </span><br>
-      in the spotlight.
-    </h1>
-    <p class="hero-sub">
-      Visual direction and content that converts. For brands and creators who play to win.
+    <h1 class="cover-wordmark">Put it<br><em>on the record.</em></h1>
+    <p class="cover-byline">
+      Visual direction &amp; creative growth for the brands, creators, and operators who&rsquo;d rather their work <span>speak first.</span>
     </p>
-    <div class="hero-actions">
-      <a href="#leave-a-review" class="btn filled">Connect With Me &darr;</a>
-      <a href="#featured-work" class="btn">View Case Studies</a>
-      <a href="#gallery" class="hero-ghost">or just browse the work <span class="arrow">&rarr;</span></a>
+    <div class="cover-meta">
+      <span>Mason Swang &middot; hello@swang.studio</span>
+      <a href="#featured-work" class="cover-scroll">Scroll for the index</a>
     </div>
   </div>
+
+  <div class="cover-mosaic" id="cover-mosaic">
+    <a class="cover-tile t1" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+    <a class="cover-tile t2" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+    <a class="cover-tile t3" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+    <a class="cover-tile t4" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+    <a class="cover-tile t5" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+    <a class="cover-tile t6" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+    <a class="cover-tile t7" href="/gallery"><img src="" alt="" /><span class="cover-caption"></span></a>
+  </div>
+
+  <button type="button" class="cover-reshuffle" onclick="window.swangShuffleCover && window.swangShuffleCover()">Reshuffle</button>
 </section>
+
+<!-- INDEX — table of contents strip (Apr 21 v1) -->
+<nav class="cover-index" aria-label="Section index">
+  <span class="cover-index-label">Index</span>
+  <a href="#featured-work"><span class="num">01</span>Featured Work</a>
+  <a href="#reels"><span class="num">02</span>Reels</a>
+  <a href="#about"><span class="num">03</span>About</a>
+  <a href="#leave-a-review"><span class="num">04</span>Let&rsquo;s Talk</a>
+</nav>
 
 <!-- TRUSTED BY -->
 <section class="clients" id="clients">
@@ -1340,6 +1578,62 @@
       try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
     }
   };
+
+  // Editorial cover — shuffle mosaic images on load + on demand
+  (function() {
+    var pool = [
+      { src: 'photo2.jpg',            alt: 'Automotive brand shoot, BMW M3 duo at the coast', cap: 'automotive \u00B7 coast' },
+      { src: 'photo3b.jpg',           alt: 'Aerial putting green nestled in landscape',        cap: 'aerial \u00B7 orinda' },
+      { src: 'photo41.jpg',           alt: 'Pickleball court property editorial',              cap: 'architectural \u00B7 editorial' },
+      { src: 'vert-homepage-1.png',   alt: 'Cast iron flagstick vertical brand still',         cap: 'brand \u00B7 still life' },
+      { src: 'aerial-backyard.jpg',   alt: 'Mercedes SLR Stirling Moss editorial',             cap: 'automotive \u00B7 editorial' },
+      { src: 'photo2b.jpg',           alt: 'Mid-century architectural lifestyle',              cap: 'architectural \u00B7 lifestyle' },
+      { src: 'photo1b.jpg',           alt: 'Aerial backyard putting green',                    cap: 'aerial \u00B7 property' },
+      { src: 'pgreen6.jpg',           alt: 'Backyard putting green close-up',                  cap: 'landscape \u00B7 detail' },
+      { src: 'pgreen5.jpg',           alt: 'Aerial putting green, morning',                    cap: 'aerial \u00B7 morning' },
+      { src: 'putting-green-aerial.jpg', alt: 'Pavers and Turf aerial install',                cap: 'aerial \u00B7 install' },
+      { src: 'portrait1.jpg',         alt: 'Editorial portrait',                               cap: 'portrait \u00B7 editorial' },
+      { src: 'portrait2.jpg',         alt: 'Portrait, natural light',                          cap: 'portrait \u00B7 still' },
+      { src: 'rollsroyce.png',        alt: 'Rolls Royce on location',                          cap: 'automotive \u00B7 ivory' },
+      { src: 'putting-green-sand.jpg', alt: 'Sand bunker, putting green',                      cap: 'landscape \u00B7 bunker' },
+      { src: 'orinda-radius-mail.png', alt: 'Orinda location scout',                           cap: 'architectural \u00B7 orinda' },
+      { src: 'stoflet-vertical-1.png', alt: 'Stoflet vertical editorial',                      cap: 'editorial \u00B7 vol. 02' },
+      { src: 'pavers.jpg',            alt: 'Paver install, close-up',                          cap: 'landscape \u00B7 install' },
+      { src: 'photo20.jpg',           alt: 'Editorial still, vol. 02',                         cap: 'editorial \u00B7 still' },
+      { src: 'photo3.jpg',            alt: 'Aerial property study',                            cap: 'aerial \u00B7 property' }
+    ];
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+      }
+      return a;
+    }
+    function populate() {
+      var mosaic = document.getElementById('cover-mosaic');
+      if (!mosaic) return;
+      var tiles = mosaic.querySelectorAll('.cover-tile');
+      var picks = shuffle(pool).slice(0, tiles.length);
+      tiles.forEach(function(tile, i) {
+        var pick = picks[i];
+        var img = tile.querySelector('img');
+        var cap = tile.querySelector('.cover-caption');
+        if (!img || !cap) return;
+        img.style.opacity = '0';
+        img.onload = function() { img.style.transition = 'opacity 0.5s ease'; img.style.opacity = '1'; };
+        img.src = pick.src;
+        img.alt = pick.alt;
+        cap.textContent = pick.cap;
+      });
+    }
+    window.swangShuffleCover = populate;
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', populate);
+    } else {
+      populate();
+    }
+  })();
 </script>
 </body>
 </html>
