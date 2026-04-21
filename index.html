@@ -93,12 +93,26 @@
       border-bottom-color: rgba(159,212,245,0.14);
     }
     html[data-theme="dark"] .hero-glass {
-      background: rgba(12, 22, 40, 0.68);
-      border-top-color: rgba(159,212,245,0.32);
-      border-bottom-color: rgba(159,212,245,0.18);
+      /* Apr 21 v4: was reading as a muddy semi-transparent strip with the old
+         blur(24px)+saturate(1.25) pulling color from the photos behind.
+         Dense navy fill + minimal blur = a clean, intentional ribbon. */
+      background: rgba(11, 19, 34, 0.90);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(159,212,245,0.22);
+      border-bottom: 1px solid rgba(0,0,0,0.5);
       box-shadow:
-        0 24px 64px rgba(0,0,0,0.55),
-        inset 0 1px 0 rgba(159,212,245,0.15);
+        0 18px 44px rgba(0,0,0,0.48),
+        inset 0 1px 0 rgba(159,212,245,0.12);
+    }
+    html[data-theme="dark"] .hero-glass-actions::before {
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(159,212,245,0.28) 30%,
+        rgba(159,212,245,0.28) 70%,
+        transparent 100%
+      );
     }
     /* Force light text inside the overhang on dark mode — label, headline, sub, ghost link */
     html[data-theme="dark"] .hero-label    { color: #eaf3fb; }
@@ -302,42 +316,58 @@
     .hero-tile.mid-bot { grid-column: 2; grid-row: 2; }
     .hero-tile.mid-top img { object-position: 50% 0%; }
     .hero-tile.mid-bot img { object-position: 50% 100%; }
-    /* Flagstick: bias the crop toward the TOP of the source image so the
-       brand mark (top of the stick) sits up high and the stick body runs
-       down into the lower half of the tile. */
-    .hero-tile.tall img { object-position: 50% 25%; }
+    /* Tall tile: janfeb-v-10 is a vertical aerial of pool + architecture —
+       center the crop so the pool geometry anchors the column. */
+    .hero-tile.tall img { object-position: 50% 50%; }
     .hero:hover .hero-tile.feature img,
     .hero:hover .hero-tile.tall img { transform: scale(1.03); }
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
        The cream-glass look now lives ONLY on .hero-glass. */
     .hero-scrim { display: none; }
     /* Frozen overhang tab — FULL WIDTH ribbon lining the middle of the gallery.
-       Slightly denser so the label + headline read cleanly against busy photos. */
+       Apr 21 v4: crisper fill, much less blur. Previous blur(24px) + saturate(1.25)
+       was pulling color noise from the photos behind, reading as a muddy band. */
     .hero-glass {
       position: absolute; z-index: 2;
       left: 0; right: 0; top: 50%;
       transform: translateY(-50%);
       width: 100%;
       margin: 0;
-      padding: clamp(18px, 2.2vw, 28px) clamp(28px, 4vw, 72px);
-      background: rgba(250, 252, 255, 0.62);
-      backdrop-filter: blur(24px) saturate(1.25) brightness(1.04);
-      -webkit-backdrop-filter: blur(24px) saturate(1.25) brightness(1.04);
-      border-top: 1.2px solid rgba(255, 255, 255, 0.9);
-      border-bottom: 1.2px solid rgba(255, 255, 255, 0.75);
+      padding: clamp(14px, 1.8vw, 22px) clamp(28px, 4vw, 72px);
+      background: rgba(252, 253, 255, 0.86);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
       border-left: none;
       border-right: none;
       border-radius: 0;
       box-shadow:
-        0 22px 60px rgba(11,14,20,0.22),
-        0 4px 14px rgba(11,14,20,0.10),
-        inset 0 1.5px 0 rgba(255,255,255,0.9);
+        0 14px 38px rgba(11,14,20,0.12),
+        0 2px 8px rgba(11,14,20,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: clamp(20px, 3vw, 44px);
       flex-wrap: nowrap;
     }
+    /* Subtle vertical rule between copy column and actions column — breaks up the
+       horizontal sameness the user flagged without adding weight. */
+    .hero-glass-actions::before {
+      content: '';
+      position: absolute; left: -22px; top: 50%;
+      width: 1px; height: 44px;
+      transform: translateY(-50%);
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(17,24,39,0.18) 30%,
+        rgba(17,24,39,0.18) 70%,
+        transparent 100%
+      );
+    }
+    .hero-glass-actions { position: relative; }
     .hero-glass-copy { flex: 1 1 auto; min-width: 0; }
     .hero-glass-actions {
       flex: 0 0 auto;
@@ -1409,13 +1439,13 @@
     <!-- Middle column: SAME aerial house shot split top/bottom so the two
          tiles read as one continuous aerial editorial. -->
     <div class="hero-tile mid-top">
-      <img src="aerial-backyard.jpg" alt="Aerial editorial, property landscape — upper" />
+      <img src="photo1b.jpg" alt="Aerial editorial, property landscape — upper" />
     </div>
     <div class="hero-tile mid-bot">
-      <img src="aerial-backyard.jpg" alt="Aerial editorial, property landscape — lower" />
+      <img src="photo1b.jpg" alt="Aerial editorial, property landscape — lower" />
     </div>
     <div class="hero-tile tall">
-      <img src="vert-homepage-1.png" alt="Cast iron flagstick brand still, vertical" />
+      <img src="janfeb-v-10.png" alt="Vertical aerial editorial, pool + architecture" />
     </div>
   </div>
   <div class="hero-scrim"></div>
