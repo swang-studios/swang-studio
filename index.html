@@ -93,7 +93,7 @@
       border-bottom-color: rgba(159,212,245,0.14);
     }
     html[data-theme="dark"] .hero-glass {
-      background: rgba(14, 26, 46, 0.48);
+      background: rgba(12, 22, 40, 0.68);
       border-top-color: rgba(159,212,245,0.32);
       border-bottom-color: rgba(159,212,245,0.18);
       box-shadow:
@@ -300,35 +300,34 @@
        lets the CTA banner carry the color. */
     .hero-tile.bw img { filter: grayscale(1) contrast(1.06) brightness(0.98); }
     .hero:hover .hero-tile.bw img { filter: grayscale(1) contrast(1.06) brightness(1.02); }
-    /* Raise the flagstick high in its frame so the stick sits above center and
-       the composition balances against the wide feature tile on the left. */
-    .hero-tile.tall img { object-position: 50% 22%; }
+    /* Tall vertical sits naturally centered — cleaner image, no promo copy. */
+    .hero-tile.tall img { object-position: 50% 50%; }
     .hero:hover .hero-tile.feature img,
     .hero:hover .hero-tile.tall img { transform: scale(1.03); }
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
        The cream-glass look now lives ONLY on .hero-glass. */
     .hero-scrim { display: none; }
     /* Frozen overhang tab — FULL WIDTH ribbon lining the middle of the gallery.
-       Neutral frosted glass (not rainbow tinted), icy edge, thin & horizontal. */
+       Slightly denser so the label + headline read cleanly against busy photos. */
     .hero-glass {
       position: absolute; z-index: 2;
       left: 0; right: 0; top: 50%;
       transform: translateY(-50%);
       width: 100%;
       margin: 0;
-      padding: clamp(16px, 2vw, 24px) clamp(28px, 4vw, 72px);
-      background: rgba(245, 249, 253, 0.38);
-      backdrop-filter: blur(28px) saturate(1.2) brightness(1.05);
-      -webkit-backdrop-filter: blur(28px) saturate(1.2) brightness(1.05);
-      border-top: 1.2px solid rgba(255, 255, 255, 0.85);
-      border-bottom: 1.2px solid rgba(255, 255, 255, 0.7);
+      padding: clamp(18px, 2.2vw, 28px) clamp(28px, 4vw, 72px);
+      background: rgba(250, 252, 255, 0.62);
+      backdrop-filter: blur(24px) saturate(1.25) brightness(1.04);
+      -webkit-backdrop-filter: blur(24px) saturate(1.25) brightness(1.04);
+      border-top: 1.2px solid rgba(255, 255, 255, 0.9);
+      border-bottom: 1.2px solid rgba(255, 255, 255, 0.75);
       border-left: none;
       border-right: none;
       border-radius: 0;
       box-shadow:
         0 22px 60px rgba(11,14,20,0.22),
         0 4px 14px rgba(11,14,20,0.10),
-        inset 0 1.5px 0 rgba(255,255,255,0.85);
+        inset 0 1.5px 0 rgba(255,255,255,0.9);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1401,16 +1400,16 @@
 <section class="hero">
   <div class="hero-backdrop">
     <div class="hero-tile feature bw">
-      <img src="photo2.jpg" alt="Automotive brand shoot, BMW M3 duo at the coast" />
+      <img src="photo2.jpg" alt="Automotive editorial, BMW M3 duo" />
     </div>
     <div class="hero-tile">
       <img src="photo2b.jpg" alt="Mid-century architectural lifestyle" />
     </div>
     <div class="hero-tile">
-      <img src="brand-still-1.png" alt="Brand still life, editorial" />
+      <img src="putting-green-sand.jpg" alt="Putting green landscape" />
     </div>
     <div class="hero-tile tall">
-      <img src="vert-homepage-1.png" alt="Cast iron flagstick brand still, vertical" />
+      <img src="stoflet-vertical-1.png" alt="Editorial vertical" />
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -1433,14 +1432,8 @@
   </div>
 </section>
 
-<!-- INDEX — table of contents strip (Apr 21 v1) -->
-<nav class="cover-index" aria-label="Section index">
-  <span class="cover-index-label">Index</span>
-  <a href="#featured-work"><span class="num">01</span>Case Studies</a>
-  <a href="#live-excerpt"><span class="num">02</span>Live Work</a>
-  <a href="#about"><span class="num">03</span>Learn More</a>
-  <a href="#leave-a-review"><span class="num">04</span>Let&rsquo;s Talk</a>
-</nav>
+<!-- Cover-index removed Apr 21 — was duplicating the main nav and reading as a
+     second, confusing header. Main nav up top is the single source of truth. -->
 
 <!-- TRUSTED BY -->
 <section class="clients" id="clients">
