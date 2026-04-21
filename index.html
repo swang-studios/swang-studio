@@ -296,12 +296,16 @@
     }
     .hero-tile.feature { grid-column: 1; grid-row: 1 / 3; }
     .hero-tile.tall    { grid-column: 3; grid-row: 1 / 3; }
-    /* Editorial black & white on the big feature tile — calms the palette and
-       lets the CTA banner carry the color. */
-    .hero-tile.bw img { filter: grayscale(1) contrast(1.06) brightness(0.98); }
-    .hero:hover .hero-tile.bw img { filter: grayscale(1) contrast(1.06) brightness(1.02); }
-    /* Tall vertical sits naturally centered — cleaner image, no promo copy. */
-    .hero-tile.tall img { object-position: 50% 50%; }
+    /* Middle column — same aerial split into top half / bottom half so the two
+       tiles read as one continuous aerial composition. */
+    .hero-tile.mid-top { grid-column: 2; grid-row: 1; }
+    .hero-tile.mid-bot { grid-column: 2; grid-row: 2; }
+    .hero-tile.mid-top img { object-position: 50% 0%; }
+    .hero-tile.mid-bot img { object-position: 50% 100%; }
+    /* Flagstick: bias the crop toward the TOP of the source image so the
+       brand mark (top of the stick) sits up high and the stick body runs
+       down into the lower half of the tile. */
+    .hero-tile.tall img { object-position: 50% 25%; }
     .hero:hover .hero-tile.feature img,
     .hero:hover .hero-tile.tall img { transform: scale(1.03); }
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
@@ -1399,17 +1403,19 @@
 <!-- HERO — 4-tile gallery backdrop with a thin transparent overhang banner (Apr 21 v3) -->
 <section class="hero">
   <div class="hero-backdrop">
-    <div class="hero-tile feature bw">
+    <div class="hero-tile feature">
       <img src="photo2.jpg" alt="Automotive editorial, BMW M3 duo" />
     </div>
-    <div class="hero-tile">
-      <img src="photo2b.jpg" alt="Mid-century architectural lifestyle" />
+    <!-- Middle column: SAME aerial house shot split top/bottom so the two
+         tiles read as one continuous aerial editorial. -->
+    <div class="hero-tile mid-top">
+      <img src="aerial-backyard.jpg" alt="Aerial editorial, property landscape — upper" />
     </div>
-    <div class="hero-tile">
-      <img src="putting-green-sand.jpg" alt="Putting green landscape" />
+    <div class="hero-tile mid-bot">
+      <img src="aerial-backyard.jpg" alt="Aerial editorial, property landscape — lower" />
     </div>
     <div class="hero-tile tall">
-      <img src="stoflet-vertical-1.png" alt="Editorial vertical" />
+      <img src="vert-homepage-1.png" alt="Cast iron flagstick brand still, vertical" />
     </div>
   </div>
   <div class="hero-scrim"></div>
