@@ -11,89 +11,124 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --accent: #5c7a42;
-      --accent-dark: #3d5229;
-      --honey: #e8a800;
-      --gold: #c9963a;
-      --gray: #888;
+      /* Cream / earth palette — matches case-pavers-turf + case-studies */
+      --ink: #1a1408;
+      --ink-2: #3a2d17;
+      --muted: #6a5a3c;
+      --cream: #f6efdf;
+      --cream-2: #fbf7ec;
+      --cream-3: #efe7d0;
+      --clay: #c7a97a;
+      --espresso: #5c4a2a;
+      --accent: #8c6b2f;
+      --accent-2: #a0814a;
+      --rule: #d9c9a3;
+      /* Legacy aliases so existing rules in this file keep working */
+      --accent-dark: var(--espresso);
+      --honey: var(--accent);
+      --gold: var(--accent-2);
+      --gray: var(--muted);
+      /* Blue highlight (shared with pavers-turf) */
+      --blue-1: rgba(111, 168, 220, 0.18);
+      --blue-2: rgba(74, 134, 197, 0.22);
+      --blue-line: rgba(74, 134, 197, 0.20);
     }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: #1c2416;
-      color: #f0f0f0;
+      background: var(--cream-2);
+      color: var(--ink);
       overflow-x: hidden;
     }
+    /* Slow cream lava drift — 120s loop, matches case-pavers-turf */
     body::before {
-      content: ''; position: fixed; inset: 0; z-index: -1;
+      content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
-        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
-        #1c2416;
-      animation: meshDrift 18s ease-in-out infinite alternate;
+        radial-gradient(ellipse at 18% 22%, #f6efdf 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #e9dcb8 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #fbf7ec 0%, transparent 70%),
+        linear-gradient(135deg, #f6efdf, #ece0bd 45%, #e4d4a8 70%, #d8c28a);
+      background-size: 180% 180%;
+      animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
+      filter: saturate(0.85);
     }
-    @keyframes meshDrift {
-      0%   { transform: scale(1)    translate(0, 0); }
-      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
-      100% { transform: scale(1)    translate(1.5%, -1.2%); }
+    @keyframes lavaDrift {
+      0%   { background-position: 0% 0%; transform: scale(1); }
+      50%  { background-position: 40% 60%; transform: scale(1.04); }
+      100% { background-position: 100% 100%; transform: scale(1); }
     }
 
-    /* NAV */
+    /* NAV — Apple-style glass, matches case-pavers-turf */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 48px;
-      background: rgba(18,24,14,0.92);
-      backdrop-filter: blur(14px);
+      padding: 18px 44px;
+      background: rgba(246, 239, 223, 0.55);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom: 1px solid rgba(217, 201, 163, 0.45);
+    }
+    nav::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 0;
+      height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     }
     nav .logo {
       font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
-      color: #f0f0f0; text-decoration: none;
+      color: var(--ink); text-decoration: none;
     }
-    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
     nav ul a {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
-      opacity: 0.65; transition: opacity 0.2s;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-2); text-decoration: none;
+      opacity: 0.7; transition: opacity 0.2s, color 0.2s;
     }
-    nav ul a:hover { opacity: 1; }
+    nav ul a:hover { opacity: 1; color: var(--accent); }
 
     /* LAYOUT */
-    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 64px; }
+    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 130px 44px 56px; }
     .cs-crumb {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--accent);
       text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
       margin-bottom: 28px;
     }
-    .cs-crumb:hover { color: var(--honey); }
+    .cs-crumb:hover { color: var(--ink); }
     .cs-tag {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--honey);
+      text-transform: uppercase; color: var(--accent);
     }
     .cs-title {
-      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.0; margin-top: 16px;
-      max-width: 900px;
+      font-size: clamp(34px, 5vw, 60px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.02; margin-top: 14px;
+      max-width: 960px; color: var(--ink);
     }
-    .cs-title em { color: var(--accent); font-style: normal; }
+    .cs-title em {
+      color: var(--accent); font-style: normal;
+      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
+      padding: 0 10px; border-radius: 2px;
+      box-shadow: inset 0 -2px 0 var(--blue-line);
+    }
     .cs-lede {
       margin-top: 24px; font-size: 17px; line-height: 1.7;
-      color: rgba(240,240,240,0.8); max-width: 700px;
+      color: var(--ink-2); max-width: 700px;
     }
 
     .cs-hero {
-      margin-top: 48px; border-radius: 3px; overflow: hidden;
-      background: #2a3423; aspect-ratio: 16/9;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      margin-top: 40px; border-radius: 3px; overflow: hidden;
+      background: var(--cream-3); aspect-ratio: 16/9;
+      box-shadow: 0 30px 80px rgba(26,20,8,0.12);
+      border: 1px solid var(--rule);
     }
     .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .cs-body { margin-top: 56px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
-    .cs-body p { font-size: 16px; line-height: 1.75; color: rgba(240,240,240,0.82); }
-    .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
+    .cs-body { margin-top: 48px; display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 780px; }
+    .cs-body p { font-size: 16px; line-height: 1.75; color: var(--ink-2); }
+    .cs-body p em {
+      color: var(--accent); font-style: normal; font-weight: 600;
+      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
+      padding: 0 6px; border-radius: 2px;
+    }
 
     /* Highlight row (presentational stats) */
     .highlight-row {
@@ -102,30 +137,36 @@
       max-width: 780px;
     }
     .h-stat {
-      padding: 18px 20px; border-left: 3px solid var(--honey);
-      background: rgba(232,168,0,0.06);
+      padding: 18px 20px; border-left: 3px solid var(--accent);
+      background: rgba(140, 107, 47, 0.08);
       border-radius: 0 3px 3px 0;
     }
     .h-num {
       display: block; font-size: clamp(18px, 2vw, 22px);
-      font-weight: 700; letter-spacing: -0.01em; color: #fff;
+      font-weight: 700; letter-spacing: -0.01em; color: var(--ink);
     }
     .h-sub {
       display: block; margin-top: 4px; font-size: 11px;
       letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: var(--muted);
     }
     @media (max-width: 720px) {
       .highlight-row { grid-template-columns: 1fr; }
     }
 
     /* Active thumb highlight */
-    .thumb { cursor: pointer; outline: 2px solid transparent; transition: transform 0.3s, box-shadow 0.3s, outline-color 0.2s; }
-    .thumb.active { outline-color: var(--honey); box-shadow: 0 0 0 4px rgba(232,168,0,0.15); }
+    .thumb {
+      cursor: pointer; outline: 2px solid transparent;
+      transition: transform 0.3s, box-shadow 0.3s, outline-color 0.2s;
+    }
+    .thumb.active {
+      outline-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(140, 107, 47, 0.15);
+    }
     #featuredThumb { transition: opacity 0.25s ease; }
 
     .cs-rule {
-      height: 1px; background: rgba(255,255,255,0.08);
+      height: 1px; background: var(--rule);
       margin: 40px 0; max-width: 780px;
     }
 
@@ -135,33 +176,34 @@
     }
     .cs-bullets li {
       padding: 16px 18px; border-left: 3px solid var(--accent);
-      background: rgba(255,255,255,0.04);
-      font-size: 15px; line-height: 1.6; color: #e8e8e8;
+      background: rgba(26, 20, 8, 0.04);
+      font-size: 15px; line-height: 1.6; color: var(--ink-2);
       border-radius: 0 3px 3px 0;
     }
 
     .cs-callout {
       margin: 48px 0; padding: 32px 36px;
-      border: 1px solid rgba(232,168,0,0.25);
-      background: linear-gradient(135deg, rgba(232,168,0,0.08), rgba(92,122,66,0.04));
+      border: 1px solid var(--rule);
+      background: linear-gradient(135deg, rgba(140,107,47,0.10), rgba(111,168,220,0.08));
       border-radius: 3px;
       max-width: 780px;
     }
     .cs-callout strong {
       display: block; font-size: clamp(22px, 2.4vw, 30px);
-      font-weight: 700; letter-spacing: -0.02em; color: #fff;
+      font-weight: 700; letter-spacing: -0.02em; color: var(--ink);
     }
     .cs-callout span {
       display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.55);
+      color: var(--muted);
     }
 
-    /* INTERACTIVE GRAPH, CTR lift */
+    /* INTERACTIVE GRAPH, CTR lift (kept for structural parity) */
     .graph-section {
       margin: 72px 0; padding: 48px 40px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.45);
+      border: 1px solid var(--rule);
       border-radius: 3px;
+      backdrop-filter: blur(6px);
     }
     .graph-section .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -174,55 +216,55 @@
     }
     .graph-section h3 {
       font-size: clamp(22px, 2.4vw, 32px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0; max-width: 620px; line-height: 1.2;
+      letter-spacing: -0.02em; color: var(--ink); max-width: 620px; line-height: 1.2;
     }
-    .graph-section .hint { font-size: 13px; color: var(--gray); margin-top: 8px; }
+    .graph-section .hint { font-size: 13px; color: var(--muted); margin-top: 8px; }
     .graph {
       margin-top: 32px;
       display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
       align-items: end; min-height: 260px;
     }
     .bar {
-      background: linear-gradient(to top, var(--accent), #8fb264);
+      background: linear-gradient(to top, var(--accent), var(--accent-2));
       border-radius: 2px 2px 0 0;
       position: relative;
       cursor: pointer;
       transition: filter 0.2s, transform 0.2s;
     }
-    .bar:hover { filter: brightness(1.15); transform: translateY(-3px); }
+    .bar:hover { filter: brightness(1.08); transform: translateY(-3px); }
     .bar .b-val {
       position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
-      font-size: 11px; font-weight: 700; color: var(--honey);
+      font-size: 11px; font-weight: 700; color: var(--ink);
       white-space: nowrap;
     }
     .bar .b-label {
       position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
       font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #999;
+      text-transform: uppercase; color: var(--muted);
       white-space: nowrap;
     }
     .graph-legend {
-      display: flex; gap: 24px; margin-top: 48px; font-size: 12px; color: #999;
+      display: flex; gap: 24px; margin-top: 48px; font-size: 12px; color: var(--muted);
     }
     .graph-legend .pulse {
-      width: 10px; height: 10px; background: var(--honey); border-radius: 50%;
+      width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
       display: inline-block; margin-right: 8px; vertical-align: middle;
       animation: pulse 1.4s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(232,168,0,0.5); }
-      50%      { box-shadow: 0 0 0 8px rgba(232,168,0,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(140,107,47,0.45); }
+      50%      { box-shadow: 0 0 0 8px rgba(140,107,47,0); }
     }
 
     /* THUMBNAIL GALLERY */
-    .thumbs-section { margin-top: 80px; }
+    .thumbs-section { margin-top: 72px; }
     .thumbs-section h2 {
       font-size: clamp(26px, 3vw, 40px); font-weight: 700;
-      letter-spacing: -0.03em; color: #f0f0f0;
+      letter-spacing: -0.03em; color: var(--ink);
     }
     .thumbs-section h2 em { color: var(--accent); font-style: normal; }
     .thumbs-section p.sub {
-      margin-top: 10px; font-size: 14px; color: var(--gray);
+      margin-top: 10px; font-size: 14px; color: var(--muted);
     }
     .thumbs-grid {
       margin-top: 32px;
@@ -230,41 +272,44 @@
     }
     .thumb {
       position: relative; overflow: hidden; border-radius: 3px;
-      aspect-ratio: 16/9; background: #2a3423;
+      aspect-ratio: 16/9; background: var(--cream-3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .thumb:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+    .thumb:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(26,20,8,0.18); }
 
     /* YT LINK */
     .yt-cta {
       margin: 48px 0 0; padding: 24px 28px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 3px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--rule);
+      border-radius: 3px; background: rgba(255,255,255,0.55);
       display: flex; justify-content: space-between; align-items: center;
       gap: 16px; text-decoration: none; color: inherit;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      backdrop-filter: blur(4px);
     }
-    .yt-cta:hover { border-color: var(--honey); background: rgba(232,168,0,0.06); }
-    .yt-cta strong { font-size: 15px; font-weight: 700; color: #f0f0f0; }
-    .yt-cta span { display: block; font-size: 12px; color: var(--gray); margin-top: 4px; }
-    .yt-cta .arrow {
-      font-size: 24px; color: var(--honey);
+    .yt-cta:hover {
+      border-color: var(--accent);
+      background: rgba(140, 107, 47, 0.08);
+      transform: translateY(-2px);
     }
+    .yt-cta strong { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .yt-cta span { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .yt-cta .arrow { font-size: 24px; color: var(--accent); }
 
     /* FOOTER */
     footer {
       margin-top: 96px; padding: 48px;
       display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid var(--rule);
       flex-wrap: wrap; gap: 20px;
     }
     footer .back {
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--accent); text-decoration: none;
     }
-    footer .back:hover { color: var(--honey); }
-    footer .copy { font-size: 11px; color: #555; }
+    footer .back:hover { color: var(--ink); }
+    footer .copy { font-size: 11px; color: var(--muted); }
 
     @media (max-width: 900px) {
       nav { padding: 18px 24px; }
@@ -293,7 +338,7 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Content Design · YouTube · ~70K subs</p>
+  <p class="cs-tag">Content Design &middot; YouTube &middot; ~70K subs</p>
   <h1 class="cs-title">Built for <em>the scroll.</em></h1>
 
   <div class="cs-hero">
@@ -301,13 +346,13 @@
   </div>
 
   <section class="cs-body">
-    <p>Thumbnails for a sports creator on big-moment content — NFL slates, Super Bowl, live streams. Bold hooks, 2–4 word reactions, high-contrast color, same-day turnaround. The goal is one thing: <em>stop the scroll and earn the click.</em></p>
+    <p>Thumbnails for a sports creator on big-moment content &mdash; NFL slates, Super Bowl, live streams. Bold hooks, 2&ndash;4 word reactions, high-contrast color, same-day turnaround. The goal is one thing: <em>stop the scroll and earn the click.</em></p>
   </section>
 
   <div class="highlight-row reveal">
-    <div class="h-stat"><span class="h-num">1280×720</span><span class="h-sub">tailored, not templated</span></div>
+    <div class="h-stat"><span class="h-num">1280&times;720</span><span class="h-sub">tailored, not templated</span></div>
     <div class="h-stat"><span class="h-num">same-day</span><span class="h-sub">turnaround on live slates</span></div>
-    <div class="h-stat"><span class="h-num">2–4 words</span><span class="h-sub">max hook on every frame</span></div>
+    <div class="h-stat"><span class="h-num">2&ndash;4 words</span><span class="h-sub">max hook on every frame</span></div>
   </div>
 
   <!-- INTERACTIVE THUMBNAIL GRID: click to feature -->
@@ -325,7 +370,7 @@
     <a class="yt-cta" href="https://www.youtube.com/@DFSbyNoah" target="_blank" rel="noopener">
       <div>
         <strong>Watch @DFSbyNoah on YouTube</strong>
-        <span>Sports · DFS strategy &amp; commentary</span>
+        <span>Sports &middot; DFS strategy &amp; commentary</span>
       </div>
       <span class="arrow">&rarr;</span>
     </a>

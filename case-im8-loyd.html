@@ -11,64 +11,88 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --accent: #5c7a42;
-      --accent-dark: #3d5229;
-      --honey: #e8a800;
-      --gold: #c9963a;
-      --gray: #888;
+      /* Cream / earth palette — matches case-pavers-turf + case-studies */
+      --ink: #1a1408;
+      --ink-2: #3a2d17;
+      --muted: #6a5a3c;
+      --cream: #f6efdf;
+      --cream-2: #fbf7ec;
+      --cream-3: #efe7d0;
+      --clay: #c7a97a;
+      --espresso: #5c4a2a;
+      --accent: #8c6b2f;
+      --accent-2: #a0814a;
+      --rule: #d9c9a3;
+      /* Legacy aliases */
+      --accent-dark: var(--espresso);
+      --honey: var(--accent);
+      --gold: var(--accent-2);
+      --gray: var(--muted);
+      /* Blue highlight (shared with pavers-turf) */
+      --blue-1: rgba(111, 168, 220, 0.18);
+      --blue-2: rgba(74, 134, 197, 0.22);
+      --blue-line: rgba(74, 134, 197, 0.20);
     }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: #1c2416;
-      color: #f0f0f0;
+      background: var(--cream-2);
+      color: var(--ink);
       overflow-x: hidden;
     }
     body::before {
-      content: ''; position: fixed; inset: 0; z-index: -1;
+      content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #2a3420 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #151c0f 0%, transparent 52%),
-        radial-gradient(ellipse at 50% 50%, #1f2816 0%, transparent 68%),
-        #1c2416;
-      animation: meshDrift 18s ease-in-out infinite alternate;
+        radial-gradient(ellipse at 18% 22%, #f6efdf 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #e9dcb8 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #fbf7ec 0%, transparent 70%),
+        linear-gradient(135deg, #f6efdf, #ece0bd 45%, #e4d4a8 70%, #d8c28a);
+      background-size: 180% 180%;
+      animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
+      filter: saturate(0.85);
     }
-    @keyframes meshDrift {
-      0%   { transform: scale(1)    translate(0, 0); }
-      50%  { transform: scale(1.05) translate(-1.5%, 1.2%); }
-      100% { transform: scale(1)    translate(1.5%, -1.2%); }
+    @keyframes lavaDrift {
+      0%   { background-position: 0% 0%; transform: scale(1); }
+      50%  { background-position: 40% 60%; transform: scale(1.04); }
+      100% { background-position: 100% 100%; transform: scale(1); }
     }
 
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 48px;
-      background: rgba(18,24,14,0.92);
-      backdrop-filter: blur(14px);
+      padding: 18px 44px;
+      background: rgba(246, 239, 223, 0.55);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom: 1px solid rgba(217, 201, 163, 0.45);
+    }
+    nav::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 0;
+      height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     }
     nav .logo {
       font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
-      color: #f0f0f0; text-decoration: none;
+      color: var(--ink); text-decoration: none;
     }
-    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
     nav ul a {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #f0f0f0; text-decoration: none;
-      opacity: 0.65; transition: opacity 0.2s;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-2); text-decoration: none;
+      opacity: 0.7; transition: opacity 0.2s, color 0.2s;
     }
-    nav ul a:hover { opacity: 1; }
+    nav ul a:hover { opacity: 1; color: var(--accent); }
 
-    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 64px; }
+    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 130px 44px 56px; }
     .cs-crumb {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--accent);
       text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
       margin-bottom: 28px;
     }
-    .cs-crumb:hover { color: var(--honey); }
+    .cs-crumb:hover { color: var(--ink); }
 
-    /* IM8 HERO HEADER, logo centered with subtle ambient glow */
+    /* IM8 HERO HEADER — cream cream-on-cream hero with a centered espresso band so the logo still pops */
     .im8-hero {
       margin-top: 8px;
       padding: 68px 40px;
@@ -76,16 +100,17 @@
       border-radius: 3px;
       position: relative; overflow: hidden;
       background:
-        radial-gradient(ellipse at center, rgba(92,122,66,0.22) 0%, transparent 70%),
-        linear-gradient(180deg, #1a2212 0%, #131910 100%);
-      border: 1px solid rgba(255,255,255,0.06);
+        radial-gradient(ellipse at center, rgba(140,107,47,0.10) 0%, transparent 70%),
+        linear-gradient(180deg, #2a1f10 0%, #1a1408 100%);
+      border: 1px solid rgba(26,20,8,0.15);
+      box-shadow: 0 30px 80px rgba(26,20,8,0.12);
     }
     .im8-hero::before, .im8-hero::after {
-      content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
-      filter: blur(70px); opacity: 0.35; pointer-events: none;
+      content: ''; position: absolute; width: 320px; height: 320px; border-radius: 50%;
+      filter: blur(80px); opacity: 0.35; pointer-events: none;
     }
-    .im8-hero::before { background: var(--honey); top: -100px; left: -100px; }
-    .im8-hero::after  { background: var(--accent); bottom: -100px; right: -100px; }
+    .im8-hero::before { background: var(--accent-2); top: -110px; left: -110px; }
+    .im8-hero::after  { background: #6FA8DC; bottom: -110px; right: -110px; opacity: 0.25; }
     .im8-logo-wrap {
       position: relative; z-index: 1;
       display: inline-flex; align-items: center; justify-content: center;
@@ -98,56 +123,66 @@
     .im8-hook {
       position: relative; z-index: 1;
       font-size: 11px; font-weight: 700; letter-spacing: 0.26em;
-      text-transform: uppercase; color: var(--honey);
+      text-transform: uppercase; color: var(--accent-2);
       margin-top: 14px;
     }
     .im8-title {
       position: relative; z-index: 1;
       margin-top: 14px;
       font-size: clamp(32px, 4.4vw, 56px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.0; color: #fff;
+      letter-spacing: -0.03em; line-height: 1.0; color: #fdf8ea;
     }
-    .im8-title em { color: var(--honey); font-style: normal; }
+    .im8-title em {
+      color: var(--accent-2); font-style: normal;
+      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
+      padding: 0 10px; border-radius: 2px;
+      box-shadow: inset 0 -2px 0 var(--blue-line);
+    }
     .im8-sub {
       position: relative; z-index: 1;
-      margin-top: 20px; font-size: 15px; color: rgba(255,255,255,0.7);
+      margin-top: 20px; font-size: 15px; color: rgba(253, 248, 234, 0.75);
       letter-spacing: 0.04em;
     }
 
-    .cs-body { margin: 64px auto 0; display: grid; gap: 24px; max-width: 780px; }
-    .cs-body p { font-size: 16px; line-height: 1.8; color: rgba(240,240,240,0.78); }
-    .cs-body p em { color: var(--honey); font-style: normal; font-weight: 600; }
-    .cs-rule { height: 1px; background: rgba(255,255,255,0.08); margin: 40px 0; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .cs-body { margin: 56px auto 0; display: grid; gap: 24px; max-width: 780px; }
+    .cs-body p { font-size: 16px; line-height: 1.8; color: var(--ink-2); }
+    .cs-body p em {
+      color: var(--accent); font-style: normal; font-weight: 600;
+      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
+      padding: 0 6px; border-radius: 2px;
+    }
+    .cs-rule { height: 1px; background: var(--rule); margin: 40px auto; max-width: 780px; }
     .cs-bullets { list-style: none; margin: 8px auto 0; display: grid; gap: 12px; max-width: 780px; }
     .cs-bullets li {
       padding: 16px 18px; border-left: 3px solid var(--accent);
-      background: rgba(255,255,255,0.04);
-      font-size: 15px; line-height: 1.6; color: #e8e8e8;
+      background: rgba(26,20,8,0.04);
+      font-size: 15px; line-height: 1.6; color: var(--ink-2);
       border-radius: 0 3px 3px 0;
     }
     .cs-callout {
       margin: 48px auto; padding: 32px 36px;
-      border: 1px solid rgba(232,168,0,0.25);
-      background: linear-gradient(135deg, rgba(232,168,0,0.08), rgba(92,122,66,0.04));
+      border: 1px solid var(--rule);
+      background: linear-gradient(135deg, rgba(140,107,47,0.10), rgba(111,168,220,0.08));
       border-radius: 3px; max-width: 780px;
     }
     .cs-callout strong {
       display: block; font-size: clamp(22px, 2.4vw, 30px);
-      font-weight: 700; letter-spacing: -0.02em; color: #fff;
+      font-weight: 700; letter-spacing: -0.02em; color: var(--ink);
     }
     .cs-callout span {
       display: block; margin-top: 10px; font-size: 13px; letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.55);
+      color: var(--muted);
     }
 
     /* REACH CALLOUT */
     .reach {
-      margin: 72px auto 0;
+      margin: 64px auto 0;
       max-width: 780px;
       padding: 48px 40px; text-align: center;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--rule);
+      background: rgba(255,255,255,0.55);
       border-radius: 3px;
+      backdrop-filter: blur(6px);
     }
     .reach .lbl {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -156,24 +191,25 @@
     .reach .big {
       font-size: clamp(54px, 8vw, 110px); font-weight: 700;
       letter-spacing: -0.05em; line-height: 1.0;
-      background: linear-gradient(135deg, var(--honey) 0%, #fff 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--espresso) 100%);
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       font-variant-numeric: tabular-nums;
     }
     .reach .sub {
-      margin-top: 16px; font-size: 14px; color: rgba(255,255,255,0.6);
+      margin-top: 16px; font-size: 14px; color: var(--muted);
       max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6;
     }
 
     /* BALANCE SLIDER GRAPHIC */
     .balance {
-      margin: 72px auto 0;
+      margin: 64px auto 0;
       max-width: 780px;
       padding: 44px 40px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--rule);
       border-radius: 3px;
+      backdrop-filter: blur(6px);
     }
     .balance .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -185,26 +221,31 @@
     }
     .balance h3 {
       font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0; line-height: 1.2;
+      letter-spacing: -0.02em; color: var(--ink); line-height: 1.2;
     }
-    .balance h3 em { color: var(--honey); font-style: normal; }
+    .balance h3 em {
+      color: var(--accent); font-style: normal;
+      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
+      padding: 0 8px; border-radius: 2px;
+      box-shadow: inset 0 -2px 0 var(--blue-line);
+    }
     .balance-bar {
       margin-top: 36px; position: relative;
       height: 8px;
       background: linear-gradient(90deg,
-        rgba(239,68,68,0.35) 0%,
-        rgba(239,68,68,0.1) 25%,
-        rgba(232,168,0,0.8) 50%,
-        rgba(239,68,68,0.1) 75%,
-        rgba(239,68,68,0.35) 100%);
+        rgba(193, 133, 133, 0.45) 0%,
+        rgba(193, 133, 133, 0.15) 25%,
+        rgba(140, 107, 47, 0.75) 50%,
+        rgba(193, 133, 133, 0.15) 75%,
+        rgba(193, 133, 133, 0.45) 100%);
       border-radius: 4px;
     }
     .balance-marker {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 22px; height: 22px; border-radius: 50%;
-      background: var(--honey);
-      box-shadow: 0 0 0 4px rgba(232,168,0,0.2), 0 6px 18px rgba(232,168,0,0.4);
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(140, 107, 47, 0.2), 0 6px 18px rgba(140, 107, 47, 0.35);
       animation: drift 5s ease-in-out infinite;
     }
     @keyframes drift {
@@ -214,25 +255,26 @@
     .balance-labels {
       display: flex; justify-content: space-between;
       margin-top: 16px; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #888;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
     }
-    .balance-labels .mid { color: var(--honey); }
+    .balance-labels .mid { color: var(--accent); }
     .balance .hint {
-      margin-top: 28px; font-size: 13px; line-height: 1.7; color: #999;
+      margin-top: 28px; font-size: 13px; line-height: 1.7; color: var(--muted);
       max-width: 580px;
     }
 
     /* IG EMBED */
-    .ig-embed-section { margin: 72px auto 0; max-width: 780px; }
+    .ig-embed-section { margin: 64px auto 0; max-width: 780px; }
     .ig-embed-section h2 {
       font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0;
+      letter-spacing: -0.02em; color: var(--ink);
     }
     .ig-embed-section .sub {
-      font-size: 14px; color: var(--gray); margin-top: 8px;
+      font-size: 14px; color: var(--muted); margin-top: 8px;
     }
     .ig-wrap {
-      margin-top: 24px; background: rgba(255,255,255,0.05);
+      margin-top: 24px; background: rgba(255,255,255,0.55);
+      border: 1px solid var(--rule);
       border-radius: 3px; overflow: hidden;
       max-width: 540px;
     }
@@ -240,35 +282,35 @@
 
     /* PARTNERSHIP INTENT */
     .intent {
-      margin: 72px auto 0;
+      margin: 64px auto 0;
       max-width: 780px;
       padding: 40px 36px;
-      background: linear-gradient(135deg, rgba(92,122,66,0.12), rgba(12,16,8,0.4));
-      border: 1px solid rgba(92,122,66,0.25);
+      background: linear-gradient(135deg, rgba(140,107,47,0.10), rgba(111,168,220,0.06));
+      border: 1px solid var(--rule);
       border-radius: 3px;
     }
     .intent h3 {
       font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: #f0f0f0;
+      letter-spacing: -0.02em; color: var(--ink);
     }
     .intent h3 em { color: var(--accent); font-style: normal; }
     .intent p {
       margin-top: 14px; font-size: 15px; line-height: 1.8;
-      color: rgba(240,240,240,0.78);
+      color: var(--ink-2);
     }
 
     footer {
       margin-top: 96px; padding: 48px;
       display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid var(--rule);
       flex-wrap: wrap; gap: 20px;
     }
     footer .back {
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--accent); text-decoration: none;
     }
-    footer .back:hover { color: var(--honey); }
-    footer .copy { font-size: 11px; color: #555; }
+    footer .back:hover { color: var(--ink); }
+    footer .copy { font-size: 11px; color: var(--muted); }
 
     @media (max-width: 900px) {
       nav { padding: 18px 24px; }
@@ -297,13 +339,13 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <!-- IM8 HEADER BLOCK -->
+  <!-- IM8 HEADER BLOCK — espresso band preserves the IM8 logo's visual weight inside a cream page -->
   <div class="im8-hero">
     <div class="im8-logo-wrap">
       <img src="8.png" alt="IM8 logo" />
     </div>
-    <p class="im8-hook">Brand × Athlete</p>
-    <h1 class="im8-title">IM8 × Jewell Loyd.<br /><em>Native to her feed.</em></h1>
+    <p class="im8-hook">Brand &times; Athlete</p>
+    <h1 class="im8-title">IM8 &times; Jewell Loyd.<br /><em>Native to her feed.</em></h1>
     <p class="im8-sub">Content that fits the athlete's page, not interrupts it.</p>
   </div>
 

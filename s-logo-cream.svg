@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="swang. monogram">
   <title>swang. monogram</title>
-  <!-- October cream variant: cream shield, pumpkin S -->
-  <path d="M 28 28 L 172 28 L 172 120 L 100 180 L 28 120 Z"
-        fill="#ede5d0"
-        stroke="#5a3214"
-        stroke-width="5"
-        stroke-linejoin="miter"/>
-  <path d="M 60 55 L 140 55 L 140 77 L 82 77 L 82 89 L 140 89 L 140 145 L 60 145 L 60 123 L 118 123 L 118 111 L 60 111 Z"
-        fill="#e86f2a"/>
+  <!-- Icy variant: white square, bold italic serif "S" in near-black -->
+  <rect x="0" y="0" width="200" height="200" fill="#ffffff" stroke="#0b0e14" stroke-width="4"/>
+  <text x="100" y="152" text-anchor="middle"
+        font-family="Times New Roman, Times, Georgia, serif"
+        font-style="italic"
+        font-weight="700"
+        font-size="170"
+        fill="#0b0e14">S</text>
 </svg>

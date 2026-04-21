@@ -15,49 +15,63 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      /* Coffee mocha palette + stark ice-blue hover */
-      --mocha-deep: #2a1d12;
-      --mocha-mid:  #3a2a1a;
-      --mocha-warm: #4b3622;
-      --cream:      #f3e8d4;
-      --cream-2:    #f9f0de;
-      --cream-dim:  rgba(243, 232, 212, 0.72);
-      --ice:        #9FD4F5;
-      --ice-2:      #79C1EC;
-      --ice-soft:   rgba(159, 212, 245, 0.18);
-      --ice-mid:    rgba(159, 212, 245, 0.35);
-      --ice-line:   rgba(159, 212, 245, 0.65);
-      --ice-glow:   rgba(121, 193, 236, 0.45);
-      /* Legacy aliases (keep other pages/imports consistent if any) */
+      /* Icy-white gallery palette (Apr 20 repaint). Keeps the existing
+         --mocha-*/--cream-* variable NAMES so downstream rules don't need
+         a rewrite — they now map to icy-white + slate + baby-blue. */
+      --mocha-deep: #0b0e14;   /* near-black gallery chrome (was mocha deep) */
+      --mocha-mid:  #1a2230;   /* deep navy-ink (was mocha mid) */
+      --mocha-warm: #2a3348;   /* cool graphite (was mocha warm) */
+      --cream:      #0b0e14;   /* near-black text-on-light (was cream) */
+      --cream-2:    #0b0e14;   /* near-black headline (was cream-2) */
+      --cream-dim:  rgba(11, 14, 20, 0.72);  /* graphite body text */
+      --ice:        #5DB3E8;   /* primary baby blue */
+      --ice-2:      #2E7FC2;   /* deeper ocean blue */
+      --ice-soft:   rgba(93, 179, 232, 0.14);
+      --ice-mid:    rgba(93, 179, 232, 0.30);
+      --ice-line:   rgba(93, 179, 232, 0.55);
+      --ice-glow:   rgba(46, 127, 194, 0.38);
+      /* Page surfaces (new tokens so the gallery can switch to an icy-white
+         base without reworking every background-color reference) */
+      --page-bg:    #f5f8fc;
+      --page-bg-2:  #eef3f9;
+      --page-bg-3:  #e4ecf5;
+      /* Legacy aliases used by other sections */
       --ink: var(--cream);
       --ink-2: var(--cream-dim);
-      --muted: rgba(243, 232, 212, 0.55);
+      --muted: rgba(11, 14, 20, 0.55);
       --accent: var(--ice);
       --accent-2: var(--ice-2);
       --blue-1: var(--ice-soft);
       --blue-2: var(--ice-mid);
       --blue-line: var(--ice-line);
-      --rule: rgba(243, 232, 212, 0.18);
+      --rule: rgba(11, 14, 20, 0.12);
+      /* 80s Mac Rainbow accent (used on nav top pinstripe) */
+      --mac-green:  #6ABE4F;
+      --mac-yellow: #F5C419;
+      --mac-orange: #F08A2E;
+      --mac-red:    #E5484D;
+      --mac-purple: #8A5FC2;
+      --mac-blue:   #3E9BDB;
     }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: var(--mocha-deep);
+      background: var(--page-bg);
       color: var(--cream);
       overflow-x: hidden;
     }
-    /* slow mocha lava drift */
+    /* slow icy drift — calm sky-blue wash behind the masonry grid */
     body::before {
       content: ''; position: fixed; inset: -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #3a2a1a 0%, transparent 55%),
-        radial-gradient(ellipse at 82% 78%, #4b3622 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, #2a1d12 0%, transparent 70%),
-        linear-gradient(135deg, #221610, #2f2015 45%, #3c2a1b 70%, #2a1d12);
+        radial-gradient(ellipse at 18% 22%, #e4f1fb 0%, transparent 55%),
+        radial-gradient(ellipse at 82% 78%, #dde7f2 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #ffffff 0%, transparent 70%),
+        linear-gradient(135deg, #f5f8fc, #eef3f9 45%, #e4ecf5 70%, #f5f8fc);
       background-size: 180% 180%;
       animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
-      filter: saturate(0.95);
+      filter: saturate(1.02);
     }
     @keyframes lavaDrift {
       0%   { background-position: 0% 0%; transform: scale(1); }
@@ -65,19 +79,27 @@
       100% { background-position: 100% 100%; transform: scale(1); }
     }
 
-    /* NAV — mocha glass */
+    /* NAV — icy Mac-glass, 80s rainbow pinstripe on top edge */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 18px 44px;
-      background: rgba(42, 29, 18, 0.62);
+      background: rgba(255, 255, 255, 0.78);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom: 1px solid rgba(243, 232, 212, 0.10);
+      border-bottom: 1px solid rgba(11, 14, 20, 0.08);
     }
     nav::before {
       content: ''; position: absolute; left: 0; right: 0; top: 0;
-      height: 1px; background: linear-gradient(90deg, transparent, rgba(243,232,212,0.18), transparent);
+      height: 3px;
+      background: linear-gradient(90deg,
+        var(--mac-green)  0%,  var(--mac-green)  16.66%,
+        var(--mac-yellow) 16.66%, var(--mac-yellow) 33.33%,
+        var(--mac-orange) 33.33%, var(--mac-orange) 50%,
+        var(--mac-red)    50%,    var(--mac-red)    66.66%,
+        var(--mac-purple) 66.66%, var(--mac-purple) 83.33%,
+        var(--mac-blue)   83.33%, var(--mac-blue)   100%);
+      opacity: 0.78;
     }
     nav .logo {
       font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
@@ -108,7 +130,7 @@
       letter-spacing: -0.03em; line-height: 1.0; color: var(--cream-2);
     }
     .g-title em {
-      color: var(--mocha-deep); font-style: normal;
+      color: #ffffff; font-style: normal;
       background: linear-gradient(120deg, var(--ice), var(--ice-2));
       padding: 0 10px; border-radius: 2px;
       box-shadow: 0 2px 18px var(--ice-glow), inset 0 -2px 0 rgba(255,255,255,0.35);
@@ -126,23 +148,23 @@
     .reels-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; padding: 0 4px; }
     .reels-head .reels-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--honey, #e8a800);
+      text-transform: uppercase; color: var(--ice-2, #2E7FC2);
     }
     .reels-head h2 {
       font-size: clamp(22px, 2.6vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink, #f3e8d4);
+      letter-spacing: -0.02em; color: var(--ink, #0b0e14);
     }
     .reels-grid {
       display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
     }
     .reel-embed {
       aspect-ratio: 9 / 16;
-      background: #0b0b0b; overflow: hidden;
-      border-radius: 4px; border: 1px solid rgba(243, 232, 212, 0.08);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      background: #0b0e14; overflow: hidden;
+      border-radius: 4px; border: 1px solid rgba(11, 14, 20, 0.08);
+      box-shadow: 0 6px 18px rgba(11, 14, 20, 0.12);
       transition: transform 0.32s cubic-bezier(.22,.9,.28,1), box-shadow 0.32s;
     }
-    .reel-embed:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(0,0,0,0.5); }
+    .reel-embed:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(11,14,20,0.22); }
     .reel-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
     @media (max-width: 1100px) { .reels-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 720px)  { .reels-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -154,11 +176,11 @@
     }
     .gallery-divider::before,
     .gallery-divider::after {
-      content: ''; flex: 1; height: 1px; background: rgba(243, 232, 212, 0.12);
+      content: ''; flex: 1; height: 1px; background: rgba(11, 14, 20, 0.12);
     }
     .gallery-divider span {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(243, 232, 212, 0.5);
+      text-transform: uppercase; color: rgba(11, 14, 20, 0.5);
     }
 
     /* MASONRY GRID */
@@ -170,11 +192,11 @@
     .g-item {
       break-inside: avoid; margin-bottom: 12px;
       overflow: hidden;
-      background: var(--mocha-mid);
+      background: var(--page-bg-2);
       position: relative; cursor: zoom-in;
       border-radius: 3px;
-      border: 1px solid rgba(243, 232, 212, 0.08);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(11, 14, 20, 0.08);
+      box-shadow: 0 6px 18px rgba(11, 14, 20, 0.10);
       transition: transform 0.32s cubic-bezier(.22,.9,.28,1),
                   box-shadow 0.32s ease,
                   border-color 0.25s ease;
@@ -184,7 +206,7 @@
       border-color: var(--ice-line);
       box-shadow:
         0 0 0 2px var(--ice-mid),
-        0 20px 44px rgba(0, 0, 0, 0.55),
+        0 20px 44px rgba(11, 14, 20, 0.22),
         0 0 36px var(--ice-glow);
     }
     .g-item img {
@@ -192,13 +214,13 @@
       transition: transform 0.7s ease, filter 0.4s ease;
     }
     .g-item:hover img { transform: scale(1.04); filter: saturate(1.06) brightness(1.02); }
-    /* Ice-blue "view" chip on hover */
+    /* Baby-blue "view" chip on hover */
     .g-item::after {
       content: 'VIEW';
       position: absolute; bottom: 12px; right: 12px;
       font-size: 9px; font-weight: 800; letter-spacing: 0.22em;
-      padding: 6px 10px; color: var(--mocha-deep);
-      background: var(--ice);
+      padding: 6px 10px; color: #ffffff;
+      background: var(--ice-2);
       border-radius: 2px;
       opacity: 0; transform: translateY(6px) scale(0.92);
       transition: opacity 0.25s ease, transform 0.25s ease;
@@ -207,10 +229,10 @@
     }
     .g-item:hover::after { opacity: 1; transform: translateY(0) scale(1); }
 
-    /* LIGHTBOX */
+    /* LIGHTBOX — near-black scrim reads right on an icy page, keeps photos popping */
     .lb {
       position: fixed; inset: 0; z-index: 500;
-      background: rgba(20, 14, 8, 0.92);
+      background: rgba(11, 14, 20, 0.86);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: none; align-items: center; justify-content: center;
@@ -220,12 +242,12 @@
     .lb-img {
       max-width: 96vw; max-height: 92vh;
       width: auto; height: auto;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.70), 0 0 0 1px rgba(159, 212, 245, 0.14);
+      box-shadow: 0 40px 120px rgba(11,14,20,0.50), 0 0 0 1px rgba(159, 212, 245, 0.20);
       border-radius: 3px;
     }
     .lb-close, .lb-prev, .lb-next {
-      position: absolute; background: rgba(243, 232, 212, 0.08);
-      color: var(--cream-2); border: 1px solid rgba(243, 232, 212, 0.22);
+      position: absolute; background: rgba(255, 255, 255, 0.12);
+      color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.28);
       width: 44px; height: 44px; border-radius: 50%;
       cursor: pointer; font-size: 18px; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
@@ -241,51 +263,51 @@
     .lb-caption {
       position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
       font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--cream-2);
-      background: rgba(20, 14, 8, 0.72);
+      text-transform: uppercase; color: #ffffff;
+      background: rgba(11, 14, 20, 0.72);
       padding: 8px 14px; border-radius: 2px;
-      border: 1px solid rgba(243, 232, 212, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.14);
     }
 
     /* OUTRO CTA */
     .g-outro {
       max-width: 820px; margin: 40px auto 96px;
       padding: 44px 36px;
-      background: rgba(58, 42, 26, 0.55);
-      border: 1px solid rgba(243, 232, 212, 0.12);
+      background: rgba(255, 255, 255, 0.80);
+      border: 1px solid rgba(11, 14, 20, 0.08);
       border-radius: 4px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.40);
+      box-shadow: 0 24px 60px rgba(11, 14, 20, 0.10);
       text-align: center;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
     .g-outro h2 {
       font-size: clamp(24px, 2.8vw, 34px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--cream-2); line-height: 1.18;
+      letter-spacing: -0.02em; color: var(--ink); line-height: 1.18;
     }
     .g-outro h2 em {
-      color: var(--mocha-deep); font-style: normal;
+      color: #ffffff; font-style: normal;
       background: linear-gradient(120deg, var(--ice), var(--ice-2));
       padding: 0 8px; border-radius: 2px;
       box-shadow: 0 2px 14px var(--ice-glow);
     }
     .g-outro p {
       margin-top: 14px; font-size: 14px; line-height: 1.7;
-      color: var(--cream-dim); max-width: 540px; margin-left: auto; margin-right: auto;
+      color: var(--ink-2); max-width: 540px; margin-left: auto; margin-right: auto;
     }
     .g-outro a {
       display: inline-flex; align-items: center; gap: 8px;
       margin-top: 24px; padding: 14px 28px;
       font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
       text-transform: uppercase; text-decoration: none;
-      background: var(--ice); color: var(--mocha-deep);
+      background: var(--ice-2); color: #ffffff;
       border-radius: 2px;
       transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      border: 1px solid var(--ice);
+      border: 1px solid var(--ice-2);
       box-shadow: 0 6px 22px var(--ice-glow);
     }
     .g-outro a:hover {
-      background: var(--ice-2); border-color: var(--ice-2);
+      background: var(--ice); border-color: var(--ice);
       transform: translateY(-1px);
       box-shadow: 0 10px 30px var(--ice-glow);
     }
@@ -293,9 +315,9 @@
     footer {
       padding: 40px 44px;
       display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(243, 232, 212, 0.10);
+      border-top: 1px solid rgba(11, 14, 20, 0.10);
       flex-wrap: wrap; gap: 16px;
-      color: var(--cream-dim);
+      color: var(--ink-2);
     }
     footer .f-logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: var(--cream-2); }
     footer .f-contact { font-size: 12px; color: var(--cream-dim); margin-top: 4px; }
@@ -376,33 +398,29 @@
 <div class="gallery-divider"><span>Stills</span></div>
 
 <main class="g-grid" id="gGrid">
+  <!-- Apr 20 dedupe: removed images that also appear on homepage (photo2, photo3b,
+       photo41, portrait2, aerial-backyard, photo2b, photo1b, vert-homepage-1) so
+       the /gallery page is distinct content from /. -->
+
   <!-- Aerials / drone -->
   <div class="g-item" data-cat="aerial"><img src="putting-green-aerial.jpg" alt="Aerial putting green with white-sand bunkers" loading="lazy" /></div>
   <div class="g-item" data-cat="aerial"><img src="design3.jpg" alt="Aerial backyard with palm and pavers" loading="lazy" /></div>
   <div class="g-item" data-cat="aerial"><img src="pgreen6.jpg" alt="Aerial putting green, rock border" loading="lazy" /></div>
-  <div class="g-item" data-cat="aerial"><img src="photo1b.jpg" alt="Aerial backyard with putting green" loading="lazy" /></div>
-  <div class="g-item" data-cat="aerial"><img src="photo3b.jpg" alt="Aerial putting green nestled in rocks" loading="lazy" /></div>
   <div class="g-item" data-cat="aerial"><img src="pgreen5.jpg" alt="Putting green with fence border" loading="lazy" /></div>
   <div class="g-item" data-cat="aerial"><img src="putting-green-sand.jpg" alt="Putting green edge with sand bunker" loading="lazy" /></div>
 
   <!-- Landscape / ground -->
-  <div class="g-item" data-cat="landscape"><img src="photo2b.jpg" alt="Modern home with lawn" loading="lazy" /></div>
-  <div class="g-item" data-cat="landscape"><img src="photo41.jpg" alt="Pickleball court on property" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo3.jpg" alt="Stepping stones across lawn" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo20.jpg" alt="Paver grid detail" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="pavers.jpg" alt="Paver installation, ground level" loading="lazy" /></div>
 
   <!-- Portrait -->
-  <div class="g-item" data-cat="portrait"><img src="portrait2.jpg" alt="Aerial roof and lawn, vertical frame" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="portrait1.jpg" alt="Paver detail, vertical crop" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="concert-boat.png" alt="Concert performance, boat stage, arena crowd" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="concert-band.png" alt="Live band on stage, silhouette crowd" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="church-interior.png" alt="Baroque church interior with frescoed dome and chandelier" loading="lazy" /></div>
 
   <!-- Brand work -->
-  <div class="g-item" data-cat="brand"><img src="photo2.jpg" alt="BMW M3 duo, coastal brand shoot" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="aerial-backyard.jpg" alt="Mercedes SLR Stirling Moss, automotive brand" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="vert-homepage-1.png" alt="Cast iron flag stick, brand still" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="bmw.jpg" alt="BMW closeup, automotive brand" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="rollsroyce.png" alt="Rolls-Royce Spirit of Ecstasy ornament, automotive brand still" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-5.png" alt="Creator shoot, editorial frame" loading="lazy" /></div>
