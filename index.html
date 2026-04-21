@@ -590,16 +590,18 @@
     .benefit-item:hover .benefit-num { opacity: 1; }
     .benefit-text { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); }
 
-    /* ABOUT, warm honey feature section on rich umber */
+    /* ABOUT, warm honey feature section on rich umber — portrait removed Apr 21, text only, centered column */
     .about {
-      padding: 80px 48px;
+      padding: 120px 48px;
       background:
         radial-gradient(ellipse at 20% 30%, rgba(93,179,232,0.18) 0%, transparent 55%),
         radial-gradient(ellipse at 80% 75%, rgba(46,127,194,0.16) 0%, transparent 55%),
         var(--dark);
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+      display: flex;
+      justify-content: center;
     }
+    .about-text { max-width: 620px; }
+    .about-text .about-bio { max-width: 560px; }
     .about-text .section-label { color: var(--honey-glow); }
     .about-text .section-label::before { background: var(--honey-glow); }
     .about-name {
@@ -627,6 +629,17 @@
       background: var(--honey); color: #fff; transition: background 0.2s;
     }
     .about-cta:hover { background: var(--honey-glow); color: var(--ink); }
+    .about-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .about-ctas .about-cta { margin-top: 0; }
+    .about-cta-ghost {
+      background: transparent;
+      color: rgba(234, 243, 251, 0.82);
+      border: 1px solid rgba(159, 212, 245, 0.45);
+    }
+    .about-cta-ghost:hover {
+      background: rgba(159, 212, 245, 0.14);
+      color: #eaf3fb; border-color: var(--honey-glow);
+    }
 
     /* LEAVE A NOTE, warm honey chat box */
     .note {
@@ -747,16 +760,7 @@
       .note-form .row { grid-template-columns: 1fr; }
       .note-mail { font-size: 18px; padding: 16px 22px; }
     }
-    .about-photo-wrap {
-      position: relative; display: flex;
-      align-items: center; justify-content: center;
-    }
-    /* glow behind portrait removed per Apr 19 — clean frame, no halo */
-    .about-photo {
-      width: 100%; max-width: 400px; height: 480px;
-      object-fit: cover; object-position: top center;
-      display: block; border-radius: 2px;
-    }
+    /* about-photo CSS removed Apr 21 — portrait dropped from About section */
 
     /* FOOTER */
     footer {
@@ -798,40 +802,42 @@
     .f-social svg { width: 16px; height: 16px; fill: currentColor; }
     footer .f-copy { font-size: 11px; color: var(--ink-mute); }
 
-    /* FIXED CTA */
+    /* FIXED CTA — blue-glass pill, matches palette on every breakpoint (Apr 21 redesign) */
     .cta-pill {
-      position: fixed; bottom: 30px; right: 38px; z-index: 200;
-      background: var(--honey); color: #fff;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; text-decoration: none;
-      padding: 13px 22px; border-radius: 2px;
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 6px 22px rgba(46,127,194,0.35);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(74, 134, 197, 0.32);
+      border-radius: 999px;
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      box-shadow:
+        0 8px 24px rgba(46, 127, 194, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .cta-pill::after {
+      content: "\2192"; display: inline-block;
+      transition: transform 0.2s;
     }
     .cta-pill:hover {
-      background: var(--honey-deep); transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(46,127,194,0.45);
+      background: rgba(255, 255, 255, 0.78);
+      border-color: rgba(46, 127, 194, 0.55);
+      transform: translateY(-2px);
+      box-shadow:
+        0 12px 30px rgba(46, 127, 194, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
     }
-    /* Mobile, compact BLUE translucent-glass CTA (Apr 19 PM2 — was cream glass) */
+    .cta-pill:hover::after { transform: translateX(3px); }
     @media (max-width: 760px) {
       .cta-pill {
         bottom: 16px; right: 16px;
         padding: 10px 16px;
-        font-size: 10px; letter-spacing: 0.12em;
-        background: rgba(74, 134, 197, 0.22);   /* --blue-2 — pool-water blue */
-        color: var(--ink);
-        border: 1px solid rgba(74, 134, 197, 0.55);
-        backdrop-filter: blur(14px) saturate(150%);
-        -webkit-backdrop-filter: blur(14px) saturate(150%);
-        box-shadow: 0 4px 14px rgba(11,14,20,0.16),
-                    inset 0 -2px 0 rgba(74, 134, 197, 0.20);
-      }
-      .cta-pill:hover {
-        background: rgba(74, 134, 197, 0.32);
-        color: var(--ink); border-color: rgba(74, 134, 197, 0.85);
-        transform: translateY(-1px);
-        box-shadow: 0 8px 20px rgba(11,14,20,0.22),
-                    inset 0 -2px 0 rgba(74, 134, 197, 0.20);
+        font-size: 10px; letter-spacing: 0.14em;
       }
     }
 
@@ -867,13 +873,7 @@
       .work-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .benefits { padding: 56px 24px; }
       .benefits-inner { grid-template-columns: 1fr; gap: 40px; }
-      .about { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
-      .about-photo {
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;
-        object-position: center center;
-      }
+      .about { padding: 80px 24px; }
       footer {
         flex-direction: column; gap: 28px;
         align-items: flex-start; padding: 40px 24px;
@@ -1104,10 +1104,10 @@
       <span class="about-tag">Meta Campaigns</span>
       <span class="about-tag">Brand Growth</span>
     </div>
-    <a href="#leave-a-review" class="about-cta reveal">Work With Me</a>
-  </div>
-  <div class="about-photo-wrap reveal">
-    <img src="about.png" alt="Mason Swang" class="about-photo" />
+    <div class="about-ctas reveal">
+      <a href="#leave-a-review" class="about-cta">Work With Me</a>
+      <a href="resume.pdf" class="about-cta about-cta-ghost" download>Download Resume</a>
+    </div>
   </div>
 </section>
 
