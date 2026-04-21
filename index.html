@@ -93,14 +93,26 @@
       border-bottom-color: rgba(159,212,245,0.14);
     }
     html[data-theme="dark"] .hero-glass {
-      background: rgba(12, 22, 40, 0.42);
-      border-top-color: rgba(159,212,245,0.45);
-      border-bottom-color: rgba(159,212,245,0.45);
-      border-left-color: rgba(159,212,245,0.18);
-      border-right-color: rgba(159,212,245,0.18);
+      background: linear-gradient(
+        135deg,
+        rgba(22, 40, 68, 0.52) 0%,
+        rgba(18, 32, 58, 0.46) 50%,
+        rgba(28, 48, 80, 0.54) 100%
+      );
+      border-color: rgba(159,212,245,0.32);
       box-shadow:
-        0 24px 64px rgba(0,0,0,0.55),
-        inset 0 1px 0 rgba(159,212,245,0.15);
+        0 28px 72px rgba(0,0,0,0.58),
+        0 6px 18px rgba(0,0,0,0.28),
+        inset 0 1.5px 0 rgba(159,212,245,0.22),
+        inset 0 -1px 0 rgba(159,212,245,0.08);
+    }
+    html[data-theme="dark"] .hero-glass::before {
+      background: linear-gradient(
+        180deg,
+        rgba(159,212,245,0.22) 0%,
+        rgba(159,212,245,0.06) 80%,
+        rgba(159,212,245,0) 100%
+      );
     }
     /* Force light text inside the overhang on dark mode — label, headline, sub, ghost link */
     html[data-theme="dark"] .hero-label    { color: #eaf3fb; }
@@ -294,60 +306,87 @@
     .hero-tile { overflow: hidden; background: #dbe5ef; }
     .hero-tile img {
       width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform 1.8s ease;
+      display: block; transition: transform 1.8s ease, filter 0.8s ease;
     }
     .hero-tile.feature { grid-column: 1; grid-row: 1 / 3; }
     .hero-tile.tall    { grid-column: 3; grid-row: 1 / 3; }
+    /* Editorial black & white on the big feature tile — calms the palette and
+       lets the CTA banner carry the color. */
+    .hero-tile.bw img { filter: grayscale(1) contrast(1.06) brightness(0.98); }
+    .hero:hover .hero-tile.bw img { filter: grayscale(1) contrast(1.06) brightness(1.02); }
+    /* Raise the flagstick high in its frame so the stick sits above center and
+       the composition balances against the wide feature tile on the left. */
+    .hero-tile.tall img { object-position: 50% 22%; }
     .hero:hover .hero-tile.feature img,
     .hero:hover .hero-tile.tall img { transform: scale(1.03); }
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
        The cream-glass look now lives ONLY on .hero-glass. */
     .hero-scrim { display: none; }
-    /* Transparent OVERHANG banner — thin horizontal strip "lining" the middle of
-       the gallery. Single-line headline, label + CTAs on a clean horizontal axis. */
+    /* Frozen water-drop tab — a chilled glass lozenge overhanging the gallery,
+       with heavy blur, icy tint, rounded corners, and a thin highlight edge. */
     .hero-glass {
       position: absolute; z-index: 2;
-      left: 50%; top: 58%;
+      left: 50%; top: 54%;
       transform: translate(-50%, -50%);
       width: min(94vw, 1280px);
       max-width: none;
       margin: 0;
-      padding: clamp(18px, 2.2vw, 26px) clamp(22px, 3.4vw, 44px);
-      background: rgba(255, 255, 255, 0.32);
-      backdrop-filter: blur(20px) saturate(1.35);
-      -webkit-backdrop-filter: blur(20px) saturate(1.35);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.9);
-      border-bottom: 1.5px solid rgba(255, 255, 255, 0.9);
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
+      padding: clamp(20px, 2.4vw, 30px) clamp(26px, 3.6vw, 48px);
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.42) 0%,
+        rgba(214,234,248,0.30) 50%,
+        rgba(186,216,238,0.36) 100%
+      );
+      backdrop-filter: blur(30px) saturate(1.7);
+      -webkit-backdrop-filter: blur(30px) saturate(1.7);
+      border: 1.2px solid rgba(255, 255, 255, 0.85);
+      border-radius: 26px;
       box-shadow:
-        0 22px 56px rgba(11,14,20,0.24),
-        inset 0 1px 0 rgba(255,255,255,0.55);
+        0 28px 70px rgba(11,14,20,0.28),
+        0 6px 18px rgba(11,14,20,0.14),
+        inset 0 1.5px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(255,255,255,0.4);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: clamp(20px, 3vw, 44px);
       flex-wrap: wrap;
     }
+    /* A subtle specular sheen — the telltale "frozen" highlight running across
+       the top of the glass tab. Pure decoration, no interaction. */
+    .hero-glass::before {
+      content: '';
+      position: absolute;
+      inset: 1px 1px auto 1px;
+      height: 38%;
+      border-radius: 26px 26px 60% 60% / 26px 26px 28% 28%;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.55) 0%,
+        rgba(255,255,255,0.10) 80%,
+        rgba(255,255,255,0) 100%
+      );
+      pointer-events: none;
+    }
+    .hero-glass > * { position: relative; z-index: 1; }
     .hero-glass-copy { flex: 1 1 540px; min-width: 0; }
     .hero-glass-actions {
       flex: 0 0 auto;
       display: flex; flex-direction: column;
       align-items: flex-end; gap: 10px;
     }
-    /* Tighter typography INSIDE the slim banner — keeps headline to one line on desktop */
-    .hero-glass .hero-label { margin-bottom: 10px; font-size: 10px; }
+    /* Tighter typography INSIDE the frozen tab — keeps headline to one line on desktop */
+    .hero-glass .hero-label { margin-bottom: 8px; font-size: 10.5px; }
     .hero-glass .hero-headline {
       font-size: clamp(26px, 3vw, 40px);
       line-height: 1.04;
       white-space: nowrap;
-    }
-    .hero-glass .hero-sub {
-      margin-top: 8px; font-size: 12.5px; line-height: 1.55;
-      max-width: 520px;
+      margin: 0;
     }
     .hero-glass #rw .rw-mark { top: -6px; right: -22px; font-size: 0.3em; }
+    /* Rotating CTA — smooth fade tied to the same fadeWord keyframes used by #rw */
+    #rotating-cta .rc-text { display: inline-block; }
     .hero-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--honey-deep);
@@ -1383,9 +1422,8 @@
   <div class="nav-right">
     <ul>
       <li><a href="#featured-work">Case Studies</a></li>
-      <li><a href="#reels">Reels</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#live-excerpt">Live Work</a></li>
+      <li><a href="#about">Learn More</a></li>
     </ul>
     <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -1397,8 +1435,8 @@
 <!-- HERO — 4-tile gallery backdrop with a thin transparent overhang banner (Apr 21 v3) -->
 <section class="hero">
   <div class="hero-backdrop">
-    <div class="hero-tile feature">
-      <img src="aerial-backyard.jpg" alt="Aerial editorial, backyard and landscape" />
+    <div class="hero-tile feature bw">
+      <img src="photo2.jpg" alt="Automotive brand shoot, BMW M3 duo at the coast" />
     </div>
     <div class="hero-tile">
       <img src="photo2b.jpg" alt="Mid-century architectural lifestyle" />
@@ -1407,7 +1445,7 @@
       <img src="brand-still-1.png" alt="Brand still life, editorial" />
     </div>
     <div class="hero-tile tall">
-      <img src="stoflet-vertical-1.png" alt="Editorial vertical, vol. 02" />
+      <img src="vert-homepage-1.png" alt="Cast iron flagstick brand still, vertical" />
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -1419,13 +1457,10 @@
         <span id="rw" class="w-brand"><span class="rw-inner"><span class="rw-text">brand</span><span class="rw-mark bag">&#128717;</span><span class="rw-mark box">&#128230;</span><span class="rw-mark phone">&#128241;</span><span class="rw-mark wrench">&#128295;</span><span class="rw-mark camera">&#128247;</span><span class="rw-mark house">&#127969;</span><span class="rw-mark eye">&#128065;</span></span></span>
         in the spotlight.
       </h1>
-      <p class="hero-sub">
-        Visual direction and content that converts. For brands and creators who play to win.
-      </p>
     </div>
     <div class="hero-glass-actions">
       <div class="hero-actions">
-        <a href="#contact" class="btn filled">Connect With Me &darr;</a>
+        <a href="#contact" class="btn filled" id="rotating-cta"><span class="rc-text">Connect With Me</span> &darr;</a>
         <a href="#featured-work" class="btn">View Case Studies</a>
       </div>
       <a href="#gallery" class="hero-ghost">or just browse the work <span class="arrow">&rarr;</span></a>
@@ -1437,8 +1472,8 @@
 <nav class="cover-index" aria-label="Section index">
   <span class="cover-index-label">Index</span>
   <a href="#featured-work"><span class="num">01</span>Case Studies</a>
-  <a href="#reels"><span class="num">02</span>Reels</a>
-  <a href="#about"><span class="num">03</span>About</a>
+  <a href="#live-excerpt"><span class="num">02</span>Live Work</a>
+  <a href="#about"><span class="num">03</span>Learn More</a>
   <a href="#leave-a-review"><span class="num">04</span>Let&rsquo;s Talk</a>
 </nav>
 
@@ -1646,10 +1681,9 @@
   </div>
   <div class="f-links">
     <a href="#featured-work">Case Studies</a>
-    <a href="#reels">Reels</a>
-    <a href="#about">About</a>
+    <a href="#live-excerpt">Live Work</a>
+    <a href="#about">Learn More</a>
     <a href="#leave-a-review">Let's Talk</a>
-    <a href="#contact">Contact</a>
   </div>
   <p class="f-copy">&copy; <span id="yr"></span> swang. All rights reserved.</p>
 </footer>
@@ -1664,9 +1698,22 @@
   // Rotating hero word — even cadence, one emoji per word, all on the same bob.
   const words  = ['brand','product','influencer','service','creator','property','vision'];
   const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-property','w-vision'];
+  // CTA label rotates in lockstep with the word — each word gets a CTA that
+  // matches its context, so "product" pairs with "Book a Shoot" etc.
+  const ctas   = [
+    'Connect With Me',
+    'Book a Shoot',
+    'Start a Campaign',
+    'Get a Quote',
+    'Let\u2019s Create',
+    'Shoot Your Place',
+    'Work With Me'
+  ];
   let wi = 0;
-  const rwEl   = document.getElementById('rw');
-  const rwText = rwEl.querySelector('.rw-text');
+  const rwEl    = document.getElementById('rw');
+  const rwText  = rwEl.querySelector('.rw-text');
+  const ctaEl   = document.getElementById('rotating-cta');
+  const ctaText = ctaEl ? ctaEl.querySelector('.rc-text') : null;
 
   function rotateWord() {
     rwEl.style.animation = 'none';
@@ -1675,6 +1722,12 @@
     rwEl.className = colors[wi];
     rwText.textContent = words[wi];
     rwEl.style.animation = 'fadeWord 0.5s ease';
+    if (ctaText) {
+      ctaEl.style.animation = 'none';
+      ctaEl.offsetHeight;
+      ctaText.textContent = ctas[wi];
+      ctaEl.style.animation = 'fadeWord 0.5s ease';
+    }
   }
 
   // Steady rotation — every word gets the same airtime.
