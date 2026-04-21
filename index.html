@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
-    // Flash-of-light prevention — apply saved theme before paint.
-    try { if (localStorage.getItem('swang-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) {}
+    // Default to dark; apply saved theme before paint (only go light if user explicitly chose it).
+    try { if (localStorage.getItem('swang-theme') !== 'light') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) { document.documentElement.setAttribute('data-theme', 'dark'); }
   </script>
   <title>swang. | Creative Growth</title>
   <meta name="description" content="Mason Swang — creative growth for brands and creators. Strategy, visual direction, and content that compounds." />

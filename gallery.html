@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <script>
-    try { if (localStorage.getItem('swang-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) {}
+    // Default to dark; apply saved theme before paint (only go light if user explicitly chose it).
+    try { if (localStorage.getItem('swang-theme') !== 'light') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) { document.documentElement.setAttribute('data-theme', 'dark'); }
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>swang. | Creative Growth — Gallery</title>
