@@ -190,6 +190,33 @@
       padding: 0 12px;
       column-count: 4; column-gap: 12px;
     }
+    /* In-gallery section labels — thin rule + italic serif, spans all columns */
+    .g-section {
+      column-span: all;
+      -webkit-column-span: all;
+      margin: 38px 4px 20px;
+      display: flex; align-items: center; gap: 20px;
+      page-break-inside: avoid; break-inside: avoid;
+    }
+    .g-section::before,
+    .g-section::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(11, 14, 20, 0.16);
+    }
+    .g-section em {
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .g-section:first-of-type { margin-top: 8px; }
+    @media (max-width: 820px) {
+      .g-section { margin: 26px 2px 14px; gap: 12px; }
+      .g-section em { font-size: clamp(18px, 5vw, 24px); }
+    }
     .g-item {
       break-inside: avoid; margin-bottom: 12px;
       overflow: hidden;
@@ -407,64 +434,157 @@
 <div class="gallery-divider"><span>Stills</span></div>
 
 <main class="g-grid" id="gGrid">
-  <!-- Apr 20 dedupe: removed images that also appear on homepage (photo2, photo3b,
-       photo41, portrait2, aerial-backyard, photo2b, photo1b, vert-homepage-1) so
-       the /gallery page is distinct content from /. -->
 
-  <!-- Aerials / drone -->
-  <div class="g-item" data-cat="aerial"><img src="putting-green-aerial.jpg" alt="Aerial putting green with white-sand bunkers" loading="lazy" /></div>
-  <div class="g-item" data-cat="aerial"><img src="design3.jpg" alt="Aerial backyard with palm and pavers" loading="lazy" /></div>
-  <div class="g-item" data-cat="aerial"><img src="pgreen6.jpg" alt="Aerial putting green, rock border" loading="lazy" /></div>
-  <div class="g-item" data-cat="aerial"><img src="pgreen5.jpg" alt="Putting green with fence border" loading="lazy" /></div>
-  <div class="g-item" data-cat="aerial"><img src="putting-green-sand.jpg" alt="Putting green edge with sand bunker" loading="lazy" /></div>
-
-  <!-- Landscape / ground -->
+  <div class="g-section"><em>Landscape</em></div>
+  <div class="g-item" data-cat="landscape"><img src="putting-green-aerial.jpg" alt="Aerial putting green with white-sand bunkers" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="design3.jpg" alt="Aerial backyard with palm and pavers" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="aerial-backyard.jpg" alt="Aerial backyard, patio + turf" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="pgreen6.jpg" alt="Aerial putting green, rock border" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="pgreen5.jpg" alt="Putting green with fence border" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="putting-green-sand.jpg" alt="Putting green edge with sand bunker" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo3.jpg" alt="Stepping stones across lawn" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo3b.jpg" alt="Stepping stones, alt frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo2.jpg" alt="Landscape ground-level frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo2b.jpg" alt="Landscape ground-level, alt frame" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo1b.jpg" alt="Landscape detail" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo20.jpg" alt="Paver grid detail" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="photo41.jpg" alt="Paver + turf composition" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="pavers.jpg" alt="Paver installation, ground level" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="portrait1.jpg" alt="Paver detail, vertical crop" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="portrait2.jpg" alt="Vertical landscape detail" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="vert-homepage-1.png" alt="Cast iron flagstick on a tight pin" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="hero-banner-1.png" alt="Property hero banner still" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="hero-banner-3.png" alt="Property hero banner still" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="hero-banner-6.png" alt="Property hero banner still" loading="lazy" /></div>
 
-  <!-- Portrait -->
-  <div class="g-item" data-cat="portrait"><img src="portrait1.jpg" alt="Paver detail, vertical crop" loading="lazy" /></div>
-  <div class="g-item" data-cat="portrait"><img src="concert-boat.png" alt="Concert performance, boat stage, arena crowd" loading="lazy" /></div>
-  <div class="g-item" data-cat="portrait"><img src="concert-band.png" alt="Live band on stage, silhouette crowd" loading="lazy" /></div>
-  <div class="g-item" data-cat="portrait"><img src="church-interior.png" alt="Baroque church interior with frescoed dome and chandelier" loading="lazy" /></div>
+  <div class="g-section"><em>Mailing &amp; Print Design</em></div>
+  <div class="g-item" data-cat="print"><img src="cpg-custom-putting-greens.png" alt="Custom Putting Greens print campaign" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="ncga-insert.png" alt="NCGA magazine insert" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="yard-sign.png" alt="Yard sign landscape banner" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="cs-radius-mail-1.png" alt="CS radius mailer, front" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="cs-radius-mail-2.png" alt="CS radius mailer, back" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="orinda-radius-mail.png" alt="Orinda radius mailer" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="julie-hoyle-mailer-1.png" alt="Julie Hoyle radius mailer, front" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="julie-hoyle-mailer-2.png" alt="Julie Hoyle radius mailer, back" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="stoflet-vertical-1.png" alt="Stoflet vertical mailer" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="stoflet-vertical-2.png" alt="Stoflet vertical mailer, alt" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-still-1.png" alt="Brand collateral still" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-still-2.png" alt="Brand collateral still" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-still-3.png" alt="Brand collateral still" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-2.png" alt="Brand campaign, frame 2" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-3.png" alt="Brand campaign, frame 3" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-5.png" alt="Brand campaign, frame 5" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-7.png" alt="Brand campaign, frame 7" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-8.png" alt="Brand campaign, frame 8" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-9.png" alt="Brand campaign, frame 9" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-10.png" alt="Brand campaign, frame 10" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="brand-v2-yard-banner.png" alt="Yard sign banner, landscape" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="logo-carousel-2.png" alt="Logo carousel slide" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="editorial-ss-1.png" alt="Editorial still, frame 1" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="editorial-ss-2.png" alt="Editorial still, frame 2" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="editorial-ss-3.png" alt="Editorial still, frame 3" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="editorial-ss-4.png" alt="Editorial still, frame 4" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="editorial-ss-5.png" alt="Editorial still, frame 5" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="editorial-ss-6.png" alt="Editorial still, frame 6" loading="lazy" /></div>
 
-  <!-- Brand work -->
-  <div class="g-item" data-cat="brand"><img src="bmw.jpg" alt="BMW closeup, automotive brand" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="rollsroyce.png" alt="Rolls-Royce Spirit of Ecstasy ornament, automotive brand still" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="m5-horizontal-1.png" alt="BMW M5 horizontal editorial, frame one" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="m5-horizontal-2.png" alt="BMW M5 horizontal editorial, frame two" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="noah-thumb-5.png" alt="Creator shoot, editorial frame" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="noah-thumb-11.png" alt="Creator shoot, product in frame" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="noah-thumb-12.png" alt="Creator shoot, lifestyle frame" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="noah-thumb-13.png" alt="Creator shoot, brand moment" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="noah-thumb-14.png" alt="Creator shoot, wide frame" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="noah-thumb-15.png" alt="Creator shoot, closing frame" loading="lazy" /></div>
-
-  <!-- Print + direct-mail campaigns (Apr 20 imports) -->
-  <div class="g-item" data-cat="brand"><img src="cpg-custom-putting-greens.png" alt="Custom Putting Greens brand print" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="ncga-insert.png" alt="NCGA magazine insert design" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="yard-sign.png" alt="Yard sign landscape banner" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="cs-radius-mail-1.png" alt="CS radius mailer, front" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="cs-radius-mail-2.png" alt="CS radius mailer, back" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="orinda-radius-mail.png" alt="Orinda radius mailer" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="julie-hoyle-mailer-1.png" alt="Julie Hoyle radius mailer, front" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="julie-hoyle-mailer-2.png" alt="Julie Hoyle radius mailer, back" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="brand-still-1.png" alt="Brand still, frame one" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="brand-still-2.png" alt="Brand still, frame two" loading="lazy" /></div>
-  <div class="g-item" data-cat="brand"><img src="brand-still-3.png" alt="Brand still, frame three" loading="lazy" /></div>
-
-  <!-- Jan/Feb editorial (Apr 20 imports) -->
+  <div class="g-section"><em>Editorial &mdash; Jan/Feb</em></div>
+  <!-- Jan/Feb editorial horizontals (Apr 20 imports — full shelf) -->
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-1.png" alt="Jan/Feb editorial horizontal, frame 1" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-2.png" alt="Jan/Feb editorial horizontal, frame 2" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="janfeb-h-3.png" alt="Jan/Feb editorial horizontal, frame 3" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-4.png" alt="Jan/Feb editorial horizontal, frame 4" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-5.png" alt="Jan/Feb editorial horizontal, frame 5" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-6.png" alt="Jan/Feb editorial horizontal, frame 6" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="janfeb-h-7.png" alt="Jan/Feb editorial horizontal, frame 7" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-8.png" alt="Jan/Feb editorial horizontal, frame 8" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-9.png" alt="Jan/Feb editorial horizontal, frame 9" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-10.png" alt="Jan/Feb editorial horizontal, frame 10" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-11.png" alt="Jan/Feb editorial horizontal, frame 11" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-12.png" alt="Jan/Feb editorial horizontal, frame 12" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-13.png" alt="Jan/Feb editorial horizontal, frame 13" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="janfeb-h-14.png" alt="Jan/Feb editorial horizontal, frame 14" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-15.png" alt="Jan/Feb editorial horizontal, frame 15" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-16.png" alt="Jan/Feb editorial horizontal, frame 16" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-17.png" alt="Jan/Feb editorial horizontal, frame 17" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-18.png" alt="Jan/Feb editorial horizontal, frame 18" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-19.png" alt="Jan/Feb editorial horizontal, frame 19" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="janfeb-h-20.png" alt="Jan/Feb editorial horizontal, frame 20" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-21.png" alt="Jan/Feb editorial horizontal, frame 21" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-22.png" alt="Jan/Feb editorial horizontal, frame 22" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-23.png" alt="Jan/Feb editorial horizontal, frame 23" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-24.png" alt="Jan/Feb editorial horizontal, frame 24" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-25.png" alt="Jan/Feb editorial horizontal, frame 25" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-26.png" alt="Jan/Feb editorial horizontal, frame 26" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-27.png" alt="Jan/Feb editorial horizontal, frame 27" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="janfeb-h-28.png" alt="Jan/Feb editorial horizontal, frame 28" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-29.png" alt="Jan/Feb editorial horizontal, frame 29" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-30.png" alt="Jan/Feb editorial horizontal, frame 30" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-31.png" alt="Jan/Feb editorial horizontal, frame 31" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-32.png" alt="Jan/Feb editorial horizontal, frame 32" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-33.png" alt="Jan/Feb editorial horizontal, frame 33" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="janfeb-h-34.png" alt="Jan/Feb editorial horizontal, frame 34" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-35.png" alt="Jan/Feb editorial horizontal, frame 35" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-36.png" alt="Jan/Feb editorial horizontal, frame 36" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-37.png" alt="Jan/Feb editorial horizontal, frame 37" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-38.png" alt="Jan/Feb editorial horizontal, frame 38" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-39.png" alt="Jan/Feb editorial horizontal, frame 39" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-40.png" alt="Jan/Feb editorial horizontal, frame 40" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-41.png" alt="Jan/Feb editorial horizontal, frame 41" loading="lazy" /></div>
+
+  <!-- Jan/Feb editorial verticals (Apr 20 imports — full shelf) -->
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-1.png" alt="Jan/Feb editorial vertical, frame 1" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-2.png" alt="Jan/Feb editorial vertical, frame 2" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-3.png" alt="Jan/Feb editorial vertical, frame 3" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="janfeb-v-4.png" alt="Jan/Feb editorial vertical, frame 4" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-5.png" alt="Jan/Feb editorial vertical, frame 5" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-6.png" alt="Jan/Feb editorial vertical, frame 6" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-7.png" alt="Jan/Feb editorial vertical, frame 7" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-8.png" alt="Jan/Feb editorial vertical, frame 8" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-9.png" alt="Jan/Feb editorial vertical, frame 9" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-10.png" alt="Jan/Feb editorial vertical, frame 10" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-11.png" alt="Jan/Feb editorial vertical, frame 11" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="janfeb-v-12.png" alt="Jan/Feb editorial vertical, frame 12" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-13.png" alt="Jan/Feb editorial vertical, frame 13" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-14.png" alt="Jan/Feb editorial vertical, frame 14" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-15.png" alt="Jan/Feb editorial vertical, frame 15" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-16.png" alt="Jan/Feb editorial vertical, frame 16" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-17.png" alt="Jan/Feb editorial vertical, frame 17" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-18.png" alt="Jan/Feb editorial vertical, frame 18" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-19.png" alt="Jan/Feb editorial vertical, frame 19" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-20.png" alt="Jan/Feb editorial vertical, frame 20" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-21.png" alt="Jan/Feb editorial vertical, frame 21" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="janfeb-v-22.png" alt="Jan/Feb editorial vertical, frame 22" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-23.png" alt="Jan/Feb editorial vertical, frame 23" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-24.png" alt="Jan/Feb editorial vertical, frame 24" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-25.png" alt="Jan/Feb editorial vertical, frame 25" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-26.png" alt="Jan/Feb editorial vertical, frame 26" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-27.png" alt="Jan/Feb editorial vertical, frame 27" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-28.png" alt="Jan/Feb editorial vertical, frame 28" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-29.png" alt="Jan/Feb editorial vertical, frame 29" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-30.png" alt="Jan/Feb editorial vertical, frame 30" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="janfeb-v-31.png" alt="Jan/Feb editorial vertical, frame 31" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-32.png" alt="Jan/Feb editorial vertical, frame 32" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-33.png" alt="Jan/Feb editorial vertical, frame 33" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-34.png" alt="Jan/Feb editorial vertical, frame 34" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-35.png" alt="Jan/Feb editorial vertical, frame 35" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-36.png" alt="Jan/Feb editorial vertical, frame 36" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-37.png" alt="Jan/Feb editorial vertical, frame 37" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-38.png" alt="Jan/Feb editorial vertical, frame 38" loading="lazy" /></div>
+
+  <div class="g-section"><em>Misc &mdash; cars, live, creator cuts</em></div>
+  <div class="g-item" data-cat="misc"><img src="bmw.jpg" alt="BMW on the coast, overcast" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="m5-horizontal-1.png" alt="BMW M5, horizontal frame 1" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="m5-horizontal-2.png" alt="BMW M5, horizontal frame 2" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="rollsroyce.png" alt="Rolls Royce, editorial still" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="concert-band.png" alt="Concert, band shot" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="concert-boat.png" alt="Concert, from the water" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="church-interior.png" alt="Church interior, architectural" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="noah-thumb-5.png" alt="Creator cut, frame 5" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="noah-thumb-11.png" alt="Creator cut, frame 11" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="noah-thumb-12.png" alt="Creator cut, frame 12" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="noah-thumb-13.png" alt="Creator cut, frame 13" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="noah-thumb-14.png" alt="Creator cut, frame 14" loading="lazy" /></div>
+  <div class="g-item" data-cat="misc"><img src="noah-thumb-15.png" alt="Creator cut, frame 15" loading="lazy" /></div>
 </main>
 
 <!-- LIGHTBOX -->
