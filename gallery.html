@@ -165,7 +165,8 @@
       transition: transform 0.32s cubic-bezier(.22,.9,.28,1), box-shadow 0.32s;
     }
     .reel-embed:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(11,14,20,0.22); }
-    .reel-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .reel-embed iframe,
+    .reel-embed video { width: 100%; height: 100%; border: 0; display: block; object-fit: cover; background: #0b0e14; }
     @media (max-width: 1100px) { .reels-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 720px)  { .reels-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 480px)  { .reels-grid { grid-template-columns: 1fr; } }
@@ -386,6 +387,14 @@
     <h2>Reels &amp; short-form.</h2>
   </div>
   <div class="reels-grid">
+    <!-- Native vertical reels (Apr 20 imports) -->
+    <div class="reel-embed"><video src="reels/reel-golf.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
+    <div class="reel-embed"><video src="reels/reel-dirt-to-turf.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
+    <div class="reel-embed"><video src="reels/reel-golf-transformation.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
+    <div class="reel-embed"><video src="reels/reel-turf-bbq-pavers.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
+    <div class="reel-embed"><video src="reels/reel-paver-build.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
+    <div class="reel-embed"><video src="reels/reel-putting-green.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
+    <!-- Instagram-native reels -->
     <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
@@ -423,12 +432,39 @@
   <!-- Brand work -->
   <div class="g-item" data-cat="brand"><img src="bmw.jpg" alt="BMW closeup, automotive brand" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="rollsroyce.png" alt="Rolls-Royce Spirit of Ecstasy ornament, automotive brand still" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="m5-horizontal-1.png" alt="BMW M5 horizontal editorial, frame one" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="m5-horizontal-2.png" alt="BMW M5 horizontal editorial, frame two" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-5.png" alt="Creator shoot, editorial frame" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-11.png" alt="Creator shoot, product in frame" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-12.png" alt="Creator shoot, lifestyle frame" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-13.png" alt="Creator shoot, brand moment" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-14.png" alt="Creator shoot, wide frame" loading="lazy" /></div>
   <div class="g-item" data-cat="brand"><img src="noah-thumb-15.png" alt="Creator shoot, closing frame" loading="lazy" /></div>
+
+  <!-- Print + direct-mail campaigns (Apr 20 imports) -->
+  <div class="g-item" data-cat="brand"><img src="cpg-custom-putting-greens.png" alt="Custom Putting Greens brand print" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="ncga-insert.png" alt="NCGA magazine insert design" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="yard-sign.png" alt="Yard sign landscape banner" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="cs-radius-mail-1.png" alt="CS radius mailer, front" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="cs-radius-mail-2.png" alt="CS radius mailer, back" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="orinda-radius-mail.png" alt="Orinda radius mailer" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="julie-hoyle-mailer-1.png" alt="Julie Hoyle radius mailer, front" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="julie-hoyle-mailer-2.png" alt="Julie Hoyle radius mailer, back" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="brand-still-1.png" alt="Brand still, frame one" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="brand-still-2.png" alt="Brand still, frame two" loading="lazy" /></div>
+  <div class="g-item" data-cat="brand"><img src="brand-still-3.png" alt="Brand still, frame three" loading="lazy" /></div>
+
+  <!-- Jan/Feb editorial (Apr 20 imports) -->
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-3.png" alt="Jan/Feb editorial horizontal, frame 3" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-7.png" alt="Jan/Feb editorial horizontal, frame 7" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-14.png" alt="Jan/Feb editorial horizontal, frame 14" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-20.png" alt="Jan/Feb editorial horizontal, frame 20" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-28.png" alt="Jan/Feb editorial horizontal, frame 28" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="janfeb-h-34.png" alt="Jan/Feb editorial horizontal, frame 34" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-4.png" alt="Jan/Feb editorial vertical, frame 4" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-12.png" alt="Jan/Feb editorial vertical, frame 12" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-22.png" alt="Jan/Feb editorial vertical, frame 22" loading="lazy" /></div>
+  <div class="g-item" data-cat="portrait"><img src="janfeb-v-31.png" alt="Jan/Feb editorial vertical, frame 31" loading="lazy" /></div>
 </main>
 
 <!-- LIGHTBOX -->
