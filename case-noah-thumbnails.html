@@ -12,17 +12,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       /* Cream / earth palette — matches case-pavers-turf + case-studies */
-      --ink: #1a1408;
-      --ink-2: #3a2d17;
-      --muted: #6a5a3c;
-      --cream: #f6efdf;
-      --cream-2: #fbf7ec;
-      --cream-3: #efe7d0;
-      --clay: #c7a97a;
-      --espresso: #5c4a2a;
-      --accent: #8c6b2f;
-      --accent-2: #a0814a;
-      --rule: #d9c9a3;
+      --ink: #0b0e14;
+      --ink-2: #1a1f2b;
+      --muted: #5a6472;
+      --cream: #f5f8fc;
+      --cream-2: #ffffff;
+      --cream-3: #eef3f9;
+      --clay: #c8dbef;
+      --espresso: #2E7FC2;
+      --accent: #2E7FC2;
+      --accent-2: #2E7FC2;
+      --rule: #dbe4ef;
       /* Legacy aliases so existing rules in this file keep working */
       --accent-dark: var(--espresso);
       --honey: var(--accent);
@@ -44,10 +44,10 @@
     body::before {
       content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #f6efdf 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #e9dcb8 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, #fbf7ec 0%, transparent 70%),
-        linear-gradient(135deg, #f6efdf, #ece0bd 45%, #e4d4a8 70%, #d8c28a);
+        radial-gradient(ellipse at 18% 22%, #f5f8fc 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #dbe4ef 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #ffffff 0%, transparent 70%),
+        linear-gradient(135deg, #f5f8fc, #dbe4ef 45%, #c8dbef 70%, #9FD4F5);
       background-size: 180% 180%;
       animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
@@ -64,10 +64,10 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 18px 44px;
-      background: rgba(246, 239, 223, 0.55);
+      background: rgba(245, 248, 252, 0.55);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom: 1px solid rgba(217, 201, 163, 0.45);
+      border-bottom: 1px solid rgba(219, 228, 239, 0.45);
     }
     nav::before {
       content: ''; position: absolute; left: 0; right: 0; top: 0;
@@ -117,7 +117,7 @@
     .cs-hero {
       margin-top: 40px; border-radius: 3px; overflow: hidden;
       background: var(--cream-3); aspect-ratio: 16/9;
-      box-shadow: 0 30px 80px rgba(26,20,8,0.12);
+      box-shadow: 0 30px 80px rgba(11,14,20,0.12);
       border: 1px solid var(--rule);
     }
     .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -138,7 +138,7 @@
     }
     .h-stat {
       padding: 18px 20px; border-left: 3px solid var(--accent);
-      background: rgba(140, 107, 47, 0.08);
+      background: rgba(46, 127, 194, 0.08);
       border-radius: 0 3px 3px 0;
     }
     .h-num {
@@ -161,7 +161,7 @@
     }
     .thumb.active {
       outline-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(140, 107, 47, 0.15);
+      box-shadow: 0 0 0 4px rgba(46, 127, 194, 0.15);
     }
     #featuredThumb { transition: opacity 0.25s ease; }
 
@@ -176,7 +176,7 @@
     }
     .cs-bullets li {
       padding: 16px 18px; border-left: 3px solid var(--accent);
-      background: rgba(26, 20, 8, 0.04);
+      background: rgba(11, 14, 20, 0.04);
       font-size: 15px; line-height: 1.6; color: var(--ink-2);
       border-radius: 0 3px 3px 0;
     }
@@ -184,7 +184,7 @@
     .cs-callout {
       margin: 48px 0; padding: 32px 36px;
       border: 1px solid var(--rule);
-      background: linear-gradient(135deg, rgba(140,107,47,0.10), rgba(111,168,220,0.08));
+      background: linear-gradient(135deg, rgba(46,127,194,0.10), rgba(111,168,220,0.08));
       border-radius: 3px;
       max-width: 780px;
     }
@@ -252,8 +252,8 @@
       animation: pulse 1.4s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(140,107,47,0.45); }
-      50%      { box-shadow: 0 0 0 8px rgba(140,107,47,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(46,127,194,0.45); }
+      50%      { box-shadow: 0 0 0 8px rgba(46,127,194,0); }
     }
 
     /* THUMBNAIL GALLERY */
@@ -276,7 +276,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .thumb:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(26,20,8,0.18); }
+    .thumb:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(11,14,20,0.18); }
 
     /* YT LINK */
     .yt-cta {
@@ -290,7 +290,7 @@
     }
     .yt-cta:hover {
       border-color: var(--accent);
-      background: rgba(140, 107, 47, 0.08);
+      background: rgba(46, 127, 194, 0.08);
       transform: translateY(-2px);
     }
     .yt-cta strong { font-size: 15px; font-weight: 700; color: var(--ink); }

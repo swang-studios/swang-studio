@@ -12,17 +12,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       /* Cream / earth palette — matches case-pavers-turf + case-studies */
-      --ink: #1a1408;
-      --ink-2: #3a2d17;
-      --muted: #6a5a3c;
-      --cream: #f6efdf;
-      --cream-2: #fbf7ec;
-      --cream-3: #efe7d0;
-      --clay: #c7a97a;
-      --espresso: #5c4a2a;
-      --accent: #8c6b2f;
-      --accent-2: #a0814a;
-      --rule: #d9c9a3;
+      --ink: #0b0e14;
+      --ink-2: #1a1f2b;
+      --muted: #5a6472;
+      --cream: #f5f8fc;
+      --cream-2: #ffffff;
+      --cream-3: #eef3f9;
+      --clay: #c8dbef;
+      --espresso: #2E7FC2;
+      --accent: #2E7FC2;
+      --accent-2: #2E7FC2;
+      --rule: #dbe4ef;
       /* Legacy aliases */
       --accent-dark: var(--espresso);
       --honey: var(--accent);
@@ -43,10 +43,10 @@
     body::before {
       content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #f6efdf 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #e9dcb8 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, #fbf7ec 0%, transparent 70%),
-        linear-gradient(135deg, #f6efdf, #ece0bd 45%, #e4d4a8 70%, #d8c28a);
+        radial-gradient(ellipse at 18% 22%, #f5f8fc 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #dbe4ef 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #ffffff 0%, transparent 70%),
+        linear-gradient(135deg, #f5f8fc, #dbe4ef 45%, #c8dbef 70%, #9FD4F5);
       background-size: 180% 180%;
       animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
@@ -62,10 +62,10 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 18px 44px;
-      background: rgba(246, 239, 223, 0.55);
+      background: rgba(245, 248, 252, 0.55);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom: 1px solid rgba(217, 201, 163, 0.45);
+      border-bottom: 1px solid rgba(219, 228, 239, 0.45);
     }
     nav::before {
       content: ''; position: absolute; left: 0; right: 0; top: 0;
@@ -100,10 +100,10 @@
       border-radius: 3px;
       position: relative; overflow: hidden;
       background:
-        radial-gradient(ellipse at center, rgba(140,107,47,0.10) 0%, transparent 70%),
-        linear-gradient(180deg, #2a1f10 0%, #1a1408 100%);
-      border: 1px solid rgba(26,20,8,0.15);
-      box-shadow: 0 30px 80px rgba(26,20,8,0.12);
+        radial-gradient(ellipse at center, rgba(46,127,194,0.10) 0%, transparent 70%),
+        linear-gradient(180deg, #0b0e14 0%, #0b0e14 100%);
+      border: 1px solid rgba(11,14,20,0.15);
+      box-shadow: 0 30px 80px rgba(11,14,20,0.12);
     }
     .im8-hero::before, .im8-hero::after {
       content: ''; position: absolute; width: 320px; height: 320px; border-radius: 50%;
@@ -130,7 +130,7 @@
       position: relative; z-index: 1;
       margin-top: 14px;
       font-size: clamp(32px, 4.4vw, 56px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.0; color: #fdf8ea;
+      letter-spacing: -0.03em; line-height: 1.0; color: #f5f8fc;
     }
     .im8-title em {
       color: var(--accent-2); font-style: normal;
@@ -140,7 +140,7 @@
     }
     .im8-sub {
       position: relative; z-index: 1;
-      margin-top: 20px; font-size: 15px; color: rgba(253, 248, 234, 0.75);
+      margin-top: 20px; font-size: 15px; color: rgba(245, 248, 252, 0.75);
       letter-spacing: 0.04em;
     }
 
@@ -155,14 +155,14 @@
     .cs-bullets { list-style: none; margin: 8px auto 0; display: grid; gap: 12px; max-width: 780px; }
     .cs-bullets li {
       padding: 16px 18px; border-left: 3px solid var(--accent);
-      background: rgba(26,20,8,0.04);
+      background: rgba(11,14,20,0.04);
       font-size: 15px; line-height: 1.6; color: var(--ink-2);
       border-radius: 0 3px 3px 0;
     }
     .cs-callout {
       margin: 48px auto; padding: 32px 36px;
       border: 1px solid var(--rule);
-      background: linear-gradient(135deg, rgba(140,107,47,0.10), rgba(111,168,220,0.08));
+      background: linear-gradient(135deg, rgba(46,127,194,0.10), rgba(111,168,220,0.08));
       border-radius: 3px; max-width: 780px;
     }
     .cs-callout strong {
@@ -233,11 +233,11 @@
       margin-top: 36px; position: relative;
       height: 8px;
       background: linear-gradient(90deg,
-        rgba(193, 133, 133, 0.45) 0%,
-        rgba(193, 133, 133, 0.15) 25%,
-        rgba(140, 107, 47, 0.75) 50%,
-        rgba(193, 133, 133, 0.15) 75%,
-        rgba(193, 133, 133, 0.45) 100%);
+        rgba(229, 72, 77, 0.45) 0%,
+        rgba(229, 72, 77, 0.15) 25%,
+        rgba(46, 127, 194, 0.75) 50%,
+        rgba(229, 72, 77, 0.15) 75%,
+        rgba(229, 72, 77, 0.45) 100%);
       border-radius: 4px;
     }
     .balance-marker {
@@ -245,7 +245,7 @@
       transform: translate(-50%, -50%);
       width: 22px; height: 22px; border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(140, 107, 47, 0.2), 0 6px 18px rgba(140, 107, 47, 0.35);
+      box-shadow: 0 0 0 4px rgba(46, 127, 194, 0.2), 0 6px 18px rgba(46, 127, 194, 0.35);
       animation: drift 5s ease-in-out infinite;
     }
     @keyframes drift {
@@ -285,7 +285,7 @@
       margin: 64px auto 0;
       max-width: 780px;
       padding: 40px 36px;
-      background: linear-gradient(135deg, rgba(140,107,47,0.10), rgba(111,168,220,0.06));
+      background: linear-gradient(135deg, rgba(46,127,194,0.10), rgba(111,168,220,0.06));
       border: 1px solid var(--rule);
       border-radius: 3px;
     }

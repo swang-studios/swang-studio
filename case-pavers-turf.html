@@ -12,14 +12,14 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ink: #1a1408;
-      --ink-2: #3a2d17;
-      --muted: #6a5a3c;
-      --cream: #f6efdf;
-      --cream-2: #fbf7ec;
-      --cream-3: #efe7d0;
-      --clay: #c7a97a;
-      --espresso: #5c4a2a;
+      --ink: #0b0e14;
+      --ink-2: #1a1f2b;
+      --muted: #5a6472;
+      --cream: #f5f8fc;
+      --cream-2: #ffffff;
+      --cream-3: #eef3f9;
+      --clay: #c8dbef;
+      --espresso: #2E7FC2;
       /* Apr 19 PM2: cold-yellow wash retired in favor of pure blue translucent.
          Old cold-yellow vars aliased to the new blue so any stragglers still resolve. */
       --blue-1: rgba(111, 168, 220, 0.18);  /* #6FA8DC @ 18% — headline highlight washes */
@@ -28,11 +28,11 @@
       --cold-yellow: var(--blue-2);
       --cold-yellow-2: var(--blue-1);
       --cold-yellow-3: var(--blue-2);
-      --accent: #8c6b2f;
-      --accent-2: #a0814a;
-      --rule: #d9c9a3;
-      --win: #6b8250;
-      --loss: #c18585;
+      --accent: #2E7FC2;
+      --accent-2: #2E7FC2;
+      --rule: #dbe4ef;
+      --win: #6ABE4F;
+      --loss: #E5484D;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -45,10 +45,10 @@
     body::before {
       content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
-        radial-gradient(ellipse at 18% 22%, #f6efdf 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #e9dcb8 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, #fbf7ec 0%, transparent 70%),
-        linear-gradient(135deg, #f6efdf, #ece0bd 45%, #e4d4a8 70%, #d8c28a);
+        radial-gradient(ellipse at 18% 22%, #f5f8fc 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #dbe4ef 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #ffffff 0%, transparent 70%),
+        linear-gradient(135deg, #f5f8fc, #dbe4ef 45%, #c8dbef 70%, #9FD4F5);
       background-size: 180% 180%;
       animation: lavaDrift 120s ease-in-out infinite alternate;
       pointer-events: none;
@@ -64,10 +64,10 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 18px 44px;
-      background: rgba(246, 239, 223, 0.55);
+      background: rgba(245, 248, 252, 0.55);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom: 1px solid rgba(217, 201, 163, 0.45);
+      border-bottom: 1px solid rgba(219, 228, 239, 0.45);
     }
     nav::before {
       content: ''; position: absolute; left: 0; right: 0; top: 0;
@@ -122,7 +122,7 @@
     .cs-hero {
       margin-top: 44px; border-radius: 4px; overflow: hidden;
       background: var(--cream-3); aspect-ratio: 16/9;
-      box-shadow: 0 30px 80px rgba(60, 40, 10, 0.18), inset 0 0 0 1px rgba(255,255,255,0.4);
+      box-shadow: 0 30px 80px rgba(11, 14, 20, 0.18), inset 0 0 0 1px rgba(255,255,255,0.4);
     }
     .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -133,7 +133,7 @@
     .ba-chip {
       padding: 22px 24px; border-radius: 4px;
       background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(217, 201, 163, 0.6);
+      border: 1px solid rgba(219, 228, 239, 0.6);
       backdrop-filter: blur(4px);
     }
     .ba-chip .ba-tag {
@@ -158,13 +158,13 @@
     .metric {
       padding: 26px 22px; border-radius: 4px;
       background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(217, 201, 163, 0.55);
+      border: 1px solid rgba(219, 228, 239, 0.55);
       transition: border-color 0.25s, transform 0.25s, background 0.25s;
       position: relative; overflow: hidden;
     }
     .metric::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(246, 241, 196, 0.0), rgba(246, 241, 196, 0.35));
+      background: linear-gradient(135deg, rgba(245, 248, 252, 0.0), rgba(245, 248, 252, 0.35));
       opacity: 0; transition: opacity 0.3s;
       pointer-events: none;
     }
@@ -191,8 +191,8 @@
     .chart-card {
       margin: 56px 0 0; padding: 36px 32px; border-radius: 4px;
       background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(217, 201, 163, 0.55);
-      box-shadow: 0 24px 60px rgba(60, 40, 10, 0.10);
+      border: 1px solid rgba(219, 228, 239, 0.55);
+      box-shadow: 0 24px 60px rgba(11, 14, 20, 0.10);
     }
     .chart-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
     .chart-head .label {
@@ -215,7 +215,7 @@
     .chart-tab {
       font-family: inherit; font-size: 10.5px; font-weight: 700;
       letter-spacing: 0.16em; text-transform: uppercase;
-      padding: 8px 14px; border: 1px solid rgba(140, 107, 47, 0.22);
+      padding: 8px 14px; border: 1px solid rgba(46, 127, 194, 0.22);
       border-radius: 2px; background: rgba(255,255,255,0.6); color: var(--espresso);
       cursor: pointer; transition: all 0.2s;
     }
@@ -226,7 +226,7 @@
     .chart-canvas-wrap {
       margin-top: 28px; position: relative;
       height: 320px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(246,239,223,0.0));
+      background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(245,248,252,0.0));
       border-radius: 3px;
       padding: 10px 4px 4px;
     }
@@ -236,8 +236,8 @@
     }
     .chart-foot .foot-cell {
       padding: 12px 14px; border-radius: 3px;
-      background: rgba(246, 241, 196, 0.35);
-      border: 1px solid rgba(217, 201, 163, 0.45);
+      background: rgba(245, 248, 252, 0.35);
+      border: 1px solid rgba(219, 228, 239, 0.45);
     }
     .chart-foot .foot-val {
       font-size: 18px; font-weight: 700; color: var(--ink);
@@ -252,7 +252,7 @@
     .demo-card {
       margin: 22px 0 0; padding: 32px; border-radius: 4px;
       background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(217, 201, 163, 0.55);
+      border: 1px solid rgba(219, 228, 239, 0.55);
     }
     .demo-card .label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -273,7 +273,7 @@
     .loop-section {
       margin: 56px 0 0; padding: 40px 36px; border-radius: 4px;
       background: rgba(255,255,255,0.65);
-      border: 1px solid rgba(217, 201, 163, 0.55);
+      border: 1px solid rgba(219, 228, 239, 0.55);
     }
     .loop-section .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -296,7 +296,7 @@
     .node {
       padding: 18px 14px; text-align: center;
       background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(217, 201, 163, 0.5);
+      border: 1px solid rgba(219, 228, 239, 0.5);
       border-radius: 3px;
       transition: border-color 0.25s, transform 0.25s;
     }
@@ -343,7 +343,7 @@
     .compare-col {
       padding: 26px 24px; border-radius: 4px;
       background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(217, 201, 163, 0.55);
+      border: 1px solid rgba(219, 228, 239, 0.55);
       transition: transform 0.25s;
     }
     .compare-col:hover { transform: translateY(-3px); }
@@ -392,7 +392,7 @@
     }
     .ig-wrap {
       margin-top: 22px; background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(217, 201, 163, 0.55);
+      border: 1px solid rgba(219, 228, 239, 0.55);
       border-radius: 4px; overflow: hidden; max-width: 380px;
     }
     .ig-wrap iframe { width: 100%; height: 560px; border: none; display: block; }
@@ -400,21 +400,21 @@
     /* Ad Library link card */
     .ad-library-cta {
       display: block; margin-top: 22px; padding: 22px 26px;
-      background: linear-gradient(135deg, rgba(232, 111, 42, 0.08), rgba(184, 138, 92, 0.06));
-      border: 1px solid rgba(232, 111, 42, 0.35);
+      background: linear-gradient(135deg, rgba(46, 127, 194, 0.08), rgba(90, 100, 114, 0.06));
+      border: 1px solid rgba(46, 127, 194, 0.35);
       border-radius: 4px; text-decoration: none; color: inherit;
       max-width: 560px;
       transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
     }
     .ad-library-cta:hover {
-      border-color: rgba(232, 111, 42, 0.7);
+      border-color: rgba(46, 127, 194, 0.7);
       transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(90, 50, 20, 0.1);
+      box-shadow: 0 10px 28px rgba(11, 14, 20, 0.1);
     }
     .ad-library-label {
       display: block; font-size: 10px; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: #e86f2a;
+      color: #2E7FC2;
     }
     .ad-library-title {
       display: block; margin-top: 8px;
@@ -445,18 +445,18 @@
     }
     .ad-card {
       background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(217, 201, 163, 0.6);
+      border: 1px solid rgba(219, 228, 239, 0.6);
       border-radius: 6px; overflow: hidden;
       display: flex; flex-direction: column;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .ad-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(90, 50, 20, 0.12);
+      box-shadow: 0 14px 34px rgba(11, 14, 20, 0.12);
     }
     .ad-card .ad-media {
       aspect-ratio: 9 / 16;
-      background: #1a1408;
+      background: #0b0e14;
       overflow: hidden; position: relative;
     }
     .ad-card .ad-media iframe,
@@ -475,7 +475,7 @@
       padding: 4px 9px; border-radius: 999px;
       font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
       text-transform: uppercase; color: #fff;
-      background: rgba(232, 111, 42, 0.9);
+      background: rgba(46, 127, 194, 0.9);
     }
 
     /* Live-look sticky popup */
@@ -483,8 +483,8 @@
       position: fixed;
       right: 20px; bottom: 20px;
       width: 220px;
-      background: #1a1408;
-      border: 1px solid rgba(232, 111, 42, 0.45);
+      background: #0b0e14;
+      border: 1px solid rgba(46, 127, 194, 0.45);
       border-radius: 6px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.3);
       overflow: hidden;
@@ -496,7 +496,7 @@
     .live-look .ll-strip {
       display: flex; align-items: center; justify-content: space-between;
       padding: 7px 10px 6px;
-      background: linear-gradient(90deg, #e86f2a, #b88a5c);
+      background: linear-gradient(90deg, #2E7FC2, #5a6472);
     }
     .live-look .ll-strip .ll-live {
       font-size: 9px; font-weight: 800; letter-spacing: 0.16em;
@@ -527,7 +527,7 @@
       display: flex; justify-content: space-between; align-items: center; gap: 8px;
     }
     .live-look .ll-foot a {
-      font-size: 10px; font-weight: 700; color: #e86f2a; text-decoration: none;
+      font-size: 10px; font-weight: 700; color: #2E7FC2; text-decoration: none;
       letter-spacing: 0.08em; text-transform: uppercase;
     }
     .live-look .ll-foot a:hover { text-decoration: underline; }
@@ -547,13 +547,13 @@
     .platform-list a {
       display: flex; justify-content: space-between; align-items: center;
       padding: 14px 18px; text-decoration: none; color: var(--ink);
-      border: 1px solid rgba(217, 201, 163, 0.55);
+      border: 1px solid rgba(219, 228, 239, 0.55);
       background: rgba(255,255,255,0.55);
       border-radius: 3px;
       transition: border-color 0.2s, background 0.2s, transform 0.2s;
     }
     .platform-list a:hover {
-      border-color: var(--accent); background: rgba(246, 241, 196, 0.4);
+      border-color: var(--accent); background: rgba(245, 248, 252, 0.4);
       transform: translateX(3px);
     }
     .platform-list strong { font-size: 13.5px; font-weight: 700; display: block; }
@@ -572,24 +572,24 @@
       align-items: center; gap: 16px;
       padding: 12px 16px; border-radius: 3px;
       background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(217, 201, 163, 0.5);
+      border: 1px solid rgba(219, 228, 239, 0.5);
       transition: border-color 0.2s, transform 0.2s;
     }
     .ad-row:hover { border-color: var(--accent); transform: translateX(2px); }
-    .ad-row.top-ad { border-left: 3px solid var(--win); background: rgba(246, 241, 196, 0.45); }
+    .ad-row.top-ad { border-left: 3px solid var(--win); background: rgba(245, 248, 252, 0.45); }
     .ad-name { font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; }
     .ad-name .ad-badge {
       display: inline-block; margin-left: 6px; padding: 2px 7px;
       font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--cream-2); background: var(--ink); border-radius: 2px; vertical-align: 2px;
     }
-    .ad-bar-wrap { height: 10px; background: rgba(140, 107, 47, 0.10); border-radius: 5px; overflow: hidden; }
+    .ad-bar-wrap { height: 10px; background: rgba(46, 127, 194, 0.10); border-radius: 5px; overflow: hidden; }
     .ad-fill {
       height: 100%; border-radius: 5px; width: 0;
-      background: linear-gradient(90deg, var(--accent), #b7893d);
+      background: linear-gradient(90deg, var(--accent), #2E7FC2);
       transition: width 1.3s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
-    .ad-row.top-ad .ad-fill { background: linear-gradient(90deg, #5c7a42, #7b9a5e); }
+    .ad-row.top-ad .ad-fill { background: linear-gradient(90deg, #6ABE4F, #6ABE4F); }
     .ad-stats {
       text-align: right; font-size: 11.5px; color: var(--muted);
       font-variant-numeric: tabular-nums;
@@ -603,8 +603,8 @@
     /* CALLOUT */
     .cs-callout {
       margin: 48px 0 0; padding: 30px 34px; border-radius: 4px;
-      border: 1px solid rgba(140, 107, 47, 0.25);
-      background: linear-gradient(135deg, rgba(246, 241, 196, 0.6), rgba(255, 255, 255, 0.35));
+      border: 1px solid rgba(46, 127, 194, 0.25);
+      background: linear-gradient(135deg, rgba(245, 248, 252, 0.6), rgba(255, 255, 255, 0.35));
       max-width: 860px;
     }
     .cs-callout strong {
@@ -619,9 +619,9 @@
     footer {
       margin-top: 80px; padding: 44px;
       display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(217, 201, 163, 0.5);
+      border-top: 1px solid rgba(219, 228, 239, 0.5);
       flex-wrap: wrap; gap: 20px;
-      background: rgba(246, 239, 223, 0.4);
+      background: rgba(245, 248, 252, 0.4);
     }
     footer .back {
       font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
@@ -785,7 +785,7 @@
       </a>
       <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
         <div class="ad-media">
-          <img src="aerial-backyard.jpg" alt="Backyard turf install aerial" />
+          <img src="design3.jpg" alt="Backyard turf install aerial" />
         </div>
         <div class="ad-meta">
           <span class="n">Backyard turf · drone pass</span>
@@ -932,11 +932,11 @@
     },
   };
 
-  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#8c6b2f';
-  const ink    = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()    || '#1a1408';
-  const muted  = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim()  || '#6a5a3c';
-  const cream  = getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()  || '#f6efdf';
-  const win    = getComputedStyle(document.documentElement).getPropertyValue('--win').trim()    || '#5c7a42';
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2E7FC2';
+  const ink    = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()    || '#0b0e14';
+  const muted  = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim()  || '#5a6472';
+  const cream  = getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()  || '#f5f8fc';
+  const win    = getComputedStyle(document.documentElement).getPropertyValue('--win').trim()    || '#6ABE4F';
 
   const ctx = document.getElementById('pto-chart').getContext('2d');
 
@@ -948,10 +948,10 @@
       if (!chartArea) return;
       const xScale = scales.x;
       g.save();
-      g.strokeStyle = 'rgba(140, 107, 47, 0.55)';
+      g.strokeStyle = 'rgba(46, 127, 194, 0.55)';
       g.lineWidth = 1.25;
       g.setLineDash([5, 4]);
-      g.fillStyle = 'rgba(26, 20, 8, 0.85)';
+      g.fillStyle = 'rgba(11, 14, 20, 0.85)';
       g.font = '700 9.5px "Space Grotesk", sans-serif';
       refreshIdx.forEach((idx, i) => {
         const px = xScale.getPixelForValue(idx);
@@ -979,7 +979,7 @@
     const s = series[key];
     if (chart) chart.destroy();
     const isLine = s.type === 'line';
-    const baseColor = key === 'cpa' ? 'rgba(92, 122, 66, 1)' : 'rgba(140, 107, 47, 1)';
+    const baseColor = key === 'cpa' ? 'rgba(106, 190, 79, 1)' : 'rgba(46, 127, 194, 1)';
     const dataset = {
       label: s.label,
       data: s.data,
@@ -996,8 +996,8 @@
       dataset.pointRadius = 4;
       dataset.pointHoverRadius = 7;
     } else {
-      dataset.backgroundColor = 'rgba(140, 107, 47, 0.58)';
-      dataset.hoverBackgroundColor = 'rgba(140, 107, 47, 0.88)';
+      dataset.backgroundColor = 'rgba(46, 127, 194, 0.58)';
+      dataset.hoverBackgroundColor = 'rgba(46, 127, 194, 0.88)';
       dataset.borderRadius = 4;
       dataset.borderSkipped = false;
     }
@@ -1032,7 +1032,7 @@
           },
           y: {
             beginAtZero: true,
-            grid: { color: 'rgba(140, 107, 47, 0.10)' },
+            grid: { color: 'rgba(46, 127, 194, 0.10)' },
             ticks: {
               color: muted,
               font: { family: 'Space Grotesk', size: 11 },
