@@ -285,14 +285,20 @@
       text-transform: uppercase; color: rgba(11, 14, 20, 0.5);
     }
 
-    /* MASONRY GALLERY — CSS multi-column flow. Every photo displays at
-       its native aspect ratio; vertical packing is tight; size variety
-       comes from each image's natural proportions instead of cropping. */
+    /* PUZZLE MASONRY — CSS Grid with JS-driven row spans. Each image
+       keeps its natural aspect ratio (no cropping); selected tiles span
+       2 columns (.wide/.feature) to break the column rhythm so the page
+       reads as a puzzle, not a stack of strict columns. Row spans are
+       computed by JS once each image has loaded, so height always
+       matches the image's intrinsic proportions. */
     .g-grid {
       max-width: 1400px; margin: 32px auto 72px;
       padding: 0 12px;
-      column-count: 4;
-      column-gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-auto-rows: 8px;
+      grid-auto-flow: dense;
+      gap: 12px;
     }
     /* Unused now — mosaic labels were removed. Kept as a no-op in case
        an old section label sneaks back in. */
@@ -300,17 +306,14 @@
 
     .g-item {
       display: block;
-      width: 100%;
-      margin: 0 0 12px;
-      break-inside: avoid;
-      -webkit-column-break-inside: avoid;
-      page-break-inside: avoid;
       overflow: hidden;
       background: var(--page-bg-2);
       position: relative; cursor: pointer;
       border-radius: 3px;
       border: 1px solid rgba(11, 14, 20, 0.08);
       box-shadow: 0 4px 14px rgba(11, 14, 20, 0.10);
+      /* default row span — JS overwrites on image load */
+      grid-row: span 28;
       /* piano-tile rise/fall — sharp rise, soft settle */
       transition: transform 0.42s cubic-bezier(.18,.9,.24,1.05),
                   box-shadow 0.42s cubic-bezier(.18,.9,.24,1.05),
@@ -327,17 +330,20 @@
       z-index: 2;
     }
     .g-item img {
-      /* Natural aspect: width fills the column; height grows from the
+      /* Natural aspect: width fills the cell; height grows from the
          image's own ratio. No cover-cropping. */
       width: 100%; height: auto; display: block;
       transition: transform 0.7s cubic-bezier(.2,.8,.2,1), filter 0.45s ease;
     }
     .g-item:hover img { transform: scale(1.035); filter: saturate(1.05) brightness(1.02); }
 
-    /* Sizing modifiers are now visual accents, not grid spans. A "feature"
-       gets a stronger border & subtle drop-lift so it reads as the anchor
-       in its run; "wide" and "tall" are dormant in masonry mode (natural
-       aspect already carries orientation). */
+    /* Span modifiers — the puzzle glue. Feature + wide tiles straddle
+       two columns; tall still spans 1 col but gets extra vertical weight
+       via natural aspect. These jostle the grid out of strict columns. */
+    .g-item.wide,
+    .g-item.feature {
+      grid-column: span 2;
+    }
     .g-item.feature {
       border-color: var(--ice-line);
       box-shadow: 0 8px 22px rgba(46, 127, 194, 0.18), 0 2px 6px rgba(11, 14, 20, 0.10);
@@ -439,12 +445,12 @@
     footer .f-contact a:hover { color: var(--ice); }
     footer .f-copy { font-size: 11px; color: var(--cream-dim); }
 
-    /* RESPONSIVE — masonry adapts by dropping column count. Every photo
-       still shows at its natural aspect ratio; narrower columns just
-       mean each image renders bigger. Mobile-first mindset: 1 column on
-       phones, 2 on small tablets, 3 on big tablets, 4 on desktop. */
+    /* RESPONSIVE — grid auto-fills at min 240px desktop, 200px tablet,
+       170px small tablet, full-bleed single col on phones. Wide/feature
+       span-2 tiles collapse to 1 col on small screens so nothing
+       spills or breaks. */
     @media (max-width: 1100px) {
-      .g-grid { column-count: 3; }
+      .g-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
     }
     @media (max-width: 820px) {
       nav { padding: 14px 20px; }
@@ -460,28 +466,27 @@
       .g-tabs::-webkit-scrollbar { display: none; }
       .g-tab { white-space: nowrap; flex-shrink: 0; padding: 9px 14px; font-size: 10px; }
       .g-grid {
-        column-count: 2;
-        column-gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 8px;
         padding: 0 8px; margin-top: 16px;
       }
-      .g-item { margin-bottom: 8px; }
       .g-outro { margin: 32px 20px 64px; padding: 32px 22px; }
       footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 560px) {
-      .g-grid { column-gap: 6px; padding: 0 6px; }
-      .g-item { margin-bottom: 6px; }
+      .g-grid { gap: 6px; padding: 0 6px; grid-template-columns: repeat(2, 1fr); }
+      .g-item.wide, .g-item.feature { grid-column: span 2; }
     }
     @media (max-width: 440px) {
       .g-head { padding: 100px 18px 20px; }
       .g-title { font-size: clamp(32px, 9vw, 44px); }
       .g-sub { font-size: 14px; }
       .g-grid {
-        column-count: 1;
-        column-gap: 0;
+        grid-template-columns: 1fr;
+        gap: 10px;
         padding: 0 14px;
       }
-      .g-item { margin-bottom: 10px; }
+      .g-item.wide, .g-item.feature { grid-column: span 1; }
       .lb { padding: 16px; }
       .lb-close { top: 14px; right: 14px; width: 38px; height: 38px; }
       .lb-prev  { left: 8px;  width: 38px; height: 38px; }
@@ -543,63 +548,46 @@
 
 <main class="g-grid" id="gGrid">
   <!-- ======================================================== -->
-  <!-- Arranged by project — no labels. Within each project     -->
-  <!-- the sizes mix (feature / wide / tall / portrait-auto)     -->
-  <!-- so the grid reads as a unified mosaic, not a checkerboard -->
+  <!-- Arranged so the strongest photo groups LEAD the gallery.  -->
+  <!-- Top half = pure visuals, no copy on the frame. Bottom     -->
+  <!-- half = anything with words (banners, thumbs, editorial,   -->
+  <!-- mailers, brand, design concepts). feature/wide tiles are  -->
+  <!-- sprinkled to break strict columns into a puzzle feel.     -->
   <!-- ======================================================== -->
 
-  <!-- ============ PROJECT: Modern home with putting green ============ -->
-  <!-- Same property, multiple passes: overall aerial → putting green
-       aerials → ground-level stepping stones → flagstick detail. -->
+  <!-- ============ #1 HEAVY HITTER: Modern home + putting green (aerial signature) ============ -->
   <div class="g-item feature" data-cat="landscape"><img src="aerial-backyard.jpg" alt="Aerial backyard, patio + turf" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="design3.jpg" alt="Aerial backyard with palm and pavers" loading="lazy" /></div>
-  <div class="g-item tall" data-cat="landscape"><img src="vert-homepage-1.png" alt="Cast iron flagstick on a tight pin" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="vert-homepage-1.png" alt="Cast iron flagstick on a tight pin" loading="lazy" /></div>
   <div class="g-item wide" data-cat="landscape"><img src="putting-green-aerial.jpg" alt="Aerial putting green with white-sand bunkers" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="pgreen6.jpg" alt="Aerial putting green, rock border" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="pgreen5.jpg" alt="Putting green with fence border" loading="lazy" /></div>
   <div class="g-item wide" data-cat="landscape"><img src="putting-green-sand.jpg" alt="Putting green edge with sand bunker" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo3.jpg" alt="Stepping stones across lawn" loading="lazy" /></div>
 
-  <!-- ============ PROJECT: Paver + turf install ============ -->
-  <!-- Paver driveway & turf job — ground-level stills + two vertical
-       detail crops. -->
+  <!-- ============ #2 HEAVY HITTER: Paver + turf installs ============ -->
   <div class="g-item wide" data-cat="landscape"><img src="photo41.jpg" alt="Paver + turf composition" loading="lazy" /></div>
-  <div class="g-item tall" data-cat="landscape"><img src="portrait1.jpg" alt="Paver detail, vertical crop" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="portrait1.jpg" alt="Paver detail, vertical crop" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo2.jpg" alt="Landscape ground-level frame" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo20.jpg" alt="Paver grid detail" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="pavers.jpg" alt="Paver installation, ground level" loading="lazy" /></div>
-  <div class="g-item tall" data-cat="landscape"><img src="portrait2.jpg" alt="Vertical landscape detail" loading="lazy" /></div>
+  <div class="g-item" data-cat="landscape"><img src="portrait2.jpg" alt="Vertical landscape detail" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="photo1b.jpg" alt="Landscape detail" loading="lazy" /></div>
 
-  <!-- ============ PROJECT: Property hero banners ============ -->
-  <!-- Marketing banners sized for property promo. -->
-  <div class="g-item wide" data-cat="landscape"><img src="hero-banner-3.png" alt="Property hero banner still" loading="lazy" /></div>
-  <div class="g-item wide" data-cat="landscape"><img src="hero-banner-1.png" alt="Property hero banner still" loading="lazy" /></div>
-  <div class="g-item wide" data-cat="landscape"><img src="hero-banner-6.png" alt="Property hero banner still" loading="lazy" /></div>
-
-  <!-- ============ PROJECT: Automotive ============ -->
-  <!-- BMW on the coast, M5 frames, Rolls Royce detail. -->
+  <!-- ============ #3 HEAVY HITTER: Automotive (all together) ============ -->
+  <!-- BMW coast feature → M5 pair → Rolls Royce detail. Full auto block
+       in one contiguous run per Mason's ask. -->
   <div class="g-item feature" data-cat="misc"><img src="bmw.jpg" alt="BMW on the coast, overcast" loading="lazy" /></div>
   <div class="g-item wide" data-cat="misc"><img src="m5-horizontal-1.png" alt="BMW M5, horizontal frame 1" loading="lazy" /></div>
   <div class="g-item wide" data-cat="misc"><img src="m5-horizontal-2.png" alt="BMW M5, horizontal frame 2" loading="lazy" /></div>
   <div class="g-item" data-cat="misc"><img src="rollsroyce.png" alt="Rolls Royce Spirit of Ecstasy, close-up" loading="lazy" /></div>
 
-  <!-- ============ PROJECT: Music, events, creator cuts ============ -->
-  <!-- Concerts (band shot + from the water), church interior,
-       creator cuts for Noah. -->
+  <!-- ============ #4: Live music + architecture (concerts, church) ============ -->
   <div class="g-item feature" data-cat="misc"><img src="church-interior.png" alt="Church interior, architectural" loading="lazy" /></div>
   <div class="g-item wide" data-cat="misc"><img src="concert-band.png" alt="Concert, band shot" loading="lazy" /></div>
   <div class="g-item wide" data-cat="misc"><img src="concert-boat.png" alt="Concert, from the water" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="noah-thumb-5.png" alt="Creator cut, frame 5" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="noah-thumb-11.png" alt="Creator cut, frame 11" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="noah-thumb-12.png" alt="Creator cut, frame 12" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="noah-thumb-13.png" alt="Creator cut, frame 13" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="noah-thumb-14.png" alt="Creator cut, frame 14" loading="lazy" /></div>
-  <div class="g-item" data-cat="misc"><img src="noah-thumb-15.png" alt="Creator cut, frame 15" loading="lazy" /></div>
 
-  <!-- ============ PROJECT: Matt Pingatore editorial ============ -->
-  <!-- 8 horizontals + 1 vertical — anchor with a feature, let the
-       vertical break up the horizontal run. -->
+  <!-- ============ #5: Matt Pingatore editorial ============ -->
   <div class="g-item feature" data-cat="landscape"><img src="matt-pingatore-h-1.jpg" alt="Matt Pingatore, horizontal frame 1" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="matt-pingatore-v.jpg" alt="Matt Pingatore, vertical frame" loading="lazy" /></div>
   <div class="g-item" data-cat="landscape"><img src="matt-pingatore-h-2.jpg" alt="Matt Pingatore, horizontal frame 2" loading="lazy" /></div>
@@ -610,10 +598,30 @@
   <div class="g-item" data-cat="landscape"><img src="matt-pingatore-h-7.jpg" alt="Matt Pingatore, horizontal frame 7" loading="lazy" /></div>
   <div class="g-item wide" data-cat="landscape"><img src="matt-pingatore-h-8.jpg" alt="Matt Pingatore, horizontal frame 8" loading="lazy" /></div>
 
-  <!-- ============ PROJECT: Marisol Gym — vertical fitness set ============ -->
+  <!-- ============ #6: Marisol Gym — vertical fitness set ============ -->
   <div class="g-item" data-cat="portrait"><img src="marisol-gym-v-1.jpg" alt="Marisol Gym, vertical frame 1" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="marisol-gym-v-2.jpg" alt="Marisol Gym, vertical frame 2" loading="lazy" /></div>
   <div class="g-item" data-cat="portrait"><img src="marisol-gym-v-3.jpg" alt="Marisol Gym, vertical frame 3" loading="lazy" /></div>
+
+  <!-- ======================================================== -->
+  <!-- BELOW THE LINE: anything with words on it (property promo -->
+  <!-- banners, creator thumbs, editorial layouts, mailers,      -->
+  <!-- brand collateral, design concepts). Logo carousel tile    -->
+  <!-- was removed entirely per Mason's request.                 -->
+  <!-- ======================================================== -->
+
+  <!-- Property hero banners (Before/After marketing copy) -->
+  <div class="g-item wide" data-cat="print"><img src="hero-banner-3.png" alt="Property hero banner still" loading="lazy" /></div>
+  <div class="g-item wide" data-cat="print"><img src="hero-banner-1.png" alt="Property hero banner still" loading="lazy" /></div>
+  <div class="g-item wide" data-cat="print"><img src="hero-banner-6.png" alt="Property hero banner still" loading="lazy" /></div>
+
+  <!-- Creator cuts — clickbait thumbs for Noah (text hooks on every frame) -->
+  <div class="g-item" data-cat="print"><img src="noah-thumb-5.png" alt="Creator cut, frame 5" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="noah-thumb-11.png" alt="Creator cut, frame 11" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="noah-thumb-12.png" alt="Creator cut, frame 12" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="noah-thumb-13.png" alt="Creator cut, frame 13" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="noah-thumb-14.png" alt="Creator cut, frame 14" loading="lazy" /></div>
+  <div class="g-item" data-cat="print"><img src="noah-thumb-15.png" alt="Creator cut, frame 15" loading="lazy" /></div>
 
   <!-- ============ PROJECT: Jan/Feb editorial (full shelf, H+V interleaved) ============ -->
   <!-- Jan/Feb editorial horizontals (Apr 20 imports — full shelf) -->
@@ -715,8 +723,8 @@
   <div class="g-item" data-cat="print"><img src="brand-v2-9.png" alt="Brand campaign, frame 9" loading="lazy" /></div>
   <div class="g-item" data-cat="print"><img src="brand-v2-10.png" alt="Brand campaign, frame 10" loading="lazy" /></div>
 
-  <!-- Logos -->
-  <div class="g-item" data-cat="print"><img src="logo-carousel-2.png" alt="Logo carousel slide" loading="lazy" /></div>
+  <!-- (Logo carousel tile removed per Mason's request — no white-background
+       logo tiles in the gallery feed.) -->
 
   <!-- Editorial stills -->
   <div class="g-item wide" data-cat="print"><img src="editorial-ss-1.png" alt="Editorial still, frame 1" loading="lazy" /></div>
@@ -761,6 +769,49 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   const items = Array.from(document.querySelectorAll('.g-item'));
+
+  // ===== PUZZLE MASONRY — compute grid-row span per tile =====
+  // CSS Grid uses auto-rows: 8px + gap: 12px. Each tile's total vertical
+  // footprint is: (rows * 8) + ((rows - 1) * 12). Solve for rows given
+  // the image's rendered pixel height after it has loaded.
+  const ROW_H = 8;   // matches --grid-auto-rows
+  const ROW_GAP = 12;// matches --grid gap
+  function setRowSpan(item) {
+    const img = item.querySelector('img');
+    if (!img) return;
+    // Image needs a known height — fall back to natural ratio if rendered
+    // dimensions aren't yet settled (e.g., still loading).
+    let h = img.getBoundingClientRect().height;
+    if (!h && img.naturalWidth && img.naturalHeight) {
+      const w = item.getBoundingClientRect().width;
+      h = w * (img.naturalHeight / img.naturalWidth);
+    }
+    if (!h) return;
+    const rows = Math.ceil((h + ROW_GAP) / (ROW_H + ROW_GAP));
+    item.style.gridRow = 'span ' + rows;
+  }
+  function recomputeAll() {
+    items.forEach(setRowSpan);
+  }
+  // Run on load for each image (some will already be cached).
+  items.forEach(item => {
+    const img = item.querySelector('img');
+    if (!img) return;
+    if (img.complete && img.naturalHeight !== 0) {
+      setRowSpan(item);
+    } else {
+      img.addEventListener('load',  () => setRowSpan(item));
+      img.addEventListener('error', () => setRowSpan(item));
+    }
+  });
+  // Window resize → column width changes → row counts change.
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(recomputeAll, 120);
+  });
+  // Safety pass after full page load in case any image slipped through.
+  window.addEventListener('load', recomputeAll);
 
   // Lightbox
   const lb = document.getElementById('lb');
