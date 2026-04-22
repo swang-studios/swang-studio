@@ -772,45 +772,61 @@
 
   // ===== PUZZLE MASONRY — compute grid-row span per tile =====
   // CSS Grid uses auto-rows: 8px + gap: 12px. Each tile's total vertical
-  // footprint is: (rows * 8) + ((rows - 1) * 12). Solve for rows given
-  // the image's rendered pixel height after it has loaded.
-  const ROW_H = 8;   // matches --grid-auto-rows
-  const ROW_GAP = 12;// matches --grid gap
-  function setRowSpan(item) {
-    const img = item.querySelector('img');
-    if (!img) return;
-    // Image needs a known height — fall back to natural ratio if rendered
-    // dimensions aren't yet settled (e.g., still loading).
-    let h = img.getBoundingClientRect().height;
-    if (!h && img.naturalWidth && img.naturalHeight) {
-      const w = item.getBoundingClientRect().width;
-      h = w * (img.naturalHeight / img.naturalWidth);
-    }
-    if (!h) return;
+  // footprint is: (rows * 8) + ((rows - 1) * 12). We compute the right
+  // span from the image's aspect ratio so the tile matches the photo
+  // exactly (no cropping, no whitespace under the image).
+  //
+  // Critical detail: the DOM imgs have loading="lazy" so their own
+  // `load` event doesn't fire until they scroll into view. We therefore
+  // kick off an in-memory Image() per tile that loads the same src
+  // eagerly — we only need naturalWidth/naturalHeight, not the pixels.
+  const ROW_H = 8;
+  const ROW_GAP = 12;
+  const ratioCache = new Map();   // src → h/w ratio (once known)
+
+  function applySpan(item, ratio) {
+    const w = item.getBoundingClientRect().width;
+    if (!w || !ratio) return;
+    const h = w * ratio;
     const rows = Math.ceil((h + ROW_GAP) / (ROW_H + ROW_GAP));
     item.style.gridRow = 'span ' + rows;
   }
-  function recomputeAll() {
-    items.forEach(setRowSpan);
+  function ensureRatio(src, onReady) {
+    if (ratioCache.has(src)) { onReady(ratioCache.get(src)); return; }
+    const probe = new Image();
+    probe.onload = () => {
+      if (probe.naturalWidth && probe.naturalHeight) {
+        const r = probe.naturalHeight / probe.naturalWidth;
+        ratioCache.set(src, r);
+        onReady(r);
+      }
+    };
+    probe.onerror = () => onReady(null);
+    probe.src = src;
   }
-  // Run on load for each image (some will already be cached).
-  items.forEach(item => {
+  function measureTile(item) {
     const img = item.querySelector('img');
     if (!img) return;
-    if (img.complete && img.naturalHeight !== 0) {
-      setRowSpan(item);
-    } else {
-      img.addEventListener('load',  () => setRowSpan(item));
-      img.addEventListener('error', () => setRowSpan(item));
-    }
-  });
-  // Window resize → column width changes → row counts change.
+    const src = img.getAttribute('src');
+    ensureRatio(src, (ratio) => ratio && applySpan(item, ratio));
+  }
+  function recomputeAll() {
+    items.forEach(item => {
+      const img = item.querySelector('img');
+      if (!img) return;
+      const r = ratioCache.get(img.getAttribute('src'));
+      if (r) applySpan(item, r); else measureTile(item);
+    });
+  }
+  // Kick off measurement for every tile immediately.
+  items.forEach(measureTile);
+  // Recompute on resize (column width changes).
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(recomputeAll, 120);
   });
-  // Safety pass after full page load in case any image slipped through.
+  // Safety pass once page fully loaded.
   window.addEventListener('load', recomputeAll);
 
   // Lightbox
