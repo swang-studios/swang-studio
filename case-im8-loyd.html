@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swang. | Creative Growth — IM8 × Jewell Loyd</title>
+  <title>swang. | Creative Growth, IM8 × Jewell Loyd</title>
   <meta name="description" content="Case study: collaboration content for Jewell Loyd (1.3M audience) with IM8. Entertaining, brand-safe, built to fit the athlete's page." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +11,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      /* Cream / earth palette — matches case-pavers-turf + case-studies */
+      /* Cream / earth palette, matches case-pavers-turf + case-studies */
       --ink: #0b0e14;
       --ink-2: #1a1f2b;
       --muted: #5a6472;
@@ -92,7 +92,7 @@
     }
     .cs-crumb:hover { color: var(--ink); }
 
-    /* IM8 HERO HEADER — cream cream-on-cream hero with a centered espresso band so the logo still pops */
+    /* IM8 HERO HEADER, cream cream-on-cream hero with a centered espresso band so the logo still pops */
     .im8-hero {
       margin-top: 8px;
       padding: 68px 40px;
@@ -323,23 +323,87 @@
       .intent { padding: 32px 24px; }
       footer { padding: 36px 24px; }
     }
+  
+    /* Frozone After Hours toggle (mirrors home nav) */
+    .nav-right { display: flex; align-items: center; }
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(46, 127, 194, 0.35);
+      width: 34px; height: 34px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 18px; padding: 0; cursor: pointer;
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.5);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(-12deg);
+    }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .sun  { display: none; }
+    .theme-toggle .moon { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+    /* Dark-mode palette, re-point the cream/blue vars to ice-on-ink so
+       every downstream rule flips cleanly when the toggle flips. */
+    html[data-theme="dark"] {
+      --ink:        #eaf3fb;
+      --ink-2:      #b8c8dc;
+      --muted:      #6f82a0;
+      --cream:      #0b1628;
+      --cream-2:    #0b1628;
+      --cream-3:    #0f1c33;
+      --clay:       #183056;
+      --espresso:   #9FD4F5;
+      --blue-1:     rgba(159, 212, 245, 0.14);
+      --blue-2:     rgba(159, 212, 245, 0.22);
+      --blue-line:  rgba(159, 212, 245, 0.26);
+      --cold-yellow:   var(--blue-2);
+      --cold-yellow-2: var(--blue-1);
+      --cold-yellow-3: var(--blue-2);
+      --accent:     #9FD4F5;
+      --accent-2:   #6FC3F2;
+      --rule:       rgba(234,243,251,0.12);
+    }
+    html[data-theme="dark"] body { background: #0b1628; }
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse at 18% 22%, #0f1c33 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #0b1628 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #142340 0%, transparent 70%),
+        linear-gradient(135deg, #0b1628, #0f1c33 45%, #142340 70%, #1d3660);
+      filter: saturate(0.7);
+    }
+    html[data-theme="dark"] nav {
+      background: rgba(15, 28, 51, 0.75);
+      border-bottom-color: rgba(234,243,251,0.12);
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="/" class="logo">swang.</a>
-  <ul>
+  <div class="nav-right">
+    <ul>
     <li><a href="/#featured-work">Work</a></li>
     <li><a href="/#reels">Reels</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <!-- IM8 HEADER BLOCK — espresso band preserves the IM8 logo's visual weight inside a cream page -->
+  <!-- IM8 HEADER BLOCK, espresso band preserves the IM8 logo's visual weight inside a cream page -->
   <div class="im8-hero">
     <div class="im8-logo-wrap">
       <img src="8.png" alt="IM8 logo" />
@@ -351,20 +415,20 @@
 
   <!-- BODY -->
   <section class="cs-body">
-    <p>Collab post with <em>Jewell Loyd</em> (1.3M audience) for IM8. Built to feel native &mdash; not overly branded, not overly scripted. Just clean performance, personality, product.</p>
+    <p>Collab post with <em>Jewell Loyd</em> (1.3M audience) for IM8. Built to feel native, not overly branded, not overly scripted. Just clean performance, personality, product.</p>
   </section>
 
   <!-- REACH (the one interactive) -->
   <div class="reach">
     <div class="lbl">Athlete Reach</div>
     <div class="big" id="reachCount">0</div>
-    <div class="sub">1.3M across platforms &mdash; delivered without feeling like an interruption.</div>
+    <div class="sub">1.3M across platforms, delivered without feeling like an interruption.</div>
   </div>
 
   <!-- IG EMBED -->
   <section class="ig-embed-section">
     <h2>The collab.</h2>
-    <p class="sub">The post in context &mdash; athlete moment, product integration, clean delivery.</p>
+    <p class="sub">The post in context, athlete moment, product integration, clean delivery.</p>
     <div class="ig-wrap">
       <iframe src="https://www.instagram.com/p/DWfxCu1DEqE/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
     </div>
@@ -403,6 +467,26 @@
     });
   }, { threshold: 0.4 });
   io.observe(el);
+</script>
+
+<script>
+  (function initTheme() {
+    try {
+      const saved = localStorage.getItem('swang-theme');
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    } catch(e) {}
+  })();
+  window.swangToggleTheme = function() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
+    }
+  };
 </script>
 </body>
 </html>

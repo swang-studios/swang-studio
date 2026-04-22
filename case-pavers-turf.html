@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swang. | Creative Growth — Pavers and Turf</title>
+  <title>swang. | Creative Growth, Pavers and Turf</title>
   <meta name="description" content="A $104 local Meta test hit $0.76 CPC and projects to 10,000+ closings at under $5 per lead." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,8 +22,8 @@
       --espresso: #2E7FC2;
       /* Apr 19 PM2: cold-yellow wash retired in favor of pure blue translucent.
          Old cold-yellow vars aliased to the new blue so any stragglers still resolve. */
-      --blue-1: rgba(111, 168, 220, 0.18);  /* #6FA8DC @ 18% — headline highlight washes */
-      --blue-2: rgba(74, 134, 197, 0.22);   /* #4A86C5 @ 22% — CTA tints / active tabs */
+      --blue-1: rgba(111, 168, 220, 0.18);  /* #6FA8DC @ 18%, headline highlight washes */
+      --blue-2: rgba(74, 134, 197, 0.22);   /* #4A86C5 @ 22%, CTA tints / active tabs */
       --blue-line: rgba(74, 134, 197, 0.20); /* inset marker-pass bottom border */
       --cold-yellow: var(--blue-2);
       --cold-yellow-2: var(--blue-1);
@@ -663,17 +663,81 @@
     @media (max-width: 400px) {
       .metrics { grid-template-columns: 1fr; }
     }
+  
+    /* Frozone After Hours toggle (mirrors home nav) */
+    .nav-right { display: flex; align-items: center; }
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(46, 127, 194, 0.35);
+      width: 34px; height: 34px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 18px; padding: 0; cursor: pointer;
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.5);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(-12deg);
+    }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .sun  { display: none; }
+    .theme-toggle .moon { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+    /* Dark-mode palette, re-point the cream/blue vars to ice-on-ink so
+       every downstream rule flips cleanly when the toggle flips. */
+    html[data-theme="dark"] {
+      --ink:        #eaf3fb;
+      --ink-2:      #b8c8dc;
+      --muted:      #6f82a0;
+      --cream:      #0b1628;
+      --cream-2:    #0b1628;
+      --cream-3:    #0f1c33;
+      --clay:       #183056;
+      --espresso:   #9FD4F5;
+      --blue-1:     rgba(159, 212, 245, 0.14);
+      --blue-2:     rgba(159, 212, 245, 0.22);
+      --blue-line:  rgba(159, 212, 245, 0.26);
+      --cold-yellow:   var(--blue-2);
+      --cold-yellow-2: var(--blue-1);
+      --cold-yellow-3: var(--blue-2);
+      --accent:     #9FD4F5;
+      --accent-2:   #6FC3F2;
+      --rule:       rgba(234,243,251,0.12);
+    }
+    html[data-theme="dark"] body { background: #0b1628; }
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse at 18% 22%, #0f1c33 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #0b1628 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #142340 0%, transparent 70%),
+        linear-gradient(135deg, #0b1628, #0f1c33 45%, #142340 70%, #1d3660);
+      filter: saturate(0.7);
+    }
+    html[data-theme="dark"] nav {
+      background: rgba(15, 28, 51, 0.75);
+      border-bottom-color: rgba(234,243,251,0.12);
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="/" class="logo">swang.</a>
-  <ul>
+  <div class="nav-right">
+    <ul>
     <li><a href="/#featured-work">Work</a></li>
     <li><a href="/#reels">Reels</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <div class="cs-wrap">
@@ -681,7 +745,7 @@
 
   <p class="cs-tag">Pavers and Turf by O'Neill's · Meta</p>
   <h1 class="cs-title">From zero to 59/week. <em>At $5 each.</em></h1>
-  <p class="cs-sub">Flat budget. Volume climbed, cost per lead fell &mdash; the inverse did the work.</p>
+  <p class="cs-sub">Flat budget. Volume climbed, cost per lead fell, the inverse did the work.</p>
 
   <div class="cs-hero">
     <img src="putting-green-aerial.jpg" alt="Aerial of a Pavers and Turf by O'Neill's install" />
@@ -748,56 +812,14 @@
     </a>
   </section>
 
-  <!-- AD GALLERY (front-page-of-ads vibe) -->
-  <section class="ad-gallery-section">
-    <div class="ad-gallery-head">
-      <h2>A look at the creative.</h2>
-      <span class="sub">Live in the Meta Ad Library &mdash; sorted by impressions.</span>
-    </div>
-    <div class="ad-gallery-grid">
-      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
-        <div class="ad-media">
-          <span class="ad-tag">Top</span>
-          <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe>
-        </div>
-        <div class="ad-meta">
-          <span class="n">Bocce · TikTok-style transitions</span>
-          <span class="d">193 leads · $5.25 CPL · $1,012 spend</span>
-        </div>
-      </a>
-      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
-        <div class="ad-media">
-          <img src="putting-green-aerial.jpg" alt="Aerial of a putting green install" />
-        </div>
-        <div class="ad-meta">
-          <span class="n">Putting-green aerial</span>
-          <span class="d">Wide shot. Scale. "Look-at-this" first frame.</span>
-        </div>
-      </a>
-      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
-        <div class="ad-media">
-          <img src="pavers.jpg" alt="Paver installation detail" />
-        </div>
-        <div class="ad-meta">
-          <span class="n">Paver build · progress cut</span>
-          <span class="d">Before/after. Craftsman proof. Low-fi, high-trust.</span>
-        </div>
-      </a>
-      <a class="ad-card" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
-        <div class="ad-media">
-          <img src="design3.jpg" alt="Backyard turf install aerial" />
-        </div>
-        <div class="ad-meta">
-          <span class="n">Backyard turf · drone pass</span>
-          <span class="d">One clean fly-over. Finished look, no narration.</span>
-        </div>
-      </a>
-    </div>
-  </section>
+  <!-- "A look at the creative" section removed per request.
+       The Meta Ad Library CTA callout above this point already carries
+       that link into the live ad library, so there is no need for the
+       duplicate 4-card grid here. -->
 
   <div class="cs-callout">
     <strong>Flat budget. Weekly reads. Compounding returns.</strong>
-    <span>$26 &rarr; $5 per lead in 17 weeks. Spend never moved &mdash; the creative did the work.</span>
+    <span>$26 &rarr; $5 per lead in 17 weeks. Spend never moved, the creative did the work.</span>
   </div>
 </div>
 
@@ -1107,6 +1129,26 @@
     }, { threshold: 0.25 });
     adIo.observe(adGrid);
   }
+</script>
+
+<script>
+  (function initTheme() {
+    try {
+      const saved = localStorage.getItem('swang-theme');
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    } catch(e) {}
+  })();
+  window.swangToggleTheme = function() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
+    }
+  };
 </script>
 </body>
 </html>

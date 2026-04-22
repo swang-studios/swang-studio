@@ -996,10 +996,16 @@
       box-shadow: 0 10px 28px rgba(46,127,194,0.18);
     }
     .card-img {
-      width: 100%; height: 220px; overflow: hidden; background: #dbe5ef;
+      /* Show the full image for every case-study card — no cropping.
+         Background fills any negative space so all three cards read as
+         one consistent slate strip across the row. */
+      width: 100%; height: 240px; overflow: hidden;
+      background: #0F2237; /* slate that matches the IM8 hero tone */
+      display: flex; align-items: center; justify-content: center;
     }
     .card-img img {
-      width: 100%; height: 100%; object-fit: cover;
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto; object-fit: contain;
       display: block; transition: transform 0.6s ease;
     }
     .card:hover .card-img img { transform: scale(1.04); }
@@ -1644,7 +1650,7 @@
     <div class="about-left">
       <p class="section-label">About</p>
       <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
-      <p class="about-bio reveal">Hey &mdash; I&rsquo;m Mason, and I care about your business. Here&rsquo;s the real version: most brands I meet are sitting on tired, outdated galleries that aren&rsquo;t doing anything for them. I take that stuff and turn it into video, photo, and media that can actually move &mdash; content you can mold, flex across paid spots and organic feeds, and reuse without it feeling recycled. Some of it I shoot myself, ground-level and aerial. Some of it is taking other videographers&rsquo; footage and directing it into something that fits your voice. Either way, every frame earns its place &mdash; paid, organic, or both.</p>
+      <p class="about-bio reveal">I&rsquo;m Mason. I care about the businesses I work with because I&rsquo;ve watched too many of them lose to a generic feed they didn&rsquo;t build. My job is to fix that. I shoot, edit, and direct video and photo that earns attention instead of begging for it, then I flex it across paid ads and organic posts so the same asset pulls double duty. Ground-level, aerial, your footage, mine, whatever the brief needs. If the work doesn&rsquo;t move the business, it doesn&rsquo;t go out.</p>
       <div class="about-tags reveal">
         <span class="about-tag">Creative Strategy</span>
         <span class="about-tag">Aerial Photography</span>

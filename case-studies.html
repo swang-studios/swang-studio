@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swang. | Creative Growth — Case Studies</title>
+  <title>swang. | Creative Growth, Case Studies</title>
   <meta name="description" content="Detailed breakdowns of real results, Meta campaigns, SEO, ops, and visual direction." />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
@@ -79,6 +79,7 @@
       height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     }
     .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+    .nav-right { display: flex; align-items: center; }
     nav ul { list-style: none; display: flex; gap: 32px; }
     nav ul a {
       font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
@@ -86,6 +87,55 @@
       opacity: 0.7; transition: opacity 0.2s, color 0.2s;
     }
     nav ul a:hover, nav ul a.active { opacity: 1; color: var(--accent); }
+
+    /* Frozone After Hours theme toggle (mirrors home) */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(46, 127, 194, 0.35);
+      width: 34px; height: 34px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 18px; padding: 0; cursor: pointer;
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.5);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(-12deg);
+    }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .sun  { display: none; }
+    .theme-toggle .moon { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+    /* Dark-mode palette override for the whole page */
+    html[data-theme="dark"] {
+      --ink:        #eaf3fb;
+      --ink-2:      #b8c8dc;
+      --muted:      #6f82a0;
+      --cream:      #0b1628;
+      --cream-2:    #0b1628;
+      --cream-3:    #0f1c33;
+      --clay:       #183056;
+      --espresso:   #9FD4F5;
+      --blue-1:     rgba(159, 212, 245, 0.12);
+      --blue-2:     rgba(159, 212, 245, 0.18);
+      --blue-line:  rgba(159, 212, 245, 0.22);
+      --accent:     #9FD4F5;
+      --accent-2:   #6FC3F2;
+      --rule:       rgba(234,243,251,0.12);
+      --border:     rgba(234,243,251,0.12);
+      --bg:         #0b1628;
+      --white:      #0b1628;
+      --black:      #eaf3fb;
+    }
+    html[data-theme="dark"] body { background: #0b1628; }
+    html[data-theme="dark"] nav {
+      background: rgba(15, 28, 51, 0.75);
+      border-bottom-color: rgba(234,243,251,0.12);
+    }
 
     /* ── PAGE HEADER ───────────────────────────────── */
     .page-header {
@@ -376,12 +426,18 @@
 <!-- NAV -->
 <nav>
   <a href="/" class="logo">swang.</a>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/case-studies" class="active">Work</a></li>
-    <li><a href="/gallery">Gallery</a></li>
-    <li><a href="/#leave-a-review">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-studies" class="active">Work</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/#leave-a-review">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <!-- PAGE HEADER -->
@@ -515,7 +571,7 @@
   </div>
 
   <!-- ─────────────────────────────── -->
-  <!-- STUDY 2, Pavers and Turf by O'Neill's — full study lives at /case-pavers-turf -->
+  <!-- STUDY 2, Pavers and Turf by O'Neill's, full study lives at /case-pavers-turf -->
   <!-- ─────────────────────────────── -->
   <div class="study-card" data-category="meta">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
@@ -523,12 +579,12 @@
         <div class="card-chrome">
           <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
         </div>
-        <img src="putting-green-aerial.jpg" alt="Pavers and Turf by O'Neill's — aerial install" loading="lazy" />
+        <img src="putting-green-aerial.jpg" alt="Pavers and Turf by O'Neill's, aerial install" loading="lazy" />
       </div>
       <div class="card-meta-wrap">
         <p class="card-cat">Meta Campaign &amp; Geo-Targeting · Pavers and Turf by O'Neill's</p>
         <h2 class="card-title">From Zero to 59 Leads a Week, at $5 Each</h2>
-        <p class="card-excerpt">A 17-week build for a local landscaper. Flat budget, creative refreshed weekly. Volume climbed, cost per lead fell — the inverse did the work.</p>
+        <p class="card-excerpt">A 17-week build for a local landscaper. Flat budget, creative refreshed weekly. Volume climbed, cost per lead fell, the inverse did the work.</p>
         <div class="card-tags">
           <span class="tag">Meta Ads</span>
           <span class="tag">Lead Gen</span>
@@ -551,11 +607,11 @@
           <h2>The Setup</h2>
           <p>Pavers and Turf by O'Neill's is a local landscape company. No brand recognition beyond word-of-mouth, no paid acquisition history. The brief: can Meta carry lead flow for a small regional contractor the same way it carries DTC brands?</p>
           <h2>The Approach</h2>
-          <p>Flat $50/day budget from week one. Creative refreshed on a rolling cadence — winners scaled, losers paused, new angles fed in. Every ad built around a single job-site moment: the install, the reveal, the finished product.</p>
+          <p>Flat $50/day budget from week one. Creative refreshed on a rolling cadence, winners scaled, losers paused, new angles fed in. Every ad built around a single job-site moment: the install, the reveal, the finished product.</p>
           <ul>
             <li>TikTok-style cuts pulled from live install footage, not staged</li>
             <li>Geo-targeted to zip codes within realistic drive-time</li>
-            <li>Lead form on-platform — no landing page friction</li>
+            <li>Lead form on-platform, no landing page friction</li>
             <li>Creative rotated weekly to keep fatigue down and the algorithm curious</li>
           </ul>
           <div class="stat-row">
@@ -564,7 +620,7 @@
             <div class="stat"><div class="stat-num">475</div><div class="stat-label">Total Leads · 17 Weeks</div></div>
           </div>
           <h2>The Result</h2>
-          <p>CPA dropped from $26 to $5 — an 81% reduction on the same budget. One reel alone drove 193 leads at $5.25 CPL. By week 17 the account was sitting at 59 leads/week, up from 12 at launch.</p>
+          <p>CPA dropped from $26 to $5, an 81% reduction on the same budget. One reel alone drove 193 leads at $5.25 CPL. By week 17 the account was sitting at 59 leads/week, up from 12 at launch.</p>
           <p><a href="case-pavers-turf" style="color:var(--accent); font-weight:700; text-decoration:underline;">Open the full case study &rarr;</a></p>
         </div>
         <aside class="blog-sidebar">
@@ -584,7 +640,7 @@
   </div>
 
   <!-- ─────────────────────────────── -->
-  <!-- STUDY 3, IM8 × Jewell Loyd — full study lives at /case-im8-loyd -->
+  <!-- STUDY 3, IM8 × Jewell Loyd, full study lives at /case-im8-loyd -->
   <!-- ─────────────────────────────── -->
   <div class="study-card" data-category="brand">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
@@ -597,7 +653,7 @@
       <div class="card-meta-wrap">
         <p class="card-cat">Athlete Collaboration · IM8 × Jewell Loyd</p>
         <h2 class="card-title">IM8 × Jewell Loyd: Athlete Content, Done Clean</h2>
-        <p class="card-excerpt">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page — not interrupt it.</p>
+        <p class="card-excerpt">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page, not interrupt it.</p>
         <div class="card-tags">
           <span class="tag">Brand</span>
           <span class="tag">Athlete</span>
@@ -624,7 +680,7 @@
           <ul>
             <li>Pre-shoot scroll of her feed to match tone, color, and cadence</li>
             <li>Product placement as a background beat, not the centerpiece</li>
-            <li>Final edit cleared by the athlete team same-day — no back-and-forth</li>
+            <li>Final edit cleared by the athlete team same-day, no back-and-forth</li>
             <li>Delivered in both feed and reel cuts for cross-platform flexibility</li>
           </ul>
           <div class="stat-row">
@@ -633,7 +689,7 @@
             <div class="stat"><div class="stat-num">0</div><div class="stat-label">Revisions</div></div>
           </div>
           <h2>The Result</h2>
-          <p>Post landed natively — no "sponsored" fatigue in the comments, no drop in engagement vs. her organic posts. Brand got the athlete co-sign without paying the credibility tax that usually comes with big placements.</p>
+          <p>Post landed natively, no "sponsored" fatigue in the comments, no drop in engagement vs. her organic posts. Brand got the athlete co-sign without paying the credibility tax that usually comes with big placements.</p>
           <p><a href="case-im8-loyd" style="color:var(--accent); font-weight:700; text-decoration:underline;">Open the full case study &rarr;</a></p>
         </div>
         <aside class="blog-sidebar">
@@ -652,7 +708,7 @@
   </div>
 
   <!-- ─────────────────────────────── -->
-  <!-- STUDY 4, Noah Kahan Clickbait Thumbnails — full study lives at /case-noah-thumbnails -->
+  <!-- STUDY 4, Noah Kahan Clickbait Thumbnails, full study lives at /case-noah-thumbnails -->
   <!-- ─────────────────────────────── -->
   <div class="study-card" data-category="content">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
@@ -665,7 +721,7 @@
       <div class="card-meta-wrap">
         <p class="card-cat">Content Design · YouTube · ~70K subs</p>
         <h2 class="card-title">Clickbait Thumbnails for a Sports Creator</h2>
-        <p class="card-excerpt">Simple hooks, bright reactions, same-day turnarounds. Built for how people actually scroll YouTube — obvious, bold, hard to ignore.</p>
+        <p class="card-excerpt">Simple hooks, bright reactions, same-day turnarounds. Built for how people actually scroll YouTube, obvious, bold, hard to ignore.</p>
         <div class="card-tags">
           <span class="tag">Content Design</span>
           <span class="tag">YouTube</span>
@@ -686,22 +742,22 @@
       <div class="blog-content">
         <div class="blog-main">
           <h2>The Brief</h2>
-          <p>Thumbnails for a sports creator covering NFL slates, Super Bowl picks, and live streams. The creator needed thumbnails that stop the YouTube scroll and earn the click on every single upload — same-day turnaround, no misses.</p>
+          <p>Thumbnails for a sports creator covering NFL slates, Super Bowl picks, and live streams. The creator needed thumbnails that stop the YouTube scroll and earn the click on every single upload, same-day turnaround, no misses.</p>
           <h2>The Approach</h2>
-          <p>Every thumbnail designed around one thing: one clear reaction, one clear hook. No clutter, no copy-paste templates. Each live slate gets fresh art — because the scroll doesn't reward "good enough".</p>
+          <p>Every thumbnail designed around one thing: one clear reaction, one clear hook. No clutter, no copy-paste templates. Each live slate gets fresh art, because the scroll doesn't reward "good enough".</p>
           <ul>
-            <li>1280×720, tailored not templated — every frame built for the specific upload</li>
+            <li>1280×720, tailored not templated, every frame built for the specific upload</li>
             <li>Same-day turnaround on live slates (NBA/NFL props, game-day reactions)</li>
-            <li>2–4 words max hook on every frame — the scroll doesn't read</li>
+            <li>2-4 words max hook on every frame, the scroll doesn't read</li>
             <li>High-contrast color, bright reactions, big-moment energy</li>
           </ul>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">Same-day</div><div class="stat-label">Live Turnaround</div></div>
-            <div class="stat"><div class="stat-num">2–4</div><div class="stat-label">Max Words / Hook</div></div>
+            <div class="stat"><div class="stat-num">2-4</div><div class="stat-label">Max Words / Hook</div></div>
             <div class="stat"><div class="stat-num">~70K</div><div class="stat-label">Subs Served</div></div>
           </div>
           <h2>The Result</h2>
-          <p>Each thumbnail earns its click on merit — no recycled art, no template fatigue. The channel has a consistent visual identity without the thumbnails ever feeling formulaic.</p>
+          <p>Each thumbnail earns its click on merit, no recycled art, no template fatigue. The channel has a consistent visual identity without the thumbnails ever feeling formulaic.</p>
           <p><a href="case-noah-thumbnails" style="color:var(--accent); font-weight:700; text-decoration:underline;">Open the full case study &rarr;</a></p>
         </div>
         <aside class="blog-sidebar">
@@ -709,7 +765,7 @@
             <p class="sidebar-label">Results at a Glance</p>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Resolution</span><span class="sidebar-stat-val">1280×720</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Turnaround</span><span class="sidebar-stat-val">Same-day</span></div>
-            <div class="sidebar-stat"><span class="sidebar-stat-label">Max Words</span><span class="sidebar-stat-val">2–4</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Max Words</span><span class="sidebar-stat-val">2-4</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Subs</span><span class="sidebar-stat-val">~70K</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Category</span><span class="sidebar-stat-val">Content</span></div>
           </div>
@@ -721,7 +777,7 @@
 
 </div><!-- /studies -->
 
-<!-- SEE MORE — gallery-style grid replacing the Let's Talk pill -->
+<!-- SEE MORE, gallery-style grid replacing the Let's Talk pill -->
 <section class="see-more" id="see-more">
   <div class="sm-head">
     <div>
@@ -801,6 +857,27 @@
       });
     });
   });
+
+  // Frozone After Hours theme toggle (shared with home + gallery).
+  // Reads the stored preference on load so the choice persists
+  // across pages and sessions.
+  (function initTheme() {
+    try {
+      const saved = localStorage.getItem('swang-theme');
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    } catch(e) {}
+  })();
+  window.swangToggleTheme = function() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
+    }
+  };
 </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swang. | Creative Growth — Noah Thumbnails</title>
+  <title>swang. | Creative Growth, Noah Thumbnails</title>
   <meta name="description" content="Case study: designing high-CTR YouTube thumbnails for a 70K-subscriber sports creator. Made to stand out. Built to get clicks." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +11,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      /* Cream / earth palette — matches case-pavers-turf + case-studies */
+      /* Cream / earth palette, matches case-pavers-turf + case-studies */
       --ink: #0b0e14;
       --ink-2: #1a1f2b;
       --muted: #5a6472;
@@ -40,7 +40,7 @@
       color: var(--ink);
       overflow-x: hidden;
     }
-    /* Slow cream lava drift — 120s loop, matches case-pavers-turf */
+    /* Slow cream lava drift, 120s loop, matches case-pavers-turf */
     body::before {
       content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
       background:
@@ -59,7 +59,7 @@
       100% { background-position: 100% 100%; transform: scale(1); }
     }
 
-    /* NAV — Apple-style glass, matches case-pavers-turf */
+    /* NAV, Apple-style glass, matches case-pavers-turf */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
@@ -322,17 +322,81 @@
     @media (max-width: 520px) {
       .thumbs-grid { grid-template-columns: 1fr; }
     }
+  
+    /* Frozone After Hours toggle (mirrors home nav) */
+    .nav-right { display: flex; align-items: center; }
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(46, 127, 194, 0.35);
+      width: 34px; height: 34px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-left: 18px; padding: 0; cursor: pointer;
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.5);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(-12deg);
+    }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .sun  { display: none; }
+    .theme-toggle .moon { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
+    html[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+    /* Dark-mode palette, re-point the cream/blue vars to ice-on-ink so
+       every downstream rule flips cleanly when the toggle flips. */
+    html[data-theme="dark"] {
+      --ink:        #eaf3fb;
+      --ink-2:      #b8c8dc;
+      --muted:      #6f82a0;
+      --cream:      #0b1628;
+      --cream-2:    #0b1628;
+      --cream-3:    #0f1c33;
+      --clay:       #183056;
+      --espresso:   #9FD4F5;
+      --blue-1:     rgba(159, 212, 245, 0.14);
+      --blue-2:     rgba(159, 212, 245, 0.22);
+      --blue-line:  rgba(159, 212, 245, 0.26);
+      --cold-yellow:   var(--blue-2);
+      --cold-yellow-2: var(--blue-1);
+      --cold-yellow-3: var(--blue-2);
+      --accent:     #9FD4F5;
+      --accent-2:   #6FC3F2;
+      --rule:       rgba(234,243,251,0.12);
+    }
+    html[data-theme="dark"] body { background: #0b1628; }
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse at 18% 22%, #0f1c33 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 78%, #0b1628 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #142340 0%, transparent 70%),
+        linear-gradient(135deg, #0b1628, #0f1c33 45%, #142340 70%, #1d3660);
+      filter: saturate(0.7);
+    }
+    html[data-theme="dark"] nav {
+      background: rgba(15, 28, 51, 0.75);
+      border-bottom-color: rgba(234,243,251,0.12);
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="/" class="logo">swang.</a>
-  <ul>
+  <div class="nav-right">
+    <ul>
     <li><a href="/#featured-work">Work</a></li>
     <li><a href="/#reels">Reels</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <div class="cs-wrap">
@@ -346,13 +410,13 @@
   </div>
 
   <section class="cs-body">
-    <p>Thumbnails for a sports creator on big-moment content &mdash; NFL slates, Super Bowl, live streams. Bold hooks, 2&ndash;4 word reactions, high-contrast color, same-day turnaround. The goal is one thing: <em>stop the scroll and earn the click.</em></p>
+    <p>Thumbnails for a sports creator on big-moment content, NFL slates, Super Bowl, live streams. Bold hooks, 2, 4 word reactions, high-contrast color, same-day turnaround. The goal is one thing: <em>stop the scroll and earn the click.</em></p>
   </section>
 
   <div class="highlight-row reveal">
     <div class="h-stat"><span class="h-num">1280&times;720</span><span class="h-sub">tailored, not templated</span></div>
     <div class="h-stat"><span class="h-num">same-day</span><span class="h-sub">turnaround on live slates</span></div>
-    <div class="h-stat"><span class="h-num">2&ndash;4 words</span><span class="h-sub">max hook on every frame</span></div>
+    <div class="h-stat"><span class="h-num">2, 4 words</span><span class="h-sub">max hook on every frame</span></div>
   </div>
 
   <!-- INTERACTIVE THUMBNAIL GRID: click to feature -->
@@ -405,6 +469,26 @@
       featured.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   })();
+</script>
+
+<script>
+  (function initTheme() {
+    try {
+      const saved = localStorage.getItem('swang-theme');
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    } catch(e) {}
+  })();
+  window.swangToggleTheme = function() {
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
+    }
+  };
 </script>
 </body>
 </html>
