@@ -84,6 +84,42 @@
       border-bottom-color: rgba(159,212,245,0.14);
     }
 
+    /* Dark-mode pass for the masonry / outro chrome. The base page uses an
+       icy-white wash + dark-on-light rules; dark mode needs a navy wash and
+       dark-on-light rules flipped to light-on-dark so captions, section
+       titles, dividers, and the outro card don't vanish. */
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse at 18% 22%, rgba(96, 170, 220, 0.16) 0%, transparent 55%),
+        radial-gradient(ellipse at 82% 78%, rgba(60, 130, 200, 0.16) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(90, 160, 220, 0.10) 0%, transparent 70%),
+        linear-gradient(135deg, #0b1628, #0f1c33 45%, #142340 70%, #0b1628);
+      filter: saturate(1.08);
+    }
+    html[data-theme="dark"] .gallery-divider::before,
+    html[data-theme="dark"] .gallery-divider::after { background: rgba(234, 243, 251, 0.14); }
+    html[data-theme="dark"] .gallery-divider span  { color: rgba(234, 243, 251, 0.6); }
+    html[data-theme="dark"] .g-section::before,
+    html[data-theme="dark"] .g-section::after      { background: rgba(234, 243, 251, 0.16); }
+    html[data-theme="dark"] .g-section em          { color: #eaf3fb; }
+    html[data-theme="dark"] .g-item {
+      border-color: rgba(234, 243, 251, 0.08);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+    html[data-theme="dark"] .reel-embed {
+      border-color: rgba(234, 243, 251, 0.08);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+    html[data-theme="dark"] .g-outro {
+      background: rgba(14, 25, 44, 0.72);
+      border-color: rgba(159, 212, 245, 0.14);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+    html[data-theme="dark"] .g-outro p { color: rgba(234, 243, 251, 0.85); }
+    html[data-theme="dark"] footer {
+      border-top-color: rgba(234, 243, 251, 0.12);
+    }
+
     /* Theme toggle — sun/moon pill, same style as homepage */
     .theme-toggle {
       background: transparent;
