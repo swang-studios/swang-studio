@@ -417,26 +417,25 @@
       display: inline-block; position: relative;
       font-weight: 800;           /* bolder than the rest of the headline */
     }
-    /* .rw-inner clips the spinning text so the reel reads as a slot window.
-       Apr 21 v6 — emojis removed, swap feels like a slot-machine reel. */
-    #rw .rw-inner {
+    /* Apr 21 v7 — emojis removed, word swap feels like a slot reel.
+       No clip window: motion-blur + translate on the glyph alone carry the
+       spin. That way descenders (property) and the overshoot frame don't
+       get bitten by an overflow:hidden box. */
+    #rw .rw-inner { position: relative; display: inline-block; }
+    #rw .rw-text  {
       position: relative;
+      z-index: 2;
       display: inline-block;
-      overflow: hidden;
-      vertical-align: baseline;
-      /* a hair of vertical padding keeps descenders from clipping */
-      padding: 0.06em 0;
-      line-height: 1;
+      will-change: transform, filter, opacity;
     }
-    #rw .rw-text  { position: relative; z-index: 2; display: inline-block; will-change: transform, filter, opacity; }
 
-    /* Slot-machine spin: word rolls in from above with a motion-blur streak,
-       overshoots past the rest line, then snaps back — the reel "click". */
+    /* Slot-machine spin: word rolls down from above with a motion-blur streak
+       and snaps into place. No overshoot past the baseline — keeps descenders
+       off the edge of the glass panel. */
     @keyframes slotSpin {
-      0%   { opacity: 0;   transform: translateY(-1.15em); filter: blur(6px); }
-      35%  { opacity: 0.55; transform: translateY(-0.35em); filter: blur(3px); }
-      65%  { opacity: 1;   transform: translateY(0.10em);  filter: blur(0.4px); }
-      82%  { transform: translateY(-0.04em); filter: blur(0); }
+      0%   { opacity: 0;   transform: translateY(-0.55em); filter: blur(5px); }
+      45%  { opacity: 0.7; transform: translateY(-0.18em); filter: blur(2px); }
+      80%  { opacity: 1;   transform: translateY(0.02em);  filter: blur(0.3px); }
       100% { opacity: 1;   transform: translateY(0);       filter: blur(0); }
     }
     .hero-sub {
