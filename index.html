@@ -417,26 +417,30 @@
       display: inline-block; position: relative;
       font-weight: 800;           /* bolder than the rest of the headline */
     }
-    /* Apr 21 v7 — emojis removed, word swap feels like a slot reel.
-       No clip window: motion-blur + translate on the glyph alone carry the
-       spin. That way descenders (property) and the overshoot frame don't
-       get bitten by an overflow:hidden box. */
+    /* Apr 21 v8 — slot-machine feel, split into Out -> swap -> In phases so
+       every rotation is identical. Chained via animationend in JS; no setInterval
+       races, no half-finished frames. Softer blur to keep it cheap on the GPU. */
     #rw .rw-inner { position: relative; display: inline-block; }
     #rw .rw-text  {
       position: relative;
       z-index: 2;
       display: inline-block;
       will-change: transform, filter, opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
     }
 
-    /* Slot-machine spin: word rolls down from above with a motion-blur streak
-       and snaps into place. No overshoot past the baseline — keeps descenders
-       off the edge of the glass panel. */
-    @keyframes slotSpin {
-      0%   { opacity: 0;   transform: translateY(-0.55em); filter: blur(5px); }
-      45%  { opacity: 0.7; transform: translateY(-0.18em); filter: blur(2px); }
-      80%  { opacity: 1;   transform: translateY(0.02em);  filter: blur(0.3px); }
-      100% { opacity: 1;   transform: translateY(0);       filter: blur(0); }
+    /* Outgoing word: slides DOWN out of frame with a blur streak. */
+    @keyframes slotOut {
+      0%   { opacity: 1; transform: translate3d(0, 0,       0); filter: blur(0); }
+      100% { opacity: 0; transform: translate3d(0, 0.75em,  0); filter: blur(3px); }
+    }
+
+    /* Incoming word: starts above, settles onto baseline without overshoot. */
+    @keyframes slotIn {
+      0%   { opacity: 0;   transform: translate3d(0, -0.75em, 0); filter: blur(3px); }
+      55%  { opacity: 0.85; transform: translate3d(0, -0.08em, 0); filter: blur(1px); }
+      100% { opacity: 1;   transform: translate3d(0, 0,       0); filter: blur(0); }
     }
     .hero-sub {
       margin-top: 20px; font-size: 14px; line-height: 1.7;
@@ -1698,30 +1702,48 @@
   // Dynamic year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Rotating hero word — slot-machine reel. Apr 21 v6: emojis removed; each
-  // swap fires the slotSpin keyframe on the word itself so the reel clicks
-  // into place. Blue CTA still stays put as "Connect With Me".
+  // Rotating hero word — slot-machine reel. Apr 21 v8: two-phase animation
+  // (slotOut -> textContent swap -> slotIn), chained via animationend so no
+  // rotation ever starts before the last one finishes. Dwell time is a timer
+  // after slotIn completes — setInterval is gone, no more mid-spin collisions.
   const words  = ['brand','product','influencer','service','creator','property','vision'];
   const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-property','w-vision'];
   let wi = 0;
   const rwEl    = document.getElementById('rw');
   const rwText  = rwEl.querySelector('.rw-text');
 
-  function rotateWord() {
-    // Kill the running animation, force reflow, then retrigger slotSpin
-    // on the word itself (not the reel window) so the blur stays on glyphs.
+  // Cadence: dwell between spins. Total per-cycle ≈ dwell + slotOut + slotIn.
+  const DWELL_MS  = 1600;
+  const OUT_MS    = 260;
+  const IN_MS     = 420;
+  const OUT_EASE  = 'cubic-bezier(0.45, 0.0, 0.55, 1.0)';  // accelerate out
+  const IN_EASE   = 'cubic-bezier(0.22, 0.9, 0.36, 1.02)'; // settle in
+
+  function playOnce(name, durMs, ease, done) {
+    // Clear any running animation first so we always start from a clean slate.
     rwText.style.animation = 'none';
-    // eslint-disable-next-line no-unused-expressions
-    rwText.offsetHeight;
-    wi = (wi + 1) % words.length;
-    rwEl.className = colors[wi];
-    rwText.textContent = words[wi];
-    rwText.style.animation = 'slotSpin 0.55s cubic-bezier(0.22, 0.9, 0.32, 1.08)';
+    // Force the browser to commit the reset before we reassign.
+    void rwText.offsetHeight;
+    rwText.style.animation = name + ' ' + durMs + 'ms ' + ease + ' forwards';
+    rwText.addEventListener('animationend', function handler() {
+      rwText.removeEventListener('animationend', handler);
+      done();
+    });
   }
 
-  // Slot cadence — a little snappier so the reel feels alive.
-  const ROTATE_MS = 2200;
-  setInterval(rotateWord, ROTATE_MS);
+  function rotateWord() {
+    playOnce('slotOut', OUT_MS, OUT_EASE, function afterOut() {
+      wi = (wi + 1) % words.length;
+      rwEl.className = colors[wi];
+      rwText.textContent = words[wi];
+      playOnce('slotIn', IN_MS, IN_EASE, function afterIn() {
+        setTimeout(rotateWord, DWELL_MS);
+      });
+    });
+  }
+
+  // Kick off after a small settle so the hero reveal completes first.
+  setTimeout(rotateWord, 1200);
 
   // Form removed Apr 21 — contact is now a direct mailto link.
   // No serverless submit, no RESEND key required, no ghost submissions.
