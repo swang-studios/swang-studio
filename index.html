@@ -376,6 +376,12 @@
       pointer-events: none;
     }
     .hero-glass > * { position: relative; z-index: 1; }
+    /* Scroll-reveal override — the generic .reveal/.reveal.visible rules set
+       transform: translateY(...) which would clobber our translate(-50%, -50%)
+       centering. Re-apply the centering transform at higher specificity and
+       animate opacity only. */
+    .hero-glass.reveal { transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.6s ease; }
+    .hero-glass.reveal.visible { transform: translate(-50%, -50%); opacity: 1; }
     .hero-glass-copy { flex: 1 1 540px; min-width: 0; }
     .hero-glass-actions {
       flex: 0 0 auto;
