@@ -1314,6 +1314,12 @@
     }
     .f-social a:hover { border-color: var(--honey); color: var(--honey-deep); background: rgba(93,179,232,0.08); }
     .f-social svg { width: 16px; height: 16px; fill: currentColor; }
+    /* LinkedIn stays pure white in dark mode (other logos can color-shift) */
+    html[data-theme="dark"] .f-social a[aria-label="LinkedIn"] { color: #ffffff; }
+    html[data-theme="dark"] .f-social a[aria-label="LinkedIn"]:hover { color: #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.10); }
+    html[data-theme="dark"] .f-social a[aria-label="LinkedIn"] svg { fill: #ffffff; }
+    /* Force LinkedIn logo in logo-carousel (3.png) to white in dark mode */
+    html[data-theme="dark"] .logo-item img[alt="LinkedIn"] { filter: brightness(0) invert(1); }
     footer .f-copy { font-size: 11px; color: var(--ink-mute); }
 
     /* FIXED CTA — blue-glass pill, desktop quiet / mobile icon-only (Apr 21 redesign) */
@@ -1589,7 +1595,7 @@
   </div>
   <div class="cards-track">
     <a href="case-noah-thumbnails" class="card reveal">
-      <div class="card-img"><img src="noah-thumb-14.png" alt="Clickbait thumbnail for a sports YouTuber" /></div>
+      <div class="card-img"><img src="card-thumb-clickbait.png" alt="Clickbait thumbnail for a sports YouTuber" /></div>
       <div class="card-body">
         <p class="card-tag">Content Design</p>
         <h3 class="card-title">Clickbait Thumbnails for a Sports Creator</h3>
@@ -1598,7 +1604,7 @@
       </div>
     </a>
     <a href="case-pavers-turf" class="card reveal">
-      <div class="card-img"><img src="putting-green-aerial.jpg" alt="Pavers and Turf aerial install" /></div>
+      <div class="card-img"><img src="card-thumb-meta.png" alt="Pavers and Turf aerial install" /></div>
       <div class="card-body">
         <p class="card-tag">Meta Campaign &amp; Geo-Targeting</p>
         <h3 class="card-title">A Meta Campaign Anyone Can Start</h3>
@@ -1607,7 +1613,7 @@
       </div>
     </a>
     <a href="case-im8-loyd" class="card reveal card-im8">
-      <div class="card-img"><img src="8.png" alt="IM8 logo" /></div>
+      <div class="card-img"><img src="card-thumb-im8.webp" alt="IM8 x Jewell Loyd" /></div>
       <div class="card-body">
         <p class="card-tag">Athlete Collaboration</p>
         <h3 class="card-title">IM8 x Jewell Loyd: Athlete Content, Done Clean</h3>
