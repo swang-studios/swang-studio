@@ -93,25 +93,27 @@
       border-bottom-color: rgba(159,212,245,0.14);
     }
     html[data-theme="dark"] .hero-glass {
-      /* Apr 21 v4: was reading as a muddy semi-transparent strip with the old
-         blur(24px)+saturate(1.25) pulling color from the photos behind.
-         Dense navy fill + minimal blur = a clean, intentional ribbon. */
-      background: rgba(11, 19, 34, 0.90);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(159,212,245,0.22);
-      border-bottom: 1px solid rgba(0,0,0,0.5);
-      box-shadow:
-        0 18px 44px rgba(0,0,0,0.48),
-        inset 0 1px 0 rgba(159,212,245,0.12);
-    }
-    html[data-theme="dark"] .hero-glass-actions::before {
+      /* Apr 21 v5 — water-drop restored per Mason. Translucent navy ice:
+         photos still read through the blur, edges catch highlight-blue. */
       background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(159,212,245,0.28) 30%,
-        rgba(159,212,245,0.28) 70%,
-        transparent 100%
+        135deg,
+        rgba(22, 40, 68, 0.52) 0%,
+        rgba(18, 32, 58, 0.46) 50%,
+        rgba(28, 48, 80, 0.54) 100%
+      );
+      border-color: rgba(159,212,245,0.32);
+      box-shadow:
+        0 28px 72px rgba(0,0,0,0.58),
+        0 6px 18px rgba(0,0,0,0.28),
+        inset 0 1.5px 0 rgba(159,212,245,0.22),
+        inset 0 -1px 0 rgba(159,212,245,0.08);
+    }
+    html[data-theme="dark"] .hero-glass::before {
+      background: linear-gradient(
+        180deg,
+        rgba(159,212,245,0.22) 0%,
+        rgba(159,212,245,0.06) 80%,
+        rgba(159,212,245,0) 100%
       );
     }
     /* Force light text inside the overhang on dark mode — label, headline, sub, ghost link */
@@ -326,51 +328,55 @@
     /* .hero-scrim removed Apr 19 PM2 — was hazing the photos.
        The cream-glass look now lives ONLY on .hero-glass. */
     .hero-scrim { display: none; }
-    /* Frozen overhang tab — FULL WIDTH ribbon lining the middle of the gallery.
-       Apr 21 v4: crisper fill, much less blur. Previous blur(24px) + saturate(1.25)
-       was pulling color noise from the photos behind, reading as a muddy band. */
+    /* Frozen water-drop tab (restored Apr 21 v5 per Mason) — a chilled glass
+       lozenge floating over the middle of the gallery. Heavy blur lets the
+       photos show through, icy tint, rounded corners, thin highlight edge. */
     .hero-glass {
       position: absolute; z-index: 2;
-      left: 0; right: 0; top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
+      left: 50%; top: 54%;
+      transform: translate(-50%, -50%);
+      width: min(94vw, 1280px);
+      max-width: none;
       margin: 0;
-      padding: clamp(14px, 1.8vw, 22px) clamp(28px, 4vw, 72px);
-      background: rgba(252, 253, 255, 0.86);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.95);
-      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
+      padding: clamp(20px, 2.4vw, 30px) clamp(26px, 3.6vw, 48px);
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.42) 0%,
+        rgba(214,234,248,0.30) 50%,
+        rgba(186,216,238,0.36) 100%
+      );
+      backdrop-filter: blur(30px) saturate(1.7);
+      -webkit-backdrop-filter: blur(30px) saturate(1.7);
+      border: 1.2px solid rgba(255, 255, 255, 0.85);
+      border-radius: 26px;
       box-shadow:
-        0 14px 38px rgba(11,14,20,0.12),
-        0 2px 8px rgba(11,14,20,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.9);
+        0 28px 70px rgba(11,14,20,0.28),
+        0 6px 18px rgba(11,14,20,0.14),
+        inset 0 1.5px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(255,255,255,0.4);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: clamp(20px, 3vw, 44px);
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
     }
-    /* Subtle vertical rule between copy column and actions column — breaks up the
-       horizontal sameness the user flagged without adding weight. */
-    .hero-glass-actions::before {
+    /* Specular sheen — the telltale "frozen" highlight across the top. */
+    .hero-glass::before {
       content: '';
-      position: absolute; left: -22px; top: 50%;
-      width: 1px; height: 44px;
-      transform: translateY(-50%);
+      position: absolute;
+      inset: 1px 1px auto 1px;
+      height: 38%;
+      border-radius: 26px 26px 60% 60% / 26px 26px 28% 28%;
       background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(17,24,39,0.18) 30%,
-        rgba(17,24,39,0.18) 70%,
-        transparent 100%
+        180deg,
+        rgba(255,255,255,0.55) 0%,
+        rgba(255,255,255,0.10) 80%,
+        rgba(255,255,255,0) 100%
       );
+      pointer-events: none;
     }
-    .hero-glass-actions { position: relative; }
-    .hero-glass-copy { flex: 1 1 auto; min-width: 0; }
+    .hero-glass > * { position: relative; z-index: 1; }
+    .hero-glass-copy { flex: 1 1 540px; min-width: 0; }
     .hero-glass-actions {
       flex: 0 0 auto;
       display: flex; flex-direction: column;
@@ -1702,24 +1708,13 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   // Rotating hero word — even cadence, one emoji per word, all on the same bob.
+  // Apr 21 v5: only the headline word + emoji rotate. Blue CTA stays put as
+  // "Connect With Me" per Mason — swapping the button label too was too much.
   const words  = ['brand','product','influencer','service','creator','property','vision'];
   const colors = ['w-brand','w-product','w-influencer','w-service','w-creator','w-property','w-vision'];
-  // CTA label rotates in lockstep with the word — each word gets a CTA that
-  // matches its context, so "product" pairs with "Book a Shoot" etc.
-  const ctas   = [
-    'Connect With Me',
-    'Book a Shoot',
-    'Start a Campaign',
-    'Get a Quote',
-    'Let\u2019s Create',
-    'Shoot Your Place',
-    'Work With Me'
-  ];
   let wi = 0;
   const rwEl    = document.getElementById('rw');
   const rwText  = rwEl.querySelector('.rw-text');
-  const ctaEl   = document.getElementById('rotating-cta');
-  const ctaText = ctaEl ? ctaEl.querySelector('.rc-text') : null;
 
   function rotateWord() {
     rwEl.style.animation = 'none';
@@ -1728,12 +1723,6 @@
     rwEl.className = colors[wi];
     rwText.textContent = words[wi];
     rwEl.style.animation = 'fadeWord 0.5s ease';
-    if (ctaText) {
-      ctaEl.style.animation = 'none';
-      ctaEl.offsetHeight;
-      ctaText.textContent = ctas[wi];
-      ctaEl.style.animation = 'fadeWord 0.5s ease';
-    }
   }
 
   // Steady rotation — every word gets the same airtime.
