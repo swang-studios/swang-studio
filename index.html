@@ -119,7 +119,7 @@
     html[data-theme="dark"] .hero-label::before { background: #eaf3fb; }
     html[data-theme="dark"] .hero-headline { color: #f5fbff; }
     html[data-theme="dark"] .hero-sub      { color: rgba(234,243,251,0.82); }
-    html[data-theme="dark"] .hero-ghost    { color: rgba(234,243,251,0.78); }
+    html[data-theme="dark"] .hero-ghost    { color: rgba(234,243,251,0.9); }
     html[data-theme="dark"] .hero-ghost:hover { color: #eaf3fb; }
     html[data-theme="dark"] .btn           { color: #eaf3fb; border-color: rgba(234,243,251,0.65); }
     html[data-theme="dark"] .btn.filled    { color: #fff; }
@@ -135,7 +135,7 @@
     html[data-theme="dark"] .btn:hover { background: var(--honey-deep); color: #0b1628; }
     html[data-theme="dark"] .about-cta { background: var(--honey-deep); color: #0b1628; }
     html[data-theme="dark"] .about-cta:hover { background: var(--honey-glow); color: #0b1628; }
-    html[data-theme="dark"] .about-tag { border-color: rgba(159,212,245,0.28); color: rgba(234,243,251,0.8); }
+    html[data-theme="dark"] .about-tag { border-color: rgba(159,212,245,0.55); color: rgba(234,243,251,0.95); }
     html[data-theme="dark"] .note-form input,
     html[data-theme="dark"] .note-form textarea {
       background: rgba(20, 35, 64, 0.6);
@@ -283,7 +283,7 @@
     nav ul a {
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--ink); text-decoration: none;
-      opacity: 0.65; transition: opacity 0.2s, color 0.2s;
+      opacity: 0.82; transition: opacity 0.2s, color 0.2s;
     }
     nav ul a:hover { opacity: 1; color: var(--honey-deep); }
 
@@ -532,7 +532,7 @@
       font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
       color: rgba(11,14,20,0.58);
     }
-    html[data-theme="dark"] .cover-meta { color: rgba(234,243,251,0.6); }
+    html[data-theme="dark"] .cover-meta { color: rgba(234,243,251,0.82); }
     .cover-meta a {
       color: inherit; text-decoration: none;
       border-bottom: 1px dotted currentColor; padding-bottom: 2px;
@@ -797,9 +797,14 @@
       .logo-item.profile img { max-height: 72px; max-width: 130px; }
       nav { padding: 14px 16px; }
       nav ul { gap: 14px; }
-      nav ul a { font-size: 12px; }
-      .theme-toggle { margin-left: 6px; width: 28px; height: 28px; }
-      .theme-toggle svg { width: 12px; height: 12px; }
+      /* Larger tap targets — min 40px hit area per WCAG 2.5.5 */
+      nav ul a { font-size: 12px; padding: 10px 2px; display: inline-block; }
+      .theme-toggle { margin-left: 6px; width: 34px; height: 34px; }
+      .theme-toggle svg { width: 14px; height: 14px; }
+      /* About section cadence on very small screens */
+      .about { padding: 64px 20px; }
+      .about-contact { margin-top: 36px; padding-top: 28px; }
+      .note-mail { font-size: 18px; padding: 14px 20px; }
     }
 
     /* GALLERY, 4 editorial tiles */
@@ -1122,7 +1127,7 @@
     .about-name em { color: var(--honey-glow); font-style: normal; }
     .about-bio {
       margin-top: 24px; font-size: 15px; line-height: 1.78;
-      color: rgba(234,243,251,0.72); max-width: 440px;
+      color: rgba(234,243,251,0.9); max-width: 440px;
     }
     .about-tags {
       display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
@@ -1130,7 +1135,7 @@
     .about-tag {
       font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; padding: 6px 14px;
-      border: 1px solid rgba(159,212,245,0.35); color: rgba(234,243,251,0.72);
+      border: 1px solid rgba(159,212,245,0.55); color: rgba(234,243,251,0.9);
     }
     .about-cta {
       display: inline-flex; align-items: center; gap: 8px;
@@ -1157,7 +1162,7 @@
     .note .section-label::before { background: var(--honey-glow); }
     .note-headline             { color: #eaf3fb; }
     .note-headline em          { color: var(--honey-glow); }
-    .note-sub                  { color: rgba(234,243,251,0.72); }
+    .note-sub                  { color: rgba(234,243,251,0.9); }
     .note-inner {
       max-width: 640px; margin: 0 auto;
       display: flex; flex-direction: column; gap: 18px;
@@ -1375,6 +1380,10 @@
         grid-template-rows: repeat(3, 1fr);
       }
       .hero-tile.feature { grid-column: 1 / 3; grid-row: 1; }
+      /* Mobile: stack the middle-column aerials down the left rail so they
+         don't collide with the full-width feature tile (Apr 21 mobile fix). */
+      .hero-tile.mid-top { grid-column: 1; grid-row: 2; }
+      .hero-tile.mid-bot { grid-column: 1; grid-row: 3; }
       .hero-tile.tall    { grid-column: 2; grid-row: 2 / 4; }
       .hero-glass {
         position: relative; left: auto; top: auto; transform: none;
