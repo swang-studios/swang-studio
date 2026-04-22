@@ -981,16 +981,8 @@
       color: var(--ink-mute); border-bottom-color: var(--line);
       pointer-events: none;
     }
-    /* IM8 card, logo centered on warm backdrop */
-    .card.card-im8 .card-img {
-      background: radial-gradient(ellipse at center, #e4f1fb 0%, #9FD4F5 75%);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card.card-im8 .card-img img {
-      width: 68%; height: auto; max-height: 60%;
-      object-fit: contain; filter: drop-shadow(0 4px 18px rgba(11,14,20,0.25));
-    }
-    .card.card-im8:hover .card-img img { transform: scale(1.06); }
+    /* All 3 case-study thumbs fill edge-to-edge. (IM8 used to be contained
+       on a blue backdrop — retired so the 3-up row reads as a clean unit.) */
     .card {
       display: flex; flex-direction: column;
       border: 1px solid var(--line);
@@ -1593,7 +1585,7 @@
       <p class="section-label">Case Studies</p>
       <h2 class="work-headline">Real partners.<br>Real <em>results.</em></h2>
     </div>
-    <a href="#leave-a-review" class="work-link">Let's Talk &rarr;</a>
+    <a href="case-studies" class="work-link">View More &rarr;</a>
   </div>
   <div class="cards-track">
     <a href="case-noah-thumbnails" class="card reveal">
@@ -1614,7 +1606,7 @@
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
-    <a href="case-im8-loyd" class="card reveal card-im8">
+    <a href="case-im8-loyd" class="card reveal">
       <div class="card-img"><img src="card-thumb-im8.webp" alt="IM8 x Jewell Loyd" /></div>
       <div class="card-body">
         <p class="card-tag">Athlete Collaboration</p>
