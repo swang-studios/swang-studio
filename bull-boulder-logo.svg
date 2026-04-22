@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bull Boulder logo — stars and stripes charging bull">
+  <defs>
+    <!-- American flag fill: blue canton top-left, red/white stripes across -->
+    <pattern id="bbUsFlag" patternUnits="userSpaceOnUse" width="600" height="400" patternTransform="translate(0 0)">
+      <!-- White background -->
+      <rect width="600" height="400" fill="#ffffff"/>
+      <!-- Red stripes (7 total red of 13 stripes in real flag, here stylized) -->
+      <g fill="#c8102e">
+        <rect x="0" y="0"   width="600" height="30"/>
+        <rect x="0" y="60"  width="600" height="30"/>
+        <rect x="0" y="120" width="600" height="30"/>
+        <rect x="0" y="180" width="600" height="30"/>
+        <rect x="0" y="240" width="600" height="30"/>
+        <rect x="0" y="300" width="600" height="30"/>
+        <rect x="0" y="360" width="600" height="30"/>
+      </g>
+      <!-- Blue canton covers roughly 2/5 top-left -->
+      <rect x="0" y="0" width="260" height="180" fill="#0a3161"/>
+      <!-- Stars grid (5x4 simplified) -->
+      <g fill="#ffffff">
+        <g id="bbStar5">
+          <polygon points="0,-7 2,-2 7,-2 3,1 5,7 0,3 -5,7 -3,1 -7,-2 -2,-2" />
+        </g>
+      </g>
+      <g fill="#ffffff">
+        <!-- 5 rows x 6 stars stylized -->
+        <use href="#bbStar5" x="30" y="20"/><use href="#bbStar5" x="70" y="20"/><use href="#bbStar5" x="110" y="20"/><use href="#bbStar5" x="150" y="20"/><use href="#bbStar5" x="190" y="20"/><use href="#bbStar5" x="230" y="20"/>
+        <use href="#bbStar5" x="50" y="50"/><use href="#bbStar5" x="90" y="50"/><use href="#bbStar5" x="130" y="50"/><use href="#bbStar5" x="170" y="50"/><use href="#bbStar5" x="210" y="50"/>
+        <use href="#bbStar5" x="30" y="80"/><use href="#bbStar5" x="70" y="80"/><use href="#bbStar5" x="110" y="80"/><use href="#bbStar5" x="150" y="80"/><use href="#bbStar5" x="190" y="80"/><use href="#bbStar5" x="230" y="80"/>
+        <use href="#bbStar5" x="50" y="110"/><use href="#bbStar5" x="90" y="110"/><use href="#bbStar5" x="130" y="110"/><use href="#bbStar5" x="170" y="110"/><use href="#bbStar5" x="210" y="110"/>
+        <use href="#bbStar5" x="30" y="140"/><use href="#bbStar5" x="70" y="140"/><use href="#bbStar5" x="110" y="140"/><use href="#bbStar5" x="150" y="140"/><use href="#bbStar5" x="190" y="140"/><use href="#bbStar5" x="230" y="140"/>
+      </g>
+    </pattern>
+
+    <!-- Bull silhouette path: stylized charging bull, head low, facing right -->
+    <clipPath id="bbBullClip">
+      <path d="M 60 270
+               C 50 240, 70 210, 95 200
+               L 115 185
+               C 120 170, 135 160, 155 165
+               L 175 170
+               C 185 155, 210 140, 240 140
+               L 270 135
+               C 290 130, 315 130, 335 140
+               L 360 148
+               L 380 140
+               L 395 155
+               L 405 165
+               L 420 172
+               L 455 165
+               C 475 165, 490 175, 500 190
+               L 510 220
+               C 515 235, 515 255, 510 272
+               L 495 285
+               L 485 295
+               L 475 285
+               L 465 280
+               L 455 275
+               L 440 280
+               L 425 290
+               L 430 310
+               L 425 325
+               L 415 320
+               L 405 305
+               L 395 288
+               L 380 285
+               L 360 290
+               L 340 293
+               L 320 295
+               L 300 294
+               L 282 296
+               L 268 298
+               L 250 302
+               L 235 308
+               L 225 320
+               L 215 335
+               L 205 330
+               L 200 310
+               L 190 298
+               L 175 295
+               L 160 290
+               L 145 285
+               L 130 282
+               L 115 285
+               L 100 290
+               L 90 295
+               L 80 292
+               L 72 285
+               L 65 278
+               Z
+               M 390 110
+               L 405 95
+               L 415 105
+               L 418 120
+               L 430 125
+               L 442 118
+               L 446 130
+               L 438 140
+               L 425 140
+               Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Drop shadow for bull -->
+  <g>
+    <!-- Fill bull shape with flag pattern -->
+    <rect width="600" height="400" fill="url(#bbUsFlag)" clip-path="url(#bbBullClip)"/>
+    <!-- Black outline of bull -->
+    <path d="M 60 270
+             C 50 240, 70 210, 95 200
+             L 115 185
+             C 120 170, 135 160, 155 165
+             L 175 170
+             C 185 155, 210 140, 240 140
+             L 270 135
+             C 290 130, 315 130, 335 140
+             L 360 148
+             L 380 140
+             L 395 155
+             L 405 165
+             L 420 172
+             L 455 165
+             C 475 165, 490 175, 500 190
+             L 510 220
+             C 515 235, 515 255, 510 272
+             L 495 285
+             L 485 295
+             L 475 285
+             L 465 280
+             L 455 275
+             L 440 280
+             L 425 290
+             L 430 310
+             L 425 325
+             L 415 320
+             L 405 305
+             L 395 288
+             L 380 285
+             L 360 290
+             L 340 293
+             L 320 295
+             L 300 294
+             L 282 296
+             L 268 298
+             L 250 302
+             L 235 308
+             L 225 320
+             L 215 335
+             L 205 330
+             L 200 310
+             L 190 298
+             L 175 295
+             L 160 290
+             L 145 285
+             L 130 282
+             L 115 285
+             L 100 290
+             L 90 295
+             L 80 292
+             L 72 285
+             L 65 278
+             Z
+             M 390 110
+             L 405 95
+             L 415 105
+             L 418 120
+             L 430 125
+             L 442 118
+             L 446 130
+             L 438 140
+             L 425 140
+             Z"
+          fill="none" stroke="#0b0e14" stroke-width="4" stroke-linejoin="round"/>
+    <!-- Eye (small red dot to match raging bull vibe) -->
+    <circle cx="458" cy="188" r="3.5" fill="#c8102e"/>
+    <!-- Nostril -->
+    <circle cx="498" cy="215" r="2.5" fill="#0b0e14"/>
+    <!-- Tail -->
+    <path d="M 60 270 C 40 260, 30 245, 45 230 C 50 240, 58 250, 60 270 Z" fill="#0b0e14"/>
+  </g>
+</svg>

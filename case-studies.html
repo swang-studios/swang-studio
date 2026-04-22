@@ -419,6 +419,37 @@
     @media (min-width: 901px) and (max-width: 1100px) {
       .sm-grid { grid-template-columns: repeat(2, 1fr); }
     }
+  
+    /* Vector-logo thumbnails (Bull Boulder etc.) – contain the logo on a soft
+       backdrop so the whole mark is visible. Overrides cover-crop for this class only. */
+    .card-cover img.logo-thumb {
+      object-fit: contain;
+      padding: 22px;
+      background: linear-gradient(135deg, #0b1628 0%, #102444 55%, #1d3660 100%);
+    }
+    html[data-theme="dark"] .card-cover img.logo-thumb {
+      background: linear-gradient(135deg, #050b16 0%, #0b1628 55%, #102444 100%);
+    }
+
+    /* Dark-mode fixes for sm-cards and study-card toggle:
+       cream-2 flips to dark navy in dark theme, so these labels — which sit on
+       a dark gradient overlay — would become dark-on-dark. Pin to light. */
+    html[data-theme="dark"] .sm-meta,
+    html[data-theme="dark"] .sm-meta .sm-go { color: #eaf3fb; }
+    html[data-theme="dark"] .sm-meta h3 { color: #f5fbff; }
+    html[data-theme="dark"] .sm-meta .sm-cat { color: #9FD4F5; }
+    html[data-theme="dark"] .sm-card {
+      border-color: rgba(234,243,251,0.12);
+      background: #0b1628;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+    html[data-theme="dark"] .sm-card:hover {
+      box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+    }
+    /* Study card expanded toggle icon stroke should read on the dark accent bg */
+    html[data-theme="dark"] .study-card.open .toggle-icon svg path { stroke: #0b1628; }
+    /* Filter pills + other cream-2 text chunks in dark theme */
+    html[data-theme="dark"] .filter-pill.active { color: #0b1628; }
   </style>
 </head>
 <body>
@@ -470,10 +501,7 @@
   <div class="study-card" data-category="meta">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
-        <div class="card-chrome">
-          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-        </div>
-        <img src="design3.jpg" alt="Bull Boulder Meta Campaign" loading="lazy" />
+        <img src="bull-boulder-logo.svg" alt="Bull Boulder Tow Hitches logo" loading="lazy" class="logo-thumb" />
       </div>
       <div class="card-meta-wrap">
         <p class="card-cat">Meta Campaigns · <a href="https://bullboulder.com/" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="color:inherit;text-decoration:underline;">Bull Boulder Tow Hitches</a></p>
@@ -576,9 +604,6 @@
   <div class="study-card" data-category="meta">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
-        <div class="card-chrome">
-          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-        </div>
         <img src="card-thumb-meta.png" alt="Pavers and Turf by O'Neill's, meta campaign hero" loading="lazy" />
       </div>
       <div class="card-meta-wrap">
@@ -645,9 +670,6 @@
   <div class="study-card" data-category="brand">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
-        <div class="card-chrome">
-          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-        </div>
         <img src="card-thumb-im8.webp" alt="IM8 × Jewell Loyd collab content" loading="lazy" />
       </div>
       <div class="card-meta-wrap">
@@ -713,9 +735,6 @@
   <div class="study-card" data-category="content">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
-        <div class="card-chrome">
-          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-        </div>
         <img src="card-thumb-clickbait.png" alt="Noah Kahan YouTube clickbait thumbnails" loading="lazy" />
       </div>
       <div class="card-meta-wrap">
@@ -797,7 +816,7 @@
       </div>
     </a>
     <a class="sm-card" href="/case-im8-loyd" aria-label="IM8 x Jewell Loyd, full case study">
-      <img src="portrait2.jpg" alt="Aerial roof and lawn, IM8 x Jewell Loyd case study thumb" loading="lazy" />
+      <img src="card-thumb-im8.webp" alt="IM8 x Jewell Loyd collab content" loading="lazy" />
       <div class="sm-meta">
         <span class="sm-cat">Brand · Athlete</span>
         <h3>IM8 x Jewell Loyd, Athlete-Driven Brand Content</h3>
