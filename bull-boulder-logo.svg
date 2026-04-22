@@ -25,13 +25,15 @@
     <use href="#bbStarSm" x="120"/>
   </g>
 
-  <!-- BULL BOULDER wordmark -->
+  <!-- BULL BOULDER wordmark (textLength locks it to fit the viewBox) -->
   <text x="300" y="210"
         text-anchor="middle"
         font-family="Georgia, 'Times New Roman', serif"
         font-weight="700"
         font-size="72"
-        letter-spacing="4"
+        letter-spacing="2"
+        textLength="520"
+        lengthAdjust="spacingAndGlyphs"
         fill="#f5fbff">BULL BOULDER</text>
 
   <!-- Horizontal stripe bar with TOW HITCHES carved out -->

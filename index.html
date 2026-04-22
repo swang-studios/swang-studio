@@ -1088,12 +1088,37 @@
       width: 100%;
       max-width: 420px;
       aspect-ratio: 4 / 5;
-      background: #ffffff;
-      border: 1px solid rgba(234,243,251,0.25);
+      background:
+        linear-gradient(135deg, rgba(159,212,245,0.08) 0%, rgba(11,22,40,0.35) 60%, rgba(11,22,40,0.55) 100%),
+        radial-gradient(at 30% 25%, rgba(159,212,245,0.18) 0%, rgba(0,0,0,0) 55%),
+        #0b1628;
+      border: 1px solid rgba(234,243,251,0.18);
       border-radius: 3px;
       box-shadow:
         0 30px 70px rgba(0,0,0,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.5);
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-photo-slot::after {
+      content: "MS";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: clamp(72px, 9vw, 120px);
+      letter-spacing: -0.02em;
+      color: rgba(159,212,245,0.18);
+      pointer-events: none;
+    }
+    html[data-theme="dark"] .about-photo-slot {
+      background:
+        linear-gradient(135deg, rgba(159,212,245,0.10) 0%, rgba(5,11,22,0.55) 60%, rgba(5,11,22,0.75) 100%),
+        radial-gradient(at 30% 25%, rgba(159,212,245,0.16) 0%, rgba(0,0,0,0) 55%),
+        #05060b;
+      border-color: rgba(234,243,251,0.10);
     }
     .about-contact {
       margin-top: 48px;
