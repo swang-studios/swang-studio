@@ -117,7 +117,7 @@
       padding: 26px 40px; margin-bottom: 8px;
     }
     .im8-logo-wrap img {
-      max-height: 72px; width: auto;
+      max-height: 128px; width: auto;
       filter: drop-shadow(0 8px 30px rgba(0,0,0,0.45));
     }
     .im8-hook {
@@ -133,10 +133,12 @@
       letter-spacing: -0.03em; line-height: 1.0; color: #f5f8fc;
     }
     .im8-title em {
-      color: var(--accent-2); font-style: normal;
-      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
-      padding: 0 10px; border-radius: 2px;
-      box-shadow: inset 0 -2px 0 var(--blue-line);
+      font-style: normal; font-weight: 700;
+      background: linear-gradient(135deg, #9FD4F5 0%, #6FC3F2 45%, #B6E3FA 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      padding: 0; border-radius: 0;
+      box-shadow: none;
     }
     .im8-sub {
       position: relative; z-index: 1;
@@ -148,8 +150,8 @@
     .cs-body p { font-size: 16px; line-height: 1.8; color: var(--ink-2); }
     .cs-body p em {
       color: var(--accent); font-style: normal; font-weight: 600;
-      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
-      padding: 0 6px; border-radius: 2px;
+      background: linear-gradient(120deg, rgba(46,127,194,0.08), rgba(111,195,242,0.04));
+      padding: 0 4px; border-radius: 2px;
     }
     .cs-rule { height: 1px; background: var(--rule); margin: 40px auto; max-width: 780px; }
     .cs-bullets { list-style: none; margin: 8px auto 0; display: grid; gap: 12px; max-width: 780px; }
@@ -418,14 +420,7 @@
     <p>Collab post with <em>Jewell Loyd</em> (1.3M audience) for IM8. Built to feel native, not overly branded, not overly scripted. Just clean performance, personality, product.</p>
   </section>
 
-  <!-- REACH (the one interactive) -->
-  <div class="reach">
-    <div class="lbl">Athlete Reach</div>
-    <div class="big" id="reachCount">0</div>
-    <div class="sub">1.3M across platforms, delivered without feeling like an interruption.</div>
-  </div>
-
-  <!-- IG EMBED -->
+  <!-- IG EMBED (The collab shown first, then reach stat) -->
   <section class="ig-embed-section">
     <h2>The collab.</h2>
     <p class="sub">The post in context, athlete moment, product integration, clean delivery.</p>
@@ -433,6 +428,13 @@
       <iframe src="https://www.instagram.com/p/DWfxCu1DEqE/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
     </div>
   </section>
+
+  <!-- REACH (the one interactive) -->
+  <div class="reach">
+    <div class="lbl">Athlete Reach</div>
+    <div class="big" id="reachCount">0</div>
+    <div class="sub">1.3M across platforms, delivered without feeling like an interruption.</div>
+  </div>
 </div>
 
 <footer>
