@@ -870,6 +870,175 @@
       padding: 12px 16px; font-size: 11px; font-weight: 600;
       letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute);
     }
+    /* ── BB ROULETTE ─────────────────────────────────
+       Horizontal "scroll-wheel" of five Bull Boulder campaign reels.
+       Lives between the top reels grid and the im8 "Latest Work" row.
+       Height is intentionally capped so it never takes more than two
+       reels' worth of vertical space on the page. */
+    .bb-roulette {
+      margin-top: 36px;
+      padding: 28px 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(159,212,245,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(200,16,46,0.10) 0%, transparent 55%),
+        var(--bg-soft);
+      overflow: hidden;
+    }
+    .bb-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 20px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .bb-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--honey-deep); margin-bottom: 4px;
+    }
+    .bb-title {
+      font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink); line-height: 1.15;
+    }
+    .bb-title em { color: var(--honey-deep); font-style: normal; }
+    .bb-spin {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 18px; border: 1px solid var(--ink);
+      background: var(--ink); color: #fff; cursor: pointer;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; border-radius: 999px;
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 16px rgba(11,14,20,0.18);
+    }
+    .bb-spin:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(11,14,20,0.26); }
+    .bb-spin-dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: #c8102e; box-shadow: 0 0 0 3px rgba(200,16,46,0.25);
+      display: inline-block;
+    }
+    .bb-spinning .bb-spin-dot { animation: bbDotBlink 0.25s linear infinite; }
+    @keyframes bbDotBlink { 50% { opacity: 0.35; } }
+    .bb-stage {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      /* Hard-cap height so we never exceed ~two reel-cards worth of space. */
+      height: 460px;
+    }
+    .bb-rail {
+      position: relative; display: flex; align-items: center;
+      gap: 14px;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+      padding: 0 40px;
+    }
+    .bb-tile {
+      flex: 0 0 auto;
+      width: 220px; aspect-ratio: 9 / 16;
+      position: relative; border: 1px solid rgba(11,14,20,0.12);
+      border-radius: 22px; overflow: hidden; cursor: pointer;
+      background: #0b0e14; padding: 0;
+      box-shadow: 0 8px 20px rgba(11,14,20,0.22);
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.35s, box-shadow 0.35s, filter 0.4s;
+      transform: scale(0.7);
+      opacity: 0.45;
+      filter: saturate(0.85);
+    }
+    .bb-tile.adj { transform: scale(0.82); opacity: 0.75; filter: saturate(0.95); }
+    .bb-tile.active {
+      transform: scale(1);
+      opacity: 1; filter: none;
+      box-shadow: 0 22px 48px rgba(11,14,20,0.38), 0 0 0 3px var(--honey);
+      z-index: 3;
+    }
+    .bb-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+    .bb-tile-cap {
+      position: absolute; left: 10px; bottom: 10px; z-index: 2;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #fff;
+      padding: 5px 9px; border-radius: 999px;
+      background: rgba(11,14,20,0.55);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+    .bb-play {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      pointer-events: none;
+      opacity: 0; transition: opacity 0.2s;
+      z-index: 2;
+    }
+    .bb-play svg {
+      width: 54px; height: 54px; color: #fff;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+    }
+    .bb-tile:not(.playing):hover .bb-play,
+    .bb-tile.active:not(.playing) .bb-play { opacity: 0.92; }
+    .bb-tile.playing .bb-play { opacity: 0; }
+
+    .bb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 4;
+      width: 40px; height: 40px; border-radius: 999px;
+      border: 1px solid rgba(11,14,20,0.22);
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      color: var(--ink); cursor: pointer;
+      font-size: 16px; line-height: 1;
+      display: grid; place-items: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+      box-shadow: 0 6px 18px rgba(11,14,20,0.18);
+    }
+    .bb-nav:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .bb-prev { left: 14px; }
+    .bb-next { right: 14px; }
+
+    .bb-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+    .bb-dots button {
+      width: 24px; height: 4px; border-radius: 999px;
+      border: none; background: rgba(11,14,20,0.18); padding: 0;
+      cursor: pointer; transition: background 0.2s, width 0.2s;
+    }
+    .bb-dots button[aria-current="true"] { background: var(--honey-deep); width: 40px; }
+
+    .bb-caption {
+      margin-top: 14px; text-align: center;
+      font-size: 12.5px; line-height: 1.6; color: var(--ink-soft);
+      max-width: 640px; margin-left: auto; margin-right: auto;
+    }
+    .bb-caption a { color: var(--honey-deep); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Dark mode tweaks */
+    html[data-theme="dark"] .bb-roulette {
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(159,212,245,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(200,16,46,0.16) 0%, transparent 55%),
+        #0b1628;
+      border-color: rgba(234,243,251,0.14);
+    }
+    html[data-theme="dark"] .bb-spin {
+      background: #eaf3fb; color: #0b1628; border-color: #eaf3fb;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+    }
+    html[data-theme="dark"] .bb-nav {
+      background: rgba(15,28,51,0.75); color: #eaf3fb;
+      border-color: rgba(234,243,251,0.22);
+    }
+    html[data-theme="dark"] .bb-nav:hover { background: #eaf3fb; color: #0b1628; border-color: #eaf3fb; }
+    html[data-theme="dark"] .bb-dots button { background: rgba(234,243,251,0.18); }
+    html[data-theme="dark"] .bb-dots button[aria-current="true"] { background: #9FD4F5; }
+
+    /* Responsive */
+    @media (max-width: 760px) {
+      .bb-stage { height: 400px; }
+      .bb-tile { width: 180px; }
+      .bb-nav { width: 34px; height: 34px; }
+      .bb-prev { left: 6px; }
+      .bb-next { right: 6px; }
+    }
+
     .im8-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;
     }
@@ -1588,6 +1757,64 @@
       <p class="reel-label">Instagram Reel</p>
     </div>
   </div>
+  <!-- Bull Boulder roulette — 5 Meta winners from the campaign, interactive. -->
+  <div class="bb-roulette" id="bb-roulette" aria-label="Bull Boulder campaign reel wheel">
+    <div class="bb-head">
+      <div>
+        <p class="bb-eyebrow">Bull Boulder Campaign · Meta</p>
+        <h3 class="bb-title">Spin the <em>wheel.</em> Pick a winner.</h3>
+      </div>
+      <button class="bb-spin" type="button" onclick="bbSpin()" aria-label="Spin to a random reel">
+        <span class="bb-spin-dot" aria-hidden="true"></span>
+        <span>Spin it</span>
+      </button>
+    </div>
+
+    <div class="bb-stage">
+      <button class="bb-nav bb-prev" type="button" aria-label="Previous reel" onclick="bbStep(-1)">&larr;</button>
+      <div class="bb-rail" id="bb-rail">
+        <button type="button" class="bb-tile" data-bb-idx="0" onclick="bbActivate(0)">
+          <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-1-poster.jpg" src="reels/bull-boulder/bb-reel-1.mp4"></video>
+          <span class="bb-tile-cap">Reel 01</span>
+          <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <button type="button" class="bb-tile" data-bb-idx="1" onclick="bbActivate(1)">
+          <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-2-poster.jpg" src="reels/bull-boulder/bb-reel-2.mp4"></video>
+          <span class="bb-tile-cap">Reel 02</span>
+          <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <button type="button" class="bb-tile" data-bb-idx="2" onclick="bbActivate(2)">
+          <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-3-poster.jpg" src="reels/bull-boulder/bb-reel-3.mp4"></video>
+          <span class="bb-tile-cap">Reel 03</span>
+          <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <button type="button" class="bb-tile" data-bb-idx="3" onclick="bbActivate(3)">
+          <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-4-poster.jpg" src="reels/bull-boulder/bb-reel-4.mp4"></video>
+          <span class="bb-tile-cap">Reel 04</span>
+          <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <button type="button" class="bb-tile" data-bb-idx="4" onclick="bbActivate(4)">
+          <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-5-poster.jpg" src="reels/bull-boulder/bb-reel-5.mp4"></video>
+          <span class="bb-tile-cap">Reel 05</span>
+          <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+      </div>
+      <button class="bb-nav bb-next" type="button" aria-label="Next reel" onclick="bbStep(1)">&rarr;</button>
+    </div>
+
+    <div class="bb-dots" id="bb-dots" role="tablist" aria-label="Reel pages">
+      <button type="button" aria-label="Reel 1" onclick="bbActivate(0)"></button>
+      <button type="button" aria-label="Reel 2" onclick="bbActivate(1)"></button>
+      <button type="button" aria-label="Reel 3" onclick="bbActivate(2)"></button>
+      <button type="button" aria-label="Reel 4" onclick="bbActivate(3)"></button>
+      <button type="button" aria-label="Reel 5" onclick="bbActivate(4)"></button>
+    </div>
+
+    <p class="bb-caption">
+      Five videos I shot and edited for Bull Boulder Tow Hitches. Two became Meta winners — in an industry where the owner told me 1&#8209;in&#8209;15 is typical. <a href="/case-studies#bull-boulder">See the breakdown &rarr;</a>
+    </p>
+  </div>
+
   <div class="im8-grid">
     <div class="im8-card">
       <div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
@@ -1599,6 +1826,132 @@
     </div>
   </div>
 </section>
+
+<script>
+  /* Bull Boulder roulette controller */
+  (function () {
+    const rail = document.getElementById('bb-rail');
+    if (!rail) return;
+    const tiles = Array.from(rail.querySelectorAll('.bb-tile'));
+    const dots  = Array.from(document.querySelectorAll('#bb-dots button'));
+    const spinBtn = document.querySelector('.bb-spin');
+    const root = document.getElementById('bb-roulette');
+    let active = 2; // start centered
+    let spinning = false;
+
+    function layout() {
+      if (!tiles.length) return;
+      const tile = tiles[active];
+      const stage = rail.parentElement;
+      const stageRect = stage.getBoundingClientRect();
+      const tileRect  = tile.getBoundingClientRect();
+      const current = parseFloat(rail.dataset.tx || '0');
+      // how far is the active tile's center from the stage center?
+      const tileCenter  = tileRect.left + tileRect.width / 2;
+      const stageCenter = stageRect.left + stageRect.width / 2;
+      const nextTx = current + (stageCenter - tileCenter);
+      rail.style.transform = 'translateX(' + nextTx + 'px)';
+      rail.dataset.tx = String(nextTx);
+    }
+
+    function updateClasses() {
+      tiles.forEach((el, i) => {
+        el.classList.remove('active', 'adj');
+        if (i === active) el.classList.add('active');
+        else if (Math.abs(i - active) === 1) el.classList.add('adj');
+      });
+      dots.forEach((d, i) => d.setAttribute('aria-current', i === active ? 'true' : 'false'));
+    }
+
+    function stopAll() {
+      tiles.forEach(t => {
+        const v = t.querySelector('video');
+        if (v && !v.paused) v.pause();
+        t.classList.remove('playing');
+      });
+    }
+
+    function playActive() {
+      const v = tiles[active].querySelector('video');
+      if (!v) return;
+      // Try to play; browsers allow this since activation came from a user click.
+      v.currentTime = 0;
+      const p = v.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => tiles[active].classList.add('playing'))
+         .catch(() => { /* autoplay may be blocked — leave poster. */ });
+      } else {
+        tiles[active].classList.add('playing');
+      }
+    }
+
+    window.bbActivate = function (idx) {
+      if (idx < 0 || idx >= tiles.length) return;
+      const isToggleSame = (idx === active);
+      stopAll();
+      active = idx;
+      updateClasses();
+      // animate rail so active tile is centered
+      requestAnimationFrame(layout);
+      if (!isToggleSame) playActive();
+    };
+    window.bbStep = function (dir) {
+      let next = active + dir;
+      if (next < 0) next = tiles.length - 1;
+      if (next >= tiles.length) next = 0;
+      bbActivate(next);
+    };
+    window.bbSpin = function () {
+      if (spinning) return;
+      spinning = true;
+      root.classList.add('bb-spinning');
+      let ticks = 14 + Math.floor(Math.random() * 6); // 14–19 hops
+      const hop = () => {
+        const dir = 1;
+        let next = active + dir;
+        if (next >= tiles.length) next = 0;
+        active = next;
+        updateClasses();
+        requestAnimationFrame(layout);
+        ticks--;
+        if (ticks > 0) {
+          const delay = 80 + (20 - ticks) * 14; // decelerate
+          setTimeout(hop, delay);
+        } else {
+          root.classList.remove('bb-spinning');
+          spinning = false;
+          // Land randomly ±0 from current; play whatever landed.
+          playActive();
+        }
+      };
+      stopAll();
+      hop();
+    };
+
+    // keyboard nav when the roulette is in view
+    document.addEventListener('keydown', (e) => {
+      if (!root) return;
+      const rect = root.getBoundingClientRect();
+      const onScreen = rect.top < window.innerHeight - 80 && rect.bottom > 120;
+      if (!onScreen) return;
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); bbStep(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); bbStep(1); }
+    });
+
+    // Re-layout on resize
+    let rAF = 0;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(layout);
+    });
+
+    // Initial layout — wait a frame so fonts/layout settle
+    requestAnimationFrame(() => {
+      updateClasses();
+      layout();
+    });
+  })();
+</script>
 
 <!-- LIVE EXCERPT — featured reel, sets up the case-study shelf below -->
 <section class="excerpt" id="live-excerpt">
