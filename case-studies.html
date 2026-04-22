@@ -476,6 +476,164 @@
     html[data-theme="dark"] .study-card.open .toggle-icon svg path { stroke: #0b1628; }
     /* Filter pills + other cream-2 text chunks in dark theme */
     html[data-theme="dark"] .filter-pill.active { color: #0b1628; }
+
+    /* ── BULL BOULDER ROULETTE ─────────────────────────
+       Interactive "scroll-wheel" of the 5 Bull Boulder
+       campaign reels. Lives inside the Bull Boulder study. */
+    .bb-roulette {
+      margin: 8px 0 32px; padding: 28px 22px 24px;
+      border: 1px solid var(--rule); border-radius: 8px;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(159,212,245,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(200,16,46,0.10) 0%, transparent 55%),
+        var(--cream-3);
+      overflow: hidden;
+    }
+    .bb-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 20px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .bb-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
+    }
+    .bb-title {
+      font-size: clamp(20px, 2.2vw, 26px); font-weight: 700;
+      letter-spacing: -0.02em; color: var(--ink); line-height: 1.15;
+    }
+    .bb-title em { color: var(--accent); font-style: normal; }
+    .bb-spin {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 18px; border: 1px solid var(--ink);
+      background: var(--ink); color: #fff; cursor: pointer;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; border-radius: 999px;
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 16px rgba(11,14,20,0.18);
+    }
+    .bb-spin:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(11,14,20,0.26); }
+    .bb-spin-dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: #c8102e; box-shadow: 0 0 0 3px rgba(200,16,46,0.25);
+      display: inline-block;
+    }
+    .bb-spinning .bb-spin-dot { animation: bbDotBlink 0.18s linear infinite; }
+    @keyframes bbDotBlink { 50% { opacity: 0.35; } }
+    .bb-stage {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; height: 440px;
+      transform-origin: 50% 50%;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .bb-spinning .bb-stage { transform: scale(1.035); }
+    .bb-rail {
+      position: relative; display: flex; align-items: center;
+      gap: 14px;
+      transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+      padding: 0 40px;
+    }
+    .bb-spinning .bb-rail { transition: transform 0.18s cubic-bezier(0.3, 0.7, 0.3, 1); }
+    @keyframes bbLand {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.09); }
+      70%  { transform: scale(0.98); }
+      100% { transform: scale(1); }
+    }
+    .bb-tile.landed { animation: bbLand 0.55s cubic-bezier(0.3, 1.2, 0.5, 1); }
+    .bb-tile {
+      flex: 0 0 auto;
+      width: 210px; aspect-ratio: 9 / 16;
+      position: relative; border: 1px solid rgba(11,14,20,0.12);
+      border-radius: 22px; overflow: hidden; cursor: pointer;
+      background: #0b0e14; padding: 0;
+      box-shadow: 0 8px 20px rgba(11,14,20,0.22);
+      transition: box-shadow 0.35s, filter 0.4s, border-color 0.3s;
+      transform: scale(0.72);
+      opacity: 0.48;
+      filter: saturate(0.9);
+    }
+    .bb-tile.adj { transform: scale(0.84) !important; opacity: 0.78 !important; filter: saturate(0.95); }
+    .bb-tile.active {
+      transform: scale(1) !important;
+      opacity: 1 !important; filter: none;
+      box-shadow: 0 22px 48px rgba(11,14,20,0.38), 0 0 0 3px var(--accent);
+      z-index: 3;
+    }
+    .bb-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .bb-tile-cap {
+      position: absolute; left: 10px; bottom: 10px; z-index: 2;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #fff;
+      padding: 5px 9px; border-radius: 999px;
+      background: rgba(11,14,20,0.55);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+    .bb-play {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      pointer-events: none;
+      opacity: 0; transition: opacity 0.2s; z-index: 2;
+    }
+    .bb-play svg { width: 54px; height: 54px; color: #fff; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55)); }
+    .bb-tile:not(.playing):hover .bb-play,
+    .bb-tile.active:not(.playing) .bb-play { opacity: 0.92; }
+    .bb-tile.playing .bb-play { opacity: 0; }
+    .bb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+      width: 40px; height: 40px; border-radius: 999px;
+      border: 1px solid rgba(11,14,20,0.22);
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      color: var(--ink); cursor: pointer;
+      font-size: 16px; line-height: 1;
+      display: grid; place-items: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+      box-shadow: 0 6px 18px rgba(11,14,20,0.18);
+    }
+    .bb-nav:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .bb-prev { left: 14px; } .bb-next { right: 14px; }
+    .bb-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+    .bb-dots button {
+      width: 24px; height: 4px; border-radius: 999px;
+      border: none; background: rgba(11,14,20,0.18); padding: 0;
+      cursor: pointer; transition: background 0.2s, width 0.2s;
+    }
+    .bb-dots button[aria-current="true"] { background: var(--accent); width: 40px; }
+    .bb-caption {
+      margin-top: 14px; text-align: center;
+      font-size: 12.5px; line-height: 1.6; color: var(--ink-2);
+      max-width: 640px; margin-left: auto; margin-right: auto;
+    }
+    /* Dark mode */
+    html[data-theme="dark"] .bb-roulette {
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(159,212,245,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(200,16,46,0.16) 0%, transparent 55%),
+        #0b1628;
+      border-color: rgba(234,243,251,0.14);
+    }
+    html[data-theme="dark"] .bb-spin {
+      background: #eaf3fb; color: #0b1628; border-color: #eaf3fb;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+    }
+    html[data-theme="dark"] .bb-nav {
+      background: rgba(15,28,51,0.75); color: #eaf3fb;
+      border-color: rgba(234,243,251,0.22);
+    }
+    html[data-theme="dark"] .bb-nav:hover { background: #eaf3fb; color: #0b1628; border-color: #eaf3fb; }
+    html[data-theme="dark"] .bb-dots button { background: rgba(234,243,251,0.18); }
+    html[data-theme="dark"] .bb-dots button[aria-current="true"] { background: #9FD4F5; }
+    @media (max-width: 760px) {
+      .bb-stage { height: 380px; }
+      .bb-tile { width: 170px; }
+      .bb-nav { width: 34px; height: 34px; }
+      .bb-prev { left: 6px; } .bb-next { right: 6px; }
+    }
   </style>
 </head>
 <body>
@@ -527,7 +685,7 @@
   <!-- ─────────────────────────────── -->
   <!-- STUDY 1, Bull Boulder (LIVE) -->
   <!-- ─────────────────────────────── -->
-  <div class="study-card" data-category="meta">
+  <div class="study-card" id="bull-boulder" data-category="meta">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
         <img src="bull-boulder-logo.svg" alt="Bull Boulder Tow Hitches logo" loading="lazy" class="logo-thumb" />
@@ -556,6 +714,63 @@
     <div class="card-body">
       <div class="blog-content">
         <div class="blog-main">
+
+          <!-- Interactive reel-wheel of the 5 Bull Boulder campaign videos -->
+          <div class="bb-roulette" id="bb-roulette" aria-label="Bull Boulder campaign reel wheel">
+            <div class="bb-head">
+              <div>
+                <p class="bb-eyebrow">Bull Boulder Campaign &middot; Meta</p>
+                <h3 class="bb-title">Spin the <em>wheel.</em> Pick a winner.</h3>
+              </div>
+              <button class="bb-spin" type="button" onclick="bbSpin()" aria-label="Spin to a random reel">
+                <span class="bb-spin-dot" aria-hidden="true"></span><span>Spin it</span>
+              </button>
+            </div>
+
+            <div class="bb-stage">
+              <button class="bb-nav bb-prev" type="button" aria-label="Previous reel" onclick="bbStep(-1)">&larr;</button>
+              <div class="bb-rail" id="bb-rail">
+                <button type="button" class="bb-tile" data-bb-idx="0" onclick="bbActivate(0)">
+                  <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-1-poster.jpg" src="reels/bull-boulder/bb-reel-1.mp4"></video>
+                  <span class="bb-tile-cap">Reel 01</span>
+                  <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+                <button type="button" class="bb-tile adj" data-bb-idx="1" onclick="bbActivate(1)">
+                  <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-2-poster.jpg" src="reels/bull-boulder/bb-reel-2.mp4"></video>
+                  <span class="bb-tile-cap">Reel 02</span>
+                  <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+                <button type="button" class="bb-tile active" data-bb-idx="2" onclick="bbActivate(2)">
+                  <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-3-poster.jpg" src="reels/bull-boulder/bb-reel-3.mp4"></video>
+                  <span class="bb-tile-cap">Reel 03</span>
+                  <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+                <button type="button" class="bb-tile adj" data-bb-idx="3" onclick="bbActivate(3)">
+                  <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-4-poster.jpg" src="reels/bull-boulder/bb-reel-4.mp4"></video>
+                  <span class="bb-tile-cap">Reel 04</span>
+                  <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+                <button type="button" class="bb-tile" data-bb-idx="4" onclick="bbActivate(4)">
+                  <video class="bb-video" preload="metadata" playsinline muted poster="reels/bull-boulder/bb-reel-5-poster.jpg" src="reels/bull-boulder/bb-reel-5.mp4"></video>
+                  <span class="bb-tile-cap">Reel 05</span>
+                  <span class="bb-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+              </div>
+              <button class="bb-nav bb-next" type="button" aria-label="Next reel" onclick="bbStep(1)">&rarr;</button>
+            </div>
+
+            <div class="bb-dots" id="bb-dots" role="tablist" aria-label="Reel pages">
+              <button type="button" aria-label="Reel 1" onclick="bbActivate(0)"></button>
+              <button type="button" aria-label="Reel 2" onclick="bbActivate(1)"></button>
+              <button type="button" aria-label="Reel 3" onclick="bbActivate(2)"></button>
+              <button type="button" aria-label="Reel 4" onclick="bbActivate(3)"></button>
+              <button type="button" aria-label="Reel 5" onclick="bbActivate(4)"></button>
+            </div>
+
+            <p class="bb-caption">
+              All five videos we shipped for this campaign. Spin to see them in roulette order, or pick one yourself.
+            </p>
+          </div>
 
           <h2>The Setup</h2>
           <p><a href="https://bullboulder.com/" target="_blank" rel="noopener" style="color:var(--orange,#2E7FC2);text-decoration:underline;">Bull Boulder Tow Hitches</a> is a direct-to-consumer brand in an industry I'd never worked in before. Before launching a single dollar of paid spend, I did the homework, cross-referencing competitor ads, studying what their buyers actually respond to, and building hooks that felt native to the audience rather than like ads.</p>
@@ -927,5 +1142,178 @@
     }
   };
 </script>
+
+<script>
+  /* Bull Boulder roulette controller */
+  (function () {
+    const rail = document.getElementById('bb-rail');
+    if (!rail) return;
+    const tiles = Array.from(rail.querySelectorAll('.bb-tile'));
+    const dots  = Array.from(document.querySelectorAll('#bb-dots button'));
+    const root  = document.getElementById('bb-roulette');
+    let active = 2;
+    let spinning = false;
+
+    function layout() {
+      if (!tiles.length) return;
+      const tile = tiles[active];
+      const stage = rail.parentElement;
+      const stageRect = stage.getBoundingClientRect();
+      const tileRect  = tile.getBoundingClientRect();
+      const current = parseFloat(rail.dataset.tx || '0');
+      const tileCenter  = tileRect.left + tileRect.width / 2;
+      const stageCenter = stageRect.left + stageRect.width / 2;
+      const nextTx = current + (stageCenter - tileCenter);
+      rail.style.transform = 'translateX(' + nextTx + 'px)';
+      rail.dataset.tx = String(nextTx);
+    }
+    function updateClasses() {
+      tiles.forEach((el, i) => {
+        el.classList.remove('active', 'adj');
+        if (i === active) el.classList.add('active');
+        else if (Math.abs(i - active) === 1) el.classList.add('adj');
+      });
+      dots.forEach((d, i) => d.setAttribute('aria-current', i === active ? 'true' : 'false'));
+    }
+    function stopAll() {
+      tiles.forEach(t => {
+        const v = t.querySelector('video');
+        if (v && !v.paused) v.pause();
+        t.classList.remove('playing');
+      });
+    }
+    function playActive(withAudio) {
+      const tile = tiles[active];
+      const v = tile.querySelector('video');
+      if (!v) return;
+      v.currentTime = 0;
+      if (withAudio) { v.muted = false; v.volume = 0.85; }
+      const p = v.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => tile.classList.add('playing')).catch(() => {});
+      } else {
+        tile.classList.add('playing');
+      }
+    }
+
+    let ac = null;
+    function ensureAC() {
+      if (!ac) {
+        try { ac = new (window.AudioContext || window.webkitAudioContext)(); }
+        catch (e) { ac = null; }
+      }
+      if (ac && ac.state === 'suspended') ac.resume();
+      return ac;
+    }
+    function tone(freq, dur, vol) {
+      const ctx = ensureAC();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const now = ctx.currentTime;
+      gain.gain.setValueAtTime(vol, now);
+      gain.gain.exponentialRampToValueAtTime(0.0005, now + dur);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + dur + 0.02);
+    }
+
+    window.bbActivate = function (idx) {
+      if (idx < 0 || idx >= tiles.length) return;
+      const isToggleSame = (idx === active);
+      stopAll();
+      active = idx;
+      updateClasses();
+      requestAnimationFrame(layout);
+      if (!isToggleSame) playActive(true);
+    };
+    window.bbStep = function (dir) {
+      let next = active + dir;
+      if (next < 0) next = tiles.length - 1;
+      if (next >= tiles.length) next = 0;
+      bbActivate(next);
+    };
+    window.bbSpin = function () {
+      if (spinning) return;
+      spinning = true;
+      ensureAC();
+      root.classList.add('bb-spinning');
+      stopAll();
+
+      const totalHops = 11 + Math.floor(Math.random() * 3);
+      let done = 0;
+
+      const hop = () => {
+        let next = active + 1;
+        if (next >= tiles.length) next = 0;
+        active = next;
+        updateClasses();
+        requestAnimationFrame(layout);
+        tone(1250 + (done % 2 ? 80 : 0), 0.035, 0.065);
+        done++;
+        if (done < totalHops) {
+          const t = done / totalHops;
+          const delay = 28 + Math.pow(t, 2.0) * 560;
+          setTimeout(hop, delay);
+        } else {
+          root.classList.remove('bb-spinning');
+          spinning = false;
+          tone(880, 0.09, 0.09);
+          setTimeout(() => tone(1175, 0.22, 0.07), 70);
+          const winner = tiles[active];
+          winner.classList.add('landed');
+          setTimeout(() => winner.classList.remove('landed'), 560);
+          playActive(true);
+        }
+      };
+      hop();
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (!root) return;
+      const rect = root.getBoundingClientRect();
+      const onScreen = rect.top < window.innerHeight - 80 && rect.bottom > 120;
+      if (!onScreen) return;
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); bbStep(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); bbStep(1); }
+    });
+
+    let rAF = 0;
+    function relayout() {
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(layout);
+    }
+    window.addEventListener('resize', relayout);
+
+    // Re-layout when the Bull Boulder study card opens (it starts collapsed)
+    const studyCard = document.getElementById('bull-boulder');
+    if (studyCard) {
+      const observer = new MutationObserver(() => {
+        if (studyCard.classList.contains('open')) {
+          // Wait for max-height animation to progress
+          setTimeout(relayout, 60);
+          setTimeout(relayout, 260);
+          setTimeout(relayout, 520);
+        }
+      });
+      observer.observe(studyCard, { attributes: true, attributeFilter: ['class'] });
+      // If already open (e.g. anchor-opened), run layout
+      if (studyCard.classList.contains('open')) setTimeout(relayout, 60);
+    }
+
+    // Auto-open if anchored via #bull-boulder
+    if (location.hash === '#bull-boulder' && studyCard && !studyCard.classList.contains('open')) {
+      setTimeout(() => {
+        studyCard.classList.add('open');
+        setTimeout(relayout, 80);
+      }, 120);
+    }
+
+    requestAnimationFrame(() => { updateClasses(); layout(); });
+  })();
+</script>
+
 </body>
 </html>
