@@ -5,3 +5,10 @@ node_modules/
 .vercel
 *.bak
 *.PREVIEW-*.html
+
+# Heavy source PNGs (web versions are the .jpg equivalents)
+matt-pingatore-h-*.png
+matt-pingatore-v.png
+marisol-gym-v-*.png
+hmpg-julie-hoyle.png
+hmpg-matt-pingatore.png
