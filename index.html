@@ -1318,8 +1318,8 @@
     html[data-theme="dark"] .f-social a[aria-label="LinkedIn"] { color: #ffffff; }
     html[data-theme="dark"] .f-social a[aria-label="LinkedIn"]:hover { color: #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.10); }
     html[data-theme="dark"] .f-social a[aria-label="LinkedIn"] svg { fill: #ffffff; }
-    /* Force LinkedIn logo in logo-carousel (3.png) to white in dark mode */
-    html[data-theme="dark"] .logo-item img[alt="LinkedIn"] { filter: brightness(0) invert(1); }
+    /* LinkedIn marquee logo — render naturally in dark mode (no invert filter,
+       which was collapsing the whole tile to a white square). */
     footer .f-copy { font-size: 11px; color: var(--ink-mute); }
 
     /* FIXED CTA — blue-glass pill, desktop quiet / mobile icon-only (Apr 21 redesign) */
