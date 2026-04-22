@@ -79,6 +79,32 @@
       height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     }
     .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+    /* Persistent "Back" pill in the nav-left slot — lives with the fixed nav
+       so the user can exit while scrolled through the long case-study list. */
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--ink);
+      padding: 8px 16px;
+      border: 1px solid rgba(11, 14, 20, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .nav-back .arrow { font-size: 14px; line-height: 1; transition: transform 0.2s; }
+    .nav-back:hover {
+      background: var(--ink); color: #fff; border-color: var(--ink);
+    }
+    .nav-back:hover .arrow { transform: translateX(-3px); }
+    html[data-theme="dark"] .nav-back {
+      color: #eaf3fb;
+      border-color: rgba(234, 243, 251, 0.22);
+      background: rgba(11, 22, 40, 0.45);
+    }
+    html[data-theme="dark"] .nav-back:hover {
+      background: #eaf3fb; color: #0b1628; border-color: #eaf3fb;
+    }
     .nav-right { display: flex; align-items: center; }
     nav ul { list-style: none; display: flex; gap: 32px; }
     nav ul a {
@@ -456,7 +482,10 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">swang.</a>
+  <a href="/" class="nav-back" aria-label="Back to home">
+    <span class="arrow" aria-hidden="true">&larr;</span>
+    <span>Back</span>
+  </a>
   <div class="nav-right">
     <ul>
       <li><a href="/">Home</a></li>
