@@ -162,6 +162,17 @@
       --black:      #eaf3fb;
     }
     html[data-theme="dark"] body { background: #0b1628; }
+    /* Apr 22 — the cream lava-drift in body::before was painting the entire
+       page light even in dark mode. Repaint it as a navy gradient so the
+       backdrop actually goes dark. */
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse at 18% 22%, rgba(159,212,245,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 82% 78%, rgba(46,127,194,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(20,35,64,0.55) 0%, transparent 72%),
+        linear-gradient(135deg, #08101c 0%, #0b1628 45%, #0f1c33 70%, #142340 100%);
+      filter: saturate(1);
+    }
     html[data-theme="dark"] nav {
       background: rgba(15, 28, 51, 0.75);
       border-bottom-color: rgba(234,243,251,0.12);
@@ -585,6 +596,57 @@
     html[data-theme="dark"] .blog-main a[style*="--orange"],
     html[data-theme="dark"] .blog-main a[style*="--accent"] { color: var(--accent) !important; }
 
+    /* ── DARK-MODE: kill remaining hardcoded white surfaces (Apr 22 v2) ──────
+       The card header hover, card cover, card body container, stat row + cells,
+       blog blockquote bg, ul li dividers, and stat-row inner border were all
+       still painted in cream/white tints. Override them all here. */
+    html[data-theme="dark"] .card-header:hover { background: rgba(159,212,245,0.06); }
+    html[data-theme="dark"] .card-cover { background: #0a1220; }
+    html[data-theme="dark"] .card-body {
+      background: rgba(20, 35, 64, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    html[data-theme="dark"] .stat-row {
+      background: rgba(234,243,251,0.10);
+      border-color: rgba(234,243,251,0.10);
+    }
+    html[data-theme="dark"] .stat { background: rgba(20,35,64,0.55); }
+    html[data-theme="dark"] .blog-main blockquote { background: rgba(159,212,245,0.06) !important; }
+    html[data-theme="dark"] .blog-main ul li { border-bottom-color: rgba(234,243,251,0.10); }
+    /* Card-meta-wrap divider */
+    html[data-theme="dark"] .card-meta-wrap { border-right-color: rgba(234,243,251,0.10); }
+    /* Page-header / filter-bar dividers — still cream-tinted */
+    html[data-theme="dark"] .page-header { border-bottom-color: rgba(234,243,251,0.10); }
+    html[data-theme="dark"] .filter-bar { border-bottom-color: rgba(234,243,251,0.10); }
+    html[data-theme="dark"] .study-card { border-bottom-color: rgba(234,243,251,0.10); }
+    /* See-more top divider was hardcoded too */
+    html[data-theme="dark"] .see-more { border-top-color: rgba(234,243,251,0.10); }
+    /* Page H1 highlight — dark accent block instead of light */
+    html[data-theme="dark"] .page-h1 em {
+      background: linear-gradient(120deg, rgba(159,212,245,0.18), rgba(46,127,194,0.28));
+      color: var(--accent);
+      box-shadow: inset 0 -2px 0 rgba(159,212,245,0.45);
+    }
+    html[data-theme="dark"] .see-more h2 em {
+      background: linear-gradient(120deg, rgba(159,212,245,0.18), rgba(46,127,194,0.28));
+      color: var(--accent);
+      box-shadow: inset 0 -2px 0 rgba(159,212,245,0.45);
+    }
+    /* Persistent Back pill */
+    html[data-theme="dark"] .nav-back {
+      background: rgba(20, 35, 64, 0.55);
+      border-color: rgba(159,212,245,0.28);
+      color: var(--ink);
+    }
+    html[data-theme="dark"] .nav-back:hover {
+      background: var(--accent); color: #0b1628; border-color: var(--accent);
+    }
+    /* Eyebrow + page-desc + page-count contrast */
+    html[data-theme="dark"] .eyebrow { color: var(--accent); }
+    html[data-theme="dark"] .page-desc { color: var(--ink-2, #b8c8dc); }
+    html[data-theme="dark"] .page-count { color: var(--ink-mute, #6f82a0); }
+
     /* ── BULL BOULDER ROULETTE ─────────────────────────
        Interactive "scroll-wheel" of the 5 Bull Boulder
        campaign reels. Lives inside the Bull Boulder study. */
@@ -882,7 +944,7 @@
 
           <h2>The Setup</h2>
           <p><a href="https://bullboulder.com/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">Bull Boulder Tow Hitches</a> is a DTC brand in a category I'd never worked. Before a dollar of paid spend, I cross-referenced competitor ads and built hooks that felt native to the audience, not like ads.</p>
-          <blockquote style="border-left:3px solid var(--accent); margin:20px 0; padding:14px 22px; background:#f9f9f7; font-style:italic; font-size:15px; line-height:1.7; color:#444;">
+          <blockquote style="border-left:3px solid var(--accent); margin:20px 0; padding:14px 22px; background:rgba(245,248,252,0.55); font-style:italic; font-size:15px; line-height:1.7; color:var(--ink-2);">
             "In this industry, if you get 1 winner out of every 15 videos, you're doing well." — Nate H., founder
           </blockquote>
           <p>We launched 6 videos. 2 became clear winners. A <strong>2-in-6 hit rate</strong>, ~4× the industry benchmark.</p>
@@ -958,14 +1020,13 @@
       <div class="blog-content">
         <div class="blog-main">
           <h2>The Setup</h2>
-          <p>Pavers and Turf by O'Neill's is a local landscape company. No brand recognition beyond word-of-mouth, no paid acquisition history. The brief: can Meta carry lead flow for a small regional contractor the same way it carries DTC brands?</p>
+          <p>Local landscape company, no paid history. The brief: can Meta carry lead flow for a regional contractor the way it carries DTC brands?</p>
           <h2>The Approach</h2>
-          <p>Flat $50/day budget from week one. Creative refreshed on a rolling cadence, winners scaled, losers paused, new angles fed in. Every ad built around a single job-site moment: the install, the reveal, the finished product.</p>
+          <p>Flat $50/day. Creative refreshed weekly — winners scaled, losers paused. Every ad built around a single job-site moment.</p>
           <ul>
-            <li>TikTok-style cuts pulled from live install footage, not staged</li>
-            <li>Geo-targeted to zip codes within realistic drive-time</li>
-            <li>Lead form on-platform, no landing page friction</li>
-            <li>Creative rotated weekly to keep fatigue down and the algorithm curious</li>
+            <li>TikTok-style cuts pulled from live install footage</li>
+            <li>Geo-targeted to realistic drive-time zip codes</li>
+            <li>On-platform lead form — no landing page friction</li>
           </ul>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">59/wk</div><div class="stat-label">Peak Lead Volume</div></div>
@@ -973,7 +1034,7 @@
             <div class="stat"><div class="stat-num">475</div><div class="stat-label">Total Leads · 17 Weeks</div></div>
           </div>
           <h2>The Result</h2>
-          <p>CPA dropped from $26 to $5, an 81% reduction on the same budget. One reel alone drove 193 leads at $5.25 CPL. By week 17 the account was sitting at 59 leads/week, up from 12 at launch.</p>
+          <p>CPA dropped from $26 to $5 (–81%) on the same budget. One reel alone drove 193 leads at $5.25 CPL. Week 17: 59 leads/week, up from 12 at launch.</p>
           <p><a href="case-pavers-turf" style="color:var(--accent); font-weight:700; text-decoration:underline;">Open the full case study &rarr;</a></p>
         </div>
         <aside class="blog-sidebar">
@@ -1024,14 +1085,13 @@
       <div class="blog-content">
         <div class="blog-main">
           <h2>The Brief</h2>
-          <p>A single collaboration post with Jewell Loyd (WNBA, Team USA) for IM8. The brand needed presence on a top-tier athlete feed without forcing a scripted ad moment. The test: can a partner placement feel native enough that the 1.3M audience doesn't skip?</p>
+          <p>A single collab post with Jewell Loyd (WNBA, Team USA) for IM8. Test: can a partner placement feel native enough that her 1.3M audience doesn't skip?</p>
           <h2>The Approach</h2>
-          <p>Lead with the athlete, not the product. IM8 integrates as part of her routine, not as the subject of the frame. One clean shoot day, minimal scripting, intentional pacing that matched the rhythm of Jewell's existing feed.</p>
+          <p>Lead with the athlete, not the product. One shoot day, minimal scripting, pacing matched to Jewell's existing feed.</p>
           <ul>
-            <li>Pre-shoot scroll of her feed to match tone, color, and cadence</li>
-            <li>Product placement as a background beat, not the centerpiece</li>
-            <li>Final edit cleared by the athlete team same-day, no back-and-forth</li>
-            <li>Delivered in both feed and reel cuts for cross-platform flexibility</li>
+            <li>Pre-shoot scroll of her feed to match tone + cadence</li>
+            <li>Product as a background beat, not the centerpiece</li>
+            <li>Same-day approval — no revisions, no back-and-forth</li>
           </ul>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">1.3M</div><div class="stat-label">Athlete Reach</div></div>
@@ -1039,7 +1099,7 @@
             <div class="stat"><div class="stat-num">0</div><div class="stat-label">Revisions</div></div>
           </div>
           <h2>The Result</h2>
-          <p>Post landed natively, no "sponsored" fatigue in the comments, no drop in engagement vs. her organic posts. Brand got the athlete co-sign without paying the credibility tax that usually comes with big placements.</p>
+          <p>Landed natively — no "sponsored" fatigue, no engagement drop vs. her organic posts. Brand got the co-sign without the credibility tax.</p>
           <p><a href="case-im8-loyd" style="color:var(--accent); font-weight:700; text-decoration:underline;">Open the full case study &rarr;</a></p>
         </div>
         <aside class="blog-sidebar">
@@ -1089,14 +1149,13 @@
       <div class="blog-content">
         <div class="blog-main">
           <h2>The Brief</h2>
-          <p>Thumbnails for a sports creator covering NFL slates, Super Bowl picks, and live streams. The creator needed thumbnails that stop the YouTube scroll and earn the click on every single upload, same-day turnaround, no misses.</p>
+          <p>Thumbnails for a sports creator — NFL slates, picks, live streams. Same-day turnaround, no misses.</p>
           <h2>The Approach</h2>
-          <p>Every thumbnail designed around one thing: one clear reaction, one clear hook. No clutter, no copy-paste templates. Each live slate gets fresh art, because the scroll doesn't reward "good enough".</p>
+          <p>One clear reaction, one clear hook. No templates. Fresh art every upload — the scroll doesn't reward "good enough".</p>
           <ul>
-            <li>1280×720, tailored not templated, every frame built for the specific upload</li>
-            <li>Same-day turnaround on live slates (NBA/NFL props, game-day reactions)</li>
-            <li>2-4 words max hook on every frame, the scroll doesn't read</li>
-            <li>High-contrast color, bright reactions, big-moment energy</li>
+            <li>1280×720, tailored not templated</li>
+            <li>Same-day turnaround on live game-day slates</li>
+            <li>2–4 word hook max — the scroll doesn't read</li>
           </ul>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">Same-day</div><div class="stat-label">Live Turnaround</div></div>
@@ -1104,7 +1163,7 @@
             <div class="stat"><div class="stat-num">~70K</div><div class="stat-label">Subs Served</div></div>
           </div>
           <h2>The Result</h2>
-          <p>Each thumbnail earns its click on merit, no recycled art, no template fatigue. The channel has a consistent visual identity without the thumbnails ever feeling formulaic.</p>
+          <p>Every thumbnail earns its click on merit. Consistent identity, never formulaic.</p>
           <p><a href="case-noah-thumbnails" style="color:var(--accent); font-weight:700; text-decoration:underline;">Open the full case study &rarr;</a></p>
         </div>
         <aside class="blog-sidebar">
