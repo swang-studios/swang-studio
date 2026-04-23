@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    // Default to dark; apply saved theme before paint (only go light if user explicitly chose it).
+    try { if (localStorage.getItem('swang-theme') !== 'light') document.documentElement.setAttribute('data-theme', 'dark'); } catch(e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+  </script>
   <title>swang. | Creative Growth, Case Studies</title>
   <meta name="description" content="Detailed breakdowns of real results, Meta campaigns, SEO, ops, and visual direction." />
   <style>
@@ -419,6 +423,33 @@
     }
     .sm-card:hover .sm-go { gap: 10px; opacity: 1; }
 
+    /* Trailing "See More Work" CTA below the single row */
+    .sm-footer { margin-top: 36px; display: flex; justify-content: center; }
+    .sm-more-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--ink);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(46, 127, 194, 0.32);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, color 0.2s;
+    }
+    .sm-more-cta:hover {
+      background: var(--accent); border-color: var(--accent); color: #0b1628;
+      transform: translateY(-2px);
+    }
+    html[data-theme="dark"] .sm-more-cta {
+      background: rgba(20, 35, 64, 0.55);
+      border-color: rgba(159,212,245,0.32);
+      color: var(--ink);
+    }
+    html[data-theme="dark"] .sm-more-cta:hover {
+      background: var(--accent); border-color: var(--accent); color: #0b1628;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
       nav { padding: 14px 20px; }
@@ -476,6 +507,83 @@
     html[data-theme="dark"] .study-card.open .toggle-icon svg path { stroke: #0b1628; }
     /* Filter pills + other cream-2 text chunks in dark theme */
     html[data-theme="dark"] .filter-pill.active { color: #0b1628; }
+
+    /* ── DARK-MODE BLOG CONTRAST PASS (Apr 22) ──────────────────────────────
+       The blog body, sidebar, blockquotes, page-header rule and inline-styled
+       captions all carried light-mode hardcodes that washed out in dark theme.
+       Override here so the entire case-studies surface reads at proper
+       contrast on the navy background. */
+    html[data-theme="dark"] .page-header,
+    html[data-theme="dark"] .filter-bar,
+    html[data-theme="dark"] .study-card { border-color: rgba(234,243,251,0.12); }
+    html[data-theme="dark"] .filter-pill {
+      background: rgba(20, 35, 64, 0.55);
+      border-color: rgba(159,212,245,0.28);
+      color: var(--ink-2, #b8c8dc);
+    }
+    html[data-theme="dark"] .filter-pill:hover {
+      background: rgba(20, 35, 64, 0.85);
+      color: var(--ink);
+    }
+    html[data-theme="dark"] .filter-pill.active {
+      background: var(--accent); border-color: var(--accent); color: #0b1628;
+    }
+    html[data-theme="dark"] .blog-main p { color: var(--ink-2); }
+    html[data-theme="dark"] .blog-main h2 { color: var(--ink); }
+    html[data-theme="dark"] .blog-main p strong { color: var(--ink); }
+    html[data-theme="dark"] .blog-main ul li { color: var(--ink-2); }
+    /* Inline-styled blockquotes use #f9f9f7 + #444 — flip them */
+    html[data-theme="dark"] .blog-main blockquote,
+    html[data-theme="dark"] .blog-main blockquote[style] {
+      background: rgba(159, 212, 245, 0.06) !important;
+      color: var(--ink) !important;
+      border-left-color: var(--accent) !important;
+    }
+    /* Faded grey caption paragraphs (#888 / #444) — promote so they're legible */
+    html[data-theme="dark"] .blog-main p[style*="#888"],
+    html[data-theme="dark"] .blog-main p[style*="color:#888"] { color: rgba(234,243,251,0.6) !important; }
+    html[data-theme="dark"] .blog-main p[style*="#444"],
+    html[data-theme="dark"] .blog-main p[style*="color:#444"] { color: var(--ink-2) !important; }
+    /* Sidebar card flips to translucent navy */
+    html[data-theme="dark"] .sidebar-card {
+      background: rgba(20, 35, 64, 0.55);
+      border-color: rgba(159,212,245,0.18);
+    }
+    html[data-theme="dark"] .sidebar-stat { border-bottom-color: rgba(234,243,251,0.10); }
+    html[data-theme="dark"] .sidebar-stat-label { color: var(--ink-mute, #6f82a0); }
+    html[data-theme="dark"] .sidebar-stat-val { color: var(--ink); }
+    html[data-theme="dark"] .sidebar-cta {
+      background: var(--accent); color: #0b1628; border-color: var(--accent);
+    }
+    html[data-theme="dark"] .sidebar-cta:hover {
+      background: #6FC3F2; border-color: #6FC3F2; color: #0b1628;
+    }
+    /* Stat blocks inside the writeup */
+    html[data-theme="dark"] .stat {
+      border-color: rgba(234,243,251,0.12);
+      background: rgba(20,35,64,0.4);
+    }
+    html[data-theme="dark"] .stat-num { color: var(--ink); }
+    html[data-theme="dark"] .stat-label { color: var(--ink-mute, #6f82a0); }
+    /* Card header & meta */
+    html[data-theme="dark"] .card-meta-wrap { border-color: rgba(234,243,251,0.10); }
+    html[data-theme="dark"] .card-cat { color: var(--accent); }
+    html[data-theme="dark"] .card-title { color: var(--ink); }
+    html[data-theme="dark"] .card-excerpt { color: var(--ink-2); }
+    html[data-theme="dark"] .tag {
+      background: rgba(20,35,64,0.6);
+      color: var(--ink-2);
+      border-color: rgba(159,212,245,0.22);
+    }
+    html[data-theme="dark"] .toggle-icon {
+      background: rgba(20,35,64,0.6);
+      border-color: rgba(159,212,245,0.28);
+    }
+    html[data-theme="dark"] .toggle-icon svg path { stroke: var(--ink); }
+    html[data-theme="dark"] .card-date { color: var(--ink-mute, #6f82a0); }
+    /* Inline link colors in blog body */
+    html[data-theme="dark"] .blog-main a[style*="--orange"],
+    html[data-theme="dark"] .blog-main a[style*="--accent"] { color: var(--accent) !important; }
 
     /* ── BULL BOULDER ROULETTE ─────────────────────────
        Interactive "scroll-wheel" of the 5 Bull Boulder
@@ -773,47 +881,24 @@
           </div>
 
           <h2>The Setup</h2>
-          <p><a href="https://bullboulder.com/" target="_blank" rel="noopener" style="color:var(--orange,#2E7FC2);text-decoration:underline;">Bull Boulder Tow Hitches</a> is a direct-to-consumer brand in an industry I'd never worked in before. Before launching a single dollar of paid spend, I did the homework, cross-referencing competitor ads, studying what their buyers actually respond to, and building hooks that felt native to the audience rather than like ads.</p>
-          <p>The brief from Nate H., founder and owner:</p>
-          <blockquote style="border-left:3px solid var(--orange); margin:24px 0; padding:16px 24px; background:#f9f9f7; font-style:italic; font-size:15px; line-height:1.75; color:#444;">
-            "In this industry, if you get 1 winner out of every 15 videos, you're doing well."
+          <p><a href="https://bullboulder.com/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">Bull Boulder Tow Hitches</a> is a DTC brand in a category I'd never worked. Before a dollar of paid spend, I cross-referenced competitor ads and built hooks that felt native to the audience, not like ads.</p>
+          <blockquote style="border-left:3px solid var(--accent); margin:20px 0; padding:14px 22px; background:#f9f9f7; font-style:italic; font-size:15px; line-height:1.7; color:#444;">
+            "In this industry, if you get 1 winner out of every 15 videos, you're doing well." — Nate H., founder
           </blockquote>
-          <p>We launched 6 videos. 2 became clear winners. That's a <strong>2-in-6 hit rate</strong>, more than 4x the industry benchmark, in a category I'd never touched before.</p>
+          <p>We launched 6 videos. 2 became clear winners. A <strong>2-in-6 hit rate</strong>, ~4× the industry benchmark.</p>
 
           <h2>The Creative Strategy</h2>
-          <p>Each video was built around a different hook angle, problem-aware, aspirational, and entertainment-led. The goal wasn't to guess; it was to generate enough creative variants that the data could tell us what the market actually wanted.</p>
+          <p>Each video was built around a different hook angle so the data — not a guess — could tell us what the market wanted.</p>
           <ul>
-            <li>Researched competitor creative on Meta Ad Library before writing a single script</li>
-            <li>Wrote CTAs that felt brand-appropriate, not generic drop-ship language</li>
-            <li>Built hooks specifically for the audience that shops for tow hitches, practical buyers, not impulse</li>
-            <li>Tested across Video Ads Testing Broad (6 active ads, $1,200/day budget)</li>
+            <li>Researched competitor creative on Meta Ad Library before writing a script</li>
+            <li>CTAs written for practical buyers, not generic drop-ship language</li>
+            <li>Tested across Video Ads Testing Broad — 6 active ads, $1,200/day</li>
           </ul>
 
           <h2>The Numbers, Last 30 Days</h2>
-          <p>The report covers the three videos from the testing set. Two are still running. One was turned off after the data revealed a structural problem with audience intent.</p>
-
-          <p style="font-style:italic; font-size:13px; color:#888; margin-top:12px; line-height:1.6;">
-            <em>Last 30 days · Meta Ads · Video Ads Testing Broad · $1,200/day budget. Flash Sale 1 | Video 4 is the benchmark performer, highest ROAS (2.65×), lowest CPA ($99.82), and strongest CVR at 1.68%. Holy **** | Video 6 leads on impressions and hook rate (52.45%) but CVR has room to grow, signaling a strong hook with a possible offer or landing page gap.</em>
-          </p>
-
-          <h2>Breaking Down the Winners</h2>
-          <p><strong>Flash Sale 1 | Video 4</strong>, The best performer across every metric that matters. 2.65× ROAS, $99.82 CPA, 1.68% CVR. Nate flagged something important here:</p>
-          <blockquote style="border-left:3px solid #22C55E; margin:24px 0; padding:16px 24px; background:#f9f9f7; font-style:italic; font-size:15px; line-height:1.75; color:#444;">
-            "Flash sale prints hard despite the low hook rate because Meta is using it as a bottom of funnel ad, or a potential one shot." Attributed to Nate H.
-          </blockquote>
-          <p>Translation: Meta's algorithm identified this creative as a closer, not a prospector. It's converting the people who already know they need a tow hitch. That's a signal to protect this spend and let the algorithm work.</p>
-
-          <p><strong>Holy **** | Video 6</strong>, The volume driver. 945,356 impressions, 52.45% hook rate (top performer in the set), $1.30 CPC. CVR at 0.84% has room to improve, which points to a post-click issue, likely the offer or landing page, rather than the creative itself failing.</p>
-          <blockquote style="border-left:3px solid var(--orange); margin:24px 0; padding:16px 24px; background:#f9f9f7; font-style:italic; font-size:15px; line-height:1.75; color:#444;">
-            "Yeah, they're peaking now and then will start to decline. Their budget changes through the 30 days." Attributed to Nate H.
-          </blockquote>
-
-          <h2>What We Turned Off & Why</h2>
-          <p><strong>Hook Up Gone Wrong | Video 3</strong> had a 44.52% hook rate and the cheapest CPC in the set at $0.63, both strong signals. But CVR sat at 0.25% and ROAS never crossed 1.02×. The creative attracted clicks, not customers. High CTR, wrong audience intent. We turned it off, kept the learnings on what hooks attract curiosity vs. buying intent, and folded that into the next round of scripts.</p>
-
-          <p style="font-style:italic; font-size:13px; color:#888; margin-top:32px; line-height:1.6;">
-            <em>Full account view, Video Ads Testing Broad, 6 active ads. The two $1,200/day budget lines (Flash Sale 1 | Video 4 and Holy **** | Video 6) are the signals we scale from. Everything else informs the next creative sprint.</em>
-          </p>
+          <p><strong>Flash Sale 1 | Video 4</strong> — best performer across the board: <strong>2.65× ROAS</strong>, <strong>$99.82 CPA</strong>, 1.68% CVR. Meta read it as a bottom-of-funnel closer, so the play is to protect spend and let the algo work.</p>
+          <p><strong>Holy **** | Video 6</strong> — volume driver: 945K impressions, <strong>52.45% hook rate</strong>, $1.30 CPC. CVR at 0.84% points to a post-click gap (offer / LP), not a creative miss.</p>
+          <p><strong>Hook Up Gone Wrong | Video 3</strong> — turned off. 44% hook rate and a $0.63 CPC pulled clicks, but CVR sat at 0.25% and ROAS never crossed 1.02×. Wrong intent. Learnings folded into the next sprint.</p>
 
           <div class="stat-row">
             <div class="stat"><div class="stat-num">2.65×</div><div class="stat-label">Peak ROAS</div></div>
@@ -822,8 +907,7 @@
           </div>
 
           <h2>The Takeaway</h2>
-          <p>New industry. No playbook. A 2-in-6 creative hit rate against a 1-in-15 industry norm. The process that made it work wasn't luck, it was research before spend, hooks built for the actual buyer, and a testing structure that let the best creative rise without burning budget on guesses.</p>
-          <p>This campaign is still live and scaling. More creative rounds coming.</p>
+          <p>New industry, no playbook, a 2-in-6 hit rate against a 1-in-15 norm. Research before spend, hooks built for the actual buyer, and a testing structure that lets the best creative rise without burning budget on guesses. Still live and scaling.</p>
 
         </div>
         <aside class="blog-sidebar">
@@ -1040,14 +1124,15 @@
 
 </div><!-- /studies -->
 
-<!-- SEE MORE, gallery-style grid replacing the Let's Talk pill -->
+<!-- SEE MORE — single row of full case studies + one trailing CTA. Sponsored
+     gallery / featured / contact tiles removed Apr 22 per Mason's request. -->
 <section class="see-more" id="see-more">
   <div class="sm-head">
     <div>
       <p class="sm-eyebrow">See More</p>
       <h2>More <em>work</em> to dig into.</h2>
     </div>
-    <p class="sm-sub">Full case study pages, the gallery, and the blog. Click any tile to jump in.</p>
+    <p class="sm-sub">Full case study pages. Click any tile to jump in.</p>
   </div>
 
   <div class="sm-grid">
@@ -1075,30 +1160,10 @@
         <span class="sm-go">Open Blog &rarr;</span>
       </div>
     </a>
-    <a class="sm-card" href="/gallery" aria-label="The full gallery">
-      <img src="design3.jpg" alt="Full gallery of work" loading="lazy" />
-      <div class="sm-meta">
-        <span class="sm-cat">Gallery</span>
-        <h3>The Full Gallery, Every Frame</h3>
-        <span class="sm-go">Browse &rarr;</span>
-      </div>
-    </a>
-    <a class="sm-card" href="/#featured-work" aria-label="Featured work on the home page">
-      <img src="photo1b.jpg" alt="Featured work" loading="lazy" />
-      <div class="sm-meta">
-        <span class="sm-cat">Featured</span>
-        <h3>Featured Work, the Short List</h3>
-        <span class="sm-go">Home &rarr;</span>
-      </div>
-    </a>
-    <a class="sm-card" href="/#leave-a-review" aria-label="Start a conversation">
-      <img src="photo2b.jpg" alt="Start a conversation" loading="lazy" />
-      <div class="sm-meta">
-        <span class="sm-cat">Contact</span>
-        <h3>Start Something, Hit Me Up</h3>
-        <span class="sm-go">Let's Talk &rarr;</span>
-      </div>
-    </a>
+  </div>
+
+  <div class="sm-footer">
+    <a href="/gallery" class="sm-more-cta">See More Work <span aria-hidden="true">&rarr;</span></a>
   </div>
 </section>
 
@@ -1127,8 +1192,9 @@
   (function initTheme() {
     try {
       const saved = localStorage.getItem('swang-theme');
-      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-    } catch(e) {}
+      // Default = dark. Only go light if the user explicitly chose it.
+      if (saved !== 'light') document.documentElement.setAttribute('data-theme', 'dark');
+    } catch(e) { document.documentElement.setAttribute('data-theme', 'dark'); }
   })();
   window.swangToggleTheme = function() {
     var html = document.documentElement;

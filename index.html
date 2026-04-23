@@ -961,9 +961,39 @@
       transition: color 0.2s; white-space: nowrap; flex-shrink: 0;
     }
     .work-link:hover { color: var(--honey-deep); }
+    /* Apr 22 — featured row promotes 2 hero studies (Bull Boulder + IM8 x
+       Jewell Loyd). The other studies tuck into .cards-secondary below as a
+       smaller row tied to the View More link. */
     .cards-track {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
     }
+    .cards-track .card { min-height: 100%; }
+    .cards-track .card .card-img { height: 320px; }
+    .cards-secondary {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 16px; margin-top: 24px;
+    }
+    .cards-secondary .card { background: var(--bg-soft); }
+    .cards-secondary .card .card-img { height: 160px; }
+    .cards-secondary .card .card-body { padding: 16px 18px 20px; }
+    .cards-secondary .card .card-title { font-size: 17px; }
+    .cards-secondary .card .card-blurb { font-size: 13px; line-height: 1.55; }
+    .cards-secondary-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 36px; padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .cards-secondary-head p {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--ink-mute);
+    }
+    .cards-secondary-head a {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink); text-decoration: none;
+      border-bottom: 1.5px solid var(--honey); padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .cards-secondary-head a:hover { color: var(--honey-deep); }
     /* In-progress case studies block */
     .work-inprogress {
       border: 1px dashed var(--line-strong);
@@ -1385,6 +1415,14 @@
         inset 0 1px 0 rgba(255, 255, 255, 1);
     }
     .cta-pill:hover::after { transform: translateX(3px); }
+    /* Apr 22 — when scrolled into the About / contact section the pill was
+       overlapping Mason's name and the email button. Fade it out so it
+       quietly steps aside (you can already use the inline contact). */
+    .cta-pill.is-tucked {
+      opacity: 0; pointer-events: none;
+      transform: translateY(20px) scale(0.92);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
     @media (max-width: 760px) {
       .cta-pill {
         bottom: 16px; right: 16px;
@@ -1451,6 +1489,8 @@
       .im8-grid { grid-template-columns: 1fr; }
       .work { padding: 64px 24px; }
       .cards-track { grid-template-columns: 1fr; }
+      .cards-secondary { grid-template-columns: 1fr; }
+      .cards-secondary-head { flex-direction: column; align-items: flex-start; gap: 8px; }
       .work-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .benefits { padding: 56px 24px; }
       .benefits-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -1625,6 +1665,7 @@
     </div>
     <a href="case-studies" class="work-link">View More &rarr;</a>
   </div>
+  <!-- TWO hero case studies, full-width side-by-side -->
   <div class="cards-track">
     <a href="case-studies#bull-boulder" class="card reveal">
       <div class="card-img"><img src="bull-boulder-logo.svg" alt="Bull Boulder Tow Hitches logo" /></div>
@@ -1635,30 +1676,38 @@
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
-    <a href="case-noah-thumbnails" class="card reveal">
-      <div class="card-img"><img src="card-thumb-clickbait.png" alt="Clickbait thumbnail for a sports YouTuber" /></div>
-      <div class="card-body">
-        <p class="card-tag">Content Design</p>
-        <h3 class="card-title">Clickbait Thumbnails for a Sports Creator</h3>
-        <p class="card-blurb">Simple hooks, bright reactions, same-day turnarounds. Built for how people actually scroll YouTube, obvious, bold, hard to ignore.</p>
-        <span class="card-cta">Read Case Study &rarr;</span>
-      </div>
-    </a>
-    <a href="case-pavers-turf" class="card reveal">
-      <div class="card-img"><img src="card-thumb-meta.png" alt="Pavers and Turf aerial install" /></div>
-      <div class="card-body">
-        <p class="card-tag">Meta Campaign &amp; Geo-Targeting</p>
-        <h3 class="card-title">A Meta Campaign Anyone Can Start</h3>
-        <p class="card-blurb">Local contractor advertising is wide open on Meta, cheap, geo-precise, and untapped next to Google CPC. Pavers and Turf is the proof of the loop.</p>
-        <span class="card-cta">Read Case Study &rarr;</span>
-      </div>
-    </a>
     <a href="case-im8-loyd" class="card reveal">
       <div class="card-img"><img src="card-thumb-im8.webp" alt="IM8 x Jewell Loyd" /></div>
       <div class="card-body">
         <p class="card-tag">Athlete Collaboration</p>
         <h3 class="card-title">IM8 x Jewell Loyd: Athlete Content, Done Clean</h3>
         <p class="card-blurb">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page, not interrupt it.</p>
+        <span class="card-cta">Read Case Study &rarr;</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Secondary row — tucked smaller cards. Tied to the View More link. -->
+  <div class="cards-secondary-head reveal">
+    <p>Also worth a look</p>
+    <a href="case-studies">View All Case Studies &rarr;</a>
+  </div>
+  <div class="cards-secondary">
+    <a href="case-pavers-turf" class="card reveal">
+      <div class="card-img"><img src="card-thumb-meta.png" alt="Pavers and Turf aerial install" /></div>
+      <div class="card-body">
+        <p class="card-tag">Meta Campaign &amp; Geo-Targeting</p>
+        <h3 class="card-title">A Meta Campaign Anyone Can Start</h3>
+        <p class="card-blurb">Local contractor advertising on Meta — cheap, geo-precise, and untapped next to Google CPC.</p>
+        <span class="card-cta">Read Case Study &rarr;</span>
+      </div>
+    </a>
+    <a href="case-noah-thumbnails" class="card reveal">
+      <div class="card-img"><img src="card-thumb-clickbait.png" alt="Clickbait thumbnail for a sports YouTuber" /></div>
+      <div class="card-body">
+        <p class="card-tag">Content Design</p>
+        <h3 class="card-title">Clickbait Thumbnails for a Sports Creator</h3>
+        <p class="card-blurb">Simple hooks, bright reactions, same-day turnarounds. Built for how people scroll YouTube.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -1806,6 +1855,20 @@
   document.querySelectorAll('.hero .reveal').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 150 + i * 120);
   });
+
+  // Apr 22 — fade the floating "Let's Talk" pill out once the user reaches
+  // the About section so it stops overlapping Mason's name + email button.
+  (function tuckCtaPill() {
+    var pill = document.querySelector('.cta-pill');
+    var about = document.getElementById('about');
+    if (!pill || !about || !('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        pill.classList.toggle('is-tucked', e.isIntersecting);
+      });
+    }, { threshold: 0.05 });
+    obs.observe(about);
+  })();
 
   // Frozone After Hours theme toggle
   window.swangToggleTheme = function() {
