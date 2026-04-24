@@ -338,40 +338,10 @@
       grid-auto-flow: dense;
       gap: 12px;
     }
-    /* Apr 23 — Stills are now split into labeled project sections (Automotive,
-       Putting Greens, Property, Stoflet Vol.02, Brand + Design, Print + Collateral).
-       Each section gets its own header + grid so masonry flows independently. */
+    /* Apr 24 — section TITLES removed per Mason.  Sections remain in the DOM
+       as invisible groupings that preserve the project ordering, but no
+       visible headers are rendered between them. */
     .g-section { display: block; }
-    .g-section + .g-section { margin-top: 12px; }
-    .g-section-head {
-      max-width: 1400px;
-      margin: 44px auto 0;
-      padding: 0 16px;
-      display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
-    }
-    .g-section-head .g-section-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--ice-2, #2E7FC2);
-      position: relative; padding-left: 22px;
-    }
-    .g-section-head .g-section-label::before {
-      content: ''; position: absolute; left: 0; top: 50%;
-      width: 14px; height: 1.5px; background: currentColor;
-      transform: translateY(-50%);
-    }
-    .g-section-head h2 {
-      font-size: clamp(22px, 2.6vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink, #0b0e14);
-      line-height: 1.1;
-    }
-    .g-section-head h2 em {
-      color: var(--ice-2, #2E7FC2); font-style: normal;
-    }
-    html[data-theme="dark"] .g-section-head .g-section-label { color: var(--ice, #9FD4F5); }
-    html[data-theme="dark"] .g-section-head h2 em { color: var(--ice, #9FD4F5); }
-    @media (max-width: 820px) {
-      .g-section-head { margin-top: 28px; padding: 0 12px; }
-    }
 
     .g-item {
       display: block;
@@ -590,20 +560,13 @@
   </div>
 </nav>
 
-<header class="g-head">
-  <a class="g-crumb" href="/">&larr; Back Home</a>
-  <h1 class="g-title">The Full <em>Gallery.</em></h1>
-  <p class="g-sub">
-    Aerials, landscape, portrait, brand. Stills and reels. A running shelf of what makes it onto the feed.
-  </p>
-</header>
+<!-- Apr 23 — page + section headers removed per Mason. The old <header class="g-head">
+     (Full Gallery title + subtitle) and the "In Motion / Reels & short-form." heading
+     are both gone. Top padding on .reels-row is bumped so the first tile clears the
+     fixed nav now that the g-head isn't providing that gap. -->
 
 <!-- REELS ROW (embedded motion work) -->
-<section class="reels-row" id="reelsRow">
-  <div class="reels-head">
-    <span class="reels-label">In Motion</span>
-    <h2>Reels &amp; short-form.</h2>
-  </div>
+<section class="reels-row" id="reelsRow" style="padding-top: 120px;">
   <div class="reels-grid">
     <!-- Native vertical reels (Apr 20 imports) -->
     <div class="reel-embed"><video src="reels/reel-golf.mp4" playsinline muted loop autoplay preload="metadata" controls></video></div>
@@ -632,10 +595,6 @@
 
   <!-- ① AUTOMOTIVE · Editorial motion. -->
   <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-label">Automotive</span>
-      <h2>Editorial <em>motion.</em></h2>
-    </div>
     <div class="g-grid">
       <div class="g-item feature" data-cat="misc"><img src="bmw.jpg" alt="BMW on the coast, overcast" loading="lazy" /></div>
       <div class="g-item wide" data-cat="misc"><img src="m5-horizontal-1.png" alt="BMW M5, horizontal frame 1" loading="lazy" /></div>
@@ -646,10 +605,6 @@
 
   <!-- ② PUTTING GREENS · Aerial + Ground. -->
   <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-label">Putting Greens</span>
-      <h2>Aerial + <em>ground.</em></h2>
-    </div>
     <div class="g-grid">
       <div class="g-item wide" data-cat="landscape"><img src="putting-green-aerial.jpg" alt="Aerial putting green with white-sand bunkers" loading="lazy" /></div>
       <div class="g-item" data-cat="landscape"><img src="pgreen6.jpg" alt="Aerial putting green, rock border" loading="lazy" /></div>
@@ -674,10 +629,6 @@
 
   <!-- ③ PROPERTY · Aerial + Architectural. -->
   <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-label">Property</span>
-      <h2>Aerial + <em>architectural.</em></h2>
-    </div>
     <div class="g-grid">
       <div class="g-item feature" data-cat="landscape"><img src="aerial-backyard.jpg" alt="Aerial backyard, patio + turf" loading="lazy" /></div>
       <div class="g-item feature" data-cat="landscape"><img src="matt-pingatore-h-1.jpg" alt="Matt Pingatore property, horizontal frame 1" loading="lazy" /></div>
@@ -697,10 +648,6 @@
 
   <!-- ④ STOFLET · Vol. 02 Editorial. (biggest single project — its own named block) -->
   <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-label">Stoflet · Vol. 02</span>
-      <h2>The <em>editorial.</em></h2>
-    </div>
     <div class="g-grid">
       <div class="g-item feature" data-cat="landscape"><img src="janfeb-h-1.png" alt="Stoflet Vol.02 editorial, horizontal frame 1" loading="lazy" /></div>
       <div class="g-item" data-cat="landscape"><img src="janfeb-h-2.png" alt="Stoflet Vol.02 editorial, horizontal frame 2" loading="lazy" /></div>
@@ -771,10 +718,6 @@
 
   <!-- ⑤ BRAND + DESIGN. -->
   <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-label">Brand + Design</span>
-      <h2>Thumbnails + <em>concepts.</em></h2>
-    </div>
     <div class="g-grid">
       <div class="g-item" data-cat="print"><img src="noah-thumb-5.png" alt="PrizePicks thumbnail, frame 5" loading="lazy" /></div>
       <div class="g-item" data-cat="print"><img src="noah-thumb-11.png" alt="PrizePicks thumbnail, frame 11" loading="lazy" /></div>
@@ -798,10 +741,6 @@
 
   <!-- ⑥ PRINT + COLLATERAL. -->
   <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-label">Print + Collateral</span>
-      <h2>Mailers + <em>brand stills.</em></h2>
-    </div>
     <div class="g-grid">
       <div class="g-item wide" data-cat="print"><img src="hero-banner-3.png" alt="Property hero banner still" loading="lazy" /></div>
       <div class="g-item wide" data-cat="print"><img src="hero-banner-1.png" alt="Property hero banner still" loading="lazy" /></div>
@@ -836,9 +775,9 @@
 </div>
 
 <section class="g-outro">
-  <h2>See something you want<br>for your <em>brand?</em></h2>
+  <h2>See something you want <br>for your <em>brand?</em></h2>
   <p>Shoots, edits, full content rollouts. Same sensibility, built for how your audience actually scrolls.</p>
-  <a href="/#leave-a-review">Start a Project &rarr;</a>
+  <a href="/#contact">Start a Project &rarr;</a>
 </section>
 
 <footer>

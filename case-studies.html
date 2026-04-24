@@ -581,9 +581,14 @@
     html[data-theme="dark"] .card-cover img.logo-thumb {
       background: linear-gradient(135deg, #050b16 0%, #0b1628 55%, #102444 100%);
     }
-
-    /* (B&W bw-cover experiment reverted — Bull Boulder uses the logo-thumb
-       pattern everywhere for consistency with the homepage card.) */
+    /* Apr 24 — light variant: white panel, no gradient.  Used by Bull Boulder
+       so the black-mark logo reads correctly. */
+    .card-cover img.logo-thumb-light {
+      background: #ffffff;
+    }
+    html[data-theme="dark"] .card-cover img.logo-thumb-light {
+      background: #ffffff;
+    }
 
     /* Dark-mode fixes for sm-cards and study-card toggle:
        cream-2 flips to dark navy in dark theme, so these labels — which sit on
@@ -951,7 +956,7 @@
   <div class="study-card" id="bull-boulder" data-category="meta">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
-        <img src="bull-boulder-logo.svg" alt="Bull Boulder Tow Hitches logo" loading="lazy" class="logo-thumb" />
+        <img src="bull-boulder-logo-light.svg" alt="Bull Boulder Tow Hitches logo" loading="lazy" class="logo-thumb logo-thumb-light" />
       </div>
       <div class="card-meta-wrap">
         <p class="card-cat">Meta Campaigns · <a href="https://bullboulder.com/" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="color:inherit;text-decoration:underline;">Bull Boulder Tow Hitches</a></p>

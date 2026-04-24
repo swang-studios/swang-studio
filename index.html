@@ -1188,6 +1188,12 @@
       background: #0F2237; /* slate that matches the IM8 hero tone */
       display: flex; align-items: center; justify-content: center;
     }
+    /* Apr 24 — Bull Boulder card now uses the light (white-bg / black-mark)
+       variant.  Override the slate panel with pure white so the logo reads as
+       intended.  In dark mode we keep the white panel too — the logo was
+       designed for white, don't flip it. */
+    .card-img.bb-light-card { background: #ffffff; }
+    html[data-theme="dark"] .card-img.bb-light-card { background: #ffffff; }
     .card-img img {
       max-width: 100%; max-height: 100%;
       width: auto; height: auto; object-fit: contain;
@@ -1501,6 +1507,9 @@
       display: flex; justify-content: space-between; align-items: flex-end;
       border-top: 1px solid var(--line);
       background: var(--bg-warm);
+      /* Apr 24 — Connect With Me CTA scrolls to this footer; add headroom so
+         the scroll lands a bit higher and shows context above. */
+      scroll-margin-top: 140px;
     }
     footer .f-logo {
       font-size: 26px; font-weight: 700; letter-spacing: -1px; color: var(--ink);
@@ -1852,7 +1861,7 @@
   <!-- TWO hero case studies, full-width side-by-side -->
   <div class="cards-track">
     <a href="case-studies#bull-boulder" class="card reveal">
-      <div class="card-img"><img src="bull-boulder-logo.svg" alt="Bull Boulder Tow Hitches logo" /></div>
+      <div class="card-img bb-light-card"><img src="bull-boulder-logo-light.svg" alt="Bull Boulder Tow Hitches logo" /></div>
       <div class="card-body">
         <p class="card-tag">Meta Campaign &middot; Interactive</p>
         <h3 class="card-title">Bull Boulder: A Meta Campaign, Spun Into Gold</h3>
@@ -1925,7 +1934,7 @@
       <p class="section-label">About</p>
       <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
       <p class="about-bio reveal">Born and raised in California, I grew up in the Bay Area and recently settled in Los Angeles. I care about every request that comes my way, and I treat every project with the same focused, efficient approach, whether it&rsquo;s a one-off reel or a full campaign.</p>
-      <p class="about-bio reveal">What I love is watching businesses and people grow, expand their reach, pull in real leads, and see their vision come to life in ways that don&rsquo;t drain the budget they were expecting to spend. If the work moves the needle without overspending, that&rsquo;s the win.</p>
+      <p class="about-bio reveal">What I love is watching businesses and people grow, expand their reach, pull in real leads, and see their vision come to life.</p>
       <div class="about-tags reveal">
         <span class="about-tag">Creative Strategy</span>
         <span class="about-tag">Aerial Photography</span>

@@ -49,13 +49,4 @@
         letter-spacing="12"
         fill="#0b0e14"
         style="paint-order:stroke;stroke:#ffffff;stroke-width:6;stroke-linejoin:round">TOW HITCHES</text>
-
-  <!-- Subline -->
-  <text x="300" y="340"
-        text-anchor="middle"
-        font-family="'Helvetica Neue', Arial, sans-serif"
-        font-weight="700"
-        font-size="14"
-        letter-spacing="6"
-        fill="#9FD4F5">META CAMPAIGN, DTC, 2 OF 6 WINNERS</text>
 </svg>

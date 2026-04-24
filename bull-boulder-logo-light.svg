@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="Bull Boulder Tow Hitches — light variant">
+  <!-- Apr 24 — white-background / black-mark variant of bull-boulder-logo.svg.
+       Requested by Mason: "just the bull, white background black logo." -->
+  <defs>
+    <!-- stripes pattern scoped to the horizontal bar (black + red instead of
+         the navy-version's red + white) -->
+    <pattern id="bbStripesLight" patternUnits="userSpaceOnUse" x="0" y="0" width="600" height="18">
+      <rect width="600" height="9" fill="#c8102e"/>
+      <rect y="9" width="600" height="9" fill="#0a0a0a"/>
+    </pattern>
+  </defs>
+
+  <!-- White panel background -->
+  <rect width="600" height="400" fill="#ffffff"/>
+
+  <!-- Star row above wordmark — black stars on white -->
+  <g fill="#0a0a0a" transform="translate(300 110)">
+    <g id="bbStarSmLight"><polygon points="0,-14 4,-4 15,-4 6,3 9,14 0,7 -9,14 -6,3 -15,-4 -4,-4"/></g>
+    <use href="#bbStarSmLight" x="-120"/>
+    <use href="#bbStarSmLight" x="-60"/>
+    <use href="#bbStarSmLight" x="0"/>
+    <use href="#bbStarSmLight" x="60"/>
+    <use href="#bbStarSmLight" x="120"/>
+  </g>
+
+  <!-- BULL BOULDER wordmark — black on white -->
+  <text x="300" y="210"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-weight="700"
+        font-size="72"
+        letter-spacing="2"
+        textLength="520"
+        lengthAdjust="spacingAndGlyphs"
+        fill="#0a0a0a">BULL BOULDER</text>
+
+  <!-- Horizontal stripe bar with TOW HITCHES carved out -->
+  <g transform="translate(80 240)">
+    <rect width="440" height="54" fill="url(#bbStripesLight)" rx="3"/>
+    <rect width="440" height="54" fill="none" stroke="#0a0a0a" stroke-width="2" rx="3"/>
+  </g>
+  <text x="300" y="278"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-weight="700"
+        font-size="28"
+        letter-spacing="12"
+        fill="#ffffff"
+        style="paint-order:stroke;stroke:#0a0a0a;stroke-width:6;stroke-linejoin:round">TOW HITCHES</text>
+</svg>
