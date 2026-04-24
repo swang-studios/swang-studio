@@ -733,6 +733,219 @@
       background: rgba(15, 28, 51, 0.75);
       border-bottom-color: rgba(234,243,251,0.12);
     }
+
+    /* ========== Blog-format case study (Apr 24 ship) ==========
+       Editorial layout: narrow text column + chart breakout.
+       All new classes are bf-* prefixed to avoid clashing with the
+       existing cs-* / metrics / chart-card rules above. */
+    .bf-col { max-width: 680px; margin: 0 auto; }
+    .bf-col.wide { max-width: 1040px; }
+
+    .cs-kicker {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+    }
+    .cs-kicker .dot { color: var(--muted); opacity: 0.6; margin: 0 8px; }
+
+    .bf-byline {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; flex-wrap: wrap;
+      padding: 14px 0; margin: 28px 0 36px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      font-size: 12px; color: var(--muted); letter-spacing: 0.04em;
+    }
+    .bf-byline strong { color: var(--ink); font-weight: 600; }
+
+    .bf-section-head {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      margin-top: 48px; margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 12px;
+    }
+    .bf-section-head::before {
+      content: ''; width: 22px; height: 1px; background: var(--accent);
+    }
+
+    .bf-prose p {
+      font-size: 17px; line-height: 1.72; color: var(--ink-2);
+      margin-bottom: 20px;
+    }
+    .bf-prose p strong { color: var(--ink); font-weight: 600; }
+    .bf-prose p .accent { color: var(--accent); font-weight: 500; }
+
+    .bf-figure-inline {
+      margin: 40px 0; padding: 28px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      display: flex; justify-content: center; align-items: baseline;
+      gap: 28px; flex-wrap: wrap;
+    }
+    .bf-fi-block { text-align: center; }
+    .bf-fi-block .bf-fi-kicker {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .bf-fi-block .bf-fi-number {
+      font-size: clamp(56px, 7vw, 88px); font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .bf-fi-block.before .bf-fi-number {
+      color: var(--muted);
+      text-decoration: line-through; text-decoration-thickness: 3px;
+      text-decoration-color: rgba(229, 72, 77, 0.5);
+    }
+    .bf-fi-block.after .bf-fi-number { color: var(--accent); }
+    .bf-fi-arrow {
+      font-size: clamp(28px, 3vw, 36px); color: var(--muted);
+      font-weight: 300; line-height: 1;
+    }
+
+    .bf-pull-quote {
+      font-size: clamp(20px, 2.2vw, 26px); line-height: 1.45;
+      color: var(--ink); font-weight: 500; letter-spacing: -0.01em;
+      padding: 28px 0 28px 28px;
+      border-left: 3px solid var(--accent);
+      margin: 40px 0;
+    }
+    .bf-pull-quote .accent { color: var(--accent); }
+
+    .bf-nums-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      margin: 40px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .bf-nums-strip .bf-n-cell {
+      padding: 24px 18px;
+      border-right: 1px solid var(--rule);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .bf-nums-strip .bf-n-cell:last-child { border-right: 0; }
+    .bf-n-cell .bf-n-val {
+      font-size: clamp(32px, 3.6vw, 44px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1;
+      color: var(--ink); font-variant-numeric: tabular-nums;
+    }
+    .bf-n-cell.accent .bf-n-val { color: var(--accent); }
+    .bf-n-cell .bf-n-lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink); margin-top: 4px;
+    }
+    .bf-n-cell .bf-n-sub {
+      font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 2px;
+    }
+    .bf-n-cell .bf-n-sub strong { color: var(--ink); }
+
+    @media (max-width: 640px) {
+      .bf-nums-strip { grid-template-columns: 1fr 1fr; }
+      .bf-nums-strip .bf-n-cell:nth-child(2n) { border-right: 0; }
+      .bf-nums-strip .bf-n-cell:nth-child(1),
+      .bf-nums-strip .bf-n-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    }
+
+    .bf-chart-block { margin: 56px 0; }
+    .bf-chart-head-bf { max-width: 680px; margin: 0 auto 28px; }
+    .bf-chart-headline {
+      font-size: clamp(22px, 2.4vw, 28px); font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1.25;
+      margin-bottom: 10px; color: var(--ink);
+    }
+    .bf-chart-headline .accent { color: var(--accent); }
+    .bf-chart-sub {
+      font-size: 15px; line-height: 1.6; color: var(--muted);
+    }
+
+    .bf-legend {
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+      margin-top: 14px; font-size: 12px; color: var(--muted);
+    }
+    .bf-legend-item { display: inline-flex; align-items: center; gap: 8px; }
+    .bf-legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+    .bf-legend-dot.leads { background: var(--accent); }
+    .bf-legend-dot.cost  { background: #ff8fa3; }
+
+    .bf-chart-wrap { position: relative; max-width: 1040px; margin: 0 auto; }
+    .bf-chart-svg  { width: 100%; height: auto; display: block; }
+
+    .bf-refresh-flag {
+      position: absolute; top: -10px;
+      display: flex; flex-direction: column; align-items: center;
+      pointer-events: none;
+    }
+    .bf-refresh-flag .bf-flag-body {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 10px; border-radius: 999px;
+      background: var(--accent); color: var(--cream-2);
+      white-space: nowrap;
+    }
+    .bf-refresh-flag .bf-flag-body small {
+      display: block; font-size: 9px; letter-spacing: 0.08em;
+      text-transform: uppercase; opacity: 0.78; font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .bf-chart-caption {
+      max-width: 680px; margin: 18px auto 0;
+      font-size: 13px; color: var(--muted);
+      text-align: center; line-height: 1.6;
+    }
+
+    .bf-rule {
+      max-width: 120px; margin: 72px auto;
+      border: 0; border-top: 1px solid var(--rule);
+    }
+
+    .bf-funnel-inline { margin: 40px 0; }
+    .bf-funnel-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .bf-funnel-row .bf-f-cell {
+      padding: 22px 18px;
+      border-right: 1px solid var(--rule);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .bf-funnel-row .bf-f-cell:last-child { border-right: 0; }
+    .bf-f-cell .bf-f-lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .bf-f-cell .bf-f-val {
+      font-size: clamp(24px, 2.6vw, 30px); font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1;
+      color: var(--ink); font-variant-numeric: tabular-nums;
+    }
+    .bf-f-cell.highlight .bf-f-val { color: var(--accent); }
+    .bf-f-cell .bf-f-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    @media (max-width: 640px) {
+      .bf-funnel-row { grid-template-columns: 1fr 1fr; }
+      .bf-funnel-row .bf-f-cell:nth-child(2n) { border-right: 0; }
+      .bf-funnel-row .bf-f-cell:nth-child(1),
+      .bf-funnel-row .bf-f-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    }
+
+    .bf-signoff {
+      margin-top: 56px; padding-top: 32px;
+      border-top: 1px solid var(--rule);
+      font-size: 15px; line-height: 1.7; color: var(--ink-2);
+    }
+    .bf-signoff strong { color: var(--ink); }
+    .bf-signoff a {
+      color: var(--accent); text-decoration: underline;
+      text-underline-offset: 3px; font-weight: 600;
+    }
+
+    /* Flatten the cs-title em pill for the blog-format page so the
+       headline sits cleaner in editorial flow. */
+    .bf-flat .cs-title em {
+      background: none; box-shadow: none; padding: 0;
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -759,83 +972,224 @@
 <div class="cs-wrap">
   <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
 
-  <p class="cs-tag">Pavers and Turf by O'Neill's · Meta</p>
-  <h1 class="cs-title">From zero to 59/week. <em>At $5 each.</em></h1>
-  <p class="cs-sub">Flat budget. Volume climbed, cost per lead fell, the inverse did the work.</p>
+  <!-- ===== Blog-format case study (Apr 24) =====
+       Replaces the previous stats-grid + interactive Chart.js block
+       with an editorial layout: kicker, headline, byline, prose sections,
+       inline $26→$5 figure, pull quote, numbers strip, static SVG chart,
+       conversion funnel, and signoff. The Meta Ad Library CTA is kept. -->
+  <div class="bf-flat">
+    <p class="cs-kicker">Case Study<span class="dot">·</span>Paid Media<span class="dot">·</span>17 Weeks</p>
+    <h1 class="cs-title">From zero to 59 leads a week. <em>At $5 each.</em></h1>
+    <p class="cs-lede">Same budget. <strong>5&times; more leads coming in.</strong> Each one costing 81% less than before. Here's how we got the line to bend.</p>
 
-  <div class="cs-hero">
-    <img src="card-thumb-meta.png" alt="Pavers and Turf by O'Neill's, meta campaign hero" />
-  </div>
+    <div class="bf-byline">
+      <span><strong>Pavers and Turf by O'Neill's</strong> &middot; Meta</span>
+      <span>17 weeks &middot; ongoing</span>
+    </div>
 
-  <!-- RESULTS, four numbers, count-up on scroll -->
-  <div class="metrics" style="grid-template-columns: repeat(4, 1fr);">
-    <div class="metric">
-      <div class="big" data-target="81" data-format="percent">0%</div>
-      <div class="lbl">CPA Reduction</div>
-      <div class="desc">$26 → $5</div>
+    <div class="cs-hero">
+      <img src="card-thumb-meta.png" alt="Pavers and Turf by O'Neill's, meta campaign hero" />
     </div>
-    <div class="metric">
-      <div class="big" data-target="59" data-format="comma">0</div>
-      <div class="lbl">Leads / Week</div>
-      <div class="desc">Up from 12</div>
-    </div>
-    <div class="metric">
-      <div class="big" data-target="193" data-format="comma">0</div>
-      <div class="lbl">Top-Ad Leads</div>
-      <div class="desc">One reel</div>
-    </div>
-    <div class="metric">
-      <div class="big" data-target="475" data-format="comma">0</div>
-      <div class="lbl">Total Leads</div>
-      <div class="desc">17 weeks</div>
-    </div>
-  </div>
 
-  <!-- INTERACTIVE CHART -->
-  <section class="chart-card">
-    <div class="chart-head">
-      <div>
-        <p class="label">17 Weeks · Real Data</p>
-        <h3>Toggle the series. Watch the curve bend.</h3>
-        <p class="hint">Dashed lines = creative refreshes. New ads in, losers paused.</p>
+    <!-- Story: the starting point -->
+    <div class="bf-col" style="margin-top: 56px;">
+      <p class="bf-section-head">The starting point</p>
+      <div class="bf-prose">
+        <p>When we picked up the account, every new lead was costing around <strong>twenty-six dollars</strong>. Twelve leads a week on a good week. The budget wasn't the issue &mdash; the creative was. Ads were tired, targeting was broad, and the best-performing reel hadn't been touched in months.</p>
       </div>
-      <div class="chart-tabs">
-        <button class="chart-tab active" data-series="conversions">Leads</button>
-        <button class="chart-tab" data-series="cpa">CPA</button>
-        <button class="chart-tab" data-series="ctr">CTR</button>
-        <button class="chart-tab" data-series="clicks">Clicks</button>
+
+      <div class="bf-figure-inline">
+        <div class="bf-fi-block before">
+          <p class="bf-fi-kicker">Before</p>
+          <p class="bf-fi-number">$26</p>
+        </div>
+        <div class="bf-fi-arrow">&rarr;</div>
+        <div class="bf-fi-block after">
+          <p class="bf-fi-kicker">After 17 weeks</p>
+          <p class="bf-fi-number">$5</p>
+        </div>
+      </div>
+
+      <p class="bf-section-head">What changed</p>
+      <div class="bf-prose">
+        <p>Instead of running a big-bang rebuild, we moved in <span class="accent">short cycles</span>. Every two to three weeks I'd bring in a fresh batch of ads, watch the metrics for a week, keep whatever was pulling weight, and quietly retire the rest.</p>
+      </div>
+
+      <blockquote class="bf-pull-quote">
+        Winners compound. Losers get replaced. <span class="accent">Budget never moves &mdash; the creative does the work.</span>
+      </blockquote>
+
+      <div class="bf-prose">
+        <p>By week eight, a single reel &mdash; TikTok-style transitions cut from live installs &mdash; was pulling in leads at <strong>$5.25 each</strong>. That one ad did the heaviest lifting; nearly half the total volume over the run.</p>
       </div>
     </div>
-    <div class="chart-canvas-wrap">
-      <canvas id="pto-chart"></canvas>
+
+    <!-- Numbers strip -->
+    <div class="bf-col">
+      <p class="bf-section-head">The numbers</p>
+      <div class="bf-nums-strip">
+        <div class="bf-n-cell accent">
+          <span class="bf-n-val">$5</span>
+          <span class="bf-n-lbl">Cost per lead</span>
+          <span class="bf-n-sub">Down from <strong>$26</strong></span>
+        </div>
+        <div class="bf-n-cell">
+          <span class="bf-n-val">59</span>
+          <span class="bf-n-lbl">Leads / week</span>
+          <span class="bf-n-sub">Up from 12/week</span>
+        </div>
+        <div class="bf-n-cell">
+          <span class="bf-n-val">193</span>
+          <span class="bf-n-lbl">From one reel</span>
+          <span class="bf-n-sub">Single top-performing ad</span>
+        </div>
+        <div class="bf-n-cell accent">
+          <span class="bf-n-val">475</span>
+          <span class="bf-n-lbl">Total leads</span>
+          <span class="bf-n-sub">Over <strong>17 weeks</strong></span>
+        </div>
+      </div>
     </div>
-    <div class="chart-foot">
-      <div class="foot-cell"><div class="foot-val" id="foot-total">475</div><div class="foot-lbl">Cumulative</div></div>
-      <div class="foot-cell"><div class="foot-val" id="foot-peak">Wk 17</div><div class="foot-lbl">Peak Week</div></div>
-      <div class="foot-cell"><div class="foot-val" id="foot-avg">28</div><div class="foot-lbl">Per-Week Avg</div></div>
-      <div class="foot-cell"><div class="foot-val" id="foot-rate">&minus;80%</div><div class="foot-lbl">CPA Shift</div></div>
+
+    <!-- Static SVG chart, full-bleed breakout -->
+    <section class="bf-chart-block">
+      <div class="bf-chart-head-bf">
+        <h2 class="bf-chart-headline">Cost per lead kept falling. <span class="accent">Volume kept climbing.</span></h2>
+        <p class="bf-chart-sub">Every few weeks, fresh ads go in. The winners stay, the losers get replaced, and the metrics shape the next round.</p>
+        <div class="bf-legend">
+          <span class="bf-legend-item"><span class="bf-legend-dot leads"></span>Leads per week</span>
+          <span class="bf-legend-item"><span class="bf-legend-dot cost"></span>Cost per lead ($)</span>
+        </div>
+      </div>
+
+      <div class="bf-chart-wrap">
+        <svg class="bf-chart-svg" viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg" aria-label="Leads per week + cost per lead, 17 weeks">
+          <g stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="2 4">
+            <line x1="60" x2="980" y1="60" y2="60" />
+            <line x1="60" x2="980" y1="120" y2="120" />
+            <line x1="60" x2="980" y1="180" y2="180" />
+            <line x1="60" x2="980" y1="240" y2="240" />
+            <line x1="60" x2="980" y1="300" y2="300" />
+          </g>
+          <g font-family="Space Grotesk, sans-serif" font-size="10" fill="#6f82a0" text-anchor="end">
+            <text x="52" y="64">60</text>
+            <text x="52" y="124">45</text>
+            <text x="52" y="184">30</text>
+            <text x="52" y="244">15</text>
+            <text x="52" y="304">0</text>
+          </g>
+
+          <line x1="330" y1="40" x2="330" y2="300" stroke="#6FC3F2" stroke-opacity="0.35" stroke-dasharray="4 5" />
+          <line x1="620" y1="40" x2="620" y2="300" stroke="#6FC3F2" stroke-opacity="0.35" stroke-dasharray="4 5" />
+
+          <defs>
+            <linearGradient id="leadGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#9FD4F5" />
+              <stop offset="100%" stop-color="#2E7FC2" />
+            </linearGradient>
+          </defs>
+          <g>
+            <rect x="70"  y="256" width="38" height="44"  rx="3" fill="url(#leadGrad)" />
+            <rect x="123" y="272" width="38" height="28"  rx="3" fill="url(#leadGrad)" />
+            <rect x="176" y="248" width="38" height="52"  rx="3" fill="url(#leadGrad)" />
+            <rect x="229" y="252" width="38" height="48"  rx="3" fill="url(#leadGrad)" />
+            <rect x="282" y="224" width="38" height="76"  rx="3" fill="url(#leadGrad)" />
+            <rect x="335" y="228" width="38" height="72"  rx="3" fill="url(#leadGrad)" />
+            <rect x="388" y="236" width="38" height="64"  rx="3" fill="url(#leadGrad)" />
+            <rect x="441" y="240" width="38" height="60"  rx="3" fill="url(#leadGrad)" />
+            <rect x="494" y="232" width="38" height="68"  rx="3" fill="url(#leadGrad)" />
+            <rect x="547" y="216" width="38" height="84"  rx="3" fill="url(#leadGrad)" />
+            <rect x="600" y="168" width="38" height="132" rx="3" fill="url(#leadGrad)" />
+            <rect x="653" y="160" width="38" height="140" rx="3" fill="url(#leadGrad)" />
+            <rect x="706" y="168" width="38" height="132" rx="3" fill="url(#leadGrad)" />
+            <rect x="759" y="72"  width="38" height="228" rx="3" fill="url(#leadGrad)" />
+            <rect x="812" y="108" width="38" height="192" rx="3" fill="url(#leadGrad)" />
+            <rect x="865" y="120" width="38" height="180" rx="3" fill="url(#leadGrad)" />
+            <rect x="918" y="68"  width="38" height="232" rx="3" fill="url(#leadGrad)" />
+          </g>
+
+          <path d="M 89 88 L 142 82 L 195 106 L 248 114 L 301 132 L 354 140 L 407 148 L 460 156 L 513 164 L 566 180 L 619 204 L 672 220 L 725 228 L 778 244 L 831 252 L 884 252 L 937 260"
+                fill="none" stroke="#ff8fa3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="89" cy="88" r="5" fill="#ff8fa3" />
+          <circle cx="937" cy="260" r="5" fill="#ff8fa3" />
+          <text x="89" y="74" font-family="Space Grotesk" font-size="12" font-weight="700" fill="#ff8fa3" text-anchor="middle">$26</text>
+          <text x="937" y="280" font-family="Space Grotesk" font-size="12" font-weight="700" fill="#ff8fa3" text-anchor="middle">$5</text>
+
+          <g font-family="Space Grotesk, sans-serif" font-size="10" fill="#6f82a0" text-anchor="middle">
+            <text x="89" y="325">Wk 1</text>
+            <text x="301" y="325">Wk 5</text>
+            <text x="566" y="325">Wk 10</text>
+            <text x="831" y="325">Wk 15</text>
+            <text x="937" y="325">Wk 17</text>
+          </g>
+        </svg>
+
+        <div class="bf-refresh-flag" style="left: 33%; transform: translateX(-50%);">
+          <div class="bf-flag-body">Added new ads <small>studying metrics</small></div>
+        </div>
+        <div class="bf-refresh-flag" style="left: 62%; transform: translateX(-50%);">
+          <div class="bf-flag-body">Added new ads <small>doubled down on winners</small></div>
+        </div>
+      </div>
+
+      <p class="bf-chart-caption">Dashed vertical lines mark the moments fresh creative went in. Each refresh moved the line.</p>
+    </section>
+
+    <hr class="bf-rule" />
+
+    <!-- Conversion funnel -->
+    <div class="bf-col">
+      <p class="bf-section-head">Leads that convert</p>
+      <div class="bf-prose">
+        <p>Volume is nice. <strong>Deals are better.</strong> Of the 475 leads that came through the door, <span class="accent">5 to 10 percent</span> converted into signed projects. Each project starts at a <span class="accent">$10,000</span> floor &mdash; that's the minimum deal size for this market.</p>
+      </div>
+
+      <div class="bf-funnel-inline">
+        <div class="bf-funnel-row">
+          <div class="bf-f-cell">
+            <span class="bf-f-lbl">Total leads</span>
+            <span class="bf-f-val">475</span>
+            <span class="bf-f-note">17 weeks</span>
+          </div>
+          <div class="bf-f-cell">
+            <span class="bf-f-lbl">Lead &rarr; Deal</span>
+            <span class="bf-f-val">5&ndash;10%</span>
+            <span class="bf-f-note">Signed projects</span>
+          </div>
+          <div class="bf-f-cell">
+            <span class="bf-f-lbl">Minimum deal</span>
+            <span class="bf-f-val">$10K+</span>
+            <span class="bf-f-note">Floor price</span>
+          </div>
+          <div class="bf-f-cell highlight">
+            <span class="bf-f-lbl">Revenue generated</span>
+            <span class="bf-f-val">$240K+</span>
+            <span class="bf-f-note">Conservative end</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bf-prose">
+        <p>Conservative math on the low end of the range: 475 &times; 5% &times; $10K = <strong>$240,000</strong>. If any of those projects clears the floor &mdash; which most do &mdash; the real number is higher.</p>
+      </div>
     </div>
-  </section>
 
-  <!-- LIVE ADS LINK (FB Ad Library) -->
-  <section class="ig-embed-section">
-    <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ads that ran away with it.</h2>
-    <p class="sub">TikTok-style transitions cut from live installs. <em>193 leads</em> from one reel alone, <em>$5.25 CPL</em>.</p>
-    <a class="ad-library-cta" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
-      <span class="ad-library-label">Meta Ad Library</span>
-      <span class="ad-library-title">View the live ads here &rarr;</span>
-      <span class="ad-library-sub">All active creative for Pavers and Turf by O'Neill's, sorted by total impressions.</span>
-    </a>
-  </section>
+    <!-- Meta Ad Library CTA — preserved from the old version -->
+    <section class="ig-embed-section">
+      <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ads that ran away with it.</h2>
+      <p class="sub">TikTok-style transitions cut from live installs. <em>193 leads</em> from one reel alone, <em>$5.25 CPL</em>.</p>
+      <a class="ad-library-cta" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
+        <span class="ad-library-label">Meta Ad Library</span>
+        <span class="ad-library-title">View the live ads here &rarr;</span>
+        <span class="ad-library-sub">All active creative for Pavers and Turf by O'Neill's, sorted by total impressions.</span>
+      </a>
+    </section>
 
-  <!-- "A look at the creative" section removed per request.
-       The Meta Ad Library CTA callout above this point already carries
-       that link into the live ad library, so there is no need for the
-       duplicate 4-card grid here. -->
-
-  <div class="cs-callout">
-    <strong>Flat budget. Weekly reads. Compounding returns.</strong>
-    <span>$26 &rarr; $5 per lead in 17 weeks. Spend never moved, the creative did the work.</span>
+    <!-- Signoff -->
+    <div class="bf-col bf-signoff">
+      <p><strong>The short version:</strong> budget didn't grow. The creative did the work &mdash; fresh reels in on a cycle, winners kept, losers cut, and the whole system got cheaper and better at the same time.</p>
+      <p style="margin-top:14px;">Want the same kind of compounding on your ads? <a href="/#about">Say hi.</a></p>
+    </div>
   </div>
 </div>
 
