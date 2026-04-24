@@ -1334,6 +1334,9 @@
     }
     .about-contact .note-sub { font-size: 13.5px; max-width: 480px; }
     .about-contact .note-mail { align-self: flex-start; margin-top: 6px; }
+    /* Services button replaces the old chip row (Apr 24 PM). Matches the
+       hello@swang.studio CTA size for visual parity. */
+    .about-services { margin-top: 28px; margin-bottom: 44px; }
     @media (max-width: 860px) {
       .about-grid {
         grid-template-columns: 1fr;
@@ -1935,13 +1938,13 @@
       <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
       <p class="about-bio reveal">Born and raised in California, I grew up in the Bay Area and recently settled in Los Angeles. I care about every request that comes my way, and I treat every project with the same focused, efficient approach, whether it&rsquo;s a one-off reel or a full campaign.</p>
       <p class="about-bio reveal">What I love is watching businesses and people grow, expand their reach, pull in real leads, and see their vision come to life.</p>
-      <div class="about-tags reveal">
-        <span class="about-tag">Creative Strategy</span>
-        <span class="about-tag">Aerial Photography</span>
-        <span class="about-tag">Visual Direction</span>
-        <span class="about-tag">Meta Campaigns</span>
-        <span class="about-tag">Brand Growth</span>
-      </div>
+      <a class="note-mail about-services reveal"
+         href="/services.pdf"
+         target="_blank"
+         rel="noopener">
+        Services
+        <span class="note-mail-arrow" aria-hidden="true">&rarr;</span>
+      </a>
 
       <div class="about-contact reveal" id="leave-a-review">
         <p class="section-label">Get in Touch</p>
