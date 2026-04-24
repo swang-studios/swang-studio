@@ -178,13 +178,13 @@
 
     /* REACH CALLOUT */
     .reach {
-      margin: 64px auto 0;
-      max-width: 780px;
-      padding: 48px 40px; text-align: center;
-      border: 1px solid var(--rule);
-      background: rgba(255,255,255,0.55);
-      border-radius: 3px;
-      backdrop-filter: blur(6px);
+      flex: 1 1 320px;
+      padding: 40px 32px; text-align: center;
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      backdrop-filter: none;
+      display: flex; flex-direction: column; justify-content: center;
     }
     .reach .lbl {
       font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
@@ -266,7 +266,7 @@
     }
 
     /* IG EMBED */
-    .ig-embed-section { margin: 64px auto 0; max-width: 780px; }
+    .ig-embed-section { margin: 64px auto 0; max-width: 1040px; }
     .ig-embed-section h2 {
       font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
       letter-spacing: -0.02em; color: var(--ink);
@@ -274,10 +274,20 @@
     .ig-embed-section .sub {
       font-size: 14px; color: var(--muted); margin-top: 8px;
     }
+    .collab-row {
+      margin-top: 24px;
+      display: flex;
+      align-items: stretch;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
     .ig-wrap {
-      margin-top: 24px; background: rgba(255,255,255,0.55);
-      border: 1px solid var(--rule);
-      border-radius: 3px; overflow: hidden;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      overflow: hidden;
+      flex: 0 0 auto;
+      width: 100%;
       max-width: 540px;
     }
     .ig-wrap iframe { width: 100%; height: 740px; border: none; display: block; }
@@ -331,23 +341,35 @@
     .theme-toggle {
       background: transparent;
       border: 1px solid rgba(46, 127, 194, 0.35);
-      width: 34px; height: 34px; border-radius: 999px;
+      height: 32px; border-radius: 999px;
       display: inline-flex; align-items: center; justify-content: center;
-      margin-left: 18px; padding: 0; cursor: pointer;
+      gap: 8px;
+      margin-left: 18px; padding: 0 10px 0 12px; cursor: pointer;
       color: var(--ink);
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+      font: inherit;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
     .theme-toggle:hover {
       background: rgba(255,255,255,0.5);
       border-color: var(--accent);
       color: var(--accent);
-      transform: rotate(-12deg);
     }
-    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .tt-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; line-height: 1;
+      opacity: 0.6; transition: opacity 0.2s ease, color 0.2s ease;
+    }
+    .theme-toggle .tt-label.active { opacity: 1; color: var(--accent, #2E7FC2); }
+    .theme-toggle svg { width: 13px; height: 13px; }
     .theme-toggle .sun  { display: none; }
     .theme-toggle .moon { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .tt-label.active { color: #9FD4F5; }
+    @media (max-width: 760px) {
+      .theme-toggle { padding: 0; width: 32px; gap: 0; }
+      .theme-toggle .tt-label, .theme-toggle .tt-sep { display: none; }
+    }
 
     /* Dark-mode palette, re-point the cream/blue vars to ice-on-ink so
        every downstream rule flips cleanly when the toggle flips. */
@@ -395,9 +417,13 @@
     <li><a href="/#reels">Reels</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
-    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+    <button class="theme-toggle" type="button" aria-label="Toggle light / dark mode" onclick="swangToggleTheme()">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span class="tt-label tt-light">Light</span>
+      <span class="tt-sep" aria-hidden="true" style="opacity:0.4;">/</span>
+      <span class="tt-label tt-dark">Dark</span>
+    
     </button>
   </div>
 </nav>
@@ -411,8 +437,8 @@
       <img src="8.png" alt="IM8 logo" />
     </div>
     <p class="im8-hook">Brand &times; Athlete</p>
-    <h1 class="im8-title">IM8 &times; Jewell Loyd.<br /><em>Native to her feed.</em></h1>
-    <p class="im8-sub">Content that fits the athlete's page, not interrupts it.</p>
+    <h1 class="im8-title">IM8 &times; <em>Jewell Loyd.</em></h1>
+    <p class="im8-sub">Content that fits the athlete's page.</p>
   </div>
 
   <!-- BODY -->
@@ -420,21 +446,21 @@
     <p>Collab post with <em>Jewell Loyd</em> (1.3M audience) for IM8. Built to feel native, not overly branded, not overly scripted. Just clean performance, personality, product.</p>
   </section>
 
-  <!-- IG EMBED (The collab shown first, then reach stat) -->
+  <!-- IG EMBED + REACH (shoulder-to-shoulder on desktop) -->
   <section class="ig-embed-section">
     <h2>The collab.</h2>
     <p class="sub">The post in context, athlete moment, product integration, clean delivery.</p>
-    <div class="ig-wrap">
-      <iframe src="https://www.instagram.com/p/DWfxCu1DEqE/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+    <div class="collab-row">
+      <div class="ig-wrap">
+        <iframe src="https://www.instagram.com/p/DWfxCu1DEqE/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+      </div>
+      <div class="reach">
+        <div class="lbl">Athlete Reach</div>
+        <div class="big" id="reachCount">0</div>
+        <div class="sub">1.3M across platforms, delivered so it belongs on her feed.</div>
+      </div>
     </div>
   </section>
-
-  <!-- REACH (the one interactive) -->
-  <div class="reach">
-    <div class="lbl">Athlete Reach</div>
-    <div class="big" id="reachCount">0</div>
-    <div class="sub">1.3M across platforms, delivered without feeling like an interruption.</div>
-  </div>
 </div>
 
 <footer>
@@ -478,6 +504,16 @@
       if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     } catch(e) {}
   })();
+  window.swangSyncThemeLabels = function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+      var light = btn.querySelector('.tt-light');
+      var dark  = btn.querySelector('.tt-dark');
+      if (light) light.classList.toggle('active', !isDark);
+      if (dark)  dark.classList.toggle('active',  isDark);
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+  };
   window.swangToggleTheme = function() {
     var html = document.documentElement;
     var isDark = html.getAttribute('data-theme') === 'dark';
@@ -488,7 +524,9 @@
       html.setAttribute('data-theme', 'dark');
       try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
     }
+    window.swangSyncThemeLabels();
   };
+  window.swangSyncThemeLabels();
 </script>
 </body>
 </html>

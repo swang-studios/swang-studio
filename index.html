@@ -212,27 +212,50 @@
        earlier rule already sets the correct hover colors. */
     html[data-theme="dark"] .about-cta:hover { color: #eaf3fb; }
 
-    /* Theme toggle button — tiny icon in the nav, sun/moon swap */
+    /* Theme toggle — Apr 23 promoted from a tiny icon button to a labeled
+       pill.  Shows "Light / Dark" with a sliding knob so it reads as clearly
+       interactive.  Smooth 200ms transitions on bg/color/border for the
+       theme flip. */
+    body { transition: background-color 0.2s ease, color 0.2s ease; }
+    nav, .hero, .clients, .about, .studies, .reels-section, footer,
+    .btn, .hero-tile, .study-card, .logo-item, .sm-card, .g-item,
+    .card-header, .card-body, .sidebar-card, .theme-toggle {
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
     .theme-toggle {
       background: transparent;
       border: 1px solid var(--line-strong);
-      width: 34px; height: 34px; border-radius: 999px;
+      height: 32px; border-radius: 999px;
       display: inline-flex; align-items: center; justify-content: center;
-      margin-left: 18px; padding: 0; cursor: pointer;
+      gap: 8px;
+      margin-left: 18px; padding: 0 10px 0 12px; cursor: pointer;
       color: var(--ink);
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+      font: inherit;
+      position: relative;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
     .theme-toggle:hover {
       background: var(--surface);
       border-color: var(--honey-deep);
       color: var(--honey-deep);
-      transform: rotate(-12deg);
     }
-    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .tt-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; line-height: 1;
+      opacity: 0.6; transition: opacity 0.2s ease;
+    }
+    .theme-toggle .tt-label.active { opacity: 1; color: var(--honey-deep); }
+    .theme-toggle svg { width: 13px; height: 13px; }
     .theme-toggle .sun  { display: none; }
     .theme-toggle .moon { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .tt-label.active { color: var(--ice, #9FD4F5); }
+    /* Hide labels on narrow viewports so the pill stays tidy */
+    @media (max-width: 760px) {
+      .theme-toggle { padding: 0; width: 34px; gap: 0; }
+      .theme-toggle .tt-label { display: none; }
+    }
 
     html {
       scroll-behavior: smooth;
@@ -484,7 +507,10 @@
       align-items: flex-end; gap: 8px;
     }
     /* Tighter typography INSIDE the frozen tab — keeps headline to one line on desktop */
-    .hero-glass .hero-label { margin-bottom: 8px; font-size: 10.5px; }
+    .hero-glass .hero-label {
+      margin-bottom: 14px; font-size: 10.5px;
+      /* Apr 23 — give the tagline a touch more breathing room over the headline */
+    }
     .hero-glass .hero-headline {
       font-size: clamp(26px, 3vw, 40px);
       line-height: 1.04;
@@ -800,24 +826,31 @@
     }
     /* ---------- END COVER ---------- */
 
+    /* Apr 23 — clearer primary/secondary hierarchy per Mason.  The default
+       .btn is now a true ghost outline (transparent w/ border).  .btn.filled
+       is the solid primary.  Both share a 200ms transition so theme-toggle
+       and hover states feel consistent across the site. */
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 13px 26px; font-size: 11px; font-weight: 600;
       letter-spacing: 0.08em; text-transform: uppercase;
       text-decoration: none; border: 1.5px solid var(--ink);
       color: var(--ink);
-      background: rgba(255,255,255,0.92);
+      background: transparent;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); transform: translateY(-1px); }
     .btn.filled {
-      background: var(--honey); color: #fff; border-color: var(--honey);
+      background: var(--honey-deep); color: #fff; border-color: var(--honey-deep);
+      box-shadow: 0 6px 20px rgba(46,127,194,0.28);
     }
     .btn.filled:hover {
-      background: var(--honey-deep); border-color: var(--honey-deep); color: #fff;
+      background: var(--honey); border-color: var(--honey); color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(46,127,194,0.38);
     }
     /* Rotating hero word, bolder lowkey palette (Apr 19 PM3) */
     #rw.w-brand     { color: #E0526B; }  /* bold coral rose */
@@ -829,10 +862,24 @@
     #rw.w-vision    { color: var(--ice-2, #2E7FC2); }  /* baby-blue, matches palette */
 
     /* CLIENTS */
+    /* Apr 23 — subtle top divider + extra top-padding so the transition from
+       hero into the Worked With strip feels like a deliberate hand-off, not a
+       hard seam.  The gradient fades the hero bg into the warm strip. */
     .clients {
-      padding: 72px 0;
+      padding: 104px 0 72px;
       background: var(--bg-warm);
       overflow: hidden;
+      position: relative;
+    }
+    .clients::before {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0;
+      height: 72px; pointer-events: none;
+      background: linear-gradient(180deg, var(--bg) 0%, transparent 100%);
+      opacity: 0.85;
+    }
+    html[data-theme="dark"] .clients::before {
+      background: linear-gradient(180deg, var(--bg) 0%, transparent 100%);
     }
     .clients-inner { padding: 0 48px; margin-bottom: 48px; }
     .clients .section-label { color: var(--honey-deep); }
@@ -1556,6 +1603,10 @@
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* Apr 23 — View Full Gallery button: arrow slides right on hover + subtle
+       opacity bump to reinforce interactivity. */
+    .view-full-gallery:hover .vfg-arrow { transform: translateX(4px); }
+
     /* Apr 22 — Bug 9: at mid-size desktops (≈937–1100px) the absolute-centered
        hero-glass card was pushing its CTA buttons below the 86vh hero fold.
        Loosen the hero container and dial back the glass padding so the card
@@ -1635,13 +1686,17 @@
   <a href="#" class="logo">swang.</a>
   <div class="nav-right">
     <ul id="nav-list">
-      <li><a href="#featured-work">Case Studies</a></li>
       <li><a href="#reels">Live Work</a></li>
+      <li><a href="#featured-work">Case Studies</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
       <li><a href="#about">Learn More</a></li>
     </ul>
-    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+    <button class="theme-toggle" type="button" aria-label="Toggle light / dark mode" onclick="swangToggleTheme()">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span class="tt-label tt-light">Light</span>
+      <span class="tt-sep" aria-hidden="true" style="opacity:0.4;">/</span>
+      <span class="tt-label tt-dark">Dark</span>
     </button>
     <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list" onclick="swangToggleNav(this)">
       <span></span>
@@ -1733,8 +1788,8 @@
   <div class="gi gd"><img src="pgreen6.jpg" alt="Backyard putting green close-up" /></div>
 </div>
 <div style="text-align:center; padding: 36px 0 48px;">
-  <a href="gallery" class="btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
-    View Full Gallery &nbsp;&rarr;
+  <a href="gallery.html" class="btn view-full-gallery" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
+    View Full Gallery <span class="vfg-arrow" style="display:inline-block;transition:transform 0.2s ease;">&rarr;</span>
   </a>
 </div>
 
@@ -1801,7 +1856,7 @@
       <div class="card-body">
         <p class="card-tag">Meta Campaign &middot; Interactive</p>
         <h3 class="card-title">Bull Boulder: A Meta Campaign, Spun Into Gold</h3>
-        <p class="card-blurb">2 of 6 videos became Meta winners in a category where 1-in-15 is the owner-quoted norm. Spin the reel wheel inside the study.</p>
+        <p class="card-blurb">2 of 5 videos became Meta winners in a category where 1-in-15 is the owner-quoted norm — $60K+ in first-month revenue. Spin the reel wheel inside the study.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -1810,7 +1865,7 @@
       <div class="card-body">
         <p class="card-tag">Athlete Collaboration</p>
         <h3 class="card-title">IM8 x Jewell Loyd: Athlete Content, Done Clean</h3>
-        <p class="card-blurb">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page, not interrupt it.</p>
+        <p class="card-blurb">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page.</p>
         <span class="card-cta">Read Case Study &rarr;</span>
       </div>
     </a>
@@ -1988,6 +2043,9 @@
   // Apr 22 — fade the floating "Let's Talk" pill out once the user reaches
   // the About section OR the footer so it stops overlapping Mason's name,
   // the email button, and the © copyright line. (Bugs 2, 6)
+  // Apr 23 — earlier tuck: rootMargin expands the observer area downward so
+  // the pill fades BEFORE the "About Mason" heading enters the viewport, not
+  // when it's already overlapping.
   (function tuckCtaPill() {
     var pill = document.querySelector('.cta-pill');
     if (!pill || !('IntersectionObserver' in window)) return;
@@ -2000,7 +2058,7 @@
         else visible.delete(e.target);
       });
       pill.classList.toggle('is-tucked', visible.size > 0);
-    }, { threshold: 0.05 });
+    }, { threshold: 0, rootMargin: '0px 0px -18% 0px' });
     targets.forEach(function(t) { obs.observe(t); });
   })();
 
@@ -2027,7 +2085,18 @@
     }
   });
 
-  // Frozone After Hours theme toggle
+  // Frozone After Hours theme toggle — flips data-theme on <html> and syncs
+  // the Light / Dark label state on every .theme-toggle on the page.
+  window.swangSyncThemeLabels = function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+      var light = btn.querySelector('.tt-light');
+      var dark  = btn.querySelector('.tt-dark');
+      if (light) light.classList.toggle('active', !isDark);
+      if (dark)  dark.classList.toggle('active',  isDark);
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+  };
   window.swangToggleTheme = function() {
     var html = document.documentElement;
     var isDark = html.getAttribute('data-theme') === 'dark';
@@ -2038,7 +2107,10 @@
       html.setAttribute('data-theme', 'dark');
       try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
     }
+    window.swangSyncThemeLabels();
   };
+  // Prime label state on load
+  window.swangSyncThemeLabels();
 
   // Editorial cover — shuffle mosaic images on load + on demand
   (function() {

@@ -186,23 +186,35 @@
     .theme-toggle {
       background: transparent;
       border: 1px solid rgba(46, 127, 194, 0.35);
-      width: 34px; height: 34px; border-radius: 999px;
+      height: 32px; border-radius: 999px;
       display: inline-flex; align-items: center; justify-content: center;
-      margin-left: 18px; padding: 0; cursor: pointer;
+      gap: 8px;
+      margin-left: 18px; padding: 0 10px 0 12px; cursor: pointer;
       color: var(--ink);
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+      font: inherit;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
     .theme-toggle:hover {
       background: rgba(255,255,255,0.5);
       border-color: var(--accent);
       color: var(--accent);
-      transform: rotate(-12deg);
     }
-    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .tt-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; line-height: 1;
+      opacity: 0.6; transition: opacity 0.2s ease, color 0.2s ease;
+    }
+    .theme-toggle .tt-label.active { opacity: 1; color: var(--accent, #2E7FC2); }
+    .theme-toggle svg { width: 13px; height: 13px; }
     .theme-toggle .sun  { display: none; }
     .theme-toggle .moon { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .tt-label.active { color: #9FD4F5; }
+    @media (max-width: 760px) {
+      .theme-toggle { padding: 0; width: 32px; gap: 0; }
+      .theme-toggle .tt-label, .theme-toggle .tt-sep { display: none; }
+    }
 
     /* Dark-mode palette override for the whole page */
     html[data-theme="dark"] {
@@ -289,7 +301,14 @@
 
     /* ── STUDY CARDS ───────────────────────────────── */
     .studies { padding: 0; max-width: 1400px; margin: 0 auto; }
-    .study-card { border-bottom: 1px solid rgba(219, 228, 239, 0.5); overflow: hidden; }
+    .study-card {
+      border-bottom: 1px solid rgba(219, 228, 239, 0.5); overflow: hidden;
+      /* Apr 23 — fade + slight vertical shift when filtering instead of hard
+         snap.  JS adds .is-filtering briefly, then removes it to fade cards
+         back in. */
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .study-card.is-filtering { opacity: 0; transform: translateY(6px); }
 
     /* Card header */
     .card-header {
@@ -561,6 +580,20 @@
     }
     html[data-theme="dark"] .card-cover img.logo-thumb {
       background: linear-gradient(135deg, #050b16 0%, #0b1628 55%, #102444 100%);
+    }
+
+    /* Apr 23 — Bull Boulder cover now uses the actual campaign still, not the
+       logo card.  Grayscale + contrast-boost gives the high-contrast B&W
+       editorial treatment Mason asked for.  Contained in the card only so the
+       rest of the page photos stay in color. */
+    .card-cover img.bw-cover {
+      object-fit: cover;
+      object-position: 50% 40%;
+      filter: grayscale(1) contrast(1.22) brightness(0.92);
+      transition: filter 0.35s ease, transform 0.6s ease;
+    }
+    .study-card:hover .card-cover img.bw-cover {
+      filter: grayscale(1) contrast(1.35) brightness(1);
     }
 
     /* Dark-mode fixes for sm-cards and study-card toggle:
@@ -885,9 +918,13 @@
       <li><a href="/gallery">Gallery</a></li>
       <li><a href="/#leave-a-review">Contact</a></li>
     </ul>
-    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+    <button class="theme-toggle" type="button" aria-label="Toggle light / dark mode" onclick="swangToggleTheme()">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span class="tt-label tt-light">Light</span>
+      <span class="tt-sep" aria-hidden="true" style="opacity:0.4;">/</span>
+      <span class="tt-label tt-dark">Dark</span>
+    
     </button>
     <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list" onclick="swangToggleNav(this)">
       <span></span>
@@ -925,12 +962,12 @@
   <div class="study-card" id="bull-boulder" data-category="meta">
     <div class="card-header" onclick="toggleCard(this.closest('.study-card'))">
       <div class="card-cover">
-        <img src="bull-boulder-logo.svg" alt="Bull Boulder Tow Hitches logo" loading="lazy" class="logo-thumb" />
+        <img src="reels/bull-boulder/bb-reel-2-poster.jpg" alt="Bull Boulder trailer hitch boxes, warehouse editorial still" loading="lazy" class="bw-cover" />
       </div>
       <div class="card-meta-wrap">
         <p class="card-cat">Meta Campaigns · <a href="https://bullboulder.com/" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="color:inherit;text-decoration:underline;">Bull Boulder Tow Hitches</a></p>
-        <h2 class="card-title">How I Flipped a Meta Campaign Upside Down</h2>
-        <p class="card-excerpt">2 out of 6 videos became winners in an industry where the owner told me 1 in 15 is the typical ratio. Here's exactly how, and what the numbers say.</p>
+        <h2 class="card-title">2 of 5 Videos Drove $60K+ in Month One</h2>
+        <p class="card-excerpt">2 out of 5 videos became winners in an industry where the owner told me 1 in 15 is the typical ratio — driving $60K+ in first-month revenue. Here's exactly how, and what the numbers say.</p>
         <div class="card-tags">
           <span class="tag">Meta Ads</span>
           <span class="tag">Video Creative</span>
@@ -1014,33 +1051,37 @@
           <ul>
             <li>Researched competitor creative on Meta Ad Library before writing a script</li>
             <li>CTAs written for practical buyers, not generic drop-ship language</li>
-            <li>Tested across Video Ads Testing Broad — 6 active ads, $1,200/day</li>
           </ul>
 
           <h2>The Numbers, Last 30 Days</h2>
-          <p><strong>Flash Sale 1 | Video 4</strong> — best performer across the board: <strong>2.65× ROAS</strong>, <strong>$99.82 CPA</strong>, 1.68% CVR. Meta read it as a bottom-of-funnel closer, so the play is to protect spend and let the algo work.</p>
-          <p><strong>Holy **** | Video 6</strong> — volume driver: 945K impressions, <strong>52.45% hook rate</strong>, $1.30 CPC. CVR at 0.84% points to a post-click gap (offer / LP), not a creative miss.</p>
+          <p><strong>Flash Sale 1 | Video 4</strong> — best performer across the board: <strong>2.99× ROAS</strong>, <strong>$99.82 CPA</strong>, 1.68% CVR. Meta read it as a bottom-of-funnel closer, so the play is to protect spend and let the algo work.</p>
+          <p><strong>Holy **** | Video 5</strong> — volume driver: 945K impressions, <strong>52.45% hook rate</strong>, $1.30 CPC. CVR at 0.84% points to a post-click gap (offer / LP), not a creative miss.</p>
           <p><strong>Hook Up Gone Wrong | Video 3</strong> — turned off. 44% hook rate and a $0.63 CPC pulled clicks, but CVR sat at 0.25% and ROAS never crossed 1.02×. Wrong intent. Learnings folded into the next sprint.</p>
 
           <div class="stat-row">
-            <div class="stat"><div class="stat-num">2.65×</div><div class="stat-label">Peak ROAS</div></div>
-            <div class="stat"><div class="stat-num">2 / 6</div><div class="stat-label">Winner Ratio</div></div>
-            <div class="stat"><div class="stat-num">52%</div><div class="stat-label">Top Hook Rate</div></div>
+            <div class="stat"><div class="stat-num">2.99×</div><div class="stat-label">Peak ROAS</div></div>
+            <div class="stat"><div class="stat-num">2 / 5</div><div class="stat-label">Winner Ratio</div></div>
+            <div class="stat"><div class="stat-num">$60K+</div><div class="stat-label">First-Month Revenue</div></div>
           </div>
 
           <h2>The Takeaway</h2>
-          <p>New industry, no playbook, a 2-in-6 hit rate against a 1-in-15 norm. Research before spend, hooks built for the actual buyer, and a testing structure that lets the best creative rise without burning budget on guesses. Still live and scaling.</p>
+          <p>New industry, no playbook, a 2-in-5 hit rate against a 1-in-15 norm — and $60K+ in first-month revenue. Research before spend, hooks built for the actual buyer, and a testing structure that lets the best creative rise without burning budget on guesses. Still live and scaling.</p>
 
         </div>
         <aside class="blog-sidebar">
           <div class="sidebar-card">
             <p class="sidebar-label">Results at a Glance</p>
-            <div class="sidebar-stat"><span class="sidebar-stat-label">Best ROAS</span><span class="sidebar-stat-val">2.65×</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Best ROAS</span><span class="sidebar-stat-val">2.99×</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Best CPA</span><span class="sidebar-stat-val">$99.82</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">First-Month Revenue</span><span class="sidebar-stat-val">$60K+</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Top Hook Rate</span><span class="sidebar-stat-val">52.45%</span></div>
-            <div class="sidebar-stat"><span class="sidebar-stat-label">Winners / Videos</span><span class="sidebar-stat-val">2 of 6</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Winners / Videos</span><span class="sidebar-stat-val">2 of 5</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Industry Avg</span><span class="sidebar-stat-val">1 of 15</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Status</span><span class="sidebar-stat-val" style="color:#22C55E;">● Live</span></div>
+            <p class="sidebar-note" style="margin-top:14px;padding-top:12px;border-top:1px dashed rgba(11,14,20,0.14);font-size:10.5px;line-height:1.5;letter-spacing:0.02em;color:var(--ink-mute,#8a94a4);">
+              <span aria-hidden="true" style="margin-right:4px;">&#9888;</span>
+              <em style="font-style:normal;">Note:</em> Video package is 2 of 5 &mdash; remaining deliverables in progress.
+            </p>
           </div>
           <a href="/#leave-a-review" class="sidebar-cta">Start a Similar Project →</a>
         </aside>
@@ -1124,7 +1165,7 @@
       <div class="card-meta-wrap">
         <p class="card-cat">Athlete Collaboration · IM8 × Jewell Loyd</p>
         <h2 class="card-title">IM8 × Jewell Loyd: Athlete Content, Done Clean</h2>
-        <p class="card-excerpt">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page, not interrupt it.</p>
+        <p class="card-excerpt">Collab content for a 1.3M-audience athlete with IM8. Entertaining, brand-safe, and built to fit her page.</p>
         <div class="card-tags">
           <span class="tag">Brand</span>
           <span class="tag">Athlete</span>
@@ -1145,7 +1186,7 @@
       <div class="blog-content">
         <div class="blog-main">
           <h2>The Brief</h2>
-          <p>A single collab post with Jewell Loyd (WNBA, Team USA) for IM8. Test: can a partner placement feel native enough that her 1.3M audience doesn't skip?</p>
+          <p>A single collab post with Jewell Loyd (WNBA, Team USA) for IM8. Test: can a partner placement feel like it belongs so her 1.3M audience doesn't skip?</p>
           <h2>The Approach</h2>
           <p>Lead with the athlete, not the product. One shoot day, minimal scripting, pacing matched to Jewell's existing feed.</p>
           <ul>
@@ -1293,15 +1334,30 @@
     card.classList.toggle('open', !isOpen);
     if (!isOpen) { setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80); }
   }
+  // Apr 23 — smooth fade + settle on filter changes instead of a hard snap.
+  // We fade all cards to opacity 0, flip display after 180ms, then fade the
+  // matching cards back in.  Keeps the page feeling intentional.
   document.querySelectorAll('.filter-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       const filter = pill.dataset.filter;
-      document.querySelectorAll('.study-card').forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) { card.style.display = ''; }
-        else { card.style.display = 'none'; card.classList.remove('open'); }
-      });
+      const cards = document.querySelectorAll('.study-card');
+      cards.forEach(c => c.classList.add('is-filtering'));
+      setTimeout(() => {
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+            card.classList.remove('open');
+          }
+        });
+        // next frame — drop the class so cards fade back in
+        requestAnimationFrame(() => {
+          cards.forEach(c => c.classList.remove('is-filtering'));
+        });
+      }, 180);
     });
   });
 
@@ -1315,6 +1371,16 @@
       if (saved !== 'light') document.documentElement.setAttribute('data-theme', 'dark');
     } catch(e) { document.documentElement.setAttribute('data-theme', 'dark'); }
   })();
+  window.swangSyncThemeLabels = function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+      var light = btn.querySelector('.tt-light');
+      var dark  = btn.querySelector('.tt-dark');
+      if (light) light.classList.toggle('active', !isDark);
+      if (dark)  dark.classList.toggle('active',  isDark);
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+  };
   window.swangToggleTheme = function() {
     var html = document.documentElement;
     var isDark = html.getAttribute('data-theme') === 'dark';
@@ -1325,7 +1391,9 @@
       html.setAttribute('data-theme', 'dark');
       try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
     }
+    window.swangSyncThemeLabels();
   };
+  window.swangSyncThemeLabels();
 
   // Mobile hamburger nav (Bug 3)
   window.swangToggleNav = function(btn) {

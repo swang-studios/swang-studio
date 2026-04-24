@@ -669,23 +669,35 @@
     .theme-toggle {
       background: transparent;
       border: 1px solid rgba(46, 127, 194, 0.35);
-      width: 34px; height: 34px; border-radius: 999px;
+      height: 32px; border-radius: 999px;
       display: inline-flex; align-items: center; justify-content: center;
-      margin-left: 18px; padding: 0; cursor: pointer;
+      gap: 8px;
+      margin-left: 18px; padding: 0 10px 0 12px; cursor: pointer;
       color: var(--ink);
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+      font: inherit;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
     .theme-toggle:hover {
       background: rgba(255,255,255,0.5);
       border-color: var(--accent);
       color: var(--accent);
-      transform: rotate(-12deg);
     }
-    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .tt-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; line-height: 1;
+      opacity: 0.6; transition: opacity 0.2s ease, color 0.2s ease;
+    }
+    .theme-toggle .tt-label.active { opacity: 1; color: var(--accent, #2E7FC2); }
+    .theme-toggle svg { width: 13px; height: 13px; }
     .theme-toggle .sun  { display: none; }
     .theme-toggle .moon { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
     html[data-theme="dark"] .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .tt-label.active { color: #9FD4F5; }
+    @media (max-width: 760px) {
+      .theme-toggle { padding: 0; width: 32px; gap: 0; }
+      .theme-toggle .tt-label, .theme-toggle .tt-sep { display: none; }
+    }
 
     /* Dark-mode palette, re-point the cream/blue vars to ice-on-ink so
        every downstream rule flips cleanly when the toggle flips. */
@@ -733,9 +745,13 @@
     <li><a href="/#reels">Reels</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
-    <button class="theme-toggle" type="button" aria-label="Toggle Frozone After Hours" onclick="swangToggleTheme()">
+    <button class="theme-toggle" type="button" aria-label="Toggle light / dark mode" onclick="swangToggleTheme()">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span class="tt-label tt-light">Light</span>
+      <span class="tt-sep" aria-hidden="true" style="opacity:0.4;">/</span>
+      <span class="tt-label tt-dark">Dark</span>
+    
     </button>
   </div>
 </nav>
@@ -1138,6 +1154,16 @@
       if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     } catch(e) {}
   })();
+  window.swangSyncThemeLabels = function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+      var light = btn.querySelector('.tt-light');
+      var dark  = btn.querySelector('.tt-dark');
+      if (light) light.classList.toggle('active', !isDark);
+      if (dark)  dark.classList.toggle('active',  isDark);
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+  };
   window.swangToggleTheme = function() {
     var html = document.documentElement;
     var isDark = html.getAttribute('data-theme') === 'dark';
@@ -1148,7 +1174,9 @@
       html.setAttribute('data-theme', 'dark');
       try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
     }
+    window.swangSyncThemeLabels();
   };
+  window.swangSyncThemeLabels();
 </script>
 </body>
 </html>
