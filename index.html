@@ -1938,8 +1938,11 @@
       <h2 class="about-name reveal">Mason<br><em>Swang.</em></h2>
       <p class="about-bio reveal">Born and raised in California, I grew up in the Bay Area and recently settled in Los Angeles. I care about every request that comes my way, and I treat every project with the same focused, efficient approach, whether it&rsquo;s a one-off reel or a full campaign.</p>
       <p class="about-bio reveal">What I love is watching businesses and people grow, expand their reach, pull in real leads, and see their vision come to life.</p>
+      <!-- Apr 25 — replaced static /services.pdf link with the in-page
+           "I'm interested in" modal. Falls back to the PDF if JS fails. -->
       <a class="note-mail about-services reveal"
          href="/services.pdf"
+         data-svc-trigger="open"
          target="_blank"
          rel="noopener">
         Services
@@ -2179,6 +2182,417 @@
       populate();
     }
   })();
+</script>
+
+<!-- ============================================================
+     "I'm interested in" — services modal (Apr 25)
+     Triggered by any element with [data-svc-trigger="open"].
+     Multi-select tile grid + email-only form.
+     POSTs JSON to data-endpoint; falls back to mailto: if the
+     endpoint is the placeholder or fails. The auto-reply email
+     to the lead is sent by the n8n workflow on the back end.
+============================================================ -->
+<div class="svc-modal" id="svcModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="svcTitle">
+  <div class="svc-card" role="document">
+    <button class="svc-close" id="svcClose" type="button" aria-label="Close">&times;</button>
+
+    <h2 class="svc-title" id="svcTitle">i&rsquo;m interested <em>in.</em></h2>
+    <p class="svc-sub">Pick one or a few. Reply lands within the day.</p>
+
+    <div class="svc-tiles" id="svcTiles" role="group" aria-label="Select services you're interested in">
+      <button type="button" class="svc-tile" data-key="photo-video-ground"   data-label="Photo &amp; Video — Ground">
+        <span class="svc-tile-name">photo &amp; video<br><em>ground.</em></span>
+        <span class="svc-tile-check" aria-hidden="true">&check;</span>
+      </button>
+      <button type="button" class="svc-tile" data-key="photo-video-aerial"   data-label="Photo &amp; Video — Aerial">
+        <span class="svc-tile-name">photo &amp; video<br><em>aerial.</em></span>
+        <span class="svc-tile-check" aria-hidden="true">&check;</span>
+      </button>
+      <button type="button" class="svc-tile" data-key="meta-ad-strategy"     data-label="Meta Ad Strategy">
+        <span class="svc-tile-name">meta ad<br><em>strategy.</em></span>
+        <span class="svc-tile-check" aria-hidden="true">&check;</span>
+      </button>
+      <button type="button" class="svc-tile" data-key="ad-creative-content"  data-label="Ad Creative Content">
+        <span class="svc-tile-name">ad creative<br><em>content.</em></span>
+        <span class="svc-tile-check" aria-hidden="true">&check;</span>
+      </button>
+      <button type="button" class="svc-tile" data-key="video-editing"        data-label="Video Editing">
+        <span class="svc-tile-name">video<br><em>editing.</em></span>
+        <span class="svc-tile-check" aria-hidden="true">&check;</span>
+      </button>
+      <button type="button" class="svc-tile" data-key="graphic-print"        data-label="Graphic Design &amp; Digital Prints">
+        <span class="svc-tile-name">graphic design<br><em>&amp; digital prints.</em></span>
+        <span class="svc-tile-check" aria-hidden="true">&check;</span>
+      </button>
+    </div>
+
+    <form class="svc-form" id="svcForm"
+          data-endpoint="REPLACE_WITH_N8N_WEBHOOK_URL"
+          data-fallback-mailto="hello@swang.studio"
+          novalidate>
+      <input type="email" id="svcEmail" name="email"
+             placeholder="your email"
+             autocomplete="email" inputmode="email" required />
+      <button type="submit" class="svc-submit" id="svcSubmit" disabled>
+        send <span aria-hidden="true">&rarr;</span>
+      </button>
+    </form>
+
+    <p class="svc-status" id="svcStatus" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<style>
+  /* --- "I'm interested in" services modal ---------------------- */
+  .svc-modal {
+    position: fixed; inset: 0; z-index: 9999;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(11, 14, 20, 0.62);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+  .svc-modal.open { display: flex; opacity: 1; }
+  .svc-modal[aria-hidden="false"] { display: flex; }
+
+  .svc-card {
+    position: relative;
+    width: min(560px, 100%);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    background: var(--paper, #f7f6f2);
+    color: var(--ink, #0b0e14);
+    border: 1px solid rgba(11, 14, 20, 0.08);
+    border-radius: 18px;
+    padding: 36px 32px 28px;
+    box-shadow: 0 24px 60px rgba(11, 14, 20, 0.28),
+                0 2px 6px rgba(11, 14, 20, 0.10);
+    transform: translateY(8px) scale(0.985);
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .svc-modal.open .svc-card { transform: translateY(0) scale(1); }
+
+  html[data-theme="dark"] .svc-card {
+    background: #0f141d;
+    color: var(--ink);
+    border-color: rgba(234, 243, 251, 0.10);
+  }
+
+  .svc-close {
+    position: absolute; top: 12px; right: 14px;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; border: 0;
+    font-size: 28px; line-height: 1; color: var(--ink-mute, #8a94a4);
+    cursor: pointer; border-radius: 50%;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .svc-close:hover { background: rgba(11, 14, 20, 0.06); color: var(--ink); }
+
+  .svc-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4.2vw, 34px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 4px 0 6px;
+  }
+  .svc-title em {
+    font-style: italic;
+    color: var(--accent, #5DB3E8);
+  }
+  .svc-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink-soft, #3a4250);
+    margin: 0 0 22px;
+  }
+
+  .svc-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  @media (min-width: 540px) {
+    .svc-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .svc-tile {
+    position: relative;
+    display: flex; align-items: flex-end;
+    min-height: 96px;
+    padding: 14px 14px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(11, 14, 20, 0.12);
+    background: rgba(11, 14, 20, 0.025);
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease,
+                transform 0.12s ease, box-shadow 0.15s ease;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .svc-tile:hover {
+    border-color: rgba(11, 14, 20, 0.22);
+    background: rgba(11, 14, 20, 0.045);
+  }
+  .svc-tile:active { transform: translateY(1px); }
+  .svc-tile-name {
+    font-size: 13px; line-height: 1.18;
+    font-weight: 500; letter-spacing: -0.005em;
+  }
+  .svc-tile-name em {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic; font-weight: 500;
+    font-size: 17px; letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .svc-tile-check {
+    position: absolute; top: 10px; right: 12px;
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(11, 14, 20, 0.25);
+    font-size: 11px; line-height: 1;
+    color: transparent;
+    background: transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .svc-tile.is-on {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper, #f7f6f2);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .svc-tile.is-on .svc-tile-name em { color: var(--accent, #5DB3E8); }
+  .svc-tile.is-on .svc-tile-check {
+    background: var(--accent, #5DB3E8);
+    border-color: var(--accent, #5DB3E8);
+    color: #fff;
+  }
+  html[data-theme="dark"] .svc-tile {
+    background: rgba(234, 243, 251, 0.04);
+    border-color: rgba(234, 243, 251, 0.14);
+  }
+  html[data-theme="dark"] .svc-tile:hover {
+    background: rgba(234, 243, 251, 0.07);
+  }
+  html[data-theme="dark"] .svc-tile.is-on {
+    background: var(--paper, #f7f6f2);
+    color: var(--ink, #0b0e14);
+    border-color: var(--paper, #f7f6f2);
+  }
+
+  .svc-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .svc-form input[type="email"] {
+    grid-column: 1 / -1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    padding: 14px 14px;
+    border-radius: 11px;
+    border: 1px solid rgba(11, 14, 20, 0.18);
+    background: #fff;
+    color: var(--ink);
+    outline: 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .svc-form input[type="email"]:focus {
+    border-color: var(--accent, #5DB3E8);
+    box-shadow: 0 0 0 3px rgba(93, 179, 232, 0.18);
+  }
+  html[data-theme="dark"] .svc-form input[type="email"] {
+    background: #060a12;
+    border-color: rgba(234, 243, 251, 0.18);
+    color: var(--ink);
+  }
+  @media (min-width: 480px) {
+    .svc-form input[type="email"] { grid-column: 1; }
+    .svc-submit { grid-column: 2; }
+  }
+
+  .svc-submit {
+    grid-column: 1 / -1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 500;
+    padding: 14px 22px;
+    border-radius: 11px;
+    border: 0;
+    background: var(--ink);
+    color: var(--paper, #f7f6f2);
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.12s ease, background 0.15s ease;
+    white-space: nowrap;
+  }
+  .svc-submit:hover:not(:disabled) { background: var(--accent-dark, #2E7FC2); }
+  .svc-submit:active:not(:disabled) { transform: translateY(1px); }
+  .svc-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+  html[data-theme="dark"] .svc-submit {
+    background: var(--paper, #f7f6f2);
+    color: var(--ink, #0b0e14);
+  }
+
+  .svc-status {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft, #3a4250);
+    min-height: 18px;
+    margin: 14px 0 0;
+  }
+  .svc-status.is-error { color: #c2410c; }
+  .svc-status.is-ok    { color: #1e7a4a; }
+
+  .svc-card.is-sent .svc-tiles,
+  .svc-card.is-sent .svc-form { display: none; }
+  .svc-card.is-sent .svc-status { font-size: 16px; }
+</style>
+
+<script>
+(function () {
+  var modal   = document.getElementById('svcModal');
+  if (!modal) return;
+  var card    = modal.querySelector('.svc-card');
+  var closeEl = document.getElementById('svcClose');
+  var tilesEl = document.getElementById('svcTiles');
+  var form    = document.getElementById('svcForm');
+  var emailEl = document.getElementById('svcEmail');
+  var submit  = document.getElementById('svcSubmit');
+  var status  = document.getElementById('svcStatus');
+
+  var triggers = document.querySelectorAll('[data-svc-trigger="open"]');
+  var lastFocus = null;
+
+  function open(e) {
+    if (e) e.preventDefault();
+    lastFocus = document.activeElement;
+    modal.setAttribute('aria-hidden', 'false');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { emailEl.focus(); }, 60);
+  }
+  function close() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // reset success state on close so reopen is clean
+    setTimeout(function () {
+      card.classList.remove('is-sent');
+      status.textContent = '';
+      status.className = 'svc-status';
+    }, 200);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function getSelectedTiles() {
+    return Array.from(tilesEl.querySelectorAll('.svc-tile.is-on'))
+      .map(function (b) {
+        return { key: b.dataset.key, label: b.dataset.label };
+      });
+  }
+  function refreshSubmit() {
+    var ok = getSelectedTiles().length > 0 && isValidEmail(emailEl.value.trim());
+    submit.disabled = !ok;
+  }
+
+  // wire triggers
+  triggers.forEach(function (t) {
+    t.addEventListener('click', open);
+  });
+
+  // close interactions
+  closeEl.addEventListener('click', close);
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+
+  // tile toggle
+  tilesEl.addEventListener('click', function (e) {
+    var btn = e.target.closest('.svc-tile');
+    if (!btn) return;
+    btn.classList.toggle('is-on');
+    btn.setAttribute('aria-pressed', btn.classList.contains('is-on') ? 'true' : 'false');
+    refreshSubmit();
+  });
+
+  // email validation
+  emailEl.addEventListener('input', refreshSubmit);
+
+  // submit
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var selections = getSelectedTiles();
+    var email = emailEl.value.trim();
+    if (!selections.length || !isValidEmail(email)) return;
+
+    submit.disabled = true;
+    status.className = 'svc-status';
+    status.textContent = 'sending...';
+
+    var endpoint = (form.dataset.endpoint || '').trim();
+    var payload = {
+      email: email,
+      selections: selections,
+      submitted_at: new Date().toISOString(),
+      source: 'home-modal'
+    };
+
+    function showSent() {
+      card.classList.add('is-sent');
+      status.className = 'svc-status is-ok';
+      status.textContent = 'thanks. you’ll see a confirmation in your inbox.';
+      // auto-close after a beat
+      setTimeout(close, 4200);
+    }
+    function fallbackMailto() {
+      var to = form.dataset.fallbackMailto || 'hello@swang.studio';
+      var subject = 'I’m interested in: ' + selections.map(function (s) { return s.label; }).join(' · ');
+      var body =
+        'Services I’m interested in:\n  - ' +
+        selections.map(function (s) { return s.label; }).join('\n  - ') +
+        '\n\nMy email: ' + email + '\n\n— sent from swang.studio';
+      var href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.location.href = href;
+      // optimistically show sent state; user finishes the email send themselves
+      showSent();
+    }
+
+    var hasEndpoint = endpoint && endpoint !== 'REPLACE_WITH_N8N_WEBHOOK_URL';
+    if (!hasEndpoint) { fallbackMailto(); return; }
+
+    // POST to n8n webhook with a hard timeout so a hanging endpoint
+    // doesn't strand the user.
+    var ctrl = new AbortController();
+    var t = setTimeout(function () { ctrl.abort(); }, 9000);
+    fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: ctrl.signal,
+    })
+      .then(function (r) {
+        clearTimeout(t);
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.json().catch(function () { return {}; });
+      })
+      .then(function () { showSent(); })
+      .catch(function () {
+        clearTimeout(t);
+        // graceful degrade: hand off to mail client so the lead still reaches Mason
+        fallbackMailto();
+      });
+  });
+})();
 </script>
 </body>
 </html>
