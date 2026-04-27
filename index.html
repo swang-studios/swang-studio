@@ -962,6 +962,22 @@
       .note-mail { font-size: 18px; padding: 14px 20px; }
     }
 
+    /* Apr 27 — small-phone polish (~390-540px viewports).
+       Bridges the gap between the 760px tablet block and the 440px
+       smallest-screen block. Bigger reels, shorter hero, tighter
+       padding, no horizontal overflow on the about column. */
+    @media (max-width: 540px) {
+      .reels-grid { grid-template-columns: 1fr; }
+      .hero { min-height: 55vh; }
+      .about-left { max-width: 100%; width: 100%; }
+      .reels,
+      .work,
+      .clients { padding: 48px 20px; }
+      .excerpt { padding: 44px 20px; }
+      .benefits { padding: 44px 20px; }
+      nav { padding: 14px 18px; }
+    }
+
     /* GALLERY, 4 editorial tiles */
     .gallery {
       display: grid;
@@ -1284,7 +1300,7 @@
     /* Apr 22 — when no headshot has been dropped in yet, the empty figure
        was rendering as a tall black placeholder block. Collapse it cleanly
        so the about section doesn't show a void. (Bug 4) */
-    .about-grid:has(.about-photo-slot:empty) { grid-template-columns: 1fr; max-width: 720px; }
+    .about-grid:has(.about-photo-slot:empty) { grid-template-columns: 1fr; max-width: min(720px, 100%); }
     .about-right:has(.about-photo-slot:empty) { display: none; }
     .about-photo-slot {
       width: 100%;
@@ -2227,7 +2243,7 @@
     </div>
 
     <form class="svc-form" id="svcForm"
-          data-endpoint="REPLACE_WITH_N8N_WEBHOOK_URL"
+          data-endpoint="https://swangstudio.app.n8n.cloud/webhook/swang-quote-request"
           data-fallback-mailto="hello@swang.studio"
           novalidate>
       <input type="email" id="svcEmail" name="email"
