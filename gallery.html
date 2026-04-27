@@ -513,7 +513,10 @@
       footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 560px) {
-      .g-grid { gap: 6px; padding: 0 6px; grid-template-columns: repeat(2, 1fr); }
+      /* Apr 27 — keep the puzzle feel on phones: 3 cols at small-tablet,
+         2 cols on real phones. Was collapsing to 1 col under 440px which
+         turned the gallery into an endless scroll. */
+      .g-grid { gap: 6px; padding: 0 6px; grid-template-columns: repeat(3, 1fr); }
       .g-item.wide, .g-item.feature { grid-column: span 2; }
     }
     @media (max-width: 440px) {
@@ -521,11 +524,11 @@
       .g-title { font-size: clamp(32px, 9vw, 44px); }
       .g-sub { font-size: 14px; }
       .g-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 0 14px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        padding: 0 8px;
       }
-      .g-item.wide, .g-item.feature { grid-column: span 1; }
+      .g-item.wide, .g-item.feature { grid-column: span 2; }
       .lb { padding: 16px; }
       .lb-close { top: 14px; right: 14px; width: 38px; height: 38px; }
       .lb-prev  { left: 8px;  width: 38px; height: 38px; }
