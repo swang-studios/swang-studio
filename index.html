@@ -843,6 +843,13 @@
       transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
     .btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); transform: translateY(-1px); }
+    /* Apr 27 v2 — press-state feedback for iOS (no hover on touch).
+       Replaces the upward hover-translate with a soft downward press +
+       slight scale so taps feel mechanical instead of dead. */
+    .btn:active {
+      transform: translateY(1px) scale(0.985);
+      transition-duration: 0.08s;
+    }
     .btn.filled {
       background: var(--honey-deep); color: #fff; border-color: var(--honey-deep);
       box-shadow: 0 6px 20px rgba(46,127,194,0.28);
@@ -1735,15 +1742,48 @@
       .hero-actions {
         flex-wrap: wrap;
         gap: 10px;
+        width: 100%;
       }
       .hero-actions .btn {
         flex: 1 1 100%;
         justify-content: center;
         text-align: center;
-        padding: 12px 18px;
+        padding: 14px 18px;
+        min-height: 48px;          /* Apple HIG min tap target */
+        font-size: 12px;
+        letter-spacing: 0.10em;
       }
-      .hero-glass-actions { gap: 10px; }
-      .hero-ghost { font-size: 12px; }
+      .hero-glass-actions {
+        gap: 12px;
+        width: 100%;
+        align-items: stretch;       /* full-width children on phones */
+      }
+      .hero-ghost {
+        font-size: 13px;
+        align-self: center;          /* break onto its own centered line */
+        padding: 10px 4px;            /* bigger tap target */
+        border-bottom-width: 1.5px;
+      }
+
+      /* Apr 27 v2 — staggered slide-in for the CTA pair on mobile.
+         Reads as the editorial "slot" feel of the rotating headline; each
+         button rises into place 70ms after the previous, then the ghost link.
+         Honors prefers-reduced-motion. */
+      @keyframes ctaRise {
+        from { opacity: 0; transform: translate3d(0, 14px, 0); }
+        to   { opacity: 1; transform: translate3d(0, 0, 0); }
+      }
+      .hero-glass.visible .hero-actions .btn,
+      .hero-glass.visible .hero-ghost {
+        animation: ctaRise 0.42s cubic-bezier(0.22, 0.9, 0.28, 1) both;
+      }
+      .hero-glass.visible .hero-actions .btn:nth-child(1) { animation-delay: 0.20s; }
+      .hero-glass.visible .hero-actions .btn:nth-child(2) { animation-delay: 0.29s; }
+      .hero-glass.visible .hero-ghost                    { animation-delay: 0.40s; }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-glass.visible .hero-actions .btn,
+        .hero-glass.visible .hero-ghost { animation: none; }
+      }
     }
   </style>
 </head>
