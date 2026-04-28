@@ -1715,7 +1715,10 @@
        now caps with max-height + collapses backdrop to 2 rows so the
        image tiles can't push the hero past 60% of the screen). */
     @media (max-width: 540px) {
-      .reels-grid { grid-template-columns: 1fr; }
+      /* Apr 27 v3 — Live Work reels match the gallery's mobile density:
+         2 columns on phones (was 1, which was way too tall), 1-col fallback
+         only at very narrow Android widths (≤360px set further down). */
+      .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .hero {
         min-height: 0;
         max-height: 60vh;
@@ -1729,7 +1732,26 @@
       .hero-tile.mid-top { grid-column: 1; grid-row: 2; }
       .hero-tile.mid-bot { display: none; }
       .hero-tile.tall    { grid-column: 2; grid-row: 2; }
-      .hero-glass { margin: 14px 12px; padding: 16px 16px; }
+      /* Apr 27 v3 — HARD positional + width constraints so the card cannot
+         escape the viewport. The 960 breakpoint set position:relative + width:calc(100% - 32px),
+         but the card was still bleeding off the left on iPhone. Lock it down: position
+         relative, no transform, max-width capped to 100vw - 24px, margin auto for
+         horizontal centering, box-sizing:border-box so padding doesn't inflate it. */
+      .hero-glass {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        width: auto !important;
+        max-width: calc(100vw - 24px);
+        margin: 14px auto !important;
+        padding: 16px 16px;
+        box-sizing: border-box;
+        flex-direction: column;
+      }
+      .hero-glass.reveal,
+      .hero-glass.reveal.visible { transform: none !important; }
       .about-left { max-width: 100%; width: 100%; }
       .reels,
       .work,
@@ -1784,6 +1806,11 @@
         .hero-glass.visible .hero-actions .btn,
         .hero-glass.visible .hero-ghost { animation: none; }
       }
+    }
+
+    /* Apr 27 v3 — narrow Android fallback for the homepage Live Work reels. */
+    @media (max-width: 360px) {
+      .reels-grid { grid-template-columns: 1fr; gap: 10px; }
     }
   </style>
 </head>

@@ -903,17 +903,33 @@
     @media (max-width: 480px) {
       .bb-roulette {
         margin-left: 0; margin-right: 0;
-        padding: 22px 14px 18px;
+        padding: 20px 12px 16px;
         max-width: 100%;
+        width: 100%;
         box-sizing: border-box;
+        overflow: hidden;
       }
-      .bb-stage { height: 340px; }
-      .bb-tile { width: 148px; border-radius: 18px; }
-      .bb-rail { gap: 10px; padding: 0 16px; }
-      .bb-nav { width: 30px; height: 30px; font-size: 14px; }
-      .bb-prev { left: 4px; } .bb-next { right: 4px; }
-      .bb-caption { font-size: 12px; padding: 0 6px; }
-      .bb-head { gap: 12px; }
+      /* Apr 27 v3 — single-tile spotlight on phones.
+         Hide the side adjacent tiles so the active reel reads cleanly without
+         half-tiles bleeding off-screen. The user can swipe / tap-arrow to
+         step through one at a time. */
+      .bb-stage { height: 360px; touch-action: pan-y; }
+      .bb-rail { gap: 0; padding: 0; justify-content: center; }
+      .bb-tile { width: 200px; border-radius: 16px; }
+      .bb-tile.adj { display: none; }
+      .bb-tile:not(.active):not(.adj) { display: none; }
+      /* Make sure ONLY the active tile shows on phones — JS still tracks idx,
+         but visually we render a stack of one. Prev/next buttons step through. */
+      .bb-tile.active { transform: scale(1) !important; opacity: 1 !important; }
+      .bb-nav {
+        width: 36px; height: 36px; font-size: 14px;
+        background: rgba(255,255,255,0.92);
+      }
+      html[data-theme="dark"] .bb-nav { background: rgba(15,28,51,0.85); }
+      .bb-prev { left: 6px; } .bb-next { right: 6px; }
+      .bb-caption { font-size: 12px; padding: 0 6px; line-height: 1.55; }
+      .bb-head { gap: 12px; flex-direction: column; align-items: flex-start; }
+      .bb-spin { padding: 9px 14px; font-size: 10.5px; }
       .blog-content { padding: 24px 14px 36px !important; }
       .blog-body { min-width: 0; max-width: 100%; }
       .blog-body * { max-width: 100%; }
