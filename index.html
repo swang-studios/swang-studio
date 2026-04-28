@@ -1733,10 +1733,10 @@
       .hero-tile.mid-bot { display: none; }
       .hero-tile.tall    { grid-column: 2; grid-row: 2; }
       /* Apr 27 v3 — HARD positional + width constraints so the card cannot
-         escape the viewport. The 960 breakpoint set position:relative + width:calc(100% - 32px),
-         but the card was still bleeding off the left on iPhone. Lock it down: position
-         relative, no transform, max-width capped to 100vw - 24px, margin auto for
-         horizontal centering, box-sizing:border-box so padding doesn't inflate it. */
+         escape the viewport. */
+      /* Apr 27 v4 — SHRINK so the hero-backdrop tiles (BMW, putting green, etc.)
+         remain visible on either side. Was 100vw-24px (essentially full bleed);
+         now capped at 88vw with auto margin so ~6% of hero shows on each side. */
       .hero-glass {
         position: relative !important;
         left: auto !important;
@@ -1744,14 +1744,28 @@
         top: auto !important;
         transform: none !important;
         width: auto !important;
-        max-width: calc(100vw - 24px);
-        margin: 14px auto !important;
-        padding: 16px 16px;
+        max-width: 88vw;
+        margin: 18px auto !important;
+        padding: 14px 16px;
         box-sizing: border-box;
         flex-direction: column;
+        gap: 12px;
+        border-radius: 18px;
       }
       .hero-glass.reveal,
       .hero-glass.reveal.visible { transform: none !important; }
+      /* Tighter typography inside the card so it reads as a compact lozenge,
+         not a full-bleed panel. */
+      .hero-glass .hero-label {
+        font-size: 9px; letter-spacing: 0.16em;
+        margin-bottom: 8px; gap: 8px;
+      }
+      .hero-glass .hero-label::before { width: 16px; }
+      .hero-glass .hero-headline {
+        font-size: clamp(22px, 6.4vw, 28px);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+      }
       .about-left { max-width: 100%; width: 100%; }
       .reels,
       .work,
@@ -1763,28 +1777,30 @@
          Wraps the pair onto two lines and gives each a consistent tap target. */
       .hero-actions {
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px;
         width: 100%;
       }
       .hero-actions .btn {
         flex: 1 1 100%;
         justify-content: center;
         text-align: center;
-        padding: 14px 18px;
-        min-height: 48px;          /* Apple HIG min tap target */
-        font-size: 12px;
+        padding: 11px 16px;
+        min-height: 44px;          /* Apple HIG min tap target — tightened from 48 */
+        font-size: 11px;
         letter-spacing: 0.10em;
+        border-radius: 10px;
       }
       .hero-glass-actions {
-        gap: 12px;
+        gap: 8px;
         width: 100%;
         align-items: stretch;       /* full-width children on phones */
       }
       .hero-ghost {
-        font-size: 13px;
+        font-size: 12px;
         align-self: center;          /* break onto its own centered line */
-        padding: 10px 4px;            /* bigger tap target */
-        border-bottom-width: 1.5px;
+        padding: 6px 4px;             /* tighter — was 10px */
+        border-bottom-width: 1px;
+        margin-top: 2px;
       }
 
       /* Apr 27 v2 — staggered slide-in for the CTA pair on mobile.
