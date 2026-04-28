@@ -895,6 +895,38 @@
       .bb-nav { width: 34px; height: 34px; }
       .bb-prev { left: 6px; } .bb-next { right: 6px; }
     }
+
+    /* Apr 27 — phone-width hardening (≤480px).
+       Was bleeding past viewport on iPhone widths because the bb-roulette,
+       blog-body, and blog-content lacked explicit width caps + the rail's
+       40px side padding pushed the active tile partially off-screen. */
+    @media (max-width: 480px) {
+      .bb-roulette {
+        margin-left: 0; margin-right: 0;
+        padding: 22px 14px 18px;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      .bb-stage { height: 340px; }
+      .bb-tile { width: 148px; border-radius: 18px; }
+      .bb-rail { gap: 10px; padding: 0 16px; }
+      .bb-nav { width: 30px; height: 30px; font-size: 14px; }
+      .bb-prev { left: 4px; } .bb-next { right: 4px; }
+      .bb-caption { font-size: 12px; padding: 0 6px; }
+      .bb-head { gap: 12px; }
+      .blog-content { padding: 24px 14px 36px !important; }
+      .blog-body { min-width: 0; max-width: 100%; }
+      .blog-body * { max-width: 100%; }
+      .blog-body p, .blog-body li { word-wrap: break-word; overflow-wrap: anywhere; }
+      .blog-body h2 { font-size: 20px; line-height: 1.25; }
+      .stat-row { gap: 10px; }
+      .stat-num { font-size: 24px; }
+      .blog-sidebar { min-width: 0; max-width: 100%; }
+      .sidebar-card { padding: 16px; }
+      .page-header { padding: 92px 16px 32px; }
+      .page-h1 { font-size: 36px; }
+      .filter-bar { padding: 10px 14px; }
+    }
   </style>
 </head>
 <body>

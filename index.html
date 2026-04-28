@@ -1730,6 +1730,20 @@
       .excerpt { padding: 44px 20px; }
       .benefits { padding: 44px 20px; }
       nav { padding: 14px 18px; }
+      /* Apr 27 — keep CTAs from squishing into a single tight row on iPhone widths.
+         Wraps the pair onto two lines and gives each a consistent tap target. */
+      .hero-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .hero-actions .btn {
+        flex: 1 1 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 18px;
+      }
+      .hero-glass-actions { gap: 10px; }
+      .hero-ghost { font-size: 12px; }
     }
   </style>
 </head>
