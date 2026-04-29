@@ -1671,15 +1671,16 @@
       .hero-glass {
         position: relative; left: auto; top: auto; transform: none;
         width: calc(100% - 32px);
-        margin: 28px 16px;
-        padding: 24px 20px;
+        margin: 18px 16px;        /* Apr 28 5:55pm-haircut: was 28px 16px */
+        padding: 18px 18px;       /* Apr 28 5:55pm-haircut: was 24px 20px */
         flex-direction: column;
         align-items: stretch;
-        gap: 16px;
+        gap: 12px;                /* Apr 28 5:55pm-haircut: was 16px */
       }
       .hero-glass-copy { flex: 1 1 auto; }
       .hero-glass-actions { align-items: flex-start; }
-      .hero-glass .hero-headline { white-space: normal; font-size: clamp(28px, 7vw, 42px); }
+      /* Apr 28 5:55pm-haircut: shrank headline 1 step on mobile (was clamp(28px,7vw,42px)). */
+      .hero-glass .hero-headline { white-space: normal; font-size: clamp(24px, 6.5vw, 36px); }
       .hero-glass .hero-sub { font-size: 13px; }
       .gallery {
         grid-template-columns: 1fr 1fr;
@@ -1887,8 +1888,9 @@
     <div class="hero-glass-actions">
       <div class="hero-actions">
         <a href="#contact" class="btn filled" id="rotating-cta"><span class="rc-text">Connect With Me</span> &darr;</a>
-        <a href="#featured-work" class="btn">View Case Studies</a>
       </div>
+      <!-- Apr 28 5:55pm-haircut: removed secondary "View Case Studies" button; case studies
+           are still reachable via main nav + the "browse the work" ghost link below. -->
       <a href="#gallery" class="hero-ghost">or just browse the work <span class="arrow">&rarr;</span></a>
     </div>
   </div>
@@ -1944,34 +1946,37 @@
   </a>
 </div>
 
-<!-- LIVE CONTENT -->
+<!-- LIVE CONTENT
+     Apr 28 — Merged the old .reels-grid (3) + .im8-grid (2) into a single
+     3-column grid so the section reads as one clean shelf instead of two
+     mismatched rows. Dropped the pitchy "Latest Work / Content + Visual
+     Direction" labels per Mason: streamline, less advertise-y, let the
+     content speak. Pulled DKx7HWRiIsY in from the gallery (it's leaving
+     gallery.html since the native MP4 covers the same shot) so we have a
+     full 3x2 of distinct reels. -->
 <section class="reels" id="reels">
-  <p class="section-label">My Live Content</p>
+  <p class="section-label">Recent Reels</p>
   <h2 class="reels-headline reveal">
-    Content reels that<br><em>stop the scroll.</em>
+    What I've been<br><em>making lately.</em>
   </h2>
   <div class="reels-grid">
     <div class="reel-card">
-      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <p class="reel-label">Instagram Reel</p>
+      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DVtc0Ryjpcp/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     </div>
     <div class="reel-card">
-      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <p class="reel-label">Instagram Reel</p>
+      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DU-vnxtDxUQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     </div>
     <div class="reel-card">
-      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <p class="reel-label">Instagram Reel</p>
+      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DWCSxyLD05o/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     </div>
-  </div>
-  <div class="im8-grid">
-    <div class="im8-card">
-      <div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <div class="im8-label"><strong>Latest Work</strong><span>Content + Visual Direction</span></div>
+    <div class="reel-card">
+      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     </div>
-    <div class="im8-card">
-      <div class="im8-embed"><iframe src="https://www.instagram.com/reel/DW87on7BDsQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe></div>
-      <div class="im8-label"><strong>Latest Work</strong><span>Content + Visual Direction</span></div>
+    <div class="reel-card">
+      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DW6UrceDBC4/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    </div>
+    <div class="reel-card">
+      <div class="reel-embed"><iframe src="https://www.instagram.com/reel/DW87on7BDsQ/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
     </div>
   </div>
 </section>
@@ -2581,13 +2586,20 @@
   /* Apr 27 — disabled state was too faded (opacity 0.4) and looked broken
      on dark mode mobile. Use a softer dim that still reads as a button. */
   .svc-submit:disabled { opacity: 0.55; cursor: not-allowed; background: var(--ink-soft, #3a4250); }
+  /* Apr 28 — In dark mode --ink resolves to a light cream (#eaf3fb), so the
+     prior `color: var(--ink)` rendered nearly invisible on the cream button.
+     Use a literal dark ink for the submit text + arrow so it always reads. */
   html[data-theme="dark"] .svc-submit {
     background: var(--paper, #f7f6f2);
-    color: var(--ink, #0b0e14);
+    color: #0b0e14;
+  }
+  html[data-theme="dark"] .svc-submit:hover:not(:disabled) {
+    background: var(--accent, #6FC3F2);
+    color: #0b0e14;
   }
   html[data-theme="dark"] .svc-submit:disabled {
-    background: rgba(247, 246, 242, 0.35);
-    color: rgba(11, 14, 20, 0.85);
+    background: rgba(247, 246, 242, 0.45);
+    color: rgba(11, 14, 20, 0.7);
   }
 
   .svc-status {
