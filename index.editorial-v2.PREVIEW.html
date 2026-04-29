@@ -23,22 +23,22 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* surfaces — warm near-black, lifted to bronze */
-      --bg:        #0d0a07;
-      --bg-soft:   #16110c;
-      --surface:   #1c1610;
-      --line:      rgba(240, 230, 210, 0.10);
-      --line-soft: rgba(240, 230, 210, 0.05);
+      /* surfaces — pure matte black, lifted to deep coffee for cards */
+      --bg:        #000000;
+      --bg-soft:   #08070a;
+      --surface:   #14110d;
+      --line:      rgba(240, 226, 180, 0.10);
+      --line-soft: rgba(240, 226, 180, 0.05);
 
       /* type ink — warm cream, sand, taupe */
-      --ink:       #f0e6d2;
-      --ink-soft:  #c9b990;
-      --ink-mute:  #7a6f56;
+      --ink:       #f3e9d2;
+      --ink-soft:  #cfbd8e;
+      --ink-mute:  #7d7050;
 
-      /* accents — real honey on black, bronze on press, soft glow */
-      --accent:        #d4a843;
-      --accent-deep:   #a87b21;
-      --accent-glow:   #f5d176;
+      /* accents — richer pastel honey, deep bronze on press, brighter pastel glow */
+      --accent:        #e8b94a;
+      --accent-deep:   #b08317;
+      --accent-glow:   #ffe28a;
       --sage:          #7a8950;
 
       /* motion */
@@ -95,17 +95,72 @@
       position: sticky; top: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 22px var(--gutter-page);
-      background: rgba(13, 10, 7, 0.78);
+      background: rgba(0, 0, 0, 0.78);
       backdrop-filter: blur(14px) saturate(140%);
       -webkit-backdrop-filter: blur(14px) saturate(140%);
       border-bottom: 1px solid var(--line-soft);
     }
     nav .brand {
       font-family: 'Caveat', cursive; font-weight: 700;
-      font-size: 30px; line-height: 1; color: var(--ink);
+      font-size: 32px; line-height: 1; color: var(--ink);
       letter-spacing: 0.01em;
+      display: inline-flex; align-items: baseline; gap: 0;
+      text-decoration: none;
+    }
+    nav .brand .ltr {
+      display: inline-block;
+      transform: translateY(0);
+      will-change: transform;
     }
     nav .brand .dot { color: var(--accent); }
+
+    /* Stadium wave — every ~45s the wordmark does a single left-to-right hop.
+       Each letter rises briefly, then falls; the next letter fires on a stagger
+       so the motion reads as a wave passing through the word. The keyframe
+       animation runs continuously but spends ~43.5s flat, ~1.5s waving — quiet
+       background life, never distracting. */
+    @keyframes wmHop {
+      0%, 96.7%, 100% { transform: translateY(0); }
+      98.0%           { transform: translateY(-9px); }
+      99.0%           { transform: translateY(-2px); }
+    }
+    nav .brand .ltr {
+      animation: wmHop 45s var(--ease-emphatic) infinite;
+    }
+    nav .brand .ltr.l-1 { animation-delay: 0s; }
+    nav .brand .ltr.l-2 { animation-delay: 0.18s; }
+    nav .brand .ltr.l-3 { animation-delay: 0.36s; }
+    nav .brand .ltr.l-4 { animation-delay: 0.54s; }
+    nav .brand .ltr.l-5 { animation-delay: 0.72s; }
+    nav .brand .ltr.l-6 { animation-delay: 0.90s; }
+
+    /* Gleam shine — sweeps a soft pastel highlight diagonally across any
+       element with class "gleam" once on load and on hover. Used to give the
+       honey accent a satin quality instead of a flat block of color. */
+    @keyframes gleamSweep {
+      0%   { background-position: -160% 0; }
+      100% { background-position: 260% 0; }
+    }
+    .gleam {
+      background: linear-gradient(
+        100deg,
+        var(--accent) 0%,
+        var(--accent) 38%,
+        var(--accent-glow) 50%,
+        var(--accent) 62%,
+        var(--accent) 100%
+      );
+      background-size: 220% 100%;
+      background-position: -160% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gleamSweep 6.5s var(--ease) infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      nav .brand .ltr { animation: none; }
+      .gleam { animation: none; background-position: 0 0; }
+    }
     nav .nav-right { display: flex; align-items: center; gap: 8px; }
     nav ul {
       list-style: none; display: flex; gap: 32px;
@@ -142,30 +197,32 @@
     body.nav-open .nav-burger span::before { top: 0; transform: rotate(45deg); }
     body.nav-open .nav-burger span::after  { bottom: 0; transform: rotate(-45deg); }
 
-    /* ============ HERO ============ */
+    /* ============ HERO — portfolio-first, less headlinely ============ */
     .hero {
-      padding: 96px var(--gutter-page) 64px;
+      padding: 76px var(--gutter-page) 56px;
       max-width: 1440px; margin: 0 auto;
     }
-    .hero-kicker { margin-bottom: 24px; }
-    .hero-display {
-      font-size: clamp(40px, 6.2vw, 84px);
+    .hero-kicker { margin-bottom: 22px; }
+    .hero-intro {
+      font-family: 'Fraunces', Georgia, serif;
       font-weight: 300;
-      max-width: 18ch;
-      margin-bottom: 22px;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      max-width: 28ch;
+      margin-bottom: 20px;
       color: var(--ink);
     }
-    .hero-display em {
-      font-style: italic;
-      color: var(--accent);
-      font-weight: 400;
-    }
+    .hero-intro em { font-style: italic; color: var(--accent); font-weight: 400; }
     .hero-sub {
-      font-size: 16px;
+      font-size: 15.5px;
       color: var(--ink-soft);
-      max-width: 44ch;
-      margin-bottom: 36px;
-      line-height: 1.6;
+      max-width: 56ch;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+    .hero-cta-row {
+      display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
     }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 10px;
@@ -175,42 +232,70 @@
       padding: 0 0 8px;
       border-bottom: 1px solid var(--accent);
       transition: gap 220ms var(--ease), color var(--duration-fast) var(--ease);
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
     }
     .hero-cta:hover { gap: 16px; color: var(--accent-glow); }
     .hero-cta .arr { color: var(--accent); }
+    .hero-cta.subtle { border-bottom-color: var(--line); color: var(--ink-soft); }
+    .hero-cta.subtle:hover { border-bottom-color: var(--accent); color: var(--ink); }
+    .hero-cta.subtle .arr { color: var(--ink-mute); }
+    .hero-cta.subtle:hover .arr { color: var(--accent); }
 
-    /* hero photography — two large editorial tiles below the headline */
-    .hero-strip {
+    /* hero showcase — feature still on the left, 2-stack on the right.
+       Mix of stills + a video tile so it reads as portfolio, not "two cars". */
+    .hero-showcase {
       display: grid;
-      grid-template-columns: 1.45fr 1fr;
+      grid-template-columns: 1.55fr 1fr;
       gap: 4px;
-      margin-top: 80px;
+      margin-top: 64px;
+    }
+    .hero-showcase .col-stack {
+      display: grid; grid-template-rows: 1fr 1fr; gap: 4px;
     }
     .hero-tile {
       position: relative; overflow: hidden;
-      aspect-ratio: 16 / 11;
       cursor: pointer;
+      background: var(--bg-soft);
     }
-    .hero-tile img {
+    .hero-tile.feature { aspect-ratio: 4 / 5; }
+    .hero-tile.half    { aspect-ratio: 4 / 3; }
+    .hero-tile img,
+    .hero-tile video {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 700ms var(--ease), filter 500ms var(--ease);
       filter: saturate(1.05) brightness(0.92);
     }
-    .hero-tile:hover img { transform: scale(1.03); filter: saturate(1.15) brightness(1.0); }
+    .hero-tile:hover img,
+    .hero-tile:hover video { transform: scale(1.03); filter: saturate(1.15) brightness(1.0); }
     .hero-tile .cap {
       position: absolute; left: 0; right: 0; bottom: 0;
-      padding: 22px 26px;
-      background: linear-gradient(0deg, rgba(13, 10, 7, 0.86), rgba(13, 10, 7, 0));
+      padding: 20px 22px;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0));
       color: var(--ink);
     }
     .hero-tile .cap-tag {
-      font-size: 10.5px; letter-spacing: 0.20em; text-transform: uppercase;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--accent-glow); font-weight: 600; margin-bottom: 4px;
     }
     .hero-tile .cap-title {
       font-family: 'Fraunces', serif;
-      font-size: 22px; font-weight: 400;
+      font-size: 18px; font-weight: 400;
       letter-spacing: -0.005em; color: var(--ink);
+    }
+    .hero-tile .play-pip {
+      position: absolute; top: 14px; right: 14px;
+      width: 30px; height: 30px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 226, 138, 0.45);
+      border-radius: 999px;
+      color: var(--accent-glow);
+      font-size: 11px;
+      backdrop-filter: blur(6px);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding-left: 1px;
     }
 
     /* ============ SECTION HEAD ============ */
@@ -331,23 +416,23 @@
       border: 0; display: block;
     }
 
-    /* ============ CASE STUDIES — photography-led cards ============ */
+    /* ============ CASE STUDIES — 3 across, photography-led cards ============ */
     .work-grid {
       max-width: 1440px; margin: 0 auto;
       padding: 40px var(--gutter-page) 0;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 4px;
     }
     .case {
       position: relative; overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 3 / 4;
       background: var(--bg-soft);
     }
     .case img {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 800ms var(--ease), filter 500ms var(--ease);
-      filter: saturate(1.05) brightness(0.85);
+      filter: saturate(1.05) brightness(0.82);
     }
     .case:hover img { transform: scale(1.04); filter: saturate(1.15) brightness(1.0); }
     .case.bb-light img {
@@ -359,42 +444,51 @@
     .case.bb-light:hover img { transform: scale(1.02); }
     .case .case-meta {
       position: absolute; left: 0; right: 0; bottom: 0;
-      padding: 28px 32px;
-      background: linear-gradient(0deg, rgba(13, 10, 7, 0.94) 0%, rgba(13, 10, 7, 0.10) 70%, rgba(13, 10, 7, 0) 100%);
+      padding: 24px 26px;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0) 100%);
     }
     .case-tag {
-      font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--accent); font-weight: 600;
       margin-bottom: 8px;
     }
     .case-title {
       font-family: 'Fraunces', serif; font-weight: 400;
-      font-size: clamp(20px, 2.2vw, 28px);
+      font-size: clamp(18px, 1.6vw, 22px);
       line-height: 1.18; letter-spacing: -0.01em;
       color: var(--ink);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .case-line {
-      font-size: 13.5px; color: var(--ink-soft);
-      max-width: 56ch; line-height: 1.55;
+      font-size: 12.5px; color: var(--ink-soft);
+      max-width: 36ch; line-height: 1.55;
     }
 
-    .work-secondary-head {
+    .work-cta-row {
       max-width: 1440px; margin: 0 auto;
-      padding: 64px var(--gutter-page) 12px;
-      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 56px var(--gutter-page) 0;
+      display: flex; justify-content: center;
     }
-    .work-secondary-head .label {
-      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--ink-mute); font-weight: 500;
+    .btn-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: gap 220ms var(--ease), color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
+      font-family: inherit;
     }
-    .work-secondary-head a {
-      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--ink-soft); font-weight: 600;
-      border-bottom: 1px solid var(--accent); padding-bottom: 4px;
-      transition: color var(--duration-fast) var(--ease);
+    .btn-pill:hover {
+      gap: 14px;
+      color: var(--accent-glow);
+      border-color: var(--accent);
+      background: rgba(232, 185, 74, 0.06);
     }
-    .work-secondary-head a:hover { color: var(--accent-glow); }
+    .btn-pill .arr { color: var(--accent); }
 
     /* ============ SERVICES — flat editorial rows ============ */
     .services {
@@ -443,13 +537,13 @@
     }
     .services-list li:hover .arrow { color: var(--accent); transform: translateX(4px); }
 
-    /* ============ ABOUT — bio + headshot column ============ */
+    /* ============ ABOUT — bio left, action card right ============ */
     .about {
       max-width: 1440px; margin: 0 auto;
       padding: 120px var(--gutter-page) 100px;
       display: grid;
       grid-template-columns: 1.25fr 1fr;
-      gap: 80px;
+      gap: 72px;
       align-items: start;
     }
     .about-copy h3 {
@@ -465,46 +559,83 @@
       max-width: 52ch;
       margin-bottom: 18px;
     }
-    .about-actions {
-      display: flex; gap: 28px; align-items: center;
-      flex-wrap: wrap;
-      margin-top: 32px;
+
+    /* Right column action card — promoted Work With Me as a real button. */
+    .about-action {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 32px;
     }
-    .about-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
+    .about-action h4 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: clamp(22px, 2.2vw, 28px);
+      letter-spacing: -0.01em;
+      line-height: 1.18;
+      margin-bottom: 10px;
       color: var(--ink);
-      padding: 0 0 8px;
-      border-bottom: 1px solid var(--accent);
+    }
+    .about-action h4 em { font-style: italic; color: var(--accent); }
+    .about-action p {
+      color: var(--ink-soft);
+      font-size: 14px; line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .btn-filled {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #0a0907;
+      background: var(--accent);
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 26px;
       cursor: pointer;
-      background: none;
-      transition: gap 220ms var(--ease), color var(--duration-fast) var(--ease);
+      transition: gap 220ms var(--ease), background var(--duration-fast) var(--ease), transform 120ms var(--ease);
+      font-family: inherit;
+      width: 100%;
+      justify-content: center;
     }
-    .about-cta:hover { gap: 16px; color: var(--accent-glow); }
-    .about-quiet-mail {
+    .btn-filled:hover { gap: 14px; background: var(--accent-glow); }
+    .btn-filled:active { transform: translateY(1px); }
+    .about-action .extras {
+      margin-top: 18px;
+      display: flex; flex-direction: column; gap: 10px;
+      font-size: 13px;
       color: var(--ink-mute);
-      font-size: 13.5px;
     }
-    .about-quiet-mail a {
+    .about-action .extras a {
       color: var(--ink-soft);
       border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
       transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
     }
-    .about-quiet-mail a:hover { color: var(--accent-glow); border-bottom-color: var(--accent); }
+    .about-action .extras a:hover { color: var(--accent-glow); border-bottom-color: var(--accent); }
+    .about-action .extras .what-i-do {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: none; border: 0; padding: 0;
+      color: var(--ink-soft);
+      font-family: inherit; font-size: 13px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+    }
+    .about-action .extras .what-i-do:hover { color: var(--accent-glow); }
+    .about-action .extras .what-i-do .arr { color: var(--accent); }
 
     .about-side {
+      margin-top: 24px;
       color: var(--ink-mute);
-      font-size: 13.5px;
-      line-height: 1.85;
+      font-size: 13px;
+      line-height: 1.75;
     }
     .about-side .label {
-      font-size: 10.5px; letter-spacing: 0.20em; text-transform: uppercase;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--accent); font-weight: 600;
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
-    .about-side .label.spaced { margin-top: 28px; }
+    .about-side .row { margin-bottom: 14px; }
 
     /* ============ FOOTER ============ */
     footer {
@@ -543,34 +674,31 @@
     footer .f-social a:hover { color: var(--accent); border-color: var(--accent); }
     footer .f-social svg { width: 14px; height: 14px; fill: currentColor; }
 
-    /* ============ DISCREET BOTTOM EMAIL CHIP ============ */
-    /* Replaces the old "LET'S TALK" sticky pill. Quieter, gets out of the way. */
-    .corner-mail {
+    /* ============ FLOATING LET'S TALK PILL ============ */
+    .cta-pill {
       position: fixed;
       right: 22px; bottom: 22px;
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--ink-soft);
-      background: rgba(28, 22, 16, 0.84);
-      backdrop-filter: blur(14px) saturate(140%);
-      -webkit-backdrop-filter: blur(14px) saturate(140%);
-      border: 1px solid var(--line);
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #0a0907;
+      background: var(--accent);
+      border: 0;
       border-radius: 999px;
-      padding: 12px 18px;
+      padding: 14px 22px;
+      cursor: pointer;
       z-index: 80;
-      transition: opacity 260ms var(--ease), transform 260ms var(--ease), color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+      box-shadow: 0 10px 30px rgba(232, 185, 74, 0.22);
+      transition: opacity 260ms var(--ease), transform 260ms var(--ease), background var(--duration-fast) var(--ease), gap 220ms var(--ease);
+      font-family: inherit;
     }
-    .corner-mail:hover {
-      color: var(--accent-glow);
-      border-color: var(--accent);
-    }
-    .corner-mail.is-tucked {
+    .cta-pill:hover { gap: 14px; background: var(--accent-glow); }
+    .cta-pill.is-tucked {
       opacity: 0;
       transform: translateY(12px);
       pointer-events: none;
     }
-    .corner-mail .arr { color: var(--accent); }
+    .cta-pill .arr { color: #0a0907; }
 
     /* ============ REVEAL ============ */
     .reveal {
@@ -654,7 +782,12 @@
       footer .f-links { justify-content: center; flex-wrap: wrap; gap: 18px; }
       footer .f-meta { text-align: center; }
 
-      .corner-mail { right: 12px; bottom: 12px; padding: 10px 14px; font-size: 11px; }
+      .cta-pill { right: 12px; bottom: 12px; padding: 12px 18px; font-size: 11px; }
+      .hero-showcase { grid-template-columns: 1fr; gap: 4px; margin-top: 40px; }
+      .hero-tile.feature { aspect-ratio: 4 / 5; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-cta-row { padding: 36px var(--gutter-mobile) 0; }
+      .about-action { padding: 24px; }
     }
 
     @media (max-width: 540px) {
@@ -676,7 +809,9 @@
 
 <!-- ======================== NAV ======================== -->
 <nav>
-  <a href="#top" class="brand">swang<span class="dot">.</span></a>
+  <a href="#top" class="brand" aria-label="swang.">
+    <span class="ltr l-1">s</span><span class="ltr l-2">w</span><span class="ltr l-3">a</span><span class="ltr l-4">n</span><span class="ltr l-5">g</span><span class="ltr l-6 dot">.</span>
+  </a>
   <div class="nav-right">
     <ul id="nav-list">
       <li><a href="#reels">Live Work</a></li>
@@ -692,32 +827,43 @@
 
 <!-- ======================== HERO ======================== -->
 <section class="hero" id="top">
-  <p class="kicker hero-kicker reveal">Aerial · Editorial · Paid Social</p>
-  <h1 class="hero-display reveal">
-    Quiet content for<br>
-    <em>brands and creators</em><br>
-    that move first.
-  </h1>
-  <p class="hero-sub reveal">
-    Aerial &amp; ground media, paid social, and brand editorials &mdash; built to land in a feed, in a group chat, in a boardroom. Selected work below.
+  <p class="kicker hero-kicker reveal">For Personal Brands · Influencers · Businesses</p>
+  <p class="hero-intro reveal">
+    Helping the work you&rsquo;re already doing turn into <em>content that pays off</em> &mdash; on paid social, organic feeds, and brand editorials.
   </p>
-  <a href="#featured-work" class="hero-cta reveal">See the work <span class="arr">&rarr;</span></a>
+  <p class="hero-sub reveal">
+    Personal brand growth, influencer collabs, and SMB campaigns. Built to fit your audience, not interrupt it. A few stills and clips to start, full case studies below.
+  </p>
+  <div class="hero-cta-row reveal">
+    <a href="#featured-work" class="hero-cta">See the work <span class="arr">&rarr;</span></a>
+    <button type="button" class="hero-cta subtle" data-svc-trigger="open">Get in touch <span class="arr">&rarr;</span></button>
+  </div>
 
-  <div class="hero-strip">
-    <a href="gallery.html" class="hero-tile reveal">
-      <img src="photo2.jpg" alt="BMW M3 duo, coastal automotive editorial" />
+  <div class="hero-showcase">
+    <a href="gallery.html" class="hero-tile feature reveal">
+      <img src="hmpg-julie-hoyle.jpg" alt="Editorial portrait, Julie Hoyle" />
       <div class="cap">
-        <p class="cap-tag">Automotive · Editorial</p>
-        <p class="cap-title">Coastal duo, M3.</p>
+        <p class="cap-tag">Personal Brand · Editorial</p>
+        <p class="cap-title">Julie Hoyle, in studio.</p>
       </div>
     </a>
-    <a href="gallery.html" class="hero-tile reveal">
-      <img src="aerial-backyard.jpg" alt="Mercedes SLR Stirling Moss editorial" />
-      <div class="cap">
-        <p class="cap-tag">Hero film</p>
-        <p class="cap-title">SLR &middot; Stirling Moss.</p>
-      </div>
-    </a>
+    <div class="col-stack">
+      <a href="#reels" class="hero-tile half reveal">
+        <img src="hmpg-matt-pingatore.jpg" alt="Editorial vertical, Matt Pingatore" />
+        <span class="play-pip" aria-hidden="true">Reel</span>
+        <div class="cap">
+          <p class="cap-tag">Influencer · Reel</p>
+          <p class="cap-title">Matt Pingatore.</p>
+        </div>
+      </a>
+      <a href="gallery.html" class="hero-tile half reveal">
+        <img src="photo3b.jpg" alt="Aerial putting green nestled in landscape" />
+        <div class="cap">
+          <p class="cap-tag">Business · Aerial</p>
+          <p class="cap-title">Property, from above.</p>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -794,8 +940,8 @@
     <img src="card-thumb-im8.webp" alt="IM8 x Jewell Loyd athlete content" />
     <div class="case-meta">
       <p class="case-tag">Athlete Collaboration</p>
-      <h3 class="case-title">IM8 &times; Jewell Loyd: athlete content, done clean.</h3>
-      <p class="case-line">Brand-safe collab content for a 1.3M-audience athlete &mdash; built to fit her page, not interrupt it.</p>
+      <h3 class="case-title">IM8 &times; Jewell Loyd.</h3>
+      <p class="case-line">Brand-safe collab content for a 1.3M-audience athlete. Built to fit her page, not interrupt it.</p>
     </div>
   </a>
   <a href="case-studies#bull-boulder" class="case bb-light reveal">
@@ -803,73 +949,22 @@
     <div class="case-meta">
       <p class="case-tag">Meta Campaign &middot; Interactive</p>
       <h3 class="case-title">Bull Boulder, spun into gold.</h3>
-      <p class="case-line">2 of 5 videos became Meta winners in a category where 1-in-15 is the owner-quoted norm. $60K+ in first-month revenue.</p>
+      <p class="case-line">2 of 5 videos became Meta winners. $60K+ in first-month revenue.</p>
     </div>
   </a>
-</section>
-
-<div class="work-secondary-head">
-  <p class="label">Also worth a look</p>
-  <a href="case-studies">View all case studies &rarr;</a>
-</div>
-
-<section class="work-grid">
   <a href="case-pavers-turf" class="case reveal">
     <img src="card-thumb-meta.png" alt="Pavers and turf aerial install" />
     <div class="case-meta">
       <p class="case-tag">Meta Campaign &middot; Geo-Targeted</p>
       <h3 class="case-title">A Meta campaign anyone can start.</h3>
-      <p class="case-line">59 leads / week at $5 each over 17 weeks. Local contractor advertising on Meta &mdash; cheap, geo-precise, untapped next to Google CPC.</p>
-    </div>
-  </a>
-  <a href="case-noah-thumbnails" class="case reveal">
-    <img src="card-thumb-clickbait.png" alt="Clickbait thumbnail design for a sports YouTuber" />
-    <div class="case-meta">
-      <p class="case-tag">Content Design</p>
-      <h3 class="case-title">Thumbnails for the scroll.</h3>
-      <p class="case-line">Simple hooks, bright reactions, same-day turnarounds. Built for how people scroll YouTube, not how creators wish they did.</p>
+      <p class="case-line">59 leads / week at $5 each over 17 weeks. Untapped next to Google CPC.</p>
     </div>
   </a>
 </section>
 
-
-<!-- ======================== SERVICES ======================== -->
-<div class="section-head">
-  <p class="kicker reveal">What you get</p>
-  <h2 class="reveal">Built to <em>convert.</em></h2>
+<div class="work-cta-row">
+  <a href="case-studies" class="btn-pill">View More Case Studies <span class="arr">&rarr;</span></a>
 </div>
-<section class="services">
-  <p class="services-intro reveal">
-    Content and creative strategy tailored to your brand &mdash; designed to reach the right audience and keep them paying attention.
-  </p>
-  <ul class="services-list">
-    <li class="reveal">
-      <span class="num">01</span>
-      <span class="name">Organic and paid channel growth</span>
-      <span class="arrow" aria-hidden="true">&rarr;</span>
-    </li>
-    <li class="reveal">
-      <span class="num">02</span>
-      <span class="name">Aerial &amp; ground media production</span>
-      <span class="arrow" aria-hidden="true">&rarr;</span>
-    </li>
-    <li class="reveal">
-      <span class="num">03</span>
-      <span class="name">Social ad campaigns &mdash; built and optimized</span>
-      <span class="arrow" aria-hidden="true">&rarr;</span>
-    </li>
-    <li class="reveal">
-      <span class="num">04</span>
-      <span class="name">Content rollouts shaped to your direction</span>
-      <span class="arrow" aria-hidden="true">&rarr;</span>
-    </li>
-    <li class="reveal">
-      <span class="num">05</span>
-      <span class="name">Email, graphic design, and social advertising</span>
-      <span class="arrow" aria-hidden="true">&rarr;</span>
-    </li>
-  </ul>
-</section>
 
 
 <!-- ======================== ABOUT ======================== -->
@@ -879,28 +974,29 @@
     <h3 class="reveal" style="margin-top: 18px;">Mason <em>Swang.</em></h3>
     <p class="reveal">Born and raised in California, I grew up in the Bay Area and recently settled in Los Angeles. I care about every request that comes my way, and I treat every project with the same focused, efficient approach &mdash; whether it&rsquo;s a one-off reel or a full campaign.</p>
     <p class="reveal">What I love is watching businesses and people grow, expand their reach, pull in real leads, and see their vision come to life.</p>
-    <div class="about-actions reveal">
-      <button class="about-cta" type="button" data-svc-trigger="open">
-        Work with me <span class="arr" aria-hidden="true">&rarr;</span>
-      </button>
-      <p class="about-quiet-mail">
-        or just email <a href="mailto:hello@swang.studio?subject=swang.studio%20%E2%80%94%20hello"><em>hello@swang.studio</em></a>
-      </p>
-    </div>
   </div>
 
-  <aside class="about-side reveal">
-    <span class="label">Based</span>
-    Los Angeles, CA<br>
-    Bay Area roots
-    <span class="label spaced">Available for</span>
-    Brand campaigns<br>
-    Athlete &amp; influencer content<br>
-    Local contractor / SMB<br>
-    Editorial &amp; aerial work
-    <span class="label spaced">Reply window</span>
-    Within the day, most days
-  </aside>
+  <div class="about-right reveal">
+    <div class="about-action">
+      <h4>Tell me what you&rsquo;re <em>making.</em></h4>
+      <p>Pick a few services, drop your email, reply lands within the day.</p>
+      <button type="button" class="btn-filled" data-svc-trigger="open">
+        Work With Me <span class="arr" aria-hidden="true">&rarr;</span>
+      </button>
+      <div class="extras">
+        <button type="button" class="what-i-do" data-svc-trigger="open">
+          What I do <span class="arr" aria-hidden="true">&rarr;</span>
+        </button>
+        <span>or just email <a href="mailto:hello@swang.studio?subject=swang.studio%20%E2%80%94%20hello">hello@swang.studio</a></span>
+      </div>
+    </div>
+
+    <aside class="about-side">
+      <div class="row"><span class="label">Based</span>Los Angeles, CA &middot; Bay Area roots</div>
+      <div class="row"><span class="label">Available for</span>Brand campaigns &middot; Athlete &amp; influencer content &middot; Local contractor / SMB &middot; Editorial &amp; aerial work</div>
+      <div class="row"><span class="label">Reply window</span>Within the day, most days</div>
+    </aside>
+  </div>
 </section>
 
 
@@ -925,9 +1021,9 @@
   </div>
 </footer>
 
-<a href="mailto:hello@swang.studio?subject=swang.studio%20%E2%80%94%20hello" class="corner-mail" id="cornerMail">
-  hello@swang.studio <span class="arr" aria-hidden="true">&rarr;</span>
-</a>
+<button type="button" class="cta-pill" id="ctaPill" data-svc-trigger="open">
+  Let&rsquo;s Talk <span class="arr" aria-hidden="true">&rarr;</span>
+</button>
 
 
 <!-- ======================== SERVICES MODAL ======================== -->
@@ -1209,10 +1305,10 @@
     }
   });
 
-  // Tuck the corner-mail chip when the About / footer is on screen so it
-  // never floats over the email link Mason already shows there.
-  (function tuckCornerMail() {
-    var chip = document.getElementById('cornerMail');
+  // Tuck the Let's Talk pill when About / footer enters view so it doesn't
+  // overlap the on-page Work With Me button.
+  (function tuckCtaPill() {
+    var chip = document.getElementById('ctaPill');
     if (!chip || !('IntersectionObserver' in window)) return;
     var targets = [document.getElementById('about'), document.querySelector('footer')].filter(Boolean);
     if (!targets.length) return;
