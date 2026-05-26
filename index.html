@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mason Swanger — swang.studio</title>
-<meta name="description" content="Mason Swanger — Meta creatives, brand visibility, content creation, graphic design, advertising strategy, metric &amp; analytics." />
+<meta name="description" content="Mason Swanger — Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -51,97 +51,88 @@
     filter: blur(80px);
     will-change: transform, opacity;
   }
-  .blob-1 {
-    width: 720px; height: 720px;
-    top: -180px; right: -120px;
+  /* Lava-lamp: orange + purple tinges, slow rise + fall */
+  .blob-1 {  /* warm orange — top-right */
+    width: 700px; height: 700px;
+    top: -120px; right: -120px;
     background: radial-gradient(circle at 35% 35%,
-      rgba(255,250,245,0.85) 0%,
-      rgba(255,225,205,0.55) 30%,
-      rgba(235,210,240,0.4) 58%,
-      rgba(220,235,240,0.25) 78%,
-      rgba(255,255,255,0) 100%);
-    animation: drift-1 58s ease-in-out infinite;
+      rgba(255, 155, 95, 0.55) 0%,
+      rgba(255, 135, 85, 0.32) 35%,
+      rgba(255, 180, 130, 0.16) 62%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: lava-1 44s ease-in-out infinite alternate;
   }
-  .blob-2 {
-    width: 620px; height: 620px;
-    bottom: -180px; left: -150px;
+  .blob-2 {  /* deep purple — bottom-left */
+    width: 640px; height: 640px;
+    bottom: -150px; left: -150px;
     background: radial-gradient(circle at 60% 40%,
-      rgba(255,250,250,0.85) 0%,
-      rgba(240,225,255,0.55) 32%,
-      rgba(255,225,205,0.4) 58%,
-      rgba(225,240,225,0.22) 80%,
-      rgba(255,255,255,0) 100%);
-    animation: drift-2 72s ease-in-out infinite;
+      rgba(165, 105, 215, 0.55) 0%,
+      rgba(150, 90, 205, 0.32) 35%,
+      rgba(195, 145, 230, 0.16) 65%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: lava-2 52s ease-in-out infinite alternate;
   }
-  .blob-3 {
-    width: 380px; height: 380px;
-    top: 38%; left: 6%;
+  .blob-3 {  /* coral — mid-left */
+    width: 400px; height: 400px;
+    top: 38%; left: 5%;
     background: radial-gradient(circle at 50% 50%,
-      rgba(255,255,255,0.75) 0%,
-      rgba(255,240,225,0.5) 42%,
-      rgba(245,230,250,0.3) 72%,
-      rgba(255,255,255,0) 100%);
-    animation: drift-3 64s ease-in-out infinite;
+      rgba(255, 165, 115, 0.48) 0%,
+      rgba(255, 140, 95, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: lava-3 38s ease-in-out infinite alternate;
   }
-  .blob-4 {
-    width: 300px; height: 300px;
-    top: 14%; right: 22%;
+  .blob-4 {  /* lilac — upper-mid-right */
+    width: 340px; height: 340px;
+    top: 18%; right: 24%;
     background: radial-gradient(circle at 50% 50%,
-      rgba(255,255,255,0.8) 0%,
-      rgba(220,230,250,0.5) 45%,
-      rgba(255,235,225,0.3) 72%,
-      rgba(255,255,255,0) 100%);
-    animation: drift-4 48s ease-in-out infinite;
+      rgba(185, 135, 225, 0.48) 0%,
+      rgba(165, 110, 210, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: lava-4 42s ease-in-out infinite alternate;
   }
-  .blob-5 {
-    width: 220px; height: 220px;
-    bottom: 24%; right: 14%;
+  .blob-5 {  /* sunset orange — lower-right */
+    width: 280px; height: 280px;
+    bottom: 18%; right: 12%;
     background: radial-gradient(circle at 40% 40%,
-      rgba(255,255,255,0.8) 0%,
-      rgba(255,225,215,0.5) 50%,
-      rgba(245,230,250,0.3) 78%,
-      rgba(255,255,255,0) 100%);
-    animation: drift-5 54s ease-in-out infinite;
+      rgba(255, 140, 90, 0.45) 0%,
+      rgba(255, 120, 80, 0.22) 55%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: lava-5 46s ease-in-out infinite alternate;
   }
-  .blob-6 {
-    width: 160px; height: 160px;
-    top: 62%; right: 36%;
+  .blob-6 {  /* plum — lower-mid */
+    width: 240px; height: 240px;
+    top: 58%; right: 36%;
     background: radial-gradient(circle at 50% 50%,
-      rgba(255,255,255,0.78) 0%,
-      rgba(225,240,235,0.45) 55%,
-      rgba(255,255,255,0) 100%);
-    animation: drift-6 42s ease-in-out infinite;
+      rgba(155, 100, 205, 0.42) 0%,
+      rgba(180, 130, 220, 0.22) 55%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: lava-6 40s ease-in-out infinite alternate;
   }
 
-  @keyframes drift-1 {
-    0%   { transform: translate(0,0) scale(1);              opacity: 0.55; }
-    50%  { transform: translate(-30px,20px) scale(1.06);    opacity: 0.78; }
-    100% { transform: translate(0,0) scale(1);              opacity: 0.55; }
+  /* Each blob rises/falls along Y with subtle X drift, lava-lamp style. */
+  @keyframes lava-1 {
+    0%   { transform: translate(0, 40px)  scale(0.96); opacity: 0.50; }
+    100% { transform: translate(-20px, -50px) scale(1.06); opacity: 0.85; }
   }
-  @keyframes drift-2 {
-    0%   { transform: translate(0,0) scale(1);              opacity: 0.55; }
-    50%  { transform: translate(40px,-30px) scale(1.05);    opacity: 0.75; }
-    100% { transform: translate(0,0) scale(1);              opacity: 0.55; }
+  @keyframes lava-2 {
+    0%   { transform: translate(0, -30px) scale(0.95); opacity: 0.50; }
+    100% { transform: translate(30px, 50px)  scale(1.07); opacity: 0.85; }
   }
-  @keyframes drift-3 {
-    0%   { transform: translate(0,0) scale(1);              opacity: 0.45; }
-    50%  { transform: translate(25px,18px) scale(1.08);     opacity: 0.7; }
-    100% { transform: translate(0,0) scale(1);              opacity: 0.45; }
+  @keyframes lava-3 {
+    0%   { transform: translate(0, 24px)  scale(0.96); opacity: 0.42; }
+    100% { transform: translate(15px, -40px) scale(1.08); opacity: 0.72; }
   }
-  @keyframes drift-4 {
-    0%   { transform: translate(0,0) scale(1);              opacity: 0.5; }
-    50%  { transform: translate(-20px,30px) scale(1.07);    opacity: 0.72; }
-    100% { transform: translate(0,0) scale(1);              opacity: 0.5; }
+  @keyframes lava-4 {
+    0%   { transform: translate(0, -20px) scale(0.97); opacity: 0.42; }
+    100% { transform: translate(-18px, 36px)  scale(1.07); opacity: 0.72; }
   }
-  @keyframes drift-5 {
-    0%   { transform: translate(0,0) scale(1);              opacity: 0.5; }
-    50%  { transform: translate(18px,-22px) scale(1.06);    opacity: 0.7; }
-    100% { transform: translate(0,0) scale(1);              opacity: 0.5; }
+  @keyframes lava-5 {
+    0%   { transform: translate(0, 18px)  scale(0.96); opacity: 0.40; }
+    100% { transform: translate(12px, -30px) scale(1.06); opacity: 0.68; }
   }
-  @keyframes drift-6 {
-    0%   { transform: translate(0,0) scale(1);              opacity: 0.4; }
-    50%  { transform: translate(-12px,16px) scale(1.05);    opacity: 0.62; }
-    100% { transform: translate(0,0) scale(1);              opacity: 0.4; }
+  @keyframes lava-6 {
+    0%   { transform: translate(0, -14px) scale(0.96); opacity: 0.40; }
+    100% { transform: translate(-10px, 26px) scale(1.05); opacity: 0.65; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -309,6 +300,7 @@
       <a class="item" href="./clients.html">Clients</a>
     </div>
     <div class="group">
+      <a class="item small" href="./about.html">about</a>
       <a class="item small" href="./contact.html">contact</a>
     </div>
   </nav>
@@ -327,8 +319,7 @@
       'Brand Visibility',
       'Content Creation',
       'Graphic Design',
-      'Advertising Strategy',
-      'Metric & Analytics'
+      'Advertising Strategy'
     ];
     const typeSpeed   = 110;
     const deleteSpeed = 55;

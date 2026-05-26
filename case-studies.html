@@ -30,10 +30,17 @@
   .name {
     justify-self: start; font-weight: 700; font-size: 15px;
     letter-spacing: -0.025em; color: var(--ink);
+    display: inline-flex; align-items: baseline; gap: 6px;
     border-bottom: 1px solid transparent; padding-bottom: 1px;
     transition: border-color 150ms;
   }
+  .name .arrow {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-weight: 500; font-size: 13px; color: var(--mute);
+    transition: transform 200ms, color 200ms;
+  }
   .name:hover { border-bottom-color: var(--ink); }
+  .name:hover .arrow { transform: translateX(-2px); color: var(--ink); }
   .typer-wrap {
     justify-self: center; display: inline-flex; align-items: center;
     font-family: 'Geist Mono', ui-monospace, monospace;
@@ -149,7 +156,7 @@
 <body>
 
 <header>
-  <a href="./index.html" class="name">Mason Swanger</a>
+  <a href="./index.html" class="name"><span class="arrow">←</span> Mason Swanger</a>
   <div class="typer-wrap" aria-hidden="true">
     <span id="typer">Meta Creatives</span>
     <span class="cursor"></span>
@@ -173,7 +180,7 @@
 <script>
   (function () {
     const el = document.getElementById('typer');
-    const phrases = ['Meta Creatives','Brand Visibility','Content Creation','Graphic Design','Advertising Strategy','Metric & Analytics'];
+    const phrases = ['Meta Creatives','Brand Visibility','Content Creation','Graphic Design','Advertising Strategy'];
     const typeSpeed=110, deleteSpeed=55, holdEnd=3400, holdStart=800;
     let p=0, c=0, del=false;
     function tick(){

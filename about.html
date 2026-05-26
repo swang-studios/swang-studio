@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gallery — Mason Swanger</title>
+<title>About — Mason Swanger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -15,13 +15,14 @@
     font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
     font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg);
     -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; min-height: 100vh;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
 
-  /* HEADER — shared shell */
+  /* HEADER */
   header {
-    position: sticky; top: 0; z-index: 50;
+    flex: 0 0 auto;
     display: grid; grid-template-columns: 1fr auto 1fr;
     align-items: center; padding: 18px 28px;
     border-bottom: 1px solid var(--rule);
@@ -53,9 +54,7 @@
     animation: blink 1.05s steps(2, start) infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
-  nav.primary {
-    justify-self: end; display: flex; align-items: center; gap: 18px;
-  }
+  nav.primary { justify-self: end; display: flex; align-items: center; gap: 18px; }
   nav.primary a {
     font-size: 13px; font-weight: 500; letter-spacing: -0.005em;
     color: var(--ink); padding: 4px 0;
@@ -65,72 +64,66 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* Blank stage — Mason will curate photos */
-  .empty-stage { min-height: calc(100vh - 120px); }
-
-  /* PAGE HEAD (unused now — kept for future restoration) */
-  .page-head {
-    padding: 64px 28px 28px;
-    border-bottom: 1px solid var(--rule);
+  /* ABOUT BODY */
+  main.about-stage {
+    flex: 1 1 auto;
+    display: flex; flex-direction: column; align-items: center;
+    padding: clamp(48px, 8vh, 96px) 28px;
   }
-  .page-head-inner { max-width: 1320px; margin: 0 auto; }
-  .eyebrow {
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--mute);
-    margin-bottom: 22px;
+  .about-content {
+    max-width: 640px; width: 100%;
+    display: flex; flex-direction: column;
+    gap: clamp(32px, 5vh, 56px);
   }
-  .page-title {
+  .about-content .title {
     font-weight: 800;
-    font-size: clamp(48px, 7vw, 96px);
+    font-size: clamp(48px, 7vw, 88px);
     line-height: 0.98; letter-spacing: -0.04em;
     color: var(--ink);
   }
-  .page-sub {
-    margin-top: 18px; font-size: 15px; line-height: 1.6;
-    color: var(--mute); max-width: 60ch;
+  .about-content .bio {
+    /* Empty body — Mason fills later. min-height holds the shape. */
+    min-height: 1.6em;
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.65;
+    color: var(--ink);
   }
-
-  /* GRID — bento with varied tile sizes */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 2px;
-    padding: 2px;
-    background: var(--ink);     /* hairline grid via gap */
+  .about-content .rule {
+    height: 1px; background: var(--rule); width: 100%;
   }
-  .tile {
-    position: relative; overflow: hidden;
-    background: var(--bg);
-    aspect-ratio: 4 / 3;
+  .contact-line {
+    display: flex; align-items: baseline; flex-wrap: wrap;
+    gap: 14px;
   }
-  .tile img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 800ms cubic-bezier(.2,.0,.2,1), filter 240ms;
-  }
-  .tile:hover img { transform: scale(1.04); }
-  .tile-cap {
-    position: absolute; left: 14px; bottom: 12px;
+  .contact-line .label {
     font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 10.5px; font-weight: 500;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--bg);
-    background: var(--ink); padding: 4px 8px;
-    opacity: 0; transform: translateY(4px);
-    transition: opacity 240ms, transform 240ms;
-    pointer-events: none;
+    font-weight: 500;
+    font-size: clamp(12px, 1.1vw, 14px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mute);
   }
-  .tile:hover .tile-cap { opacity: 1; transform: translateY(0); }
-
-  /* Tile spans */
-  .t-wide   { grid-column: span 8; aspect-ratio: 16 / 9; }
-  .t-half   { grid-column: span 6; aspect-ratio: 3 / 2; }
-  .t-third  { grid-column: span 4; }
-  .t-tall   { grid-column: span 4; aspect-ratio: 3 / 4; }
-  .t-eight  { grid-column: span 8; aspect-ratio: 16 / 9; }
+  .contact-line .sep {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    color: var(--mute);
+  }
+  .contact-line a {
+    font-weight: 700;
+    font-size: clamp(18px, 2vw, 26px);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    position: relative;
+  }
+  .contact-line a::after {
+    content: ''; position: absolute; left: 0; bottom: -0.05em;
+    width: 0; height: 0.06em; background: var(--ink);
+    transition: width 240ms cubic-bezier(.4,0,.2,1);
+  }
+  .contact-line a:hover::after { width: 100%; }
 
   /* FOOTER */
   footer {
+    flex: 0 0 auto;
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 28px; border-top: 1px solid var(--rule);
     font-family: 'Geist Mono', ui-monospace, monospace;
@@ -139,20 +132,12 @@
   }
   footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
   footer a:hover { border-bottom-color: var(--ink); }
-  footer .sep { color: var(--mute); margin: 0 8px; }
 
   @media (max-width: 980px) {
     header { grid-template-columns: auto 1fr; gap: 14px; }
     .typer-wrap { display: none; }
     nav.primary { justify-self: end; gap: 12px; }
     nav.primary a { font-size: 12px; }
-  }
-  @media (max-width: 760px) {
-    .page-head { padding: 36px 20px 22px; }
-    .grid { grid-template-columns: repeat(2, 1fr); }
-    .t-wide, .t-half, .t-third, .t-tall, .t-eight {
-      grid-column: span 2; aspect-ratio: 4 / 3;
-    }
   }
   @media (max-width: 520px) {
     header { padding: 14px 18px; }
@@ -171,7 +156,7 @@
     <span class="cursor"></span>
   </div>
   <nav class="primary">
-    <a href="./gallery.html" class="active">Gallery</a>
+    <a href="./gallery.html">Gallery</a>
     <span class="pipe">|</span>
     <a href="./case-studies.html">Case Studies</a>
     <span class="pipe">|</span>
@@ -179,7 +164,18 @@
   </nav>
 </header>
 
-<main class="empty-stage" aria-label="Gallery (curated photos pending)"></main>
+<main class="about-stage">
+  <div class="about-content">
+    <h1 class="title">About</h1>
+    <div class="bio"></div>
+    <div class="rule"></div>
+    <div class="contact-line">
+      <span class="label">Contact</span>
+      <span class="sep">—</span>
+      <a href="mailto:hello@swang.studio">hello@swang.studio</a>
+    </div>
+  </div>
+</main>
 
 <footer>
   <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>
