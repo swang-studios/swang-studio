@@ -12,3 +12,8 @@ matt-pingatore-v.png
 marisol-gym-v-*.png
 hmpg-julie-hoyle.png
 hmpg-matt-pingatore.png
+PUSH_NOW.command
+PUSH_AUTO.command
+FIX_AND_PUSH.command
+*.PREVIEW*.html
+*.PREVIEW*.command
