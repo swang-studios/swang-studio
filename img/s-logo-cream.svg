@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="swang. monogram">
+  <title>swang. monogram</title>
+  <!-- Icy variant: white square, bold italic serif "S" in near-black -->
+  <rect x="0" y="0" width="200" height="200" fill="#ffffff" stroke="#0b0e14" stroke-width="4"/>
+  <text x="100" y="152" text-anchor="middle"
+        font-family="Times New Roman, Times, Georgia, serif"
+        font-style="italic"
+        font-weight="700"
+        font-size="170"
+        fill="#0b0e14">S</text>
+</svg>
