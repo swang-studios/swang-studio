@@ -16,7 +16,7 @@
     font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg);
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
@@ -65,111 +65,67 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* ── FLOATING LOGO STAGE ──────────────────────────────────── */
-  .float-stage {
+  /* ── CLIENT LOGO GRID ─────────────────────────────────────── */
+  .stage {
     flex: 1 1 auto;
-    position: relative;
-    overflow: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 48px 28px 56px;
     background:
       radial-gradient(ellipse at 30% 25%, #fbfaf6 0%, #ffffff 60%, #f7f5ef 100%);
   }
-  .logo-float {
-    position: absolute;
-    transform: translate(-50%, -50%);
+  .stage-head {
+    text-align: center; margin-bottom: 34px; max-width: 640px;
+  }
+  .stage-head .eyebrow {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mute);
+  }
+  .stage-head h1 {
+    font-size: clamp(26px, 4vw, 40px); font-weight: 800;
+    letter-spacing: -0.03em; margin-top: 8px; color: var(--ink);
+  }
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%; max-width: 840px;
+  }
+  .logo-tile {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    border-radius: 18px;
     display: flex; align-items: center; justify-content: center;
-    will-change: transform, opacity;
-    pointer-events: none;
+    padding: 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1),
+                box-shadow 260ms ease,
+                border-color 260ms ease;
+    will-change: transform;
+    cursor: pointer;
   }
-  .logo-float img {
+  .logo-tile img {
     max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
     object-fit: contain; display: block;
-    /* native colors — no desaturation */
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1);
   }
-  .logo-float.type-text {
-    font-weight: 900;
-    color: var(--ink);
-    text-align: center;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    white-space: nowrap;
+  /* Hover: tile lifts, shadow deepens, logo scales slightly */
+  .logo-tile:hover,
+  .logo-tile:focus-visible {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 38px rgba(0,0,0,0.13);
+    border-color: rgba(0,0,0,0.18);
+    outline: none;
   }
-  .logo-float.type-text .small-line {
-    display: block;
-    font-size: 0.30em;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    margin-top: 4px;
-    color: var(--mute);
-  }
-
-  /* Positions + sizes — staggered drift + pulse via individual keyframes */
-  .l-im8        { left: 18%; top: 24%; width: 190px; height: 110px; font-size: 64px;
-                  animation: float-a 11s ease-in-out infinite; }
-  .l-pto        { left: 54%; top: 17%; width: 200px; height: 110px; font-size: 30px;
-                  animation: float-b 13s ease-in-out infinite; }
-  .l-bng        { left: 82%; top: 26%; width: 130px; height: 90px;
-                  animation: float-c 9.5s ease-in-out infinite; }
-  .l-bull       { left: 28%; top: 50%; width: 160px; height: 110px;
-                  animation: float-d 12s ease-in-out infinite; }
-  .l-alyssa     { left: 60%; top: 46%; width: 150px; height: 100px;
-                  animation: float-e 10.5s ease-in-out infinite; }
-  .l-noah       { left: 88%; top: 60%; width: 130px; height: 80px; font-size: 22px;
-                  animation: float-f 12.5s ease-in-out infinite; }
-  .l-shaadie    { left: 16%; top: 76%; width: 140px; height: 90px;
-                  animation: float-g 11.5s ease-in-out infinite; }
-  .l-cpg        { left: 48%; top: 80%; width: 150px; height: 100px;
-                  animation: float-h 10s ease-in-out infinite; }
-  .l-jama       { left: 78%; top: 76%; width: 130px; height: 70px; font-size: 22px;
-                  animation: float-i 13s ease-in-out infinite; }
-
-  @keyframes float-a {
-    0%   { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-    50%  { transform: translate(-50%, -50%) translateY(-10px) scale(1.04); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-  }
-  @keyframes float-b {
-    0%   { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.9;  }
-    50%  { transform: translate(-50%, -50%) translateY(8px)  scale(1.05); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.9;  }
-  }
-  @keyframes float-c {
-    0%   { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-    50%  { transform: translate(-50%, -50%) translateY(-12px) scale(1.06); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-  }
-  @keyframes float-d {
-    0%   { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.9;  }
-    50%  { transform: translate(-50%, -50%) translateY(10px) scale(1.05); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.9;  }
-  }
-  @keyframes float-e {
-    0%   { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-    50%  { transform: translate(-50%, -50%) translateY(-9px)  scale(1.04); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-  }
-  @keyframes float-f {
-    0%   { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.9;  }
-    50%  { transform: translate(-50%, -50%) translateY(12px) scale(1.06); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.9;  }
-  }
-  @keyframes float-g {
-    0%   { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-    50%  { transform: translate(-50%, -50%) translateY(-11px) scale(1.05); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.92; }
-  }
-  @keyframes float-h {
-    0%   { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.92; }
-    50%  { transform: translate(-50%, -50%) translateY(9px)  scale(1.04); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)    scale(1);    opacity: 0.92; }
-  }
-  @keyframes float-i {
-    0%   { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.9;  }
-    50%  { transform: translate(-50%, -50%) translateY(-8px)  scale(1.05); opacity: 1;    }
-    100% { transform: translate(-50%, -50%) translateY(0)     scale(1);    opacity: 0.9;  }
-  }
+  .logo-tile:hover img,
+  .logo-tile:focus-visible img { transform: scale(1.06); }
 
   @media (prefers-reduced-motion: reduce) {
-    .logo-float { animation: none !important; }
+    .logo-tile, .logo-tile img { transition: none !important; }
   }
 
   /* FOOTER */
@@ -191,20 +147,18 @@
     .typer-wrap { display: none; }
     nav.primary { justify-self: end; gap: 12px; }
     nav.primary a { font-size: 12px; }
-    .l-im8     { width: 140px; height: 80px; font-size: 46px; }
-    .l-pto     { width: 150px; height: 80px; font-size: 22px; }
-    .l-bng, .l-bull, .l-alyssa, .l-shaadie, .l-cpg { width: 110px; height: 70px; }
-    .l-noah, .l-jama { width: 100px; height: 56px; font-size: 18px; }
+    .logo-grid { max-width: 600px; gap: 16px; }
+    .logo-tile { padding: 18px; border-radius: 16px; }
   }
-  @media (max-width: 520px) {
+  @media (max-width: 560px) {
     header { padding: 14px 18px; }
     nav.primary .pipe { display: none; }
     nav.primary a { font-size: 11px; }
     footer { padding: 12px 18px; font-size: 10px; flex-direction: column; align-items: flex-start; gap: 4px; }
-    .l-im8     { width: 90px; height: 56px; font-size: 30px; }
-    .l-pto     { width: 110px; height: 56px; font-size: 16px; }
-    .l-bng, .l-bull, .l-alyssa, .l-shaadie, .l-cpg { width: 78px; height: 50px; }
-    .l-noah, .l-jama { width: 78px; height: 44px; font-size: 14px; }
+    .stage { padding: 32px 18px 40px; }
+    .stage-head { margin-bottom: 24px; }
+    .logo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 380px; }
+    .logo-tile { padding: 14px; border-radius: 14px; }
   }
 </style>
 </head>
@@ -225,7 +179,23 @@
   </nav>
 </header>
 
-<main class="float-stage" aria-label="Clients (logos pending)"></main>
+<main class="stage" aria-label="Clients">
+  <div class="stage-head">
+    <span class="eyebrow">Selected Clients</span>
+    <h1>Brands I've worked with</h1>
+  </div>
+  <div class="logo-grid">
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/shaadiefit.png" alt="ShaadieFit" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/alyssalynch.png" alt="Alyssa Lynch" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/linkedin.png" alt="LinkedIn" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/back-nine-greens.png" alt="Back Nine Greens" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/jama.png" alt="Jama" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/cypress-golf.png" alt="Cypress Golf" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/bull.png" alt="Bull Boulder" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/compass.png" alt="Compass" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/im8.png" alt="IM8" loading="lazy" /></div>
+  </div>
+</main>
 
 <footer>
   <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>
