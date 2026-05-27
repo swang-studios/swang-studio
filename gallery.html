@@ -10,18 +10,21 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg:#ffffff; --ink:#000000; --mute:#6e6e6e; --rule:rgba(0,0,0,0.10); }
-  html, body { min-height: 100%; }
+  html, body { height: 100%; }
   body {
     font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
-    font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg);
+    font-size: 14px; line-height: 1.5; color: var(--ink);
+    background: radial-gradient(ellipse at 30% 20%,#faf6ee 0%,#fff 55%,#f7f5ef 100%);
     -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; min-height: 100vh; overflow: hidden;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
+  .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
 
   /* HEADER — shared shell */
   header {
-    position: sticky; top: 0; z-index: 50;
+    flex: 0 0 auto; z-index: 50;
     display: grid; grid-template-columns: 1fr auto 1fr;
     align-items: center; padding: 18px 28px;
     border-bottom: 1px solid var(--rule);
@@ -65,77 +68,54 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* Blank stage — Mason will curate photos */
-  .empty-stage { min-height: calc(100vh - 120px); }
+  /* STAGE — trifold gallery skeleton (Photo / Video / Graphic Design).
+     Colored label borders (lava-lamp tints) are an approved exception to the
+     B&W gallery lock. Tiles are placeholders pending curated uploads. */
+  .stage { position: relative; flex: 1 1 auto; width: 100%; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+  .b1 { width: 300px; height: 300px; top: -70px; right: -50px; background: radial-gradient(circle,rgba(255,130,70,.55),rgba(255,255,255,0) 70%); }
+  .b2 { width: 320px; height: 320px; bottom: -90px; left: -60px; background: radial-gradient(circle,rgba(150,80,215,.5),rgba(255,255,255,0) 70%); }
 
-  /* PAGE HEAD (unused now — kept for future restoration) */
-  .page-head {
-    padding: 64px 28px 28px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .page-head-inner { max-width: 1320px; margin: 0 auto; }
-  .eyebrow {
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--mute);
-    margin-bottom: 22px;
-  }
-  .page-title {
-    font-weight: 800;
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.98; letter-spacing: -0.04em;
-    color: var(--ink);
-  }
-  .page-sub {
-    margin-top: 18px; font-size: 15px; line-height: 1.6;
-    color: var(--mute); max-width: 60ch;
-  }
+  .fold { position: absolute; top: 0; bottom: 0; z-index: 1; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: left .6s cubic-bezier(.7,0,.2,1), width .6s cubic-bezier(.7,0,.2,1), opacity .3s ease; }
+  .fold[data-fold="photo"] { left: 0; width: 33.333%; --tint: 255,120,60; }
+  .fold[data-fold="video"] { left: 33.333%; width: 33.333%; border-left: 1px solid var(--rule); --tint: 150,80,215; }
+  .fold[data-fold="gd"] { left: 66.666%; width: 33.334%; border-left: 1px solid var(--rule); --tint: 225,90,120; }
+  .stage.is-open .fold:not(.open) { opacity: 0; pointer-events: none; }
+  .stage.is-open .fold.open { left: 0; width: 100%; z-index: 2; border-left-color: transparent; }
 
-  /* GRID — bento with varied tile sizes */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 2px;
-    padding: 2px;
-    background: var(--ink);     /* hairline grid via gap */
-  }
-  .tile {
-    position: relative; overflow: hidden;
-    background: var(--bg);
-    aspect-ratio: 4 / 3;
-  }
-  .tile img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 800ms cubic-bezier(.2,.0,.2,1), filter 240ms;
-  }
-  .tile:hover img { transform: scale(1.04); }
-  .tile-cap {
-    position: absolute; left: 14px; bottom: 12px;
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 10.5px; font-weight: 500;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--bg);
-    background: var(--ink); padding: 4px 8px;
-    opacity: 0; transform: translateY(4px);
-    transition: opacity 240ms, transform 240ms;
-    pointer-events: none;
-  }
-  .tile:hover .tile-cap { opacity: 1; transform: translateY(0); }
+  .phead { flex: 0 0 auto; padding: 46px 18px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .titlebox { position: relative; overflow: hidden; display: inline-block; padding: 16px 30px; border-radius: 8px; border: 1.5px solid rgba(var(--tint),.65); background-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; transition: border-color .25s, transform .2s, box-shadow .25s; animation: glow 4s ease-in-out infinite; }
+  .titlebox::before { content: ''; position: absolute; top: 0; left: -140%; width: 55%; height: 100%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); transform: skewX(-18deg); animation: sheen 5s ease-in-out infinite; pointer-events: none; }
+  .fold[data-fold="video"] .titlebox, .fold[data-fold="video"] .titlebox::before { animation-delay: 1.3s; }
+  .fold[data-fold="gd"] .titlebox, .fold[data-fold="gd"] .titlebox::before { animation-delay: 2.6s; }
+  .title { position: relative; z-index: 1; font-size: clamp(20px,3vw,38px); font-weight: 800; letter-spacing: -.02em; line-height: 1; color: var(--ink); }
+  .fold:hover .titlebox { border-color: rgba(var(--tint),.95); box-shadow: 0 8px 20px rgba(0,0,0,.13); transform: translateY(-3px); }
+  @keyframes glow { 0%,100% { box-shadow: 0 0 0 0 rgba(var(--tint),0); } 50% { box-shadow: 0 0 16px 0 rgba(var(--tint),.22); } }
+  @keyframes sheen { 0% { left: -140%; } 40% { left: 150%; } 100% { left: 150%; } }
+  .sub { font-style: italic; font-size: 13px; letter-spacing: .01em; color: var(--mute); margin-top: 14px; min-height: 16px; }
 
-  /* Tile spans */
-  .t-wide   { grid-column: span 8; aspect-ratio: 16 / 9; }
-  .t-half   { grid-column: span 6; aspect-ratio: 3 / 2; }
-  .t-third  { grid-column: span 4; }
-  .t-tall   { grid-column: span 4; aspect-ratio: 3 / 4; }
-  .t-eight  { grid-column: span 8; aspect-ratio: 16 / 9; }
+  .preview { flex: 1 1 auto; display: grid; gap: 8px; padding: 16px 18px 22px; grid-template-columns: repeat(2,1fr); align-content: start; overflow: hidden; }
+  .tile { position: relative; background: rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.07); border-radius: 6px; min-height: 64px; display: flex; align-items: center; justify-content: center; color: #9a9a9a; opacity: 0; transform: translateY(10px); animation: tin .5s forwards; }
+  .tile.tall { grid-row: span 2; min-height: 136px; }
+  .vid { flex-direction: column; gap: 7px; color: #7a7a7a; }
+  .vid .play { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.25); display: flex; align-items: center; justify-content: center; }
+  .vid .vcap { font-size: 10px; letter-spacing: .03em; text-transform: uppercase; color: #8a8a8a; padding: 0 6px; text-align: center; }
+  .glabel { font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: #8a8a8a; }
+  @keyframes tin { to { opacity: 1; transform: translateY(0); } }
+
+  .close { position: absolute; top: 18px; right: 22px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); background-color: rgba(255,255,255,.7); display: none; align-items: center; justify-content: center; font-size: 17px; color: #333; cursor: pointer; }
+  .stage.is-open .close { display: flex; }
+  .stage.is-open .fold.open .preview { grid-template-columns: repeat(4,1fr); }
 
   /* FOOTER */
   footer {
+    flex: 0 0 auto;
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 28px; border-top: 1px solid var(--rule);
     font-family: 'Geist Mono', ui-monospace, monospace;
     font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--ink); gap: 16px; flex-wrap: wrap;
+    background: var(--bg);
   }
   footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
   footer a:hover { border-bottom-color: var(--ink); }
@@ -147,18 +127,13 @@
     nav.primary { justify-self: end; gap: 12px; }
     nav.primary a { font-size: 12px; }
   }
-  @media (max-width: 760px) {
-    .page-head { padding: 36px 20px 22px; }
-    .grid { grid-template-columns: repeat(2, 1fr); }
-    .t-wide, .t-half, .t-third, .t-tall, .t-eight {
-      grid-column: span 2; aspect-ratio: 4 / 3;
-    }
-  }
   @media (max-width: 520px) {
     header { padding: 14px 18px; }
     nav.primary .pipe { display: none; }
     nav.primary a { font-size: 11px; }
-    footer { padding: 12px 18px; font-size: 10px; flex-direction: column; align-items: flex-start; gap: 4px; }
+    footer { padding: 12px 18px; font-size: 10px; }
+    .title { font-size: clamp(16px,5vw,24px); }
+    .titlebox { padding: 12px 18px; }
   }
 </style>
 </head>
@@ -167,7 +142,7 @@
 <header>
   <a href="./index.html" class="name"><span class="arrow">←</span> Mason Swanger</a>
   <div class="typer-wrap" aria-hidden="true">
-    <span id="typer">Meta Creatives</span>
+    <span id="typer">Brand Visibility</span>
     <span class="cursor"></span>
   </div>
   <nav class="primary">
@@ -179,7 +154,35 @@
   </nav>
 </header>
 
-<main class="empty-stage" aria-label="Gallery (curated photos pending)"></main>
+<main class="stage" id="stage" aria-label="Gallery">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="close mono" id="close" role="button" tabindex="0" aria-label="Fold back">&times;</div>
+
+  <div class="fold" data-fold="photo">
+    <div class="phead">
+      <div class="titlebox" role="button" tabindex="0" aria-label="Open Photo"><span class="title">Photo</span></div>
+      <div class="sub">showcasing projects</div>
+    </div>
+    <div class="preview" data-grid="photo"></div>
+  </div>
+
+  <div class="fold" data-fold="video">
+    <div class="phead">
+      <div class="titlebox" role="button" tabindex="0" aria-label="Open Video"><span class="title">Video</span></div>
+      <div class="sub">Variety of Influencer &amp; Company Reels</div>
+    </div>
+    <div class="preview" data-grid="video"></div>
+  </div>
+
+  <div class="fold" data-fold="gd">
+    <div class="phead">
+      <div class="titlebox" role="button" tabindex="0" aria-label="Open Graphic Design"><span class="title">Graphic Design</span></div>
+      <div class="sub">Thumbnails, Prints, Mailers</div>
+    </div>
+    <div class="preview" data-grid="gd"></div>
+  </div>
+</main>
 
 <footer>
   <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>
@@ -187,11 +190,12 @@
 </footer>
 
 <script>
+  /* Header tagline typer */
   (function () {
     const el = document.getElementById('typer');
     const phrases = ['Meta Creatives','Brand Visibility','Content Creation','Graphic Design','Advertising Strategy'];
     const typeSpeed=150, deleteSpeed=75, holdEnd=5000, holdStart=1200;
-    let p=1, c=0, del=false;   // gallery starts on Brand Visibility
+    let p=1, c=0, del=false;
     function tick(){
       const ph=phrases[p]; c+=del?-1:1;
       el.textContent=ph.substring(0,c);
@@ -200,6 +204,47 @@
       setTimeout(tick,del?deleteSpeed:typeSpeed);
     }
     el.textContent=''; setTimeout(tick,600);
+  })();
+
+  /* Tri-fold open / close + placeholder tiles */
+  (function(){
+    var stage=document.getElementById('stage');
+    var closeBtn=document.getElementById('close');
+    var folds=Array.prototype.slice.call(stage.querySelectorAll('.fold'));
+    var reels=['PTO Putting Green Transformation','Alyssa Lynch','Shaadie Fit','Brand Reel','Company Spot','+ more'];
+    var gd=['Thumbnail','Thumbnail','Print','Mailer','Print','Mailer','Thumbnail','Print'];
+    function fill(open){
+      folds.forEach(function(f){
+        var grid=f.querySelector('.preview');
+        var kind=f.getAttribute('data-fold');
+        grid.innerHTML='';
+        var isOpen=f.classList.contains('open');
+        var n=open?(isOpen?(kind==='video'?6:8):0):(kind==='video'?2:4);
+        for(var i=0;i<n;i++){
+          var t=document.createElement('div');
+          t.className='tile';
+          t.style.animationDelay=(i*55)+'ms';
+          if(kind==='video'){
+            t.className+=' vid';
+            t.innerHTML='<div class="play">&#9658;</div><div class="vcap">'+(reels[i]||'Reel')+'</div>';
+          }else if(kind==='gd'){
+            t.innerHTML='<span class="glabel">'+(gd[i]||'Design')+'</span>';
+          }else{
+            if(i%3===0)t.className+=' tall';
+          }
+          grid.appendChild(t);
+        }
+      });
+    }
+    function openFold(f){folds.forEach(function(x){x.classList.toggle('open',x===f);});stage.classList.add('is-open');fill(true);}
+    function reset(){folds.forEach(function(x){x.classList.remove('open');});stage.classList.remove('is-open');fill(false);}
+    function toggle(f){if(f.classList.contains('open'))reset();else openFold(f);}
+    folds.forEach(function(f){
+      f.querySelector('.titlebox').addEventListener('click',function(e){e.stopPropagation();toggle(f);});
+      f.addEventListener('click',function(){if(!stage.classList.contains('is-open'))openFold(f);});
+    });
+    closeBtn.addEventListener('click',function(e){e.stopPropagation();reset();});
+    fill(false);
   })();
 </script>
 
