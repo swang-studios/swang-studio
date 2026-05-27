@@ -51,88 +51,96 @@
     filter: blur(80px);
     will-change: transform, opacity;
   }
-  /* Lava-lamp: orange + purple tinges, slow rise + fall */
-  .blob-1 {  /* warm orange — top-right */
-    width: 700px; height: 700px;
-    top: -120px; right: -120px;
-    background: radial-gradient(circle at 35% 35%,
-      rgba(255, 155, 95, 0.55) 0%,
-      rgba(255, 135, 85, 0.32) 35%,
-      rgba(255, 180, 130, 0.16) 62%,
-      rgba(255, 255, 255, 0) 100%);
-    animation: lava-1 44s ease-in-out infinite alternate;
-  }
-  .blob-2 {  /* deep purple — bottom-left */
-    width: 640px; height: 640px;
-    bottom: -150px; left: -150px;
-    background: radial-gradient(circle at 60% 40%,
-      rgba(165, 105, 215, 0.55) 0%,
-      rgba(150, 90, 205, 0.32) 35%,
-      rgba(195, 145, 230, 0.16) 65%,
-      rgba(255, 255, 255, 0) 100%);
-    animation: lava-2 52s ease-in-out infinite alternate;
-  }
-  .blob-3 {  /* coral — mid-left */
-    width: 400px; height: 400px;
-    top: 38%; left: 5%;
+  /* Lava-lamp: bubbles emerge from edges, drift INWARD, then fade.
+     Heavier saturation than before — Mason wants it visible but still lowkey. */
+  .blob-1 {  /* warm orange — emerges top-right, drifts inward-down */
+    width: 560px; height: 560px;
+    top: -80px; right: -80px;
     background: radial-gradient(circle at 50% 50%,
-      rgba(255, 165, 115, 0.48) 0%,
-      rgba(255, 140, 95, 0.25) 50%,
+      rgba(255, 130, 70, 0.78) 0%,
+      rgba(255, 110, 60, 0.45) 35%,
+      rgba(255, 165, 110, 0.20) 65%,
       rgba(255, 255, 255, 0) 100%);
-    animation: lava-3 38s ease-in-out infinite alternate;
+    animation: bubble-tr 46s ease-in-out infinite;
   }
-  .blob-4 {  /* lilac — upper-mid-right */
-    width: 340px; height: 340px;
-    top: 18%; right: 24%;
+  .blob-2 {  /* deep purple — emerges bottom-left, drifts inward-up */
+    width: 600px; height: 600px;
+    bottom: -100px; left: -100px;
     background: radial-gradient(circle at 50% 50%,
-      rgba(185, 135, 225, 0.48) 0%,
-      rgba(165, 110, 210, 0.25) 50%,
+      rgba(150, 80, 215, 0.75) 0%,
+      rgba(135, 65, 200, 0.42) 35%,
+      rgba(180, 125, 230, 0.20) 65%,
       rgba(255, 255, 255, 0) 100%);
-    animation: lava-4 42s ease-in-out infinite alternate;
+    animation: bubble-bl 54s ease-in-out infinite;
   }
-  .blob-5 {  /* sunset orange — lower-right */
-    width: 280px; height: 280px;
-    bottom: 18%; right: 12%;
-    background: radial-gradient(circle at 40% 40%,
-      rgba(255, 140, 90, 0.45) 0%,
-      rgba(255, 120, 80, 0.22) 55%,
-      rgba(255, 255, 255, 0) 100%);
-    animation: lava-5 46s ease-in-out infinite alternate;
-  }
-  .blob-6 {  /* plum — lower-mid */
-    width: 240px; height: 240px;
-    top: 58%; right: 36%;
+  .blob-3 {  /* coral — emerges left edge mid, drifts toward center */
+    width: 380px; height: 380px;
+    top: 32%; left: -60px;
     background: radial-gradient(circle at 50% 50%,
-      rgba(155, 100, 205, 0.42) 0%,
-      rgba(180, 130, 220, 0.22) 55%,
+      rgba(255, 140, 90, 0.65) 0%,
+      rgba(255, 120, 80, 0.32) 50%,
       rgba(255, 255, 255, 0) 100%);
-    animation: lava-6 40s ease-in-out infinite alternate;
+    animation: bubble-l 40s ease-in-out infinite;
+  }
+  .blob-4 {  /* lilac — emerges top edge mid-right, drifts down */
+    width: 320px; height: 320px;
+    top: -60px; right: 28%;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(175, 115, 225, 0.65) 0%,
+      rgba(155, 95, 210, 0.32) 50%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: bubble-t 50s ease-in-out infinite;
+  }
+  .blob-5 {  /* sunset orange — emerges right edge mid-bottom, drifts inward */
+    width: 300px; height: 300px;
+    bottom: 22%; right: -50px;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(255, 115, 70, 0.62) 0%,
+      rgba(255, 100, 60, 0.30) 55%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: bubble-r 44s ease-in-out infinite;
+  }
+  .blob-6 {  /* plum — emerges bottom edge mid, drifts up */
+    width: 260px; height: 260px;
+    bottom: -50px; right: 38%;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(140, 80, 200, 0.60) 0%,
+      rgba(170, 115, 220, 0.30) 55%,
+      rgba(255, 255, 255, 0) 100%);
+    animation: bubble-b 48s ease-in-out infinite;
   }
 
-  /* Each blob rises/falls along Y with subtle X drift, lava-lamp style. */
-  @keyframes lava-1 {
-    0%   { transform: translate(0, 40px)  scale(0.96); opacity: 0.50; }
-    100% { transform: translate(-20px, -50px) scale(1.06); opacity: 0.85; }
+  /* Each bubble drifts INWARD away from its wall, then back —
+     classic lava-lamp blob detachment, with peak in middle of cycle. */
+  @keyframes bubble-tr {
+    0%   { transform: translate(0, 0)            scale(0.95); opacity: 0.55; }
+    50%  { transform: translate(-90px, 120px)    scale(1.10); opacity: 0.95; }
+    100% { transform: translate(0, 0)            scale(0.95); opacity: 0.55; }
   }
-  @keyframes lava-2 {
-    0%   { transform: translate(0, -30px) scale(0.95); opacity: 0.50; }
-    100% { transform: translate(30px, 50px)  scale(1.07); opacity: 0.85; }
+  @keyframes bubble-bl {
+    0%   { transform: translate(0, 0)            scale(0.95); opacity: 0.55; }
+    50%  { transform: translate(110px, -130px)   scale(1.10); opacity: 0.95; }
+    100% { transform: translate(0, 0)            scale(0.95); opacity: 0.55; }
   }
-  @keyframes lava-3 {
-    0%   { transform: translate(0, 24px)  scale(0.96); opacity: 0.42; }
-    100% { transform: translate(15px, -40px) scale(1.08); opacity: 0.72; }
+  @keyframes bubble-l {
+    0%   { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
+    50%  { transform: translate(140px, -20px)    scale(1.12); opacity: 0.82; }
+    100% { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
   }
-  @keyframes lava-4 {
-    0%   { transform: translate(0, -20px) scale(0.97); opacity: 0.42; }
-    100% { transform: translate(-18px, 36px)  scale(1.07); opacity: 0.72; }
+  @keyframes bubble-t {
+    0%   { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
+    50%  { transform: translate(-30px, 150px)    scale(1.12); opacity: 0.82; }
+    100% { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
   }
-  @keyframes lava-5 {
-    0%   { transform: translate(0, 18px)  scale(0.96); opacity: 0.40; }
-    100% { transform: translate(12px, -30px) scale(1.06); opacity: 0.68; }
+  @keyframes bubble-r {
+    0%   { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
+    50%  { transform: translate(-130px, -30px)   scale(1.12); opacity: 0.78; }
+    100% { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
   }
-  @keyframes lava-6 {
-    0%   { transform: translate(0, -14px) scale(0.96); opacity: 0.40; }
-    100% { transform: translate(-10px, 26px) scale(1.05); opacity: 0.65; }
+  @keyframes bubble-b {
+    0%   { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
+    50%  { transform: translate(30px, -140px)    scale(1.12); opacity: 0.78; }
+    100% { transform: translate(0, 0)            scale(0.92); opacity: 0.45; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -223,21 +231,54 @@
     transition: width 240ms cubic-bezier(.4,0,.2,1), left 240ms cubic-bezier(.4,0,.2,1);
   }
   .menu .item:hover::after { width: 100%; left: 0; }
-  /* Secondary — about / contact, smaller and not bold */
-  .menu .group + .group {
+  /* Secondary block — brief about + mailto contact line */
+  .menu .about-block {
     margin-top: 36px;
     padding-top: 28px;
     border-top: 1px solid var(--rule);
-    width: 240px;
-    max-width: 80vw;
+    width: clamp(280px, 40vw, 520px);
+    max-width: 92vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
   }
-  .menu .item.small {
+  .menu .about-text {
+    font-size: clamp(14px, 1.2vw, 16px);
+    line-height: 1.55;
+    color: var(--ink);
     font-weight: 500;
-    font-size: clamp(15px, 1.4vw, 17px);
-    letter-spacing: 0;
-    padding: 6px 0;
+    letter-spacing: -0.005em;
+    max-width: 52ch;
   }
-  .menu .item.small::after { bottom: 6px; }
+  .menu .contact-row {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .menu .contact-row .lbl {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mute);
+  }
+  .menu .contact-row .sep { color: var(--mute); }
+  .menu .contact-row a {
+    position: relative;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .menu .contact-row a::after {
+    content: ''; position: absolute; left: 50%; bottom: -2px;
+    width: 0; height: 1px; background: var(--ink);
+    transition: width 240ms cubic-bezier(.4,0,.2,1), left 240ms cubic-bezier(.4,0,.2,1);
+  }
+  .menu .contact-row a:hover::after { width: 100%; left: 0; }
 
   /* ── FOOTER ──────────────────────────────────────────────────── */
   footer {
@@ -299,9 +340,13 @@
       <a class="item" href="./case-studies.html">Case Studies</a>
       <a class="item" href="./clients.html">Clients</a>
     </div>
-    <div class="group">
-      <a class="item small" href="./about.html">about</a>
-      <a class="item small" href="./contact.html">contact</a>
+    <div class="about-block">
+      <p class="about-text" id="about-text">Born and raised in California<br/>Passionate about my craft &amp; connecting your ideal customer<br/>Personal trainer, music lover, and artist in my free time</p>
+      <p class="contact-row">
+        <span class="lbl">contact</span>
+        <span class="sep">—</span>
+        <a href="mailto:hello@swang.studio?subject=Getting%20in%20Touch">hello@swang.studio</a>
+      </p>
     </div>
   </nav>
 </main>
@@ -321,12 +366,26 @@
       'Graphic Design',
       'Advertising Strategy'
     ];
-    const typeSpeed   = 110;
-    const deleteSpeed = 55;
-    const holdEnd     = 3400;
-    const holdStart   = 800;
+    // Slower than before — Mason wants it more relaxed.
+    const typeSpeed   = 150;
+    const deleteSpeed = 75;
+    const holdEnd     = 5000;
+    const holdStart   = 1200;
 
-    let pIndex = 0, cIndex = 0, deleting = false;
+    // Each page starts on a different phrase so clicking around varies the cycle.
+    const pageOffsets = {
+      'index.html': 0, '': 0, '/': 0,
+      'gallery.html': 1,
+      'case-studies.html': 2,
+      'clients.html': 3,
+      'about.html': 4,
+      'contact.html': 1
+    };
+    const pageName = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+    let pIndex   = pageOffsets[pageName] != null ? pageOffsets[pageName] : 0;
+    let cIndex   = 0;
+    let deleting = false;
 
     function tick() {
       const phrase = phrases[pIndex];
@@ -338,9 +397,10 @@
         setTimeout(tick, holdEnd);
         return;
       }
-      if (deleting && cIndex === 0) {
+      if (deleting && cIndex <= 0) {
+        cIndex = 0;
         deleting = false;
-        pIndex = (pIndex + 1) % phrases.length;
+        pIndex = (pIndex + 1) % phrases.length;  // loops forever
         setTimeout(tick, holdStart);
         return;
       }
@@ -348,7 +408,6 @@
     }
 
     el.textContent = '';
-    cIndex = 0;
     setTimeout(tick, 600);
   })();
 </script>

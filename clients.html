@@ -236,13 +236,13 @@
   (function () {
     const el = document.getElementById('typer');
     const phrases = ['Meta Creatives','Brand Visibility','Content Creation','Graphic Design','Advertising Strategy'];
-    const typeSpeed=110, deleteSpeed=55, holdEnd=3400, holdStart=800;
-    let p=0, c=0, del=false;
+    const typeSpeed=150, deleteSpeed=75, holdEnd=5000, holdStart=1200;
+    let p=3, c=0, del=false;   // clients starts on Graphic Design
     function tick(){
       const ph=phrases[p]; c+=del?-1:1;
       el.textContent=ph.substring(0,c);
       if(!del&&c===ph.length){del=true;setTimeout(tick,holdEnd);return;}
-      if(del&&c===0){del=false;p=(p+1)%phrases.length;setTimeout(tick,holdStart);return;}
+      if(del&&c<=0){c=0;del=false;p=(p+1)%phrases.length;setTimeout(tick,holdStart);return;}
       setTimeout(tick,del?deleteSpeed:typeSpeed);
     }
     el.textContent=''; setTimeout(tick,600);
