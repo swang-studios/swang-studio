@@ -242,11 +242,19 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 18px;
+    gap: 14px;
+  }
+  .menu .about-label {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute);
   }
   .menu .about-text {
     font-size: clamp(14px, 1.2vw, 16px);
-    line-height: 1.55;
+    line-height: 1.6;
     color: var(--ink);
     font-weight: 500;
     letter-spacing: -0.005em;
@@ -343,7 +351,8 @@
       <a class="item" href="./clients.html">Clients</a>
     </div>
     <div class="about-block">
-      <p class="about-text" id="about-text">Born and raised in California<br/>Passionate about my craft &amp; connecting your ideal customer</p>
+      <span class="about-label">About</span>
+      <p class="about-text" id="about-text">Born and raised in California<br/>Passionate about connecting your business with its target audience<br/>Engaging &amp; Unique Approaches</p>
       <p class="contact-row">
         <span class="lbl">contact</span>
         <span class="sep">—</span>
@@ -355,7 +364,6 @@
 
 <footer>
   <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>
-  <span class="services">Ground &amp; Aerial Media Production<span class="dot">•</span>Campaign Strategy<span class="dot">•</span>Video Editing</span>
   <span>Los Angeles, CA</span>
 </footer>
 
