@@ -4,30 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gallery — Mason Swanger</title>
-<meta name="description" content="Gallery — Mason Swanger. Photo, video and graphic design work from swang.studio." />
-
-<!-- Favicons / S monogram -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="alternate icon" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/favicon.svg" />
-<link rel="mask-icon" href="/favicon.svg" color="#000000" />
-<meta name="theme-color" content="#000000" />
-
-<!-- Open Graph / Twitter share card -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="swang.studio" />
-<meta property="og:url" content="https://www.swang.studio/gallery" />
-<meta property="og:title" content="Gallery — Mason Swanger" />
-<meta property="og:description" content="Photo, video and graphic design work from swang.studio." />
-<meta property="og:image" content="https://www.swang.studio/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="swang.studio — S monogram" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Gallery — Mason Swanger" />
-<meta name="twitter:description" content="Photo, video and graphic design work from swang.studio." />
-<meta name="twitter:image" content="https://www.swang.studio/og-image.png" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -209,46 +185,6 @@
     .titlebox, .titlebox::before { animation: none !important; }
     .reel { animation: none !important; opacity: 1; transform: none; }
   }
-
-  /* ============================================================
-     MOBILE GALLERY SCROLL FIX (<=720px)
-     The desktop trifold uses position:absolute folds inside a
-     fixed-height .stage with overflow:hidden, which traps scroll
-     on phones. Below 720px we flatten the layout so the page
-     itself scrolls naturally and every fold is fully visible.
-     ============================================================ */
-  @media (max-width: 720px) {
-    html, body { height: auto; min-height: 100%; overflow: auto !important; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
-    body { display: block; }
-    .stage { height: auto !important; overflow: visible !important; display: block; }
-    .fold,
-    .fold[data-fold="photo"],
-    .fold[data-fold="video"],
-    .fold[data-fold="gd"] {
-      position: relative !important;
-      left: auto !important;
-      width: 100% !important;
-      border-left: 0 !important;
-      border-top: 1px solid var(--rule);
-      opacity: 1 !important;
-      pointer-events: auto !important;
-      cursor: default !important;
-      display: block;
-    }
-    .fold[data-fold="photo"] { border-top: 0; }
-    .stage.is-open .fold:not(.open),
-    .stage.is-open .fold.open { opacity: 1 !important; pointer-events: auto !important; left: auto !important; width: 100% !important; }
-    .preview,
-    .stage.is-open .fold.open .preview { overflow: visible !important; padding: 10px 16px 24px; touch-action: pan-y; }
-    .gdm,
-    .stage.is-open .fold.open .gdm { column-count: 1 !important; column-gap: 10px; }
-    .gdm .gi { margin-bottom: 10px; }
-    /* Hide the close-fold button on phones — there's nothing to close anymore */
-    .close, .stage.is-open .close { display: none !important; }
-    /* Reels stack one-up for readability */
-    .reels, .stage.is-open .fold.open .reels { column-count: 1 !important; display: block; }
-    .reels-featured, .stage.is-open .fold.open .reels-featured { grid-template-columns: 1fr !important; }
-  }
 </style>
 </head>
 <body>
@@ -347,11 +283,11 @@
 
   /* Three featured (big) reels up top, in this order. The rest render smaller below. */
   const FEATURED = [
-    {t:'ig',    id:'DWfxCu1DEqE', k:'p'},                                                                       // Jewell Loyd
-    {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},        // aerial concrete-pad transform
-    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},           // girl-frame Bull Boulder
+    {t:'ig',    id:'DWfxCu1DEqE', k:'p'},                                              // Jewell Loyd
+    {t:'local', v:'reels/reel-putting-green.mp4',     p:'reels/posters/reel-putting-green.jpg'},      // O'Neill's putting-green transform
+    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4', p:'reels/bull-boulder/bb-reel-5-poster.jpg'},   // girl-frame Bull Boulder
   ];
-  const FEATKEYS = ['DWfxCu1DEqE','reels/reel-golf-transformation.mp4','reels/bull-boulder/bb-reel-5.mp4'];
+  const FEATKEYS = ['DWfxCu1DEqE','reels/reel-putting-green.mp4','reels/bull-boulder/bb-reel-5.mp4'];
   const REST = REELS.filter(function(r){ return FEATKEYS.indexOf(r.id)===-1 && FEATKEYS.indexOf(r.v)===-1; });
 
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */

@@ -4,28 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Case Studies — Mason Swanger</title>
-<!-- Favicons / S monogram -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="alternate icon" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/favicon.svg" />
-<link rel="mask-icon" href="/favicon.svg" color="#000000" />
-<meta name="theme-color" content="#000000" />
-
-<!-- Open Graph / Twitter share card -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="swang.studio" />
-<meta property="og:url" content="https://www.swang.studio/case-studies" />
-<meta property="og:title" content="Case Studies — Mason Swanger" />
-<meta property="og:description" content="Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
-<meta property="og:image" content="https://www.swang.studio/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="swang.studio — S monogram" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Case Studies — Mason Swanger" />
-<meta name="twitter:description" content="Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
-<meta name="twitter:image" content="https://www.swang.studio/og-image.png" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />

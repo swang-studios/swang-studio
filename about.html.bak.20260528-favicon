@@ -3,42 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contact — Mason Swanger</title>
-<!-- Favicons / S monogram -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="alternate icon" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/favicon.svg" />
-<link rel="mask-icon" href="/favicon.svg" color="#000000" />
-<meta name="theme-color" content="#000000" />
-
-<!-- Open Graph / Twitter share card -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="swang.studio" />
-<meta property="og:url" content="https://www.swang.studio/contact" />
-<meta property="og:title" content="Contact — Mason Swanger" />
-<meta property="og:description" content="Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
-<meta property="og:image" content="https://www.swang.studio/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="swang.studio — S monogram" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Contact — Mason Swanger" />
-<meta name="twitter:description" content="Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
-<meta name="twitter:image" content="https://www.swang.studio/og-image.png" />
-
+<title>About — Mason Swanger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg:#ffffff; --ink:#000000; --mute:#6e6e6e; --rule:rgba(0,0,0,0.10); }
-  html, body { height: 100%; }
+  html, body { min-height: 100%; }
   body {
     font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
     font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg);
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; min-height: 100vh;
-    overflow: hidden;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
@@ -87,45 +64,62 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* CONTACT — single centered line */
-  main {
+  /* ABOUT BODY */
+  main.about-stage {
     flex: 1 1 auto;
-    display: flex; align-items: center; justify-content: center;
-    padding: 32px;
+    display: flex; flex-direction: column; align-items: center;
+    padding: clamp(48px, 8vh, 96px) 28px;
+  }
+  .about-content {
+    max-width: 640px; width: 100%;
+    display: flex; flex-direction: column;
+    gap: clamp(32px, 5vh, 56px);
+  }
+  .about-content .title {
+    font-weight: 800;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.98; letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .about-content .bio {
+    /* Empty body — Mason fills later. min-height holds the shape. */
+    min-height: 1.6em;
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .about-content .rule {
+    height: 1px; background: var(--rule); width: 100%;
   }
   .contact-line {
-    display: flex; align-items: baseline; flex-wrap: wrap; justify-content: center;
+    display: flex; align-items: baseline; flex-wrap: wrap;
     gap: 14px;
-    font-weight: 800;
-    font-size: clamp(28px, 4vw, 52px);
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    text-align: center;
   }
   .contact-line .label {
     font-family: 'Geist Mono', ui-monospace, monospace;
     font-weight: 500;
-    font-size: clamp(13px, 1.2vw, 16px);
+    font-size: clamp(12px, 1.1vw, 14px);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--mute);
   }
   .contact-line .sep {
     font-family: 'Geist Mono', ui-monospace, monospace;
-    font-weight: 500;
-    font-size: clamp(13px, 1.2vw, 16px);
     color: var(--mute);
   }
   .contact-line a {
+    font-weight: 700;
+    font-size: clamp(18px, 2vw, 26px);
+    letter-spacing: -0.02em;
+    color: var(--ink);
     position: relative;
-    display: inline-block;
   }
   .contact-line a::after {
-    content: ''; position: absolute; left: 50%; bottom: -0.05em;
-    width: 0; height: 0.05em; background: var(--ink);
-    transition: width 240ms cubic-bezier(.4,0,.2,1), left 240ms cubic-bezier(.4,0,.2,1);
+    content: ''; position: absolute; left: 0; bottom: -0.05em;
+    width: 0; height: 0.06em; background: var(--ink);
+    transition: width 240ms cubic-bezier(.4,0,.2,1);
   }
-  .contact-line a:hover::after { width: 100%; left: 0; }
+  .contact-line a:hover::after { width: 100%; }
 
   /* FOOTER */
   footer {
@@ -150,7 +144,6 @@
     nav.primary .pipe { display: none; }
     nav.primary a { font-size: 11px; }
     footer { padding: 12px 18px; font-size: 10px; flex-direction: column; align-items: flex-start; gap: 4px; }
-    .contact-line { flex-direction: column; gap: 8px; }
   }
 </style>
 </head>
@@ -171,11 +164,16 @@
   </nav>
 </header>
 
-<main>
-  <div class="contact-line">
-    <span class="label">Contact</span>
-    <span class="sep">—</span>
-    <a href="mailto:hello@swang.studio">hello@swang.studio</a>
+<main class="about-stage">
+  <div class="about-content">
+    <h1 class="title">About</h1>
+    <div class="bio"></div>
+    <div class="rule"></div>
+    <div class="contact-line">
+      <span class="label">Contact</span>
+      <span class="sep">—</span>
+      <a href="mailto:hello@swang.studio">hello@swang.studio</a>
+    </div>
   </div>
 </main>
 

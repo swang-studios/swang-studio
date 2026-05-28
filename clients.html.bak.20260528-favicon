@@ -3,29 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contact — Mason Swanger</title>
-<!-- Favicons / S monogram -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="alternate icon" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/favicon.svg" />
-<link rel="mask-icon" href="/favicon.svg" color="#000000" />
-<meta name="theme-color" content="#000000" />
-
-<!-- Open Graph / Twitter share card -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="swang.studio" />
-<meta property="og:url" content="https://www.swang.studio/contact" />
-<meta property="og:title" content="Contact — Mason Swanger" />
-<meta property="og:description" content="Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
-<meta property="og:image" content="https://www.swang.studio/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="swang.studio — S monogram" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Contact — Mason Swanger" />
-<meta name="twitter:description" content="Meta creatives, brand visibility, content creation, graphic design, advertising strategy." />
-<meta name="twitter:image" content="https://www.swang.studio/og-image.png" />
-
+<title>Clients — Mason Swanger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -38,7 +16,7 @@
     font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg);
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
@@ -49,7 +27,7 @@
     display: grid; grid-template-columns: 1fr auto 1fr;
     align-items: center; padding: 18px 28px;
     border-bottom: 1px solid var(--rule);
-    background: var(--bg); gap: 32px;
+    background: var(--bg); gap: 32px; z-index: 50;
   }
   .name {
     justify-self: start; font-weight: 700; font-size: 15px;
@@ -87,45 +65,68 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* CONTACT — single centered line */
-  main {
+  /* ── CLIENT LOGO GRID ─────────────────────────────────────── */
+  .stage {
     flex: 1 1 auto;
-    display: flex; align-items: center; justify-content: center;
-    padding: 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 48px 28px 56px;
+    background:
+      radial-gradient(ellipse at 30% 25%, #fbfaf6 0%, #ffffff 60%, #f7f5ef 100%);
   }
-  .contact-line {
-    display: flex; align-items: baseline; flex-wrap: wrap; justify-content: center;
-    gap: 14px;
-    font-weight: 800;
-    font-size: clamp(28px, 4vw, 52px);
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    text-align: center;
+  .stage-head {
+    text-align: center; margin-bottom: 34px; max-width: 640px;
   }
-  .contact-line .label {
+  .stage-head .eyebrow {
     font-family: 'Geist Mono', ui-monospace, monospace;
-    font-weight: 500;
-    font-size: clamp(13px, 1.2vw, 16px);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--mute);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mute);
   }
-  .contact-line .sep {
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-weight: 500;
-    font-size: clamp(13px, 1.2vw, 16px);
-    color: var(--mute);
+  .stage-head h1 {
+    font-size: clamp(26px, 4vw, 40px); font-weight: 800;
+    letter-spacing: -0.03em; margin-top: 8px; color: var(--ink);
   }
-  .contact-line a {
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%; max-width: 840px;
+  }
+  .logo-tile {
     position: relative;
-    display: inline-block;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1),
+                box-shadow 260ms ease,
+                border-color 260ms ease;
+    will-change: transform;
+    cursor: pointer;
   }
-  .contact-line a::after {
-    content: ''; position: absolute; left: 50%; bottom: -0.05em;
-    width: 0; height: 0.05em; background: var(--ink);
-    transition: width 240ms cubic-bezier(.4,0,.2,1), left 240ms cubic-bezier(.4,0,.2,1);
+  .logo-tile img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain; display: block;
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1);
   }
-  .contact-line a:hover::after { width: 100%; left: 0; }
+  /* Hover: tile lifts, shadow deepens, logo scales slightly */
+  .logo-tile:hover,
+  .logo-tile:focus-visible {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 38px rgba(0,0,0,0.13);
+    border-color: rgba(0,0,0,0.18);
+    outline: none;
+  }
+  .logo-tile:hover img,
+  .logo-tile:focus-visible img { transform: scale(1.06); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-tile, .logo-tile img { transition: none !important; }
+  }
 
   /* FOOTER */
   footer {
@@ -135,22 +136,29 @@
     font-family: 'Geist Mono', ui-monospace, monospace;
     font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--ink); gap: 16px; flex-wrap: wrap;
+    background: var(--bg); z-index: 10;
   }
   footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
   footer a:hover { border-bottom-color: var(--ink); }
+  footer .sep { color: var(--mute); margin: 0 8px; }
 
   @media (max-width: 980px) {
     header { grid-template-columns: auto 1fr; gap: 14px; }
     .typer-wrap { display: none; }
     nav.primary { justify-self: end; gap: 12px; }
     nav.primary a { font-size: 12px; }
+    .logo-grid { max-width: 600px; gap: 16px; }
+    .logo-tile { padding: 18px; border-radius: 16px; }
   }
-  @media (max-width: 520px) {
+  @media (max-width: 560px) {
     header { padding: 14px 18px; }
     nav.primary .pipe { display: none; }
     nav.primary a { font-size: 11px; }
     footer { padding: 12px 18px; font-size: 10px; flex-direction: column; align-items: flex-start; gap: 4px; }
-    .contact-line { flex-direction: column; gap: 8px; }
+    .stage { padding: 32px 18px 40px; }
+    .stage-head { margin-bottom: 24px; }
+    .logo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 380px; }
+    .logo-tile { padding: 14px; border-radius: 14px; }
   }
 </style>
 </head>
@@ -167,15 +175,25 @@
     <span class="pipe">|</span>
     <a href="./case-studies.html">Case Studies</a>
     <span class="pipe">|</span>
-    <a href="./clients.html">Clients</a>
+    <a href="./clients.html" class="active">Clients</a>
   </nav>
 </header>
 
-<main>
-  <div class="contact-line">
-    <span class="label">Contact</span>
-    <span class="sep">—</span>
-    <a href="mailto:hello@swang.studio">hello@swang.studio</a>
+<main class="stage" aria-label="Clients">
+  <div class="stage-head">
+    <span class="eyebrow">Selected Clients</span>
+    <h1>Brands I've worked with</h1>
+  </div>
+  <div class="logo-grid">
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/shaadiefit.png" alt="ShaadieFit" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/alyssalynch.png" alt="Alyssa Lynch" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/linkedin.png" alt="LinkedIn" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/back-nine-greens.png" alt="Back Nine Greens" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/jama.png" alt="Jama" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/cypress-golf.png" alt="Cypress Golf" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/bull.png" alt="Bull Boulder" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/compass.png" alt="Compass" loading="lazy" /></div>
+    <div class="logo-tile" tabindex="0"><img src="./client-logos/im8.png" alt="IM8" loading="lazy" /></div>
   </div>
 </main>
 
@@ -188,13 +206,13 @@
   (function () {
     const el = document.getElementById('typer');
     const phrases = ['Meta Creatives','Brand Visibility','Content Creation','Graphic Design','Advertising Strategy'];
-    const typeSpeed=110, deleteSpeed=55, holdEnd=3400, holdStart=800;
-    let p=0, c=0, del=false;
+    const typeSpeed=150, deleteSpeed=75, holdEnd=5000, holdStart=1200;
+    let p=3, c=0, del=false;   // clients starts on Graphic Design
     function tick(){
       const ph=phrases[p]; c+=del?-1:1;
       el.textContent=ph.substring(0,c);
       if(!del&&c===ph.length){del=true;setTimeout(tick,holdEnd);return;}
-      if(del&&c===0){del=false;p=(p+1)%phrases.length;setTimeout(tick,holdStart);return;}
+      if(del&&c<=0){c=0;del=false;p=(p+1)%phrases.length;setTimeout(tick,holdStart);return;}
       setTimeout(tick,del?deleteSpeed:typeSpeed);
     }
     el.textContent=''; setTimeout(tick,600);
