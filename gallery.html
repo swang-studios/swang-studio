@@ -272,10 +272,54 @@
       margin-top: 6px !important;
       color: var(--mute);
     }
-    /* Closed folds: hide preview entirely (just the titlebox shows) */
-    .preview { display: none !important; }
-    .stage.is-open .fold:not(.open) .preview { display: none !important; }
-    /* Open fold: show preview, full content, scrolls within page */
+    /* Closed folds: show preview as a HORIZONTAL CAROUSEL teaser */
+    .preview,
+    .stage.is-open .fold:not(.open) .preview {
+      display: block !important;
+      padding: 6px 14px 12px !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+      scroll-snap-type: x mandatory;
+      max-height: none !important;
+    }
+    /* The carousel content: force horizontal flex row, no column masonry */
+    .preview > .gdm,
+    .stage.is-open .fold:not(.open) .preview > .gdm {
+      column-count: unset !important;
+      column-gap: 0 !important;
+      display: flex !important;
+      gap: 8px !important;
+      padding-bottom: 6px;
+    }
+    .preview > .gdm > .gi,
+    .stage.is-open .fold:not(.open) .preview > .gdm > .gi {
+      flex: 0 0 auto !important;
+      width: 140px !important;
+      margin-bottom: 0 !important;
+      scroll-snap-align: start;
+    }
+    .preview > .gdm > .gi img { aspect-ratio: 3/4; object-fit: cover; height: auto !important; }
+    /* Carousel reels: same horizontal strip pattern */
+    .preview > .reels,
+    .stage.is-open .fold:not(.open) .preview > .reels {
+      display: flex !important;
+      gap: 8px !important;
+      column-count: unset !important;
+      padding-bottom: 6px;
+    }
+    .preview > .reels > .reel,
+    .stage.is-open .fold:not(.open) .preview > .reels > .reel {
+      flex: 0 0 auto !important;
+      width: 130px !important;
+      height: 230px !important;
+      margin-bottom: 0 !important;
+      scroll-snap-align: start;
+    }
+    .preview > .reels > .reel.ig { display: none !important; } /* IG embeds too heavy for carousel — skip */
+
+    /* Open fold: show preview, full content, scrolls naturally with page */
     .stage.is-open .fold.open .preview {
       display: block !important;
       overflow: visible !important;
@@ -284,6 +328,19 @@
       max-height: none !important;
       height: auto !important;
     }
+    /* Open fold's masonry returns to vertical 2-col */
+    .stage.is-open .fold.open .preview > .gdm {
+      column-count: 2 !important;
+      column-gap: 8px !important;
+      display: block !important;
+      padding-bottom: 0;
+    }
+    .stage.is-open .fold.open .preview > .gdm > .gi {
+      flex: initial !important;
+      width: auto !important;
+      margin-bottom: 8px !important;
+    }
+    .stage.is-open .fold.open .preview > .gdm > .gi img { aspect-ratio: auto; height: auto !important; }
     /* Open fold: accent the titlebox so it visually pops */
     .stage.is-open .fold.open .titlebox {
       border-color: rgba(var(--tint), .95) !important;
@@ -302,21 +359,44 @@
     .gdm .gi { margin-bottom: 8px !important; }
     /* Hide the floating close X — accordion has its own dismiss (re-tap) */
     .close, .stage.is-open .close { display: none !important; }
-    /* Reels: stack 1-up on phones, videos need real height */
-    .reels,
+    /* OPEN-state reels: stack 1-up vertically, full readable height */
     .stage.is-open .fold.open .reels {
       column-count: 1 !important;
-      column-gap: 8px !important;
+      column-gap: 0 !important;
       display: block !important;
     }
-    .reels-featured,
     .stage.is-open .fold.open .reels-featured {
       grid-template-columns: 1fr !important;
-      gap: 10px !important;
+      gap: 12px !important;
     }
-    .stage.is-open .fold.open .reels-featured .reel { height: 420px !important; }
-    .stage.is-open .fold.open .reel.ig iframe { height: 900px !important; }
-    .stage.is-open .fold.open .reel.ig { height: 540px !important; }
+    /* Local mp4 reels — 9:16 portrait, sized to phone width without crop */
+    .stage.is-open .fold.open .reel,
+    .stage.is-open .fold.open .reels-featured .reel,
+    .stage.is-open .fold.open .reels .reel.local {
+      height: auto !important;
+      aspect-ratio: 9 / 16;
+      width: 100% !important;
+      max-width: 380px;
+      margin: 0 auto 12px !important;
+    }
+    .stage.is-open .fold.open .reel video { width: 100% !important; height: 100% !important; object-fit: cover; }
+    /* IG embed reels — iframe and container heights MUST match so nothing crops.
+       720px is enough for the IG header (~50px) + 9:16 reel video + bottom bar (~50px) on a ~360px-wide phone. */
+    .stage.is-open .fold.open .reel.ig,
+    .stage.is-open .fold.open .reels-featured .reel.ig,
+    .stage.is-open .fold.open .reels .reel.ig {
+      height: 720px !important;
+      aspect-ratio: auto !important;
+      width: 100% !important;
+      max-width: 380px;
+      margin: 0 auto 12px !important;
+    }
+    .stage.is-open .fold.open .reel.ig iframe,
+    .stage.is-open .fold.open .reels-featured .reel.ig iframe,
+    .stage.is-open .fold.open .reels .reel.ig iframe {
+      height: 720px !important;
+      width: 100% !important;
+    }
     /* Hide decorative background blobs (visual noise on phones) */
     .blob { display: none !important; }
   }
@@ -503,17 +583,55 @@
     var folds=Array.prototype.slice.call(stage.querySelectorAll('.fold'));
     var IS_MOBILE = window.matchMedia('(max-width: 720px)').matches;
 
+    function renderMobileCarousel(grid, kind){
+      // Horizontal-scroll mini carousel for the closed-state teaser on phones.
+      // CSS handles the flex/scroll behavior — we just emit the same DOM
+      // structure the open state uses (.gdm > .gi or .reels > .reel),
+      // limited to ~6 items for performance.
+      grid.innerHTML='';
+      if(kind==='photo'){
+        var m=document.createElement('div'); m.className='gdm';
+        PHOTOS.slice(0,8).forEach(function(src,i){
+          var gi=document.createElement('div'); gi.className='gi';
+          gi.innerHTML='<img loading="lazy" src="'+src+'" alt="Project photo">';
+          m.appendChild(gi);
+        });
+        grid.appendChild(m);
+      } else if(kind==='gd'){
+        var m=document.createElement('div'); m.className='gdm';
+        GD.slice(0,8).forEach(function(src){
+          var gi=document.createElement('div'); gi.className='gi';
+          gi.innerHTML='<img loading="lazy" src="'+src+'" alt="Graphic design">';
+          m.appendChild(gi);
+        });
+        grid.appendChild(m);
+      } else if(kind==='video'){
+        // Carousel uses local-only posters (IG embeds hidden via CSS for performance)
+        var wrap=document.createElement('div'); wrap.className='reels';
+        REELS.filter(function(r){return r.t==='local';}).slice(0,6).forEach(function(r,i){
+          wrap.appendChild(reelCard(r,i));
+        });
+        grid.appendChild(wrap);
+      }
+    }
     function renderFold(f, open){
       var grid=f.querySelector('.preview');
       var kind=f.getAttribute('data-fold');
       var isOpen=f.classList.contains('open');
-      // Desktop: when another fold is open, empty this one's grid
-      // Mobile: closed folds are hidden via CSS, so we can skip render
+      // Closed fold:
+      // - Mobile: render a horizontal-scroll mini-carousel teaser
+      // - Desktop with another fold open: empty grid (covered by opacity:0)
       if(open && !isOpen){
-        if(!IS_MOBILE) grid.innerHTML='';
+        if(IS_MOBILE) renderMobileCarousel(grid, kind);
+        else grid.innerHTML='';
         return;
       }
-      // Render full content only if THIS fold is the open one
+      // Initial load on mobile, no fold is open yet — still show carousels
+      if(!open && IS_MOBILE){
+        renderMobileCarousel(grid, kind);
+        return;
+      }
+      // Otherwise: standard render (open=true && isOpen=true = full, !open = closed teaser)
       var showFull = open && isOpen;
       if(kind==='video') renderVideo(grid, showFull);
       else if(kind==='gd') renderGD(grid, showFull);
