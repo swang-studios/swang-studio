@@ -124,6 +124,17 @@
   .reel.local:hover::after { transform: scale(1.08); background: rgba(0,0,0,.55); }
   .reel.local.playing::after { opacity: 0; }
 
+  /* GRAPHIC DESIGN — one mixed masonry grid (vertical promos + horizontal thumbs) */
+  .gdm { column-count: 2; column-gap: 8px; }
+  .stage.is-open .fold.open .gdm { column-count: 4; column-gap: 12px; }
+  .gdm .gi { break-inside: avoid; margin: 0 0 8px; border-radius: 8px; overflow: hidden;
+    border: 1px solid rgba(0,0,0,.07); background: rgba(0,0,0,.04); display: block;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    opacity: 0; transform: translateY(10px); animation: tin .5s forwards; }
+  .stage.is-open .fold.open .gdm .gi { margin-bottom: 12px; }
+  .gdm .gi img { width: 100%; height: auto; display: block; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .gdm .gi:hover img { transform: scale(1.04); }
+
   .close { position: absolute; top: 18px; right: 22px; z-index: 5; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); background-color: rgba(255,255,255,.8); display: none; align-items: center; justify-content: center; font-size: 17px; color: #333; cursor: pointer; }
   .stage.is-open .close { display: flex; }
 
@@ -254,6 +265,14 @@
     {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},
   ];
 
+  /* Graphic Design — one mixed grid, no sorting (vertical promos + horizontal thumbnails) */
+  const GD = [
+    'gd/pto-prices.jpg', 'gd/bng-customer.jpg', 'gd/thumb-1.jpg',
+    'gd/pto-resolutions.jpg', 'gd/thumb-2.jpg', 'gd/bng-transformation.jpg',
+    'gd/pto-testimonial.jpg', 'gd/thumb-3.jpg', 'gd/ncga-bring-green-home.jpg',
+    'gd/thumb-4.jpg', 'gd/thumb-5.jpg', 'gd/thumb-6.jpg', 'gd/thumb-7.jpg',
+  ];
+
   function reelCard(r, i){
     const card = document.createElement('div');
     card.style.animationDelay = (i*45) + 'ms';
@@ -282,6 +301,16 @@
     list.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
     grid.innerHTML=''; grid.appendChild(wrap);
   }
+  function renderGD(grid, open){
+    const list = open ? GD : GD.slice(0,4);
+    const m = document.createElement('div'); m.className='gdm';
+    list.forEach(function(src,i){
+      const gi = document.createElement('div'); gi.className='gi'; gi.style.animationDelay=(i*45)+'ms';
+      gi.innerHTML = '<img loading="lazy" src="'+src+'" alt="Graphic design">';
+      m.appendChild(gi);
+    });
+    grid.innerHTML=''; grid.appendChild(m);
+  }
   function renderEmpty(grid){
     grid.innerHTML = '<div class="empty-note">Coming soon</div>';
   }
@@ -297,7 +326,8 @@
       var isOpen=f.classList.contains('open');
       if(open && !isOpen){ grid.innerHTML=''; return; }
       if(kind==='video') renderVideo(grid, open && isOpen);
-      else renderEmpty(grid);   // photo + gd are cleared
+      else if(kind==='gd') renderGD(grid, open && isOpen);
+      else renderEmpty(grid);   // photo cleared (awaiting uploads)
     }
     function fillAll(open){ folds.forEach(function(f){ renderFold(f, open); }); }
     function openFold(f){ folds.forEach(function(x){ x.classList.toggle('open',x===f); }); stage.classList.add('is-open'); fillAll(true); }
