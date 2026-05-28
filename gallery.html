@@ -116,10 +116,12 @@
   .stage.is-open .fold.open .reel { break-inside: avoid; width: 100%; margin: 0 0 14px; }
   .reel:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,0,0,.16); }
   .reel video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background:#000; display:block; }
-  /* Instagram cards: render the embed at its true proportions */
+  /* Instagram cards: render at true proportions, and clip the bottom action/like
+     bar (we set the card height shorter than the iframe; .reel overflow:hidden crops it). */
   .reel.ig { aspect-ratio: auto; background: #fff; border-color: rgba(0,0,0,.12); }
   .reel.ig iframe { width: 100%; height: 560px; border: 0; display: block; background: #fff; }
-  .stage.is-open .fold.open .reel.ig iframe { height: 720px; }
+  .stage.is-open .fold.open .reel.ig { height: 612px; }
+  .stage.is-open .fold.open .reel.ig iframe { height: 1000px; }
   .reel.local::after { content:'\25B6'; position:absolute; inset:0; margin:auto; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; background:rgba(0,0,0,.4); border:1.5px solid rgba(255,255,255,.85); border-radius:50%; z-index:2; pointer-events:none; transition:opacity .25s, transform .25s; }
   .reel.local:hover::after { transform: scale(1.08); background: rgba(0,0,0,.55); }
   .reel.local.playing::after { opacity: 0; }
@@ -250,20 +252,23 @@
      cleared (awaiting curated uploads). */
   const REELS = [
     {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},
+    {t:'ig',    id:'DU-vnxtDxUQ'},                       // shaadiefit
     {t:'local', v:'reels/bull-boulder/bb-reel-1.mp4',   p:'reels/bull-boulder/bb-reel-1-poster.jpg'},
-    {t:'ig',    id:'DU-vnxtDxUQ'},
     {t:'local', v:'reels/reel-putting-green.mp4',       p:'reels/posters/reel-putting-green.jpg'},
+    {t:'ig',    id:'DVtc0Ryjpcp'},                       // Alyssa Lynch
     {t:'local', v:'reels/bull-boulder/bb-reel-2.mp4',   p:'reels/bull-boulder/bb-reel-2-poster.jpg'},
-    {t:'ig',    id:'DW87on7BDsQ'},
     {t:'local', v:'reels/reel-dirt-to-turf.mp4',        p:'reels/posters/reel-dirt-to-turf.jpg'},
+    {t:'ig',    id:'DW87on7BDsQ'},                       // Kristof Vliegen x IM8
     {t:'local', v:'reels/bull-boulder/bb-reel-3.mp4',   p:'reels/bull-boulder/bb-reel-3-poster.jpg'},
-    {t:'ig',    id:'DW6UrceDBC4'},
     {t:'local', v:'reels/reel-paver-build.mp4',         p:'reels/posters/reel-paver-build.jpg'},
+    {t:'ig',    id:'DWCSxyLD05o'},
     {t:'local', v:'reels/bull-boulder/bb-reel-4.mp4',   p:'reels/bull-boulder/bb-reel-4-poster.jpg'},
-    {t:'ig',    id:'DKx7HWRiIsY'},
     {t:'local', v:'reels/reel-turf-bbq-pavers.mp4',     p:'reels/posters/reel-turf-bbq-pavers.jpg'},
+    {t:'ig',    id:'DW6UrceDBC4'},                       // IM8
     {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},
     {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},
+    {t:'ig',    id:'DKx7HWRiIsY'},                       // PTO aerial
+    {t:'ig',    id:'DWfxCu1DEqE', k:'p'},                // IM8 x Jewell Loyd (post)
   ];
 
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */
@@ -293,7 +298,8 @@
       });
     } else {
       card.className = 'reel ig';
-      card.innerHTML = '<iframe src="https://www.instagram.com/reel/'+r.id+'/embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram reel"></iframe>';
+      var path = (r.k === 'p') ? 'p' : 'reel';
+      card.innerHTML = '<iframe src="https://www.instagram.com/'+path+'/'+r.id+'/embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram"></iframe>';
     }
     return card;
   }
@@ -301,7 +307,7 @@
   function renderVideo(grid, open){
     const wrap = document.createElement('div'); wrap.className='reels';
     // teaser shows local posters only (IG embeds need width — they appear when opened)
-    const list = open ? REELS : REELS.filter(function(r){return r.t==='local';}).slice(0,4);
+    const list = open ? REELS : REELS.filter(function(r){return r.t==='local';}).slice(0,6);
     list.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
     grid.innerHTML=''; grid.appendChild(wrap);
   }
@@ -314,8 +320,8 @@
     });
     grid.innerHTML=''; grid.appendChild(m);
   }
-  function renderGD(grid, open){ renderMasonry(grid, open ? GD : GD.slice(0,4), 'Graphic design'); }
-  function renderPhotos(grid, open){ renderMasonry(grid, open ? PHOTOS : PHOTOS.slice(0,6), 'Project photo'); }
+  function renderGD(grid, open){ renderMasonry(grid, open ? GD : GD.slice(0,10), 'Graphic design'); }
+  function renderPhotos(grid, open){ renderMasonry(grid, open ? PHOTOS : PHOTOS.slice(0,14), 'Project photo'); }
   function renderEmpty(grid){
     grid.innerHTML = '<div class="empty-note">Coming soon</div>';
   }
