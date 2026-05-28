@@ -266,9 +266,16 @@
   }
   /* Stacked, centered, small -> big. nowrap so each line stays on one line. */
   .menu .about-text .ln { white-space: nowrap; }
-  .menu .about-text .ln-1 { font-size: clamp(11px, 1.6vw, 15px); color: var(--mute); }
-  .menu .about-text .ln-2 { font-size: clamp(14px, 2.4vw, 21px); font-weight: 600; }
-  .menu .about-text .ln-3 { font-size: clamp(15px, 3.1vw, 28px); font-weight: 700; letter-spacing: -0.02em; }
+  /* All three lines share the lighter "Born and Raised" treatment —
+     same size, same weight, no bolding or size escalation. */
+  .menu .about-text .ln-1,
+  .menu .about-text .ln-2,
+  .menu .about-text .ln-3 {
+    font-size: clamp(11px, 1.6vw, 15px);
+    font-weight: 500;
+    color: var(--mute);
+    letter-spacing: -0.01em;
+  }
   .menu .contact-row {
     display: inline-flex;
     align-items: baseline;
@@ -288,7 +295,7 @@
   .menu .contact-row a {
     position: relative;
     color: var(--ink);
-    font-weight: 600;
+    font-weight: 700;
   }
   .menu .contact-row a::after {
     content: ''; position: absolute; left: 50%; bottom: -2px;

@@ -10,13 +10,14 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg:#ffffff; --ink:#000000; --mute:#6e6e6e; --rule:rgba(0,0,0,0.10); }
-  html, body { height: 100%; }
+  html, body { min-height: 100%; }
   body {
     font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
     font-size: 14px; line-height: 1.5; color: var(--ink);
     background: radial-gradient(ellipse at 30% 20%,#faf6ee 0%,#fff 55%,#f7f5ef 100%);
+    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
-    display: flex; flex-direction: column; min-height: 100vh; overflow: hidden;
+    display: flex; flex-direction: column; min-height: 100vh;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
@@ -24,11 +25,11 @@
 
   /* HEADER — shared shell */
   header {
-    flex: 0 0 auto; z-index: 50;
+    flex: 0 0 auto; z-index: 50; position: sticky; top: 0;
     display: grid; grid-template-columns: 1fr auto 1fr;
     align-items: center; padding: 18px 28px;
     border-bottom: 1px solid var(--rule);
-    background: var(--bg); gap: 32px;
+    background: rgba(255,255,255,0.86); backdrop-filter: blur(8px); gap: 32px;
   }
   .name {
     justify-self: start; font-weight: 700; font-size: 15px;
@@ -56,9 +57,7 @@
     animation: blink 1.05s steps(2, start) infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
-  nav.primary {
-    justify-self: end; display: flex; align-items: center; gap: 18px;
-  }
+  nav.primary { justify-self: end; display: flex; align-items: center; gap: 18px; }
   nav.primary a {
     font-size: 13px; font-weight: 500; letter-spacing: -0.005em;
     color: var(--ink); padding: 4px 0;
@@ -68,44 +67,54 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* STAGE — trifold gallery skeleton (Photo / Video / Graphic Design).
-     Colored label borders (lava-lamp tints) are an approved exception to the
-     B&W gallery lock. Tiles are placeholders pending curated uploads. */
-  .stage { position: relative; flex: 1 1 auto; width: 100%; overflow: hidden; }
-  .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
-  .b1 { width: 300px; height: 300px; top: -70px; right: -50px; background: radial-gradient(circle,rgba(255,130,70,.55),rgba(255,255,255,0) 70%); }
-  .b2 { width: 320px; height: 320px; bottom: -90px; left: -60px; background: radial-gradient(circle,rgba(150,80,215,.5),rgba(255,255,255,0) 70%); }
+  /* GALLERY — single mixed reel collection */
+  main.gallery {
+    flex: 1 1 auto; width: 100%;
+    max-width: 1180px; margin: 0 auto;
+    padding: clamp(28px, 5vh, 56px) 24px clamp(40px, 7vh, 72px);
+  }
+  .ghead { text-align: center; margin-bottom: clamp(22px, 4vh, 38px); }
+  .ghead .kicker {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mute);
+  }
+  .ghead h1 {
+    font-size: clamp(28px, 4.5vw, 46px); font-weight: 800;
+    letter-spacing: -0.03em; margin-top: 8px;
+  }
 
-  .fold { position: absolute; top: 0; bottom: 0; z-index: 1; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: left .6s cubic-bezier(.7,0,.2,1), width .6s cubic-bezier(.7,0,.2,1), opacity .3s ease; }
-  .fold[data-fold="photo"] { left: 0; width: 33.333%; --tint: 255,120,60; }
-  .fold[data-fold="video"] { left: 33.333%; width: 33.333%; border-left: 1px solid var(--rule); --tint: 150,80,215; }
-  .fold[data-fold="gd"] { left: 66.666%; width: 33.334%; border-left: 1px solid var(--rule); --tint: 225,90,120; }
-  .stage.is-open .fold:not(.open) { opacity: 0; pointer-events: none; }
-  .stage.is-open .fold.open { left: 0; width: 100%; z-index: 2; border-left-color: transparent; }
-
-  .phead { flex: 0 0 auto; padding: 46px 18px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-  .titlebox { position: relative; overflow: hidden; display: inline-block; padding: 16px 30px; border-radius: 8px; border: 1.5px solid rgba(var(--tint),.65); background-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; transition: border-color .25s, transform .2s, box-shadow .25s; animation: glow 4s ease-in-out infinite; }
-  .titlebox::before { content: ''; position: absolute; top: 0; left: -140%; width: 55%; height: 100%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); transform: skewX(-18deg); animation: sheen 5s ease-in-out infinite; pointer-events: none; }
-  .fold[data-fold="video"] .titlebox, .fold[data-fold="video"] .titlebox::before { animation-delay: 1.3s; }
-  .fold[data-fold="gd"] .titlebox, .fold[data-fold="gd"] .titlebox::before { animation-delay: 2.6s; }
-  .title { position: relative; z-index: 1; font-size: clamp(20px,3vw,38px); font-weight: 800; letter-spacing: -.02em; line-height: 1; color: var(--ink); }
-  .fold:hover .titlebox { border-color: rgba(var(--tint),.95); box-shadow: 0 8px 20px rgba(0,0,0,.13); transform: translateY(-3px); }
-  @keyframes glow { 0%,100% { box-shadow: 0 0 0 0 rgba(var(--tint),0); } 50% { box-shadow: 0 0 16px 0 rgba(var(--tint),.22); } }
-  @keyframes sheen { 0% { left: -140%; } 40% { left: 150%; } 100% { left: 150%; } }
-  .sub { font-style: italic; font-size: 13px; letter-spacing: .01em; color: var(--mute); margin-top: 14px; min-height: 16px; }
-
-  .preview { flex: 1 1 auto; display: grid; gap: 8px; padding: 16px 18px 22px; grid-template-columns: repeat(2,1fr); align-content: start; overflow: hidden; }
-  .tile { position: relative; background: rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.07); border-radius: 6px; min-height: 64px; display: flex; align-items: center; justify-content: center; color: #9a9a9a; opacity: 0; transform: translateY(10px); animation: tin .5s forwards; }
-  .tile.tall { grid-row: span 2; min-height: 136px; }
-  .vid { flex-direction: column; gap: 7px; color: #7a7a7a; }
-  .vid .play { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.25); display: flex; align-items: center; justify-content: center; }
-  .vid .vcap { font-size: 10px; letter-spacing: .03em; text-transform: uppercase; color: #8a8a8a; padding: 0 6px; text-align: center; }
-  .glabel { font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: #8a8a8a; }
+  .reels-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .reel {
+    position: relative; aspect-ratio: 9 / 16;
+    border-radius: 12px; overflow: hidden; background: #000;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 2px 6px rgba(0,0,0,.07);
+    cursor: pointer;
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+    opacity: 0; transform: translateY(12px); animation: tin .55s forwards;
+  }
   @keyframes tin { to { opacity: 1; transform: translateY(0); } }
-
-  .close { position: absolute; top: 18px; right: 22px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); background-color: rgba(255,255,255,.7); display: none; align-items: center; justify-content: center; font-size: 17px; color: #333; cursor: pointer; }
-  .stage.is-open .close { display: flex; }
-  .stage.is-open .fold.open .preview { grid-template-columns: repeat(4,1fr); }
+  .reel:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(0,0,0,.16); }
+  .reel video, .reel iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    border: 0; object-fit: cover; background: #000; display: block;
+  }
+  /* IG embeds are a touch taller than 9:16; nudge to fill the card cleanly */
+  .reel.ig iframe { height: calc(100% + 56px); top: -28px; }
+  .reel.local::after {
+    content: '\25B6'; position: absolute; inset: 0; margin: auto;
+    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff; background: rgba(0,0,0,.4);
+    border: 1.5px solid rgba(255,255,255,.85); border-radius: 50%;
+    z-index: 2; pointer-events: none; transition: opacity .25s, transform .25s;
+  }
+  .reel.local:hover::after { transform: scale(1.08); background: rgba(0,0,0,.55); }
+  .reel.local.playing::after { opacity: 0; }
 
   /* FOOTER */
   footer {
@@ -119,21 +128,24 @@
   }
   footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
   footer a:hover { border-bottom-color: var(--ink); }
-  footer .sep { color: var(--mute); margin: 0 8px; }
 
+  @media (max-width: 1080px) { .reels-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 860px)  { .reels-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
   @media (max-width: 980px) {
     header { grid-template-columns: auto 1fr; gap: 14px; }
     .typer-wrap { display: none; }
     nav.primary { justify-self: end; gap: 12px; }
     nav.primary a { font-size: 12px; }
   }
-  @media (max-width: 520px) {
+  @media (max-width: 560px) {
     header { padding: 14px 18px; }
     nav.primary .pipe { display: none; }
     nav.primary a { font-size: 11px; }
     footer { padding: 12px 18px; font-size: 10px; }
-    .title { font-size: clamp(16px,5vw,24px); }
-    .titlebox { padding: 12px 18px; }
+    .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reel { animation: none !important; opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -154,34 +166,12 @@
   </nav>
 </header>
 
-<main class="stage" id="stage" aria-label="Gallery">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="close mono" id="close" role="button" tabindex="0" aria-label="Fold back">&times;</div>
-
-  <div class="fold" data-fold="photo">
-    <div class="phead">
-      <div class="titlebox" role="button" tabindex="0" aria-label="Open Photo"><span class="title">Photo</span></div>
-      <div class="sub">showcasing projects</div>
-    </div>
-    <div class="preview" data-grid="photo"></div>
+<main class="gallery" aria-label="Reels">
+  <div class="ghead">
+    <span class="kicker">Live Work</span>
+    <h1>Reels</h1>
   </div>
-
-  <div class="fold" data-fold="video">
-    <div class="phead">
-      <div class="titlebox" role="button" tabindex="0" aria-label="Open Video"><span class="title">Video</span></div>
-      <div class="sub">Variety of Influencer &amp; Company Reels</div>
-    </div>
-    <div class="preview" data-grid="video"></div>
-  </div>
-
-  <div class="fold" data-fold="gd">
-    <div class="phead">
-      <div class="titlebox" role="button" tabindex="0" aria-label="Open Graphic Design"><span class="title">Graphic Design</span></div>
-      <div class="sub">Thumbnails, Prints, Mailers</div>
-    </div>
-    <div class="preview" data-grid="gd"></div>
-  </div>
+  <div class="reels-grid" id="grid"></div>
 </main>
 
 <footer>
@@ -206,45 +196,45 @@
     el.textContent=''; setTimeout(tick,600);
   })();
 
-  /* Tri-fold open / close + placeholder tiles */
+  /* One mixed collection — Instagram reels interleaved with local mp4s.
+     No labels, no sorting. Order is intentionally varied. */
+  const REELS = [
+    {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},
+    {t:'local', v:'reels/bull-boulder/bb-reel-1.mp4',   p:'reels/bull-boulder/bb-reel-1-poster.jpg'},
+    {t:'ig',    id:'DU-vnxtDxUQ'},
+    {t:'local', v:'reels/reel-putting-green.mp4',       p:'reels/posters/reel-putting-green.jpg'},
+    {t:'local', v:'reels/bull-boulder/bb-reel-2.mp4',   p:'reels/bull-boulder/bb-reel-2-poster.jpg'},
+    {t:'ig',    id:'DW87on7BDsQ'},
+    {t:'local', v:'reels/reel-dirt-to-turf.mp4',        p:'reels/posters/reel-dirt-to-turf.jpg'},
+    {t:'local', v:'reels/bull-boulder/bb-reel-3.mp4',   p:'reels/bull-boulder/bb-reel-3-poster.jpg'},
+    {t:'ig',    id:'DW6UrceDBC4'},
+    {t:'local', v:'reels/reel-paver-build.mp4',         p:'reels/posters/reel-paver-build.jpg'},
+    {t:'local', v:'reels/bull-boulder/bb-reel-4.mp4',   p:'reels/bull-boulder/bb-reel-4-poster.jpg'},
+    {t:'ig',    id:'DKx7HWRiIsY'},
+    {t:'local', v:'reels/reel-turf-bbq-pavers.mp4',     p:'reels/posters/reel-turf-bbq-pavers.jpg'},
+    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},
+    {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},
+  ];
+
   (function(){
-    var stage=document.getElementById('stage');
-    var closeBtn=document.getElementById('close');
-    var folds=Array.prototype.slice.call(stage.querySelectorAll('.fold'));
-    var reels=['PTO Putting Green Transformation','Alyssa Lynch','Shaadie Fit','Brand Reel','Company Spot','+ more'];
-    var gd=['Thumbnail','Thumbnail','Print','Mailer','Print','Mailer','Thumbnail','Print'];
-    function fill(open){
-      folds.forEach(function(f){
-        var grid=f.querySelector('.preview');
-        var kind=f.getAttribute('data-fold');
-        grid.innerHTML='';
-        var isOpen=f.classList.contains('open');
-        var n=open?(isOpen?(kind==='video'?6:8):0):(kind==='video'?2:4);
-        for(var i=0;i<n;i++){
-          var t=document.createElement('div');
-          t.className='tile';
-          t.style.animationDelay=(i*55)+'ms';
-          if(kind==='video'){
-            t.className+=' vid';
-            t.innerHTML='<div class="play">&#9658;</div><div class="vcap">'+(reels[i]||'Reel')+'</div>';
-          }else if(kind==='gd'){
-            t.innerHTML='<span class="glabel">'+(gd[i]||'Design')+'</span>';
-          }else{
-            if(i%3===0)t.className+=' tall';
-          }
-          grid.appendChild(t);
-        }
-      });
-    }
-    function openFold(f){folds.forEach(function(x){x.classList.toggle('open',x===f);});stage.classList.add('is-open');fill(true);}
-    function reset(){folds.forEach(function(x){x.classList.remove('open');});stage.classList.remove('is-open');fill(false);}
-    function toggle(f){if(f.classList.contains('open'))reset();else openFold(f);}
-    folds.forEach(function(f){
-      f.querySelector('.titlebox').addEventListener('click',function(e){e.stopPropagation();toggle(f);});
-      f.addEventListener('click',function(){if(!stage.classList.contains('is-open'))openFold(f);});
+    const grid = document.getElementById('grid');
+    REELS.forEach(function(r, i){
+      const card = document.createElement('div');
+      card.style.animationDelay = (i*45) + 'ms';
+      if (r.t === 'local') {
+        card.className = 'reel local';
+        card.innerHTML = '<video preload="none" playsinline muted loop poster="'+r.p+'"><source src="'+r.v+'" type="video/mp4"></video>';
+        const vid = card.querySelector('video');
+        card.addEventListener('click', function(){
+          if (vid.paused) { vid.play(); card.classList.add('playing'); }
+          else { vid.pause(); card.classList.remove('playing'); }
+        });
+      } else {
+        card.className = 'reel ig';
+        card.innerHTML = '<iframe src="https://www.instagram.com/reel/'+r.id+'/embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram reel"></iframe>';
+      }
+      grid.appendChild(card);
     });
-    closeBtn.addEventListener('click',function(e){e.stopPropagation();reset();});
-    fill(false);
   })();
 </script>
 
