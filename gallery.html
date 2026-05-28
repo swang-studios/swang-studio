@@ -211,43 +211,94 @@
   }
 
   /* ============================================================
-     MOBILE GALLERY SCROLL FIX (<=720px)
-     The desktop trifold uses position:absolute folds inside a
-     fixed-height .stage with overflow:hidden, which traps scroll
-     on phones. Below 720px we flatten the layout so the page
-     itself scrolls naturally and every fold is fully visible.
+     MOBILE GALLERY FIX (<=720px)
+     Desktop uses an absolute-positioned trifold inside a fixed-
+     height .stage with overflow:hidden. On phones that traps
+     scroll AND hides 2 of the 3 folds. Below 720px we flatten
+     everything: body scrolls naturally, all 3 folds stack
+     vertically full-width, photos render 2-up. Pairs with the
+     JS block at the bottom that auto-expands all folds on load.
      ============================================================ */
   @media (max-width: 720px) {
-    html, body { height: auto; min-height: 100%; overflow: auto !important; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
-    body { display: block; }
-    .stage { height: auto !important; overflow: visible !important; display: block; }
+    html, body {
+      height: auto !important;
+      min-height: 100%;
+      overflow: auto !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+    }
+    body { display: block; min-height: 100vh; }
+    .stage {
+      position: static !important;
+      height: auto !important;
+      min-height: auto !important;
+      overflow: visible !important;
+      display: block;
+    }
     .fold,
     .fold[data-fold="photo"],
     .fold[data-fold="video"],
-    .fold[data-fold="gd"] {
+    .fold[data-fold="gd"],
+    .stage.is-open .fold:not(.open),
+    .stage.is-open .fold.open {
       position: relative !important;
       left: auto !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
       width: 100% !important;
+      height: auto !important;
+      min-height: auto !important;
       border-left: 0 !important;
       border-top: 1px solid var(--rule);
       opacity: 1 !important;
       pointer-events: auto !important;
       cursor: default !important;
-      display: block;
+      display: block !important;
+      z-index: auto !important;
+      overflow: visible !important;
     }
-    .fold[data-fold="photo"] { border-top: 0; }
-    .stage.is-open .fold:not(.open),
-    .stage.is-open .fold.open { opacity: 1 !important; pointer-events: auto !important; left: auto !important; width: 100% !important; }
+    .fold[data-fold="photo"] { border-top: 0 !important; }
+    .phead { padding: 28px 16px 12px !important; }
     .preview,
-    .stage.is-open .fold.open .preview { overflow: visible !important; padding: 10px 16px 24px; touch-action: pan-y; }
+    .stage.is-open .fold.open .preview,
+    .stage.is-open .fold:not(.open) .preview {
+      overflow: visible !important;
+      padding: 8px 14px 24px !important;
+      touch-action: pan-y;
+      max-height: none !important;
+      height: auto !important;
+    }
+    /* Photos and graphic design: 2 columns */
     .gdm,
-    .stage.is-open .fold.open .gdm { column-count: 1 !important; column-gap: 10px; }
-    .gdm .gi { margin-bottom: 10px; }
-    /* Hide the close-fold button on phones — there's nothing to close anymore */
+    .stage.is-open .fold.open .gdm,
+    .stage.is-open .fold:not(.open) .gdm {
+      column-count: 2 !important;
+      column-gap: 8px !important;
+    }
+    .gdm .gi { margin-bottom: 8px !important; }
+    /* Hide close-fold button — trifold is disabled on phones */
     .close, .stage.is-open .close { display: none !important; }
-    /* Reels stack one-up for readability */
-    .reels, .stage.is-open .fold.open .reels { column-count: 1 !important; display: block; }
-    .reels-featured, .stage.is-open .fold.open .reels-featured { grid-template-columns: 1fr !important; }
+    /* "Tap to view" hint no longer relevant when content is already showing */
+    .hint { display: none !important; }
+    /* Reels: 2 columns. Featured reels: stack 1-up (videos need height) */
+    .reels,
+    .stage.is-open .fold.open .reels {
+      column-count: 1 !important;
+      column-gap: 8px !important;
+      display: block !important;
+    }
+    .reels-featured,
+    .stage.is-open .fold.open .reels-featured {
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+    .stage.is-open .fold.open .reels-featured .reel { height: 420px !important; }
+    .stage.is-open .fold.open .reel.ig iframe { height: 900px !important; }
+    .stage.is-open .fold.open .reel.ig { height: 540px !important; }
+    /* Cool decorative blobs add visual noise on small screens */
+    .blob { display: none !important; }
   }
 </style>
 </head>
@@ -419,35 +470,63 @@
     grid.innerHTML = '<div class="empty-note">Coming soon</div>';
   }
 
-  /* ===================== TRI-FOLD OPEN / CLOSE ===================== */
+  /* ===================== TRI-FOLD OPEN / CLOSE =====================
+     On mobile (<=720px) we bypass the trifold entirely: all 3 folds
+     are pre-opened, every grid renders its FULL content, and the
+     tap-to-toggle handlers are no-ops so taps don't accidentally
+     reset everything to empty. Desktop behavior is unchanged.
+     ================================================================ */
   (function(){
     var stage=document.getElementById('stage');
     var closeBtn=document.getElementById('close');
     var folds=Array.prototype.slice.call(stage.querySelectorAll('.fold'));
+    var IS_MOBILE = window.matchMedia('(max-width: 720px)').matches;
+
     function renderFold(f, open){
       var grid=f.querySelector('.preview');
       var kind=f.getAttribute('data-fold');
       var isOpen=f.classList.contains('open');
-      if(open && !isOpen){ grid.innerHTML=''; return; }
-      if(kind==='video') renderVideo(grid, open && isOpen);
-      else if(kind==='gd') renderGD(grid, open && isOpen);
-      else if(kind==='photo') renderPhotos(grid, open && isOpen);
+      // On mobile, never empty the grid — always render full content
+      if(open && !isOpen && !IS_MOBILE){ grid.innerHTML=''; return; }
+      var fullRender = IS_MOBILE || (open && isOpen);
+      if(kind==='video') renderVideo(grid, fullRender);
+      else if(kind==='gd') renderGD(grid, fullRender);
+      else if(kind==='photo') renderPhotos(grid, fullRender);
       else renderEmpty(grid);
     }
     function fillAll(open){ folds.forEach(function(f){ renderFold(f, open); }); }
-    function openFold(f){ folds.forEach(function(x){ x.classList.toggle('open',x===f); }); stage.classList.add('is-open'); fillAll(true); }
+    function openFold(f){
+      if(IS_MOBILE) return;  // mobile is permanently expanded
+      folds.forEach(function(x){ x.classList.toggle('open',x===f); });
+      stage.classList.add('is-open'); fillAll(true);
+    }
     function reset(){
+      if(IS_MOBILE) return;  // never collapse on mobile
       stage.querySelectorAll('video').forEach(function(v){ try{v.pause();}catch(e){} });
       folds.forEach(function(x){ x.classList.remove('open'); }); stage.classList.remove('is-open'); fillAll(false);
     }
     function toggle(f){ if(f.classList.contains('open')) reset(); else openFold(f); }
     folds.forEach(function(f){
-      f.querySelector('.titlebox').addEventListener('click',function(e){ e.stopPropagation(); toggle(f); });
-      f.addEventListener('click',function(){ if(!stage.classList.contains('is-open')) openFold(f); });
+      f.querySelector('.titlebox').addEventListener('click',function(e){
+        if(IS_MOBILE) return;
+        e.stopPropagation(); toggle(f);
+      });
+      f.addEventListener('click',function(){
+        if(IS_MOBILE) return;
+        if(!stage.classList.contains('is-open')) openFold(f);
+      });
     });
     closeBtn.addEventListener('click',function(e){ e.stopPropagation(); reset(); });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && stage.classList.contains('is-open')) reset(); });
-    fillAll(false);
+
+    if(IS_MOBILE){
+      // Mark every fold as "open" and render all 3 with full content
+      folds.forEach(function(f){ f.classList.add('open'); });
+      stage.classList.add('is-open');
+      fillAll(true);
+    } else {
+      fillAll(false);
+    }
   })();
 </script>
 
