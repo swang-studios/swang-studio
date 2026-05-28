@@ -17,3 +17,4 @@ PUSH_AUTO.command
 FIX_AND_PUSH.command
 *.PREVIEW*.html
 *.PREVIEW*.command
+img/gallery/_unused/
