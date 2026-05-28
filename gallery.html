@@ -108,7 +108,15 @@
      Open = masonry columns so Instagram embeds keep their own natural height
      (no 9:16 crop) and local 9:16 clips pack alongside with no voids. */
   .reels { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-  .stage.is-open .fold.open .reels { display: block; column-count: 3; column-gap: 14px; }
+  /* Featured row — 3 big reels */
+  .reels-featured { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
+    max-width: 1040px; margin: 0 auto 26px; }
+  .stage.is-open .fold.open .reels-featured .reel { aspect-ratio: auto; height: 518px; }
+  .stage.is-open .fold.open .reels-featured .reel.ig iframe { height: 1100px; }
+  /* The rest — smaller masonry */
+  .stage.is-open .fold.open .reels { display: block; column-count: 4; column-gap: 12px; }
+  .stage.is-open .fold.open .reels .reel.ig { height: 520px; }
+  .stage.is-open .fold.open .reels .reel.ig iframe { height: 1000px; }
   .reel { position: relative; aspect-ratio: 9/16; border-radius: 11px; overflow: hidden; background: #000;
     border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 6px rgba(0,0,0,.07); cursor: pointer;
     transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
@@ -168,8 +176,10 @@
     footer { padding: 12px 18px; font-size: 10px; }
     .title { font-size: clamp(16px,5vw,24px); }
     .titlebox { padding: 11px 16px; }
-    .stage.is-open .fold.open .reels { column-count: 1; }
-    .stage.is-open .fold.open .reel.ig iframe { height: 640px; }
+    .stage.is-open .fold.open .reels { column-count: 2; }
+    .stage.is-open .fold.open .reels-featured { grid-template-columns: 1fr 1fr; }
+    .stage.is-open .fold.open .reels-featured .reel { height: 360px; }
+    .stage.is-open .fold.open .reel.ig iframe { height: 1000px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .titlebox, .titlebox::before { animation: none !important; }
@@ -271,6 +281,15 @@
     {t:'ig',    id:'DWfxCu1DEqE', k:'p'},                // IM8 x Jewell Loyd (post)
   ];
 
+  /* Three featured (big) reels up top, in this order. The rest render smaller below. */
+  const FEATURED = [
+    {t:'ig',    id:'DWfxCu1DEqE', k:'p'},                                              // Jewell Loyd
+    {t:'local', v:'reels/reel-putting-green.mp4',     p:'reels/posters/reel-putting-green.jpg'},      // O'Neill's putting-green transform
+    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4', p:'reels/bull-boulder/bb-reel-5-poster.jpg'},   // girl-frame Bull Boulder
+  ];
+  const FEATKEYS = ['DWfxCu1DEqE','reels/reel-putting-green.mp4','reels/bull-boulder/bb-reel-5.mp4'];
+  const REST = REELS.filter(function(r){ return FEATKEYS.indexOf(r.id)===-1 && FEATKEYS.indexOf(r.v)===-1; });
+
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */
   const PHOTOS = ['img/gallery/photo-01.jpg', 'img/gallery/photo-02.jpg', 'img/gallery/photo-08.jpg', 'img/gallery/photo-03.jpg', 'img/gallery/photo-04.jpg', 'img/gallery/photo-14.jpg', 'img/gallery/photo-05.jpg', 'img/gallery/photo-06.jpg', 'img/gallery/photo-15.jpg', 'img/gallery/photo-07.jpg', 'img/gallery/photo-09.jpg', 'img/gallery/photo-16.jpg', 'img/gallery/photo-10.jpg', 'img/gallery/photo-11.jpg', 'img/gallery/photo-18.jpg', 'img/gallery/photo-12.jpg', 'img/gallery/photo-13.jpg', 'img/gallery/photo-19.jpg', 'img/gallery/photo-17.jpg', 'img/gallery/photo-22.jpg', 'img/gallery/photo-20.jpg', 'img/gallery/photo-26.jpg', 'img/gallery/photo-27.jpg', 'img/gallery/photo-21.jpg', 'img/gallery/photo-28.jpg', 'img/gallery/photo-30.jpg', 'img/gallery/photo-23.jpg', 'img/gallery/photo-31.jpg', 'img/gallery/photo-32.jpg', 'img/gallery/photo-24.jpg', 'img/gallery/photo-33.jpg', 'img/gallery/photo-34.jpg', 'img/gallery/photo-25.jpg', 'img/gallery/photo-35.jpg', 'img/gallery/photo-36.jpg', 'img/gallery/photo-29.jpg', 'img/gallery/photo-37.jpg', 'img/gallery/photo-38.jpg', 'img/gallery/photo-42.jpg', 'img/gallery/photo-39.jpg', 'img/gallery/photo-40.jpg', 'img/gallery/photo-41.jpg', 'img/gallery/photo-43.jpg', 'img/gallery/photo-44.jpg', 'img/gallery/photo-45.jpg', 'img/gallery/photo-46.jpg', 'img/gallery/photo-47.jpg'];
 
@@ -305,11 +324,21 @@
   }
 
   function renderVideo(grid, open){
-    const wrap = document.createElement('div'); wrap.className='reels';
-    // teaser shows local posters only (IG embeds need width — they appear when opened)
-    const list = open ? REELS : REELS.filter(function(r){return r.t==='local';}).slice(0,6);
-    list.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
-    grid.innerHTML=''; grid.appendChild(wrap);
+    grid.innerHTML='';
+    if(open){
+      // three featured (big) reels, then the rest smaller
+      const feat=document.createElement('div'); feat.className='reels-featured';
+      FEATURED.forEach(function(r,i){ feat.appendChild(reelCard(r,i)); });
+      grid.appendChild(feat);
+      const rest=document.createElement('div'); rest.className='reels';
+      REST.forEach(function(r,i){ rest.appendChild(reelCard(r,i+3)); });
+      grid.appendChild(rest);
+    } else {
+      // teaser shows local posters only (IG embeds need width — they appear when opened)
+      const wrap=document.createElement('div'); wrap.className='reels';
+      REELS.filter(function(r){return r.t==='local';}).slice(0,6).forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
+      grid.appendChild(wrap);
+    }
   }
   function renderMasonry(grid, list, alt){
     const m = document.createElement('div'); m.className='gdm';

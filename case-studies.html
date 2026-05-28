@@ -118,6 +118,14 @@
     font-size: clamp(15px, 1.3vw, 17px); line-height: 1.6;
     color: var(--ink); max-width: 62ch;
   }
+  .study .thumb.cover { background: #efeee9; }
+  .study .thumb.cover img { max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: cover; }
+  .study .csk { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  .study a.name { transition: opacity 150ms; }
+  .study a.name:hover { opacity: 0.62; }
+  .study .result strong { font-weight: 700; }
+  .study .readmore { align-self: start; margin-top: 4px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+  .study .readmore:hover { opacity: 0.6; }
 
   /* FOOTER */
   footer {
@@ -170,7 +178,37 @@
   </nav>
 </header>
 
-<main class="empty-stage" aria-label="Case Studies (entries pending)"></main>
+<main>
+  <ul class="studies">
+    <li class="study">
+      <a class="thumb cover" href="./case-pavers-turf.html"><img src="img/cs/cs-pavers.jpg" alt="Pavers & Turf by O'Neill's" /></a>
+      <div class="body">
+        <span class="csk">Paid Media · Local Contractor</span>
+        <a href="./case-pavers-turf.html" class="name">Creating a New Lead Channel for a Local Contractor</a>
+        <p class="result">Creative refreshes lowered lead costs and increased volume — one ad drove <strong>350 leads at $7.46 each</strong> as CPA fell and stabilized.</p>
+        <a class="readmore" href="./case-pavers-turf.html">Read case study →</a>
+      </div>
+    </li>
+    <li class="study">
+      <a class="thumb cover" href="./case-bull-boulder.html"><img src="img/cs/cs-bull.jpg" alt="Bull Boulder" /></a>
+      <div class="body">
+        <span class="csk">Creative Testing · Meta</span>
+        <a href="./case-bull-boulder.html" class="name">Creative Testing That Beat Bull Boulder's Meta Benchmarks</a>
+        <p class="result">A 6-video refresh built from repurposed content produced <strong>2 winners out of 6</strong> — a 122-purchase volume play and a <strong>2.65× ROAS</strong> efficiency winner.</p>
+        <a class="readmore" href="./case-bull-boulder.html">Read case study →</a>
+      </div>
+    </li>
+    <li class="study">
+      <a class="thumb cover" href="./case-im8-loyd.html"><img src="img/cs/cs-jewell.jpg" alt="IM8 × Jewell Loyd" /></a>
+      <div class="body">
+        <span class="csk">Branded Content · Athlete Partnership</span>
+        <a href="./case-im8-loyd.html" class="name">Making Athlete Partnerships Feel Entertaining, Not Forced</a>
+        <p class="result">Brand-friendly social content with <strong>Jewell Loyd</strong> (1.3M followers) for IM8 — native to the feed, polished, and on-message without feeling like a forced endorsement.</p>
+        <a class="readmore" href="./case-im8-loyd.html">Read case study →</a>
+      </div>
+    </li>
+  </ul>
+</main>
 
 <footer>
   <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>

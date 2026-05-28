@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Study — Bull Boulder | Mason Swanger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#ffffff; --ink:#000000; --mute:#6e6e6e; --rule:rgba(0,0,0,0.10); --accent:#1f7a3d; --accent-soft:rgba(31,122,61,0.10); --good:#1f9d4d; --warn:#cf8a1c; }
+  html, body { min-height: 100%; }
+  body { font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--ink); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+
+  header { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 18px 28px; border-bottom: 1px solid var(--rule); background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); gap: 32px; }
+  .name { justify-self: start; font-weight: 700; font-size: 15px; letter-spacing: -0.025em; color: var(--ink); display: inline-flex; align-items: baseline; gap: 6px; border-bottom: 1px solid transparent; padding-bottom: 1px; transition: border-color 150ms; }
+  .name .arrow { font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; font-size: 13px; color: var(--mute); transition: transform 200ms, color 200ms; }
+  .name:hover { border-bottom-color: var(--ink); }
+  .name:hover .arrow { transform: translateX(-2px); color: var(--ink); }
+  .crumb { justify-self: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--mute); }
+  nav.primary { justify-self: end; display: flex; align-items: center; gap: 18px; }
+  nav.primary a { font-size: 13px; font-weight: 500; letter-spacing: -0.005em; color: var(--ink); padding: 4px 0; border-bottom: 1px solid transparent; transition: border-color 150ms; white-space: nowrap; }
+  nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
+  nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 56px 28px 40px; }
+  .kicker { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .kicker .dot { color: var(--rule); margin: 0 8px; }
+  h1.title { margin-top: 16px; font-weight: 800; font-size: clamp(32px, 5vw, 56px); line-height: 1.03; letter-spacing: -0.035em; max-width: 16ch; }
+  .subtitle { margin-top: 16px; font-style: italic; font-size: clamp(17px, 2vw, 23px); line-height: 1.4; color: var(--mute); font-weight: 500; letter-spacing: -0.01em; }
+  .byline { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); padding-top: 22px; border-top: 1px solid var(--rule); }
+  .byline b { color: var(--ink); font-weight: 600; }
+  .prose { margin-top: 30px; max-width: 720px; }
+  .prose p { font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.7; margin-bottom: 18px; color: #161616; }
+  .prose p .hl { background: var(--accent-soft); color: var(--accent); font-weight: 600; padding: 0 4px; border-radius: 3px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 40px 0 8px; }
+  .stat { border: 1px solid var(--rule); border-radius: 14px; padding: 20px 18px; background: #fcfcfb; }
+  .stat.accent { background: var(--accent-soft); border-color: rgba(31,122,61,0.28); }
+  .stat .v { font-size: clamp(24px, 2.8vw, 34px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .stat.accent .v { color: var(--accent); }
+  .stat .l { margin-top: 8px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .stat .s { margin-top: 3px; font-size: 11.5px; color: var(--mute); }
+
+  .success { text-align: center; margin: 64px 0 28px; }
+  .success h2 { font-size: clamp(26px, 3.6vw, 40px); font-weight: 800; letter-spacing: -0.03em; }
+  .success p { margin-top: 8px; color: var(--mute); font-size: 14px; }
+
+  /* TWO WINNER CARDS */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .vcard { border: 1px solid var(--rule); border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .vcard .bar { height: 4px; }
+  .vcard.v6 .bar { background: var(--warn); }
+  .vcard.v4 .bar { background: var(--good); }
+  .vcard .vhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 20px 6px; }
+  .vcard .vhead .vt { font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
+  .vcard .vhead .vt small { display:block; font-weight:600; font-size:11px; color:var(--mute); letter-spacing:0; margin-top:2px; }
+  .badge { font-family:'Geist Mono',monospace; font-size: 10px; font-weight:600; letter-spacing:0.05em; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+  .badge.win { color:#0f7a37; background: rgba(31,157,77,0.12); border:1px solid rgba(31,157,77,0.3); }
+  .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); margin: 14px 0 0; border-top:1px solid var(--rule); }
+  .m { background:#fff; padding: 13px 18px; }
+  .m .ml { font-family:'Geist Mono',monospace; font-size: 9.5px; letter-spacing:0.07em; text-transform:uppercase; color:var(--mute); }
+  .m .mv { font-size: 19px; font-weight: 800; letter-spacing:-0.02em; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .m .mv.good { color: var(--good); }
+  .m .mv.warn { color: var(--warn); }
+  .m .ms { font-size: 10.5px; color: var(--good); font-weight:600; margin-top:2px; }
+  .vnote { padding: 14px 18px 18px; }
+  .vnote p { font-style: italic; font-size: 12.5px; line-height: 1.5; color:#3a3a3a; border-left: 3px solid var(--rule); padding-left: 12px; }
+  .vcard.v6 .vnote p { border-left-color: var(--warn); }
+  .vcard.v4 .vnote p { border-left-color: var(--good); }
+
+  footer { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; border-top: 1px solid var(--rule); margin-top: 24px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); gap: 16px; flex-wrap: wrap; }
+  footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
+  footer a:hover { border-bottom-color: var(--ink); }
+
+  @media (max-width: 760px) { .crumb { display: none; } header { grid-template-columns: auto 1fr; gap: 14px; } .stats { grid-template-columns: repeat(2, 1fr); } .cards { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { header { padding: 14px 18px; } nav.primary .pipe { display: none; } nav.primary a { font-size: 11px; } .wrap { padding: 36px 18px 28px; } footer { padding: 14px 18px; font-size: 10px; flex-direction: column; align-items: flex-start; gap: 4px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="./index.html" class="name"><span class="arrow">←</span> Mason Swanger</a>
+  <span class="crumb">Case Study</span>
+  <nav class="primary">
+    <a href="./gallery.html">Gallery</a>
+    <span class="pipe">|</span>
+    <a href="./case-studies.html" class="active">Case Studies</a>
+    <span class="pipe">|</span>
+    <a href="./clients.html">Clients</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <p class="kicker">Case Study<span class="dot">·</span>Creative Testing<span class="dot">·</span>Repurposed Content</p>
+  <h1 class="title">Creative Testing That Beat Bull Boulder's Meta Benchmarks</h1>
+  <p class="subtitle">Using content that already existed — repurposed into proven, scalable ad winners.</p>
+
+  <div class="byline">
+    <span>Client — <b>Bull Boulder</b></span>
+    <span>Role — <b>Creative Strategy &amp; Production</b></span>
+    <span>Channel — <b>Meta</b></span>
+  </div>
+
+  <div class="prose">
+    <p>For Bull Boulder, I helped execute a <span class="hl">6-video Meta creative refresh</span> designed to find new ad winners and improve purchase performance.</p>
+    <p>After reviewing the account, studying existing ad performance, and identifying stronger hooks and offer angles, I helped shape a new batch of videos built for paid social. In Meta advertising, true winners are rare — the owner noted that statistically, a winning ad can be closer to 1 out of 15. <span class="hl">This batch produced 2 winners out of 6.</span></p>
+    <p>One video became the high-volume performer, generating 122 purchases, over 945,000 impressions, and a 52.45% hook rate. Another became the efficiency winner, hitting 2.65× ROAS, the strongest conversion rate, and the lowest cost per purchase in the set.</p>
+    <p>The result was a creative refresh that <span class="hl">outperformed expectations, broke ROAS records,</span> and gave the account new proven ads to scale.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat accent"><div class="v">2 / 6</div><div class="l">Winners found</div><div class="s">vs ~1 in 15 typical</div></div>
+    <div class="stat"><div class="v">2.65×</div><div class="l">Top ROAS</div><div class="s">Record for the account</div></div>
+    <div class="stat"><div class="v">122</div><div class="l">Purchases</div><div class="s">High-volume winner</div></div>
+    <div class="stat"><div class="v">52.45%</div><div class="l">Best hook rate</div><div class="s">945K+ impressions</div></div>
+  </div>
+
+  <div class="success">
+    <h2>The two winners</h2>
+    <p>Straight from the account — the volume play and the efficiency play.</p>
+  </div>
+
+  <div class="cards">
+    <!-- Video 6 -->
+    <div class="vcard v6">
+      <div class="bar"></div>
+      <div class="vhead">
+        <div class="vt">Holy **** — Video 6<small>High-volume performer</small></div>
+        <span class="badge win">● Active</span>
+      </div>
+      <div class="mgrid">
+        <div class="m"><div class="ml">Amount Spent</div><div class="mv">$18,730</div></div>
+        <div class="m"><div class="ml">Purchase ROAS</div><div class="mv warn">1.79×</div></div>
+        <div class="m"><div class="ml">CVR</div><div class="mv warn">0.84%</div></div>
+        <div class="m"><div class="ml">Cost / Purchase</div><div class="mv">$153.53</div></div>
+        <div class="m"><div class="ml">Impressions</div><div class="mv">945,356</div></div>
+        <div class="m"><div class="ml">Hook Rate</div><div class="mv good">52.45%</div><div class="ms">Top hook performer</div></div>
+        <div class="m"><div class="ml">Results</div><div class="mv">122</div><div class="ms" style="color:var(--mute)">Purchases</div></div>
+        <div class="m"><div class="ml">Cost / Click</div><div class="mv">$1.30</div></div>
+      </div>
+      <div class="vnote"><p>Highest spend &amp; impressions. Strong hook (52%). CVR has room to improve — possible offer or landing-page opportunity.</p></div>
+    </div>
+
+    <!-- Video 4 -->
+    <div class="vcard v4">
+      <div class="bar"></div>
+      <div class="vhead">
+        <div class="vt">Flash Sale 1 — Video 4<small>Efficiency winner</small></div>
+        <span class="badge win">● Best performer</span>
+      </div>
+      <div class="mgrid">
+        <div class="m"><div class="ml">Amount Spent</div><div class="mv">$7,985</div></div>
+        <div class="m"><div class="ml">Purchase ROAS</div><div class="mv good">2.65×</div></div>
+        <div class="m"><div class="ml">CVR</div><div class="mv good">1.68%</div></div>
+        <div class="m"><div class="ml">Cost / Purchase</div><div class="mv good">$99.82</div></div>
+        <div class="m"><div class="ml">Impressions</div><div class="mv">325,972</div></div>
+        <div class="m"><div class="ml">Hook Rate</div><div class="mv warn">19.25%</div></div>
+        <div class="m"><div class="ml">Results</div><div class="mv">80</div><div class="ms" style="color:var(--mute)">Purchases</div></div>
+        <div class="m"><div class="ml">Cost / Click</div><div class="mv">$1.67</div></div>
+      </div>
+      <div class="vnote"><p>Best performer. Highest ROAS (2.65×), lowest CPA ($99.82), strongest CVR (1.68%). Benchmark to beat — hook rate is the weakest link, and improving it could scale this further.</p></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>
+  <span>Los Angeles, CA</span>
+</footer>
+
+</body>
+</html>

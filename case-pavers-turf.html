@@ -1,1536 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swang. | Creative Growth, Pavers and Turf</title>
-  <meta name="description" content="A $104 local Meta test hit $0.76 CPC and projects to 10,000+ closings at under $5 per lead." />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #0b0e14;
-      --ink-2: #1a1f2b;
-      --muted: #5a6472;
-      --cream: #f5f8fc;
-      --cream-2: #ffffff;
-      --cream-3: #eef3f9;
-      --clay: #c8dbef;
-      --espresso: #2E7FC2;
-      /* Apr 19 PM2: cold-yellow wash retired in favor of pure blue translucent.
-         Old cold-yellow vars aliased to the new blue so any stragglers still resolve. */
-      --blue-1: rgba(111, 168, 220, 0.18);  /* #6FA8DC @ 18%, headline highlight washes */
-      --blue-2: rgba(74, 134, 197, 0.22);   /* #4A86C5 @ 22%, CTA tints / active tabs */
-      --blue-line: rgba(74, 134, 197, 0.20); /* inset marker-pass bottom border */
-      --cold-yellow: var(--blue-2);
-      --cold-yellow-2: var(--blue-1);
-      --cold-yellow-3: var(--blue-2);
-      --accent: #2E7FC2;
-      --accent-2: #2E7FC2;
-      --rule: #dbe4ef;
-      --win: #6ABE4F;
-      --loss: #E5484D;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: var(--cream-2);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
-    /* slow lava drift */
-    body::before {
-      content: ''; position: fixed; inset: -10% -10% -10% -10%; z-index: -1;
-      background:
-        radial-gradient(ellipse at 18% 22%, #f5f8fc 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #dbe4ef 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, #ffffff 0%, transparent 70%),
-        linear-gradient(135deg, #f5f8fc, #dbe4ef 45%, #c8dbef 70%, #9FD4F5);
-      background-size: 180% 180%;
-      animation: lavaDrift 120s ease-in-out infinite alternate;
-      pointer-events: none;
-      filter: saturate(0.85);
-    }
-    @keyframes lavaDrift {
-      0%   { background-position: 0% 0%; transform: scale(1); }
-      50%  { background-position: 40% 60%; transform: scale(1.04); }
-      100% { background-position: 100% 100%; transform: scale(1); }
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Study — Pavers & Turf by O'Neill's | Mason Swanger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#ffffff; --ink:#000000; --mute:#6e6e6e; --rule:rgba(0,0,0,0.10); --accent:#1f7a3d; --accent-soft:rgba(31,122,61,0.10); }
+  html, body { min-height: 100%; }
+  body { font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--ink); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 44px;
-      background: rgba(245, 248, 252, 0.55);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom: 1px solid rgba(219, 228, 239, 0.45);
-    }
-    nav::before {
-      content: ''; position: absolute; left: 0; right: 0; top: 0;
-      height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-    }
-    nav .logo {
-      font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
-      color: var(--ink); text-decoration: none;
-    }
-    nav ul { list-style: none; display: flex; gap: 32px; }
-    nav ul a {
-      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--ink-2); text-decoration: none;
-      opacity: 0.7; transition: opacity 0.2s;
-    }
-    nav ul a:hover { opacity: 1; color: var(--accent); }
+  header { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 18px 28px; border-bottom: 1px solid var(--rule); background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); gap: 32px; }
+  .name { justify-self: start; font-weight: 700; font-size: 15px; letter-spacing: -0.025em; color: var(--ink); display: inline-flex; align-items: baseline; gap: 6px; border-bottom: 1px solid transparent; padding-bottom: 1px; transition: border-color 150ms; }
+  .name .arrow { font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; font-size: 13px; color: var(--mute); transition: transform 200ms, color 200ms; }
+  .name:hover { border-bottom-color: var(--ink); }
+  .name:hover .arrow { transform: translateX(-2px); color: var(--ink); }
+  .crumb { justify-self: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--mute); }
+  nav.primary { justify-self: end; display: flex; align-items: center; gap: 18px; }
+  nav.primary a { font-size: 13px; font-weight: 500; letter-spacing: -0.005em; color: var(--ink); padding: 4px 0; border-bottom: 1px solid transparent; transition: border-color 150ms; white-space: nowrap; }
+  nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
+  nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-    .cs-wrap { max-width: 1100px; margin: 0 auto; padding: 130px 44px 56px; }
-    .cs-crumb {
-      font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--accent);
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      margin-bottom: 28px;
-    }
-    .cs-crumb:hover { color: var(--ink); }
-    .cs-tag {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent);
-    }
-    .cs-title {
-      font-size: clamp(34px, 5vw, 60px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.02; margin-top: 14px;
-      max-width: 960px; color: var(--ink);
-    }
-    .cs-title em {
-      color: var(--accent); font-style: normal;
-      background: linear-gradient(120deg, var(--blue-1), var(--blue-2));
-      padding: 0 10px; border-radius: 2px;
-      box-shadow: inset 0 -2px 0 var(--blue-line);
-    }
-    .cs-sub {
-      margin-top: 18px; font-size: 15.5px; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--espresso); max-width: 780px;
-    }
-    .cs-lede {
-      margin-top: 22px; font-size: 17px; line-height: 1.7;
-      color: var(--ink-2); max-width: 720px;
-    }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 56px 28px 40px; }
+  .kicker { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .kicker .dot { color: var(--rule); margin: 0 8px; }
+  h1.title { margin-top: 16px; font-weight: 800; font-size: clamp(34px, 5.4vw, 60px); line-height: 1.02; letter-spacing: -0.035em; }
+  .subtitle { margin-top: 16px; font-style: italic; font-size: clamp(17px, 2vw, 23px); line-height: 1.4; color: var(--mute); font-weight: 500; letter-spacing: -0.01em; }
+  .byline { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); padding-top: 22px; border-top: 1px solid var(--rule); }
+  .byline b { color: var(--ink); font-weight: 600; }
+  .prose { margin-top: 30px; }
+  .prose p { font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.7; margin-bottom: 18px; color: #161616; }
+  .prose p .hl { background: var(--accent-soft); color: var(--accent); font-weight: 600; padding: 0 4px; border-radius: 3px; }
 
-    /* HERO, cleaner frame */
-    .cs-hero {
-      margin-top: 44px; border-radius: 4px; overflow: hidden;
-      background: var(--cream-3); aspect-ratio: 16/9;
-      box-shadow: 0 30px 80px rgba(11, 14, 20, 0.18), inset 0 0 0 1px rgba(255,255,255,0.4);
-    }
-    .cs-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 40px 0 8px; }
+  .stat { border: 1px solid var(--rule); border-radius: 14px; padding: 20px 18px; background: #fcfcfb; }
+  .stat.accent { background: var(--accent-soft); border-color: rgba(31,122,61,0.28); }
+  .stat .v { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .stat.accent .v { color: var(--accent); }
+  .stat .l { margin-top: 8px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .stat .s { margin-top: 3px; font-size: 11.5px; color: var(--mute); }
 
-    /* BEFORE / AFTER chip pair */
-    .ba-row {
-      margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    }
-    .ba-chip {
-      padding: 22px 24px; border-radius: 4px;
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(219, 228, 239, 0.6);
-      backdrop-filter: blur(4px);
-    }
-    .ba-chip .ba-tag {
-      font-size: 9.5px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
-    }
-    .ba-chip.before .ba-tag { color: var(--loss); }
-    .ba-chip.after  .ba-tag { color: var(--win); }
-    .ba-chip h3 {
-      font-size: 17px; font-weight: 700; letter-spacing: -0.01em;
-      color: var(--ink); line-height: 1.3;
-    }
-    .ba-chip p {
-      margin-top: 6px; font-size: 13.5px; color: var(--ink-2); line-height: 1.55;
-    }
+  .success { text-align: center; margin: 64px 0 28px; }
+  .success h2 { font-size: clamp(26px, 3.6vw, 40px); font-weight: 800; letter-spacing: -0.03em; }
+  .success p { margin-top: 8px; color: var(--mute); font-size: 14px; }
 
-    /* METRICS, count up */
-    .metrics {
-      margin: 44px 0 0;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-    }
-    .metric {
-      padding: 26px 22px; border-radius: 4px;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-      transition: border-color 0.25s, transform 0.25s, background 0.25s;
-      position: relative; overflow: hidden;
-    }
-    .metric::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(245, 248, 252, 0.0), rgba(245, 248, 252, 0.35));
-      opacity: 0; transition: opacity 0.3s;
-      pointer-events: none;
-    }
-    .metric:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .metric:hover::after { opacity: 1; }
-    .metric .big {
-      font-size: clamp(30px, 4vw, 50px); font-weight: 700;
-      letter-spacing: -0.03em; color: var(--ink); line-height: 1.0;
-      font-variant-numeric: tabular-nums;
-    }
-    .metric .big sup {
-      font-size: 0.42em; vertical-align: top; margin-left: 2px;
-      color: var(--accent); font-weight: 600;
-    }
-    .metric .lbl {
-      margin-top: 10px; font-size: 10.5px; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; color: var(--espresso);
-    }
-    .metric .desc {
-      margin-top: 6px; font-size: 12px; color: var(--muted); line-height: 1.5;
-    }
+  .viz { border: 1px solid var(--rule); border-radius: 16px; padding: 22px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04); margin-bottom: 22px; }
+  .viz-cap { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .viz-cap .t { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+  .viz-cap .m { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mute); }
 
-    /* CHART CARD */
-    .chart-card {
-      margin: 56px 0 0; padding: 36px 32px; border-radius: 4px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-      box-shadow: 0 24px 60px rgba(11, 14, 20, 0.10);
-    }
-    .chart-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
-    .chart-head .label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .chart-head .label::before {
-      content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
-    }
-    .chart-head h3 {
-      font-size: clamp(20px, 2.4vw, 28px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink); margin-top: 8px;
-      max-width: 640px; line-height: 1.25;
-    }
-    .chart-head .hint {
-      font-size: 12.5px; color: var(--muted); margin-top: 6px; max-width: 640px;
-    }
-    .chart-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-    .chart-tab {
-      font-family: inherit; font-size: 10.5px; font-weight: 700;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      padding: 8px 14px; border: 1px solid rgba(46, 127, 194, 0.22);
-      border-radius: 2px; background: rgba(255,255,255,0.6); color: var(--espresso);
-      cursor: pointer; transition: all 0.2s;
-    }
-    .chart-tab:hover { border-color: var(--accent); color: var(--ink); }
-    .chart-tab.active {
-      background: var(--ink); color: var(--cream-2); border-color: var(--ink);
-    }
-    .chart-canvas-wrap {
-      margin-top: 28px; position: relative;
-      height: 320px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(245,248,252,0.0));
-      border-radius: 3px;
-      padding: 10px 4px 4px;
-    }
-    .chart-canvas-wrap canvas { width: 100% !important; height: 100% !important; }
-    .chart-foot {
-      margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-    }
-    .chart-foot .foot-cell {
-      padding: 12px 14px; border-radius: 3px;
-      background: rgba(245, 248, 252, 0.35);
-      border: 1px solid rgba(219, 228, 239, 0.45);
-    }
-    .chart-foot .foot-val {
-      font-size: 18px; font-weight: 700; color: var(--ink);
-      letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
-    }
-    .chart-foot .foot-lbl {
-      font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--espresso); margin-top: 4px;
-    }
+  table.perf { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.perf th, table.perf td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--rule); }
+  table.perf th { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); font-weight: 600; }
+  table.perf td.num, table.perf th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.perf td.camp { font-weight: 600; }
+  table.perf tr.top td { background: var(--accent-soft); }
+  table.perf tr.top td.camp::after { content: 'TOP'; font-family:'Geist Mono',monospace; font-size: 8.5px; letter-spacing:.06em; color:#fff; background:var(--accent); border-radius:4px; padding:2px 5px; margin-left:8px; vertical-align: middle; }
+  table.perf td .cpl { color: var(--accent); font-weight: 700; }
+  .leadtag { display:inline-block; width:7px; height:7px; border-radius:50%; background:#2bb24c; margin-right:7px; vertical-align: middle; }
 
-    /* DEMO BAR CHART */
-    .demo-card {
-      margin: 22px 0 0; padding: 32px; border-radius: 4px;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-    }
-    .demo-card .label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .demo-card .label::before {
-      content: ''; display: inline-block; width: 16px; height: 1.5px; background: var(--accent);
-    }
-    .demo-card h3 {
-      font-size: clamp(18px, 2.2vw, 24px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink); max-width: 600px; line-height: 1.3;
-    }
-    .demo-card .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
-    .demo-chart-wrap { margin-top: 20px; height: 260px; }
+  .chart-box { position: relative; height: 360px; }
+  .chart-legend { display:flex; gap:18px; align-items:center; font-size:12px; color:var(--mute); margin-top:14px; flex-wrap:wrap; }
+  .chart-legend .key { display:inline-flex; align-items:center; gap:7px; }
+  .chart-legend .sw { width:14px; height:14px; border-radius:3px; }
 
-    /* LOOP DIAGRAM */
-    .loop-section {
-      margin: 56px 0 0; padding: 40px 36px; border-radius: 4px;
-      background: rgba(255,255,255,0.65);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-    }
-    .loop-section .section-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .loop-section .section-label::before {
-      content: ''; display: inline-block; width: 18px; height: 1.5px; background: var(--accent);
-    }
-    .loop-section h3 {
-      font-size: clamp(20px, 2.4vw, 28px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink); max-width: 640px; line-height: 1.25;
-    }
-    .loop-section .hint { font-size: 12.5px; color: var(--muted); margin-top: 8px; max-width: 640px; }
-    .loop {
-      margin-top: 30px;
-      display: grid; grid-template-columns: repeat(4, 1fr) 1fr;
-      gap: 10px; align-items: stretch;
-    }
-    .node {
-      padding: 18px 14px; text-align: center;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(219, 228, 239, 0.5);
-      border-radius: 3px;
-      transition: border-color 0.25s, transform 0.25s;
-    }
-    .node:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .node .n-icon {
-      width: 38px; height: 38px; margin: 0 auto 9px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
-      color: var(--ink); font-size: 14px; font-weight: 700;
-      box-shadow: inset 0 0 0 1px var(--blue-line);
-    }
-    .node .n-title {
-      font-size: 12.5px; font-weight: 700; color: var(--ink);
-      letter-spacing: 0.04em;
-    }
-    .node .n-desc { margin-top: 5px; font-size: 11px; color: var(--muted); line-height: 1.5; }
-    .arrow-node {
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; color: var(--accent); font-weight: 700;
-      animation: flow 2.4s ease-in-out infinite;
-    }
-    @keyframes flow {
-      0%, 100% { transform: translateX(0); opacity: 0.5; }
-      50%      { transform: translateX(4px); opacity: 1; }
-    }
-    .loop-return {
-      grid-column: 1 / -1; margin-top: 14px; text-align: center;
-      font-size: 10.5px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--accent);
-      position: relative; padding: 12px 0;
-    }
-    .loop-return::before, .loop-return::after {
-      content: ''; position: absolute; top: 50%; width: 28%; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    }
-    .loop-return::before { left: 2%; }
-    .loop-return::after { right: 2%; }
+  footer { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; border-top: 1px solid var(--rule); margin-top: 24px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); gap: 16px; flex-wrap: wrap; }
+  footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
+  footer a:hover { border-bottom-color: var(--ink); }
 
-    /* META vs GOOGLE */
-    .compare {
-      margin-top: 26px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    }
-    .compare-col {
-      padding: 26px 24px; border-radius: 4px;
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-      transition: transform 0.25s;
-    }
-    .compare-col:hover { transform: translateY(-3px); }
-    .compare-google { border-left: 3px solid var(--loss); }
-    .compare-meta   { border-left: 3px solid var(--win); }
-    .compare-tag {
-      font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--espresso); margin-bottom: 12px;
-    }
-    .compare-stat {
-      font-size: clamp(30px, 3.6vw, 44px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.0;
-      font-variant-numeric: tabular-nums;
-    }
-    .compare-google .compare-stat { color: var(--loss); }
-    .compare-meta   .compare-stat { color: var(--win); }
-    .compare-unit {
-      margin-top: 6px; font-size: 10.5px; font-weight: 700;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
-    }
-    .compare-col ul { list-style: none; margin-top: 16px; display: grid; gap: 8px; }
-    .compare-col li {
-      font-size: 13px; line-height: 1.55; color: var(--ink-2);
-      padding-left: 14px; position: relative;
-    }
-    .compare-col li::before {
-      content: ''; position: absolute; left: 0; top: 8px;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--muted);
-    }
-    .compare-meta li::before   { background: var(--win); }
-    .compare-google li::before { background: var(--loss); }
-
-    /* IG embed */
-    .ig-embed-section { margin: 56px 0 0; max-width: 780px; }
-    .ig-embed-section h2 {
-      font-size: clamp(20px, 2.4vw, 26px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink);
-    }
-    .ig-embed-section .sub {
-      font-size: 13.5px; color: var(--muted); margin-top: 6px; max-width: 560px;
-      line-height: 1.55;
-    }
-    .ig-embed-section .sub em {
-      color: var(--accent); font-style: normal; font-weight: 700;
-    }
-    .ig-wrap {
-      margin-top: 22px; background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-      border-radius: 4px; overflow: hidden; max-width: 380px;
-    }
-    .ig-wrap iframe { width: 100%; height: 560px; border: none; display: block; }
-
-    /* Ad Library link card */
-    .ad-library-cta {
-      display: block; margin-top: 22px; padding: 22px 26px;
-      background: linear-gradient(135deg, rgba(46, 127, 194, 0.08), rgba(90, 100, 114, 0.06));
-      border: 1px solid rgba(46, 127, 194, 0.35);
-      border-radius: 4px; text-decoration: none; color: inherit;
-      max-width: 560px;
-      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .ad-library-cta:hover {
-      border-color: rgba(46, 127, 194, 0.7);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(11, 14, 20, 0.1);
-    }
-    .ad-library-label {
-      display: block; font-size: 10px; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: #2E7FC2;
-    }
-    .ad-library-title {
-      display: block; margin-top: 8px;
-      font-size: clamp(18px, 2.4vw, 22px); font-weight: 700;
-      letter-spacing: -0.01em; color: var(--ink);
-    }
-    .ad-library-sub {
-      display: block; margin-top: 6px;
-      font-size: 13px; color: var(--muted); line-height: 1.5;
-    }
-
-    /* Embedded ad gallery (front-page-of-ads vibe) */
-    .ad-gallery-section { margin: 56px 0 0; max-width: 1100px; }
-    .ad-gallery-head {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
-    }
-    .ad-gallery-head h2 {
-      font-size: clamp(20px, 2.4vw, 26px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink);
-    }
-    .ad-gallery-head .sub {
-      font-size: 12px; color: var(--muted);
-    }
-    .ad-gallery-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .ad-card {
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(219, 228, 239, 0.6);
-      border-radius: 6px; overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .ad-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(11, 14, 20, 0.12);
-    }
-    .ad-card .ad-media {
-      aspect-ratio: 9 / 16;
-      background: #0b0e14;
-      overflow: hidden; position: relative;
-    }
-    .ad-card .ad-media iframe,
-    .ad-card .ad-media img {
-      width: 100%; height: 100%; border: 0; display: block;
-      object-fit: cover;
-    }
-    .ad-card .ad-meta {
-      padding: 12px 14px; display: flex; flex-direction: column; gap: 4px;
-      background: rgba(255,255,255,0.75);
-    }
-    .ad-card .ad-meta .n { font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
-    .ad-card .ad-meta .d { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
-    .ad-card .ad-tag {
-      position: absolute; top: 10px; left: 10px; z-index: 2;
-      padding: 4px 9px; border-radius: 999px;
-      font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #fff;
-      background: rgba(46, 127, 194, 0.9);
-    }
-
-    /* Live-look sticky popup */
-    .live-look {
-      position: fixed;
-      right: 20px; bottom: 20px;
-      width: 220px;
-      background: #0b0e14;
-      border: 1px solid rgba(46, 127, 194, 0.45);
-      border-radius: 6px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-      overflow: hidden;
-      z-index: 90;
-      transform: translateY(140%); opacity: 0;
-      transition: transform 0.5s cubic-bezier(.17,.67,.3,1.3), opacity 0.3s;
-    }
-    .live-look.visible { transform: translateY(0); opacity: 1; }
-    .live-look .ll-strip {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 7px 10px 6px;
-      background: linear-gradient(90deg, #2E7FC2, #5a6472);
-    }
-    .live-look .ll-strip .ll-live {
-      font-size: 9px; font-weight: 800; letter-spacing: 0.16em;
-      text-transform: uppercase; color: #fff;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .live-look .ll-strip .ll-live::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,0.8);
-      animation: ll-pulse 1.4s infinite;
-    }
-    @keyframes ll-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.8); }
-      50%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
-    }
-    .live-look .ll-close {
-      background: transparent; border: 0; cursor: pointer;
-      font-size: 14px; line-height: 1; color: rgba(255,255,255,0.9);
-      padding: 2px 6px;
-    }
-    .live-look .ll-media {
-      aspect-ratio: 9 / 16; background: #000;
-    }
-    .live-look .ll-media iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .live-look .ll-foot {
-      padding: 8px 10px; background: rgba(255,255,255,0.97);
-      font-size: 10.5px; color: var(--muted);
-      display: flex; justify-content: space-between; align-items: center; gap: 8px;
-    }
-    .live-look .ll-foot a {
-      font-size: 10px; font-weight: 700; color: #2E7FC2; text-decoration: none;
-      letter-spacing: 0.08em; text-transform: uppercase;
-    }
-    .live-look .ll-foot a:hover { text-decoration: underline; }
-    @media (max-width: 600px) {
-      .live-look { width: 160px; right: 10px; bottom: 10px; }
-    }
-
-    /* PLATFORMS */
-    .platforms { margin: 56px 0 0; max-width: 780px; }
-    .platforms h2 {
-      font-size: clamp(22px, 2.6vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink);
-    }
-    .platform-list {
-      margin-top: 20px; display: grid; gap: 8px;
-    }
-    .platform-list a {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 14px 18px; text-decoration: none; color: var(--ink);
-      border: 1px solid rgba(219, 228, 239, 0.55);
-      background: rgba(255,255,255,0.55);
-      border-radius: 3px;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
-    }
-    .platform-list a:hover {
-      border-color: var(--accent); background: rgba(245, 248, 252, 0.4);
-      transform: translateX(3px);
-    }
-    .platform-list strong { font-size: 13.5px; font-weight: 700; display: block; }
-    .platform-list .url {
-      font-size: 10.5px; color: var(--muted); margin-top: 2px;
-      font-family: ui-monospace, SF Mono, monospace; display: block;
-    }
-    .platform-list .arrow { color: var(--accent); font-size: 18px; }
-
-    /* AD-LEVEL BREAKDOWN GRID */
-    .ad-grid {
-      display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px;
-    }
-    .ad-row {
-      display: grid; grid-template-columns: 1.3fr 2fr 1fr;
-      align-items: center; gap: 16px;
-      padding: 12px 16px; border-radius: 3px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(219, 228, 239, 0.5);
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .ad-row:hover { border-color: var(--accent); transform: translateX(2px); }
-    .ad-row.top-ad { border-left: 3px solid var(--win); background: rgba(245, 248, 252, 0.45); }
-    .ad-name { font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; }
-    .ad-name .ad-badge {
-      display: inline-block; margin-left: 6px; padding: 2px 7px;
-      font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--cream-2); background: var(--ink); border-radius: 2px; vertical-align: 2px;
-    }
-    .ad-bar-wrap { height: 10px; background: rgba(46, 127, 194, 0.10); border-radius: 5px; overflow: hidden; }
-    .ad-fill {
-      height: 100%; border-radius: 5px; width: 0;
-      background: linear-gradient(90deg, var(--accent), #2E7FC2);
-      transition: width 1.3s cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-    .ad-row.top-ad .ad-fill { background: linear-gradient(90deg, #6ABE4F, #6ABE4F); }
-    .ad-stats {
-      text-align: right; font-size: 11.5px; color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-    .ad-stats .ad-leads, .ad-stats .ad-cpl { color: var(--ink); font-weight: 700; font-size: 13px; }
-    @media (max-width: 720px) {
-      .ad-row { grid-template-columns: 1fr; gap: 8px; padding: 14px 14px; }
-      .ad-stats { text-align: left; }
-    }
-
-    /* CALLOUT */
-    .cs-callout {
-      margin: 48px 0 0; padding: 30px 34px; border-radius: 4px;
-      border: 1px solid rgba(46, 127, 194, 0.25);
-      background: linear-gradient(135deg, rgba(245, 248, 252, 0.6), rgba(255, 255, 255, 0.35));
-      max-width: 860px;
-    }
-    .cs-callout strong {
-      display: block; font-size: clamp(20px, 2.4vw, 28px);
-      font-weight: 700; letter-spacing: -0.02em; color: var(--ink);
-    }
-    .cs-callout span {
-      display: block; margin-top: 8px; font-size: 13px; letter-spacing: 0.04em;
-      color: var(--ink-2);
-    }
-
-    footer {
-      margin-top: 80px; padding: 44px;
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(219, 228, 239, 0.5);
-      flex-wrap: wrap; gap: 20px;
-      background: rgba(245, 248, 252, 0.4);
-    }
-    footer .back {
-      font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent); text-decoration: none;
-    }
-    footer .back:hover { color: var(--ink); }
-    footer .copy { font-size: 10.5px; color: var(--muted); }
-
-    @media (max-width: 900px) {
-      nav { padding: 16px 22px; }
-      .cs-wrap { padding: 110px 22px 44px; }
-      .metrics { grid-template-columns: 1fr 1fr; }
-      .ba-row, .compare, .chart-foot { grid-template-columns: 1fr; }
-      .loop { grid-template-columns: 1fr; }
-      .arrow-node { transform: rotate(90deg); }
-      .loop-section, .chart-card, .demo-card { padding: 28px 20px; }
-      footer { padding: 30px 22px; }
-    }
-    @media (max-width: 600px) {
-      .cs-wrap { padding: 104px 18px 36px; }
-      .metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .metric { padding: 18px 14px; }
-      .chart-card, .demo-card, .loop-section, .compare-section { padding: 22px 16px; }
-      .chart-head { flex-direction: column; align-items: flex-start; }
-      .chart-tabs {
-        width: 100%; overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .chart-tabs::-webkit-scrollbar { display: none; }
-      .chart-tab { flex-shrink: 0; white-space: nowrap; }
-      .chart-canvas-wrap { height: 240px; }
-      .chart-foot .foot-cell { padding: 10px 12px; }
-      .chart-foot .foot-val { font-size: 16px; }
-      .ba-chip { padding: 18px 18px; }
-      nav ul { gap: 14px; }
-      nav ul a { font-size: 10px; letter-spacing: 0.1em; }
-    }
-    @media (max-width: 400px) {
-      .metrics { grid-template-columns: 1fr; }
-    }
-  
-    /* Frozone After Hours toggle (mirrors home nav) */
-    .nav-right { display: flex; align-items: center; }
-    .theme-toggle {
-      background: transparent;
-      border: 1px solid rgba(46, 127, 194, 0.35);
-      height: 32px; border-radius: 999px;
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 8px;
-      margin-left: 18px; padding: 0 10px 0 12px; cursor: pointer;
-      color: var(--ink);
-      font: inherit;
-      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-    }
-    .theme-toggle:hover {
-      background: rgba(255,255,255,0.5);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .theme-toggle .tt-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; line-height: 1;
-      opacity: 0.6; transition: opacity 0.2s ease, color 0.2s ease;
-    }
-    .theme-toggle .tt-label.active { opacity: 1; color: var(--accent, #2E7FC2); }
-    .theme-toggle svg { width: 13px; height: 13px; }
-    .theme-toggle .sun  { display: none; }
-    .theme-toggle .moon { display: inline-block; }
-    html[data-theme="dark"] .theme-toggle .sun  { display: inline-block; }
-    html[data-theme="dark"] .theme-toggle .moon { display: none; }
-    html[data-theme="dark"] .theme-toggle .tt-label.active { color: #9FD4F5; }
-    @media (max-width: 760px) {
-      .theme-toggle { padding: 0; width: 32px; gap: 0; }
-      .theme-toggle .tt-label, .theme-toggle .tt-sep { display: none; }
-    }
-
-    /* Dark-mode palette, re-point the cream/blue vars to ice-on-ink so
-       every downstream rule flips cleanly when the toggle flips. */
-    html[data-theme="dark"] {
-      --ink:        #eaf3fb;
-      --ink-2:      #b8c8dc;
-      --muted:      #6f82a0;
-      --cream:      #0b1628;
-      --cream-2:    #0b1628;
-      --cream-3:    #0f1c33;
-      --clay:       #183056;
-      --espresso:   #9FD4F5;
-      --blue-1:     rgba(159, 212, 245, 0.14);
-      --blue-2:     rgba(159, 212, 245, 0.22);
-      --blue-line:  rgba(159, 212, 245, 0.26);
-      --cold-yellow:   var(--blue-2);
-      --cold-yellow-2: var(--blue-1);
-      --cold-yellow-3: var(--blue-2);
-      --accent:     #9FD4F5;
-      --accent-2:   #6FC3F2;
-      --rule:       rgba(234,243,251,0.12);
-    }
-    html[data-theme="dark"] body { background: #0b1628; }
-    html[data-theme="dark"] body::before {
-      background:
-        radial-gradient(ellipse at 18% 22%, #0f1c33 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 78%, #0b1628 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, #142340 0%, transparent 70%),
-        linear-gradient(135deg, #0b1628, #0f1c33 45%, #142340 70%, #1d3660);
-      filter: saturate(0.7);
-    }
-    html[data-theme="dark"] nav {
-      background: rgba(15, 28, 51, 0.75);
-      border-bottom-color: rgba(234,243,251,0.12);
-    }
-
-    /* ========== Blog-format case study (Apr 24 ship) ==========
-       Editorial layout: narrow text column + chart breakout.
-       All new classes are bf-* prefixed to avoid clashing with the
-       existing cs-* / metrics / chart-card rules above. */
-    .bf-col { max-width: 680px; margin: 0 auto; }
-    .bf-col.wide { max-width: 1040px; }
-
-    .cs-kicker {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
-    }
-    .cs-kicker .dot { color: var(--muted); opacity: 0.6; margin: 0 8px; }
-
-    .bf-byline {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; flex-wrap: wrap;
-      padding: 14px 0; margin: 28px 0 36px;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      font-size: 12px; color: var(--muted); letter-spacing: 0.04em;
-    }
-    .bf-byline strong { color: var(--ink); font-weight: 600; }
-
-    .bf-section-head {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--accent);
-      margin-top: 48px; margin-bottom: 18px;
-      display: inline-flex; align-items: center; gap: 12px;
-    }
-    .bf-section-head::before {
-      content: ''; width: 22px; height: 1px; background: var(--accent);
-    }
-
-    .bf-prose p {
-      font-size: 17px; line-height: 1.72; color: var(--ink-2);
-      margin-bottom: 20px;
-    }
-    .bf-prose p strong { color: var(--ink); font-weight: 600; }
-    .bf-prose p .accent { color: var(--accent); font-weight: 500; }
-
-    .bf-figure-inline {
-      margin: 40px 0; padding: 28px 0;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      display: flex; justify-content: center; align-items: baseline;
-      gap: 28px; flex-wrap: wrap;
-    }
-    .bf-fi-block { text-align: center; }
-    .bf-fi-block .bf-fi-kicker {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
-    }
-    .bf-fi-block .bf-fi-number {
-      font-size: clamp(56px, 7vw, 88px); font-weight: 700;
-      letter-spacing: -0.04em; line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-    .bf-fi-block.before .bf-fi-number {
-      color: var(--muted);
-      text-decoration: line-through; text-decoration-thickness: 3px;
-      text-decoration-color: rgba(229, 72, 77, 0.5);
-    }
-    .bf-fi-block.after .bf-fi-number { color: var(--accent); }
-    .bf-fi-arrow {
-      font-size: clamp(28px, 3vw, 36px); color: var(--muted);
-      font-weight: 300; line-height: 1;
-    }
-
-    .bf-pull-quote {
-      font-size: clamp(20px, 2.2vw, 26px); line-height: 1.45;
-      color: var(--ink); font-weight: 500; letter-spacing: -0.01em;
-      padding: 28px 0 28px 28px;
-      border-left: 3px solid var(--accent);
-      margin: 40px 0;
-    }
-    .bf-pull-quote .accent { color: var(--accent); }
-
-    .bf-nums-strip {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      margin: 40px 0;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-    .bf-nums-strip .bf-n-cell {
-      padding: 24px 18px;
-      border-right: 1px solid var(--rule);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .bf-nums-strip .bf-n-cell:last-child { border-right: 0; }
-    .bf-n-cell .bf-n-val {
-      font-size: clamp(32px, 3.6vw, 44px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1;
-      color: var(--ink); font-variant-numeric: tabular-nums;
-    }
-    .bf-n-cell.accent .bf-n-val { color: var(--accent); }
-    .bf-n-cell .bf-n-lbl {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--ink); margin-top: 4px;
-    }
-    .bf-n-cell .bf-n-sub {
-      font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 2px;
-    }
-    .bf-n-cell .bf-n-sub strong { color: var(--ink); }
-
-    @media (max-width: 640px) {
-      .bf-nums-strip { grid-template-columns: 1fr 1fr; }
-      .bf-nums-strip .bf-n-cell:nth-child(2n) { border-right: 0; }
-      .bf-nums-strip .bf-n-cell:nth-child(1),
-      .bf-nums-strip .bf-n-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
-    }
-
-    .bf-chart-block { margin: 56px 0; }
-    .bf-chart-head-bf { max-width: 680px; margin: 0 auto 28px; }
-    .bf-chart-headline {
-      font-size: clamp(22px, 2.4vw, 28px); font-weight: 700;
-      letter-spacing: -0.02em; line-height: 1.25;
-      margin-bottom: 10px; color: var(--ink);
-    }
-    .bf-chart-headline .accent { color: var(--accent); }
-    .bf-chart-sub {
-      font-size: 15px; line-height: 1.6; color: var(--muted);
-    }
-
-    .bf-legend {
-      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
-      margin-top: 14px; font-size: 12px; color: var(--muted);
-    }
-    .bf-legend-item { display: inline-flex; align-items: center; gap: 8px; }
-    .bf-legend-dot { width: 10px; height: 10px; border-radius: 2px; }
-    .bf-legend-dot.leads { background: var(--accent); }
-    .bf-legend-dot.cost  { background: #ff8fa3; }
-
-    .bf-chart-wrap { position: relative; max-width: 1040px; margin: 0 auto; }
-    .bf-chart-svg  { width: 100%; height: auto; display: block; }
-
-    .bf-refresh-flag {
-      position: absolute; top: -10px;
-      display: flex; flex-direction: column; align-items: center;
-      pointer-events: none;
-    }
-    .bf-refresh-flag .bf-flag-body {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 5px 10px; border-radius: 999px;
-      background: var(--accent); color: var(--cream-2);
-      white-space: nowrap;
-    }
-    .bf-refresh-flag .bf-flag-body small {
-      display: block; font-size: 9px; letter-spacing: 0.08em;
-      text-transform: uppercase; opacity: 0.78; font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .bf-chart-caption {
-      max-width: 680px; margin: 18px auto 0;
-      font-size: 13px; color: var(--muted);
-      text-align: center; line-height: 1.6;
-    }
-
-    .bf-rule {
-      max-width: 120px; margin: 72px auto;
-      border: 0; border-top: 1px solid var(--rule);
-    }
-
-    .bf-funnel-inline { margin: 40px 0; }
-    .bf-funnel-row {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-    .bf-funnel-row .bf-f-cell {
-      padding: 22px 18px;
-      border-right: 1px solid var(--rule);
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .bf-funnel-row .bf-f-cell:last-child { border-right: 0; }
-    .bf-f-cell .bf-f-lbl {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .bf-f-cell .bf-f-val {
-      font-size: clamp(24px, 2.6vw, 30px); font-weight: 700;
-      letter-spacing: -0.02em; line-height: 1;
-      color: var(--ink); font-variant-numeric: tabular-nums;
-    }
-    .bf-f-cell.highlight .bf-f-val { color: var(--accent); }
-    .bf-f-cell .bf-f-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-    @media (max-width: 640px) {
-      .bf-funnel-row { grid-template-columns: 1fr 1fr; }
-      .bf-funnel-row .bf-f-cell:nth-child(2n) { border-right: 0; }
-      .bf-funnel-row .bf-f-cell:nth-child(1),
-      .bf-funnel-row .bf-f-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
-    }
-
-    .bf-signoff {
-      margin-top: 56px; padding-top: 32px;
-      border-top: 1px solid var(--rule);
-      font-size: 15px; line-height: 1.7; color: var(--ink-2);
-    }
-    .bf-signoff strong { color: var(--ink); }
-    .bf-signoff a {
-      color: var(--accent); text-decoration: underline;
-      text-underline-offset: 3px; font-weight: 600;
-    }
-
-    /* Flatten the cs-title em pill for the blog-format page so the
-       headline sits cleaner in editorial flow. */
-    .bf-flat .cs-title em {
-      background: none; box-shadow: none; padding: 0;
-      color: var(--accent);
-    }
-  </style>
+  @media (max-width: 760px) { .crumb { display: none; } header { grid-template-columns: auto 1fr; gap: 14px; } .stats { grid-template-columns: repeat(2, 1fr); } table.perf .hide-sm { display: none; } }
+  @media (max-width: 520px) { header { padding: 14px 18px; } nav.primary .pipe { display: none; } nav.primary a { font-size: 11px; } .wrap { padding: 36px 18px 28px; } footer { padding: 14px 18px; font-size: 10px; flex-direction: column; align-items: flex-start; gap: 4px; } }
+</style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">swang.</a>
-  <div class="nav-right">
-    <ul>
-    <li><a href="/#featured-work">Work</a></li>
-    <li><a href="/#reels">Reels</a></li>
-    <li><a href="/#contact">Contact</a></li>
-  </ul>
-    <button class="theme-toggle" type="button" aria-label="Toggle light / dark mode" onclick="swangToggleTheme()">
-      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <span class="tt-label tt-light">Light</span>
-      <span class="tt-sep" aria-hidden="true" style="opacity:0.4;">/</span>
-      <span class="tt-label tt-dark">Dark</span>
-    
-    </button>
+<header>
+  <a href="./index.html" class="name"><span class="arrow">←</span> Mason Swanger</a>
+  <span class="crumb">Case Study</span>
+  <nav class="primary">
+    <a href="./gallery.html">Gallery</a>
+    <span class="pipe">|</span>
+    <a href="./case-studies.html" class="active">Case Studies</a>
+    <span class="pipe">|</span>
+    <a href="./clients.html">Clients</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <p class="kicker">Case Study<span class="dot">·</span>Paid Media<span class="dot">·</span>Local Contractor</p>
+  <h1 class="title">Creating a New Lead Channel for a Local Contractor</h1>
+  <p class="subtitle">Creative refreshes helped lower lead costs and increase volume.</p>
+
+  <div class="byline">
+    <span>Client — <b>Pavers &amp; Turf by O'Neill's</b></span>
+    <span>Role — <b>Creative &amp; Paid Media</b></span>
+    <span>Channel — <b>Meta</b></span>
   </div>
-</nav>
 
-<div class="cs-wrap">
-  <a href="/#featured-work" class="cs-crumb">&larr; Back to Work</a>
+  <div class="prose">
+    <p>I had a vision when I started working with Pavers and Turf by O'Neill's: increase company visibility locally with the goal of funneling in new leads for cheap. A contractor's dream — and I made it come true.</p>
+    <p>Sourcing the content, before &amp; afters, creating interesting CTAs, and more.</p>
+    <p>The campaign used multiple creative angles — <span class="hl">turf transformations, paver builds, putting-green visuals, carousel ads, and "get quote" landing-page campaigns.</span> After studying successful contractor ads and tracking which visuals were converting, I created two rounds of content refreshes (across different months) that mirrored the strongest-performing formats.</p>
+    <p>The result was a campaign that improved over time. Lead volume climbed while <span class="hl">CPA — cost per acquisition, the average cost to generate a lead — declined and stabilized.</span> One top-performing ad generated 350 website leads at $7.46 per lead, showing the campaign was not only creating awareness, but driving measurable action.</p>
+  </div>
 
-  <!-- ===== Blog-format case study (Apr 24) =====
-       Replaces the previous stats-grid + interactive Chart.js block
-       with an editorial layout: kicker, headline, byline, prose sections,
-       inline $26→$5 figure, pull quote, numbers strip, static SVG chart,
-       conversion funnel, and signoff. The Meta Ad Library CTA is kept. -->
-  <div class="bf-flat">
-    <p class="cs-kicker">Case Study<span class="dot">·</span>Paid Media<span class="dot">·</span>17 Weeks</p>
-    <h1 class="cs-title">From zero to 59 leads a week. <em>At $5 each.</em></h1>
-    <p class="cs-lede">Same budget. <strong>5&times; more leads coming in.</strong> Each one costing 81% less than before. Here's how we got the line to bend.</p>
+  <div class="stats">
+    <div class="stat accent"><div class="v">$7.46</div><div class="l">Best cost / lead</div><div class="s">Top-performing ad</div></div>
+    <div class="stat"><div class="v">350</div><div class="l">Leads, one ad</div><div class="s">Single creative</div></div>
+    <div class="stat"><div class="v">2</div><div class="l">Creative refreshes</div><div class="s">Across months</div></div>
+    <div class="stat"><div class="v">↓ CPA</div><div class="l">Down &amp; stabilized</div><div class="s">↑ volume over time</div></div>
+  </div>
 
-    <div class="bf-byline">
-      <span><strong>Pavers and Turf by O'Neill's</strong> &middot; Meta</span>
-      <span>17 weeks &middot; ongoing</span>
-    </div>
+  <div class="success">
+    <h2>Check out the success!</h2>
+    <p>The numbers, straight from the campaign.</p>
+  </div>
 
-    <div class="cs-hero">
-      <img src="card-thumb-meta.png" alt="Pavers and Turf by O'Neill's, meta campaign hero" />
-    </div>
+  <div class="viz">
+    <div class="viz-cap"><span class="t">Active campaigns — leads &amp; cost per lead</span><span class="m">Meta · Get-Quote LPs</span></div>
+    <table class="perf">
+      <thead><tr><th>Campaign</th><th class="num hide-sm">Status</th><th class="num">Website leads</th><th class="num">Per lead</th></tr></thead>
+      <tbody>
+        <tr class="top"><td class="camp">Bocce Video — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">350</td><td class="num"><span class="cpl">$7.46</span></td></tr>
+        <tr><td class="camp">Carousel — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">125</td><td class="num">$14.44</td></tr>
+        <tr><td class="camp">Stolls Backyard Video — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">113</td><td class="num">$17.33</td></tr>
+        <tr><td class="camp">Backyard Video 1 — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">40</td><td class="num">$17.90</td></tr>
+        <tr><td class="camp">Paver Building Video — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">29</td><td class="num">$11.53</td></tr>
+        <tr><td class="camp">Dirt-to-Turf Transform — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">24</td><td class="num">$10.29</td></tr>
+        <tr><td class="camp">Golf Transformation — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">23</td><td class="num">$7.80</td></tr>
+        <tr><td class="camp">Words Video — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">22</td><td class="num">$13.58</td></tr>
+        <tr><td class="camp">Golf Reel — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">16</td><td class="num">$8.74</td></tr>
+        <tr><td class="camp">Backyard Video 1 — Homepage LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">10</td><td class="num">$17.11</td></tr>
+        <tr><td class="camp">Mountain Putting Green Image — Get Quote LP</td><td class="num hide-sm"><span class="leadtag"></span>Active</td><td class="num">4</td><td class="num">$8.10</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-    <!-- Story: the starting point -->
-    <div class="bf-col" style="margin-top: 56px;">
-      <p class="bf-section-head">The starting point</p>
-      <div class="bf-prose">
-        <p>When we picked up the account, every new lead was costing around <strong>twenty-six dollars</strong>. Twelve leads a week on a good week. The budget wasn't the issue &mdash; the creative was. Ads were tired, targeting was broad, and the best-performing reel hadn't been touched in months.</p>
-      </div>
-
-      <div class="bf-figure-inline">
-        <div class="bf-fi-block before">
-          <p class="bf-fi-kicker">Before</p>
-          <p class="bf-fi-number">$26</p>
-        </div>
-        <div class="bf-fi-arrow">&rarr;</div>
-        <div class="bf-fi-block after">
-          <p class="bf-fi-kicker">After 17 weeks</p>
-          <p class="bf-fi-number">$5</p>
-        </div>
-      </div>
-
-      <p class="bf-section-head">What changed</p>
-      <div class="bf-prose">
-        <p>Instead of running a big-bang rebuild, we moved in <span class="accent">short cycles</span>. Every two to three weeks I'd bring in a fresh batch of ads, watch the metrics for a week, keep whatever was pulling weight, and quietly retire the rest.</p>
-      </div>
-
-      <blockquote class="bf-pull-quote">
-        Winners compound. Losers get replaced. <span class="accent">Budget never moves &mdash; the creative does the work.</span>
-      </blockquote>
-
-      <div class="bf-prose">
-        <p>By week eight, a single reel &mdash; TikTok-style transitions cut from live installs &mdash; was pulling in leads at <strong>$5.25 each</strong>. That one ad did the heaviest lifting; nearly half the total volume over the run.</p>
-      </div>
-    </div>
-
-    <!-- Numbers strip -->
-    <div class="bf-col">
-      <p class="bf-section-head">The numbers</p>
-      <div class="bf-nums-strip">
-        <div class="bf-n-cell accent">
-          <span class="bf-n-val">$5</span>
-          <span class="bf-n-lbl">Cost per lead</span>
-          <span class="bf-n-sub">Down from <strong>$26</strong></span>
-        </div>
-        <div class="bf-n-cell">
-          <span class="bf-n-val">59</span>
-          <span class="bf-n-lbl">Leads / week</span>
-          <span class="bf-n-sub">Up from 12/week</span>
-        </div>
-        <div class="bf-n-cell">
-          <span class="bf-n-val">193</span>
-          <span class="bf-n-lbl">From one reel</span>
-          <span class="bf-n-sub">Single top-performing ad</span>
-        </div>
-        <div class="bf-n-cell accent">
-          <span class="bf-n-val">475</span>
-          <span class="bf-n-lbl">Total leads</span>
-          <span class="bf-n-sub">Over <strong>17 weeks</strong></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Static SVG chart, full-bleed breakout -->
-    <section class="bf-chart-block">
-      <div class="bf-chart-head-bf">
-        <h2 class="bf-chart-headline">Cost per lead kept falling. <span class="accent">Volume kept climbing.</span></h2>
-        <p class="bf-chart-sub">Every few weeks, fresh ads go in. The winners stay, the losers get replaced, and the metrics shape the next round.</p>
-        <div class="bf-legend">
-          <span class="bf-legend-item"><span class="bf-legend-dot leads"></span>Leads per week</span>
-          <span class="bf-legend-item"><span class="bf-legend-dot cost"></span>Cost per lead ($)</span>
-        </div>
-      </div>
-
-      <div class="bf-chart-wrap">
-        <svg class="bf-chart-svg" viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg" aria-label="Leads per week + cost per lead, 17 weeks">
-          <g stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="2 4">
-            <line x1="60" x2="980" y1="60" y2="60" />
-            <line x1="60" x2="980" y1="120" y2="120" />
-            <line x1="60" x2="980" y1="180" y2="180" />
-            <line x1="60" x2="980" y1="240" y2="240" />
-            <line x1="60" x2="980" y1="300" y2="300" />
-          </g>
-          <g font-family="Space Grotesk, sans-serif" font-size="10" fill="#6f82a0" text-anchor="end">
-            <text x="52" y="64">60</text>
-            <text x="52" y="124">45</text>
-            <text x="52" y="184">30</text>
-            <text x="52" y="244">15</text>
-            <text x="52" y="304">0</text>
-          </g>
-
-          <line x1="330" y1="40" x2="330" y2="300" stroke="#6FC3F2" stroke-opacity="0.35" stroke-dasharray="4 5" />
-          <line x1="620" y1="40" x2="620" y2="300" stroke="#6FC3F2" stroke-opacity="0.35" stroke-dasharray="4 5" />
-
-          <defs>
-            <linearGradient id="leadGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#9FD4F5" />
-              <stop offset="100%" stop-color="#2E7FC2" />
-            </linearGradient>
-          </defs>
-          <g>
-            <rect x="70"  y="256" width="38" height="44"  rx="3" fill="url(#leadGrad)" />
-            <rect x="123" y="272" width="38" height="28"  rx="3" fill="url(#leadGrad)" />
-            <rect x="176" y="248" width="38" height="52"  rx="3" fill="url(#leadGrad)" />
-            <rect x="229" y="252" width="38" height="48"  rx="3" fill="url(#leadGrad)" />
-            <rect x="282" y="224" width="38" height="76"  rx="3" fill="url(#leadGrad)" />
-            <rect x="335" y="228" width="38" height="72"  rx="3" fill="url(#leadGrad)" />
-            <rect x="388" y="236" width="38" height="64"  rx="3" fill="url(#leadGrad)" />
-            <rect x="441" y="240" width="38" height="60"  rx="3" fill="url(#leadGrad)" />
-            <rect x="494" y="232" width="38" height="68"  rx="3" fill="url(#leadGrad)" />
-            <rect x="547" y="216" width="38" height="84"  rx="3" fill="url(#leadGrad)" />
-            <rect x="600" y="168" width="38" height="132" rx="3" fill="url(#leadGrad)" />
-            <rect x="653" y="160" width="38" height="140" rx="3" fill="url(#leadGrad)" />
-            <rect x="706" y="168" width="38" height="132" rx="3" fill="url(#leadGrad)" />
-            <rect x="759" y="72"  width="38" height="228" rx="3" fill="url(#leadGrad)" />
-            <rect x="812" y="108" width="38" height="192" rx="3" fill="url(#leadGrad)" />
-            <rect x="865" y="120" width="38" height="180" rx="3" fill="url(#leadGrad)" />
-            <rect x="918" y="68"  width="38" height="232" rx="3" fill="url(#leadGrad)" />
-          </g>
-
-          <path d="M 89 88 L 142 82 L 195 106 L 248 114 L 301 132 L 354 140 L 407 148 L 460 156 L 513 164 L 566 180 L 619 204 L 672 220 L 725 228 L 778 244 L 831 252 L 884 252 L 937 260"
-                fill="none" stroke="#ff8fa3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="89" cy="88" r="5" fill="#ff8fa3" />
-          <circle cx="937" cy="260" r="5" fill="#ff8fa3" />
-          <text x="89" y="74" font-family="Space Grotesk" font-size="12" font-weight="700" fill="#ff8fa3" text-anchor="middle">$26</text>
-          <text x="937" y="280" font-family="Space Grotesk" font-size="12" font-weight="700" fill="#ff8fa3" text-anchor="middle">$5</text>
-
-          <g font-family="Space Grotesk, sans-serif" font-size="10" fill="#6f82a0" text-anchor="middle">
-            <text x="89" y="325">Wk 1</text>
-            <text x="301" y="325">Wk 5</text>
-            <text x="566" y="325">Wk 10</text>
-            <text x="831" y="325">Wk 15</text>
-            <text x="937" y="325">Wk 17</text>
-          </g>
-        </svg>
-
-        <div class="bf-refresh-flag" style="left: 33%; transform: translateX(-50%);">
-          <div class="bf-flag-body">Added new ads <small>studying metrics</small></div>
-        </div>
-        <div class="bf-refresh-flag" style="left: 62%; transform: translateX(-50%);">
-          <div class="bf-flag-body">Added new ads <small>doubled down on winners</small></div>
-        </div>
-      </div>
-
-      <p class="bf-chart-caption">Dashed vertical lines mark the moments fresh creative went in. Each refresh moved the line.</p>
-    </section>
-
-    <hr class="bf-rule" />
-
-    <!-- Conversion funnel -->
-    <div class="bf-col">
-      <p class="bf-section-head">Leads that convert</p>
-      <div class="bf-prose">
-        <p>Volume is nice. <strong>Deals are better.</strong> Of the 475 leads that came through the door, <span class="accent">5 to 10 percent</span> converted into signed projects. Each project starts at a <span class="accent">$10,000</span> floor &mdash; that's the minimum deal size for this market.</p>
-      </div>
-
-      <div class="bf-funnel-inline">
-        <div class="bf-funnel-row">
-          <div class="bf-f-cell">
-            <span class="bf-f-lbl">Total leads</span>
-            <span class="bf-f-val">475</span>
-            <span class="bf-f-note">17 weeks</span>
-          </div>
-          <div class="bf-f-cell">
-            <span class="bf-f-lbl">Lead &rarr; Deal</span>
-            <span class="bf-f-val">5&ndash;10%</span>
-            <span class="bf-f-note">Signed projects</span>
-          </div>
-          <div class="bf-f-cell">
-            <span class="bf-f-lbl">Minimum deal</span>
-            <span class="bf-f-val">$10K+</span>
-            <span class="bf-f-note">Floor price</span>
-          </div>
-          <div class="bf-f-cell highlight">
-            <span class="bf-f-lbl">Revenue generated</span>
-            <span class="bf-f-val">$240K+</span>
-            <span class="bf-f-note">Conservative end</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bf-prose">
-        <p>Conservative math on the low end of the range: 475 &times; 5% &times; $10K = <strong>$240,000</strong>. If any of those projects clears the floor &mdash; which most do &mdash; the real number is higher.</p>
-      </div>
-    </div>
-
-    <!-- Meta Ad Library CTA — preserved from the old version -->
-    <section class="ig-embed-section">
-      <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:var(--espresso);">The ads that ran away with it.</h2>
-      <p class="sub">TikTok-style transitions cut from live installs. <em>193 leads</em> from one reel alone, <em>$5.25 CPL</em>.</p>
-      <a class="ad-library-cta" href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">
-        <span class="ad-library-label">Meta Ad Library</span>
-        <span class="ad-library-title">View the live ads here &rarr;</span>
-        <span class="ad-library-sub">All active creative for Pavers and Turf by O'Neill's, sorted by total impressions.</span>
-      </a>
-    </section>
-
-    <!-- Signoff -->
-    <div class="bf-col bf-signoff">
-      <p><strong>The short version:</strong> budget didn't grow. The creative did the work &mdash; fresh reels in on a cycle, winners kept, losers cut, and the whole system got cheaper and better at the same time.</p>
-      <p style="margin-top:14px;">Want the same kind of compounding on your ads? <a href="/#about">Say hi.</a></p>
+  <div class="viz">
+    <div class="viz-cap"><span class="t">Lead volume up, cost per lead down</span><span class="m">Weekly · Oct 2025 → Mar 2026</span></div>
+    <div class="chart-box"><canvas id="cpaChart"></canvas></div>
+    <div class="chart-legend">
+      <span class="key"><span class="sw" style="background:#3b6fd1;"></span> Conversions (leads / week)</span>
+      <span class="key"><span class="sw" style="background:#d1342f;border-radius:50%;"></span> CPA — cost per lead</span>
     </div>
   </div>
-</div>
-
-<!-- Live-look sticky popup -->
-<aside class="live-look" id="liveLook" aria-hidden="true">
-  <div class="ll-strip">
-    <span class="ll-live">Live in ad library</span>
-    <button class="ll-close" id="llClose" aria-label="Dismiss">&times;</button>
-  </div>
-  <div class="ll-media">
-    <iframe src="https://www.instagram.com/reel/DKx7HWRiIsY/embed/" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe>
-  </div>
-  <div class="ll-foot">
-    <span>Top creative · $5.25 CPL</span>
-    <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=117674306816" target="_blank" rel="noopener">View all &rarr;</a>
-  </div>
-</aside>
+</main>
 
 <footer>
-  <a class="back" href="/#featured-work">&larr; Back to all work</a>
-  <span class="copy">&copy; <span id="yr"></span> swang. All rights reserved.</span>
+  <span><a href="mailto:hello@swang.studio">hello@swang.studio</a></span>
+  <span>Los Angeles, CA</span>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  /* Live-look popup: slides in after user scrolls past the hero, auto-dismisses, respects close */
-  (function() {
-    const ll = document.getElementById('liveLook');
-    const close = document.getElementById('llClose');
-    if (!ll || !close) return;
-    let dismissed = false;
-    let shown = false;
-    close.addEventListener('click', () => {
-      dismissed = true;
-      ll.classList.remove('visible');
-      ll.setAttribute('aria-hidden', 'true');
+  (function(){
+    var ctx = document.getElementById('cpaChart');
+    if(!ctx || !window.Chart) return;
+    var labels = ['10/27','11/3','11/10','11/17','11/24','12/1','12/8','12/15','12/22','12/29','1/5','1/12','1/19','1/26','2/2','2/9','2/16','2/23','3/2'];
+    var conversions = [2,2,8,2,13,17,12,8,14,13,20,19,17,16,18,22,34,36,34];
+    var cpa = [65,125,35,150,15,12,18,30,16,14,20,18,16,17,15,12,9,8,8];
+    new Chart(ctx, {
+      data: { labels: labels, datasets: [
+        { type:'bar', label:'Conversions', data: conversions, yAxisID:'y', backgroundColor:'rgba(59,111,209,0.85)', borderRadius:4, order:2, barPercentage:0.74, categoryPercentage:0.82 },
+        { type:'line', label:'CPA', data: cpa, yAxisID:'y1', borderColor:'#d1342f', backgroundColor:'#d1342f', borderWidth:2.5, tension:0.4, pointRadius:0, order:1 } ] },
+      options: { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return c.dataset.label==='CPA' ? 'CPA: $'+c.parsed.y : 'Leads: '+c.parsed.y; } } } },
+        scales:{ x:{ grid:{ display:false }, ticks:{ font:{ size:10 }, maxRotation:0, autoSkip:true, maxTicksLimit:10 } },
+          y:{ position:'left', beginAtZero:true, grid:{ color:'rgba(0,0,0,0.06)' }, ticks:{ font:{ size:11 } }, title:{ display:true, text:'Conversions', font:{ size:11 } } },
+          y1:{ position:'right', beginAtZero:true, grid:{ display:false }, ticks:{ font:{ size:11 }, callback:function(v){ return '$'+v; } }, title:{ display:true, text:'CPA', font:{ size:11 } } } } }
     });
-    // Trigger on scroll past ~80% of viewport height
-    function onScroll() {
-      if (dismissed || shown) return;
-      if (window.scrollY > window.innerHeight * 0.7) {
-        ll.classList.add('visible');
-        ll.setAttribute('aria-hidden', 'false');
-        shown = true;
-      }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
   })();
-
-  /* Count-up metric animation */
-  function formatVal(target, format, current) {
-    if (format === 'cents')   return '$' + (current/100).toFixed(2);
-    if (format === 'percent') return '-' + Math.floor(current) + '%';
-    return Math.floor(current).toLocaleString();
-  }
-  function animateCount(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const format = el.dataset.format || 'comma';
-    const duration = 1600;
-    const start = performance.now();
-    function tick(now) {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      const val = target * eased;
-      el.textContent = formatVal(target, format, val);
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  const counters = document.querySelectorAll('.metric .big[data-target]');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { animateCount(e.target); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.4 });
-  counters.forEach(c => io.observe(c));
-
-  /* ---- Interactive 17-week chart ---- */
-  /* Real WoW numbers pulled straight from Meta Ads Manager, 12/8/25 - 3/30/26. */
-  const weeks = ['12/8','12/15','12/22','12/29','1/5','1/12','1/19','1/26','2/2','2/9','2/16','2/23','3/2','3/9','3/16','3/23','3/30'];
-  const conversionsArr = [12, 8, 14, 13, 20, 19, 17, 16, 18, 22, 34, 36, 34, 58, 49, 46, 59];
-  const cpaArr         = [26, 36, 21, 23, 15, 15, 18, 19, 16, 13, 8, 8, 9, 5, 6, 6, 5];
-  const ctrArr         = [32.12, 17.26, 7.06, 8.02, 30.19, 31.19, 34.31, 28.92, 38.06, 36.59, 38.10, 42.20, 51.29, 49.38, 48.77, 48.80, 50.91];
-  const clicksArr      = [1230, 729, 427, 590, 1717, 1322, 1239, 1813, 2916, 2589, 3148, 3762, 4511, 4192, 4059, 3576, 3738];
-
-  /* Creative-refresh week indexes (drawn as dashed vertical markers). */
-  const refreshIdx = [5, 10]; // 1/12 and 2/16
-
-  const sumConv = conversionsArr.reduce((a,b)=>a+b, 0); // 475
-  const avgConv = Math.round(sumConv / conversionsArr.length);
-  const latestCpa = cpaArr[cpaArr.length - 1];
-
-  const series = {
-    conversions: {
-      data: conversionsArr, label: 'Leads / Week', type: 'bar',
-      total: sumConv, totalFmt: v => v.toLocaleString(),
-      avg: avgConv, avgFmt: v => Math.round(v).toString(),
-      peakLabel: 'Peak Week',
-      rate: '+5\u00d7 Volume',
-      tickFmt: v => v.toString(),
-      tipFmt: v => v + ' leads',
-    },
-    cpa: {
-      data: cpaArr, label: 'Cost / Lead', type: 'line',
-      total: latestCpa, totalFmt: v => '$' + v,
-      avg: (cpaArr.reduce((a,b)=>a+b,0) / cpaArr.length), avgFmt: v => '$' + v.toFixed(0),
-      peakLabel: 'Lowest Wk',
-      rate: '\u221280% CPA',
-      tickFmt: v => '$' + v,
-      tipFmt: v => '$' + v + ' per lead',
-      invertPeak: true,
-    },
-    ctr: {
-      data: ctrArr, label: 'CTR %', type: 'line',
-      total: ctrArr[ctrArr.length - 1], totalFmt: v => v.toFixed(2) + '%',
-      avg: (ctrArr.reduce((a,b)=>a+b,0) / ctrArr.length), avgFmt: v => v.toFixed(1) + '%',
-      peakLabel: 'Peak Week',
-      rate: '+19 pp',
-      tickFmt: v => v + '%',
-      tipFmt: v => v.toFixed(2) + '%',
-    },
-    clicks: {
-      data: clicksArr, label: 'Clicks / Week', type: 'bar',
-      total: clicksArr.reduce((a,b)=>a+b,0), totalFmt: v => v.toLocaleString(),
-      avg: (clicksArr.reduce((a,b)=>a+b,0) / clicksArr.length), avgFmt: v => Math.round(v).toLocaleString(),
-      peakLabel: 'Peak Week',
-      rate: '$0.08 CPC',
-      tickFmt: v => v.toLocaleString(),
-      tipFmt: v => v.toLocaleString() + ' clicks',
-    },
-  };
-
-  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2E7FC2';
-  const ink    = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()    || '#0b0e14';
-  const muted  = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim()  || '#5a6472';
-  const cream  = getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()  || '#f5f8fc';
-  const win    = getComputedStyle(document.documentElement).getPropertyValue('--win').trim()    || '#6ABE4F';
-
-  const ctx = document.getElementById('pto-chart').getContext('2d');
-
-  /* Custom plugin: dashed vertical lines + "Refresh n" label at each refreshIdx. */
-  const refreshLinesPlugin = {
-    id: 'refreshLines',
-    afterDatasetsDraw(c) {
-      const { ctx: g, chartArea, scales } = c;
-      if (!chartArea) return;
-      const xScale = scales.x;
-      g.save();
-      g.strokeStyle = 'rgba(46, 127, 194, 0.55)';
-      g.lineWidth = 1.25;
-      g.setLineDash([5, 4]);
-      g.fillStyle = 'rgba(11, 14, 20, 0.85)';
-      g.font = '700 9.5px "Space Grotesk", sans-serif';
-      refreshIdx.forEach((idx, i) => {
-        const px = xScale.getPixelForValue(idx);
-        g.beginPath();
-        g.moveTo(px, chartArea.top);
-        g.lineTo(px, chartArea.bottom);
-        g.stroke();
-        const label = 'REFRESH ' + (i + 1);
-        const tx = Math.min(px + 6, chartArea.right - g.measureText(label).width - 4);
-        g.fillText(label, tx, chartArea.top + 12);
-      });
-      g.restore();
-    }
-  };
-
-  function makeGradient(color) {
-    const grad = ctx.createLinearGradient(0, 0, 0, 320);
-    grad.addColorStop(0, color.replace(/, *[\d.]+\)$/, ', 0.38)'));
-    grad.addColorStop(1, color.replace(/, *[\d.]+\)$/, ', 0.02)'));
-    return grad;
-  }
-
-  let chart = null;
-  function buildChart(key) {
-    const s = series[key];
-    if (chart) chart.destroy();
-    const isLine = s.type === 'line';
-    const baseColor = key === 'cpa' ? 'rgba(106, 190, 79, 1)' : 'rgba(46, 127, 194, 1)';
-    const dataset = {
-      label: s.label,
-      data: s.data,
-      borderColor: key === 'cpa' ? win : ink,
-      borderWidth: 2.5,
-      tension: 0.36,
-    };
-    if (isLine) {
-      dataset.backgroundColor = makeGradient(baseColor);
-      dataset.fill = true;
-      dataset.pointBackgroundColor = key === 'cpa' ? win : accent;
-      dataset.pointBorderColor = ink;
-      dataset.pointBorderWidth = 1.5;
-      dataset.pointRadius = 4;
-      dataset.pointHoverRadius = 7;
-    } else {
-      dataset.backgroundColor = 'rgba(46, 127, 194, 0.58)';
-      dataset.hoverBackgroundColor = 'rgba(46, 127, 194, 0.88)';
-      dataset.borderRadius = 4;
-      dataset.borderSkipped = false;
-    }
-
-    chart = new Chart(ctx, {
-      type: s.type,
-      data: { labels: weeks, datasets: [dataset] },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 900, easing: 'easeOutCubic' },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: ink,
-            titleColor: cream,
-            bodyColor: cream,
-            borderColor: accent,
-            borderWidth: 1,
-            padding: 10,
-            displayColors: false,
-            callbacks: {
-              title: (items) => 'Week of ' + items[0].label,
-              label: (item) => s.tipFmt(item.parsed.y),
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: { display: false },
-            ticks: { color: muted, font: { family: 'Space Grotesk', size: 10.5, weight: '600' }, maxRotation: 0, autoSkipPadding: 12 }
-          },
-          y: {
-            beginAtZero: true,
-            grid: { color: 'rgba(46, 127, 194, 0.10)' },
-            ticks: {
-              color: muted,
-              font: { family: 'Space Grotesk', size: 11 },
-              callback: s.tickFmt,
-            }
-          }
-        }
-      },
-      plugins: [refreshLinesPlugin]
-    });
-  }
-
-  const footTotal = document.getElementById('foot-total');
-  const footPeak  = document.getElementById('foot-peak');
-  const footAvg   = document.getElementById('foot-avg');
-  const footRate  = document.getElementById('foot-rate');
-
-  function setSeries(key) {
-    const s = series[key];
-    buildChart(key);
-    const peakIdx = s.invertPeak
-      ? s.data.indexOf(Math.min(...s.data))
-      : s.data.indexOf(Math.max(...s.data));
-    footTotal.textContent = s.totalFmt(s.total);
-    footPeak.textContent  = 'Wk ' + (peakIdx + 1);
-    footAvg.textContent   = s.avgFmt(s.avg);
-    footRate.textContent  = s.rate;
-  }
-
-  buildChart('conversions');
-
-  document.querySelectorAll('.chart-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.chart-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      setSeries(btn.dataset.series);
-    });
-  });
-
-  /* ---- Ad-level breakdown (horizontal bars) ---- */
-  const topAds = [
-    { name: 'Bocce &middot; TikTok-style transitions', leads: 193, cpl: 5.25, spend: 1012.72, top: true },
-    { name: 'Paver Building video',                    leads: 11,  cpl: 3.49, spend: 38.39 },
-    { name: 'Stolls Backyard video',                   leads: 10,  cpl: 8.29, spend: 82.94 },
-    { name: 'Carousel',                                leads: 9,   cpl: 8.00, spend: 71.97 },
-    { name: 'Backyard video #1',                       leads: 5,   cpl: 4.82, spend: 24.08 },
-    { name: 'Golf reel',                               leads: 1,   cpl: 3.07, spend: 3.07 },
-    { name: 'Dirt \u2192 Turf transform',              leads: 1,   cpl: 2.21, spend: 2.21 },
-  ];
-  const adGrid = document.getElementById('ad-grid');
-  if (adGrid) {
-    const maxLeads = Math.max(...topAds.map(a => a.leads));
-    topAds.forEach((a, i) => {
-      const pct = (a.leads / maxLeads) * 100;
-      const row = document.createElement('div');
-      row.className = 'ad-row' + (a.top ? ' top-ad' : '');
-      row.innerHTML =
-        '<div class="ad-name">' + a.name + (a.top ? ' <span class="ad-badge">Top</span>' : '') + '</div>' +
-        '<div class="ad-bar-wrap"><div class="ad-fill" data-target="' + pct + '"></div></div>' +
-        '<div class="ad-stats"><span class="ad-leads">' + a.leads + '</span> leads &middot; <span class="ad-cpl">$' + a.cpl.toFixed(2) + '</span> each</div>';
-      adGrid.appendChild(row);
-    });
-    const adIo = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.ad-fill').forEach(f => {
-            f.style.width = f.dataset.target + '%';
-          });
-          adIo.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.25 });
-    adIo.observe(adGrid);
-  }
 </script>
 
-<script>
-  (function initTheme() {
-    try {
-      const saved = localStorage.getItem('swang-theme');
-      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-    } catch(e) {}
-  })();
-  window.swangSyncThemeLabels = function() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.querySelectorAll('.theme-toggle').forEach(function(btn) {
-      var light = btn.querySelector('.tt-light');
-      var dark  = btn.querySelector('.tt-dark');
-      if (light) light.classList.toggle('active', !isDark);
-      if (dark)  dark.classList.toggle('active',  isDark);
-      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-    });
-  };
-  window.swangToggleTheme = function() {
-    var html = document.documentElement;
-    var isDark = html.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-      html.removeAttribute('data-theme');
-      try { localStorage.setItem('swang-theme', 'light'); } catch(e) {}
-    } else {
-      html.setAttribute('data-theme', 'dark');
-      try { localStorage.setItem('swang-theme', 'dark'); } catch(e) {}
-    }
-    window.swangSyncThemeLabels();
-  };
-  window.swangSyncThemeLabels();
-</script>
 </body>
 </html>
