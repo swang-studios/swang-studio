@@ -135,13 +135,13 @@
   /* Featured row — 3 big reels */
   .reels-featured { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
     max-width: 1040px; margin: 0 auto 26px; }
-  .stage.is-open .fold.open .reels-featured .reel { aspect-ratio: auto; height: 555px; }
-  .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip { height: 518px; }
+  .stage.is-open .fold.open .reels-featured .reel { aspect-ratio: auto; height: auto; }
+  .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip { height: 470px; }
   .stage.is-open .fold.open .reels-featured .reel.ig iframe { height: 1100px; }
   /* The rest, smaller masonry */
   .stage.is-open .fold.open .reels { display: block; column-count: 4; column-gap: 12px; }
   .stage.is-open .fold.open .reels .reel.ig { height: auto; }
-  .stage.is-open .fold.open .reels .reel.ig .ig-clip { height: 478px; }
+  .stage.is-open .fold.open .reels .reel.ig .ig-clip { height: 430px; }
   .stage.is-open .fold.open .reels .reel.ig iframe { height: 1000px; }
   .reel { position: relative; aspect-ratio: 9/16; border-radius: 11px; overflow: hidden; background: #000;
     border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 6px rgba(0,0,0,.07); cursor: pointer;
@@ -155,13 +155,13 @@
      our own "View more on Instagram" link beneath the clip. */
   .reel.ig { aspect-ratio: auto; background: #fff; border-color: rgba(0,0,0,.12);
     display: flex; flex-direction: column; }
-  .reel.ig .ig-clip { width: 100%; overflow: hidden; height: 555px; }
+  .reel.ig .ig-clip { width: 100%; overflow: hidden; height: 500px; }
   .reel.ig iframe { width: 100%; height: 1100px; border: 0; display: block; background: #fff; }
-  .reel.ig .ig-more { display: block; padding: 9px 12px; font-size: 12px; font-weight: 500;
+  .reel.ig .ig-more { display: block; padding: 11px 14px; font-size: 13px; font-weight: 600;
     color: #00376b; background: #fff; border-top: 1px solid rgba(0,0,0,.08);
     text-align: left; text-decoration: none; letter-spacing: 0; }
   .reel.ig .ig-more:hover { background: #fafafa; text-decoration: underline; }
-  .stage.is-open .fold.open .reel.ig .ig-clip { height: 615px; }
+  .stage.is-open .fold.open .reel.ig .ig-clip { height: 560px; }
   .stage.is-open .fold.open .reel.ig iframe { height: 1100px; }
   .reel.local::after { content:'\25B6'; position:absolute; inset:0; margin:auto; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; background:rgba(0,0,0,.4); border:1.5px solid rgba(255,255,255,.85); border-radius:50%; z-index:2; pointer-events:none; transition:opacity .25s, transform .25s; }
   .reel.local:hover::after { transform: scale(1.08); background: rgba(0,0,0,.55); }
@@ -412,7 +412,7 @@
     .stage.is-open .fold.open .reel.ig .ig-clip,
     .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip,
     .stage.is-open .fold.open .reels .reel.ig .ig-clip {
-      height: 605px !important;
+      height: 555px !important;
     }
     .stage.is-open .fold.open .reel.ig iframe,
     .stage.is-open .fold.open .reels-featured .reel.ig iframe,
