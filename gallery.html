@@ -135,11 +135,13 @@
   /* Featured row — 3 big reels */
   .reels-featured { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
     max-width: 1040px; margin: 0 auto 26px; }
-  .stage.is-open .fold.open .reels-featured .reel { aspect-ratio: auto; height: 518px; }
+  .stage.is-open .fold.open .reels-featured .reel { aspect-ratio: auto; height: 555px; }
+  .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip { height: 518px; }
   .stage.is-open .fold.open .reels-featured .reel.ig iframe { height: 1100px; }
-  /* The rest — smaller masonry */
+  /* The rest, smaller masonry */
   .stage.is-open .fold.open .reels { display: block; column-count: 4; column-gap: 12px; }
-  .stage.is-open .fold.open .reels .reel.ig { height: 520px; }
+  .stage.is-open .fold.open .reels .reel.ig { height: auto; }
+  .stage.is-open .fold.open .reels .reel.ig .ig-clip { height: 478px; }
   .stage.is-open .fold.open .reels .reel.ig iframe { height: 1000px; }
   .reel { position: relative; aspect-ratio: 9/16; border-radius: 11px; overflow: hidden; background: #000;
     border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 6px rgba(0,0,0,.07); cursor: pointer;
@@ -148,12 +150,19 @@
   .stage.is-open .fold.open .reel { break-inside: avoid; width: 100%; margin: 0 0 14px; }
   .reel:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,0,0,.16); }
   .reel video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background:#000; display:block; }
-  /* Instagram cards: render at true proportions, and clip the bottom action/like
-     bar (we set the card height shorter than the iframe; .reel overflow:hidden crops it). */
-  .reel.ig { aspect-ratio: auto; background: #fff; border-color: rgba(0,0,0,.12); }
-  .reel.ig iframe { width: 100%; height: 560px; border: 0; display: block; background: #fff; }
-  .stage.is-open .fold.open .reel.ig { height: 612px; }
-  .stage.is-open .fold.open .reel.ig iframe { height: 1000px; }
+  /* Instagram cards: clip the embed at the end of the video so the action bar
+     (heart/comment/share + likes count + Add a comment) is hidden, then append
+     our own "View more on Instagram" link beneath the clip. */
+  .reel.ig { aspect-ratio: auto; background: #fff; border-color: rgba(0,0,0,.12);
+    display: flex; flex-direction: column; }
+  .reel.ig .ig-clip { width: 100%; overflow: hidden; height: 555px; }
+  .reel.ig iframe { width: 100%; height: 1100px; border: 0; display: block; background: #fff; }
+  .reel.ig .ig-more { display: block; padding: 9px 12px; font-size: 12px; font-weight: 500;
+    color: #00376b; background: #fff; border-top: 1px solid rgba(0,0,0,.08);
+    text-align: left; text-decoration: none; letter-spacing: 0; }
+  .reel.ig .ig-more:hover { background: #fafafa; text-decoration: underline; }
+  .stage.is-open .fold.open .reel.ig .ig-clip { height: 615px; }
+  .stage.is-open .fold.open .reel.ig iframe { height: 1100px; }
   .reel.local::after { content:'\25B6'; position:absolute; inset:0; margin:auto; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; background:rgba(0,0,0,.4); border:1.5px solid rgba(255,255,255,.85); border-radius:50%; z-index:2; pointer-events:none; transition:opacity .25s, transform .25s; }
   .reel.local:hover::after { transform: scale(1.08); background: rgba(0,0,0,.55); }
   .reel.local.playing::after { opacity: 0; }
@@ -394,16 +403,21 @@
     .stage.is-open .fold.open .reel.ig,
     .stage.is-open .fold.open .reels-featured .reel.ig,
     .stage.is-open .fold.open .reels .reel.ig {
-      height: 680px !important;
+      height: auto !important;
       aspect-ratio: auto !important;
       width: 100% !important;
       max-width: 380px;
       margin: 0 auto 12px !important;
     }
+    .stage.is-open .fold.open .reel.ig .ig-clip,
+    .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip,
+    .stage.is-open .fold.open .reels .reel.ig .ig-clip {
+      height: 605px !important;
+    }
     .stage.is-open .fold.open .reel.ig iframe,
     .stage.is-open .fold.open .reels-featured .reel.ig iframe,
     .stage.is-open .fold.open .reels .reel.ig iframe {
-      height: 940px !important;
+      height: 1100px !important;
       width: 100% !important;
     }
     /* Hide decorative background blobs (visual noise on phones) */
@@ -544,7 +558,10 @@
     } else {
       card.className = 'reel ig';
       var path = (r.k === 'p') ? 'p' : 'reel';
-      card.innerHTML = '<iframe src="https://www.instagram.com/'+path+'/'+r.id+'/embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram"></iframe>';
+      var url = 'https://www.instagram.com/'+path+'/'+r.id+'/';
+      card.innerHTML =
+        '<div class="ig-clip"><iframe src="'+url+'embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram"></iframe></div>' +
+        '<a class="ig-more" href="'+url+'" target="_blank" rel="noopener">View more on Instagram</a>';
     }
     return card;
   }
