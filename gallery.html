@@ -10,14 +10,13 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg:#ffffff; --ink:#000000; --mute:#6e6e6e; --rule:rgba(0,0,0,0.10); }
-  html, body { min-height: 100%; }
+  html, body { height: 100%; }
   body {
     font-family: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
     font-size: 14px; line-height: 1.5; color: var(--ink);
     background: radial-gradient(ellipse at 30% 20%,#faf6ee 0%,#fff 55%,#f7f5ef 100%);
-    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
-    display: flex; flex-direction: column; min-height: 100vh;
+    display: flex; flex-direction: column; min-height: 100vh; overflow: hidden;
   }
   ::selection { background: var(--ink); color: var(--bg); }
   a { color: inherit; text-decoration: none; }
@@ -25,11 +24,11 @@
 
   /* HEADER — shared shell */
   header {
-    flex: 0 0 auto; z-index: 50; position: sticky; top: 0;
+    flex: 0 0 auto; z-index: 50;
     display: grid; grid-template-columns: 1fr auto 1fr;
     align-items: center; padding: 18px 28px;
     border-bottom: 1px solid var(--rule);
-    background: rgba(255,255,255,0.86); backdrop-filter: blur(8px); gap: 32px;
+    background: var(--bg); gap: 32px;
   }
   .name {
     justify-self: start; font-weight: 700; font-size: 15px;
@@ -67,54 +66,66 @@
   nav.primary a:hover, nav.primary a.active { border-bottom-color: var(--ink); }
   nav.primary .pipe { color: var(--rule); font-weight: 300; user-select: none; }
 
-  /* GALLERY — single mixed reel collection */
-  main.gallery {
-    flex: 1 1 auto; width: 100%;
-    max-width: 1180px; margin: 0 auto;
-    padding: clamp(28px, 5vh, 56px) 24px clamp(40px, 7vh, 72px);
-  }
-  .ghead { text-align: center; margin-bottom: clamp(22px, 4vh, 38px); }
-  .ghead .kicker {
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--mute);
-  }
-  .ghead h1 {
-    font-size: clamp(28px, 4.5vw, 46px); font-weight: 800;
-    letter-spacing: -0.03em; margin-top: 8px;
-  }
+  /* STAGE — trifold (Photo / Video / Graphic Design) */
+  .stage { position: relative; flex: 1 1 auto; width: 100%; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+  .b1 { width: 300px; height: 300px; top: -70px; right: -50px; background: radial-gradient(circle,rgba(255,130,70,.55),rgba(255,255,255,0) 70%); }
+  .b2 { width: 320px; height: 320px; bottom: -90px; left: -60px; background: radial-gradient(circle,rgba(150,80,215,.5),rgba(255,255,255,0) 70%); }
 
-  .reels-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-  }
-  .reel {
-    position: relative; aspect-ratio: 9 / 16;
-    border-radius: 12px; overflow: hidden; background: #000;
-    border: 1px solid rgba(0,0,0,.08);
-    box-shadow: 0 2px 6px rgba(0,0,0,.07);
-    cursor: pointer;
-    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
-    opacity: 0; transform: translateY(12px); animation: tin .55s forwards;
-  }
+  .fold { position: absolute; top: 0; bottom: 0; z-index: 1; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: left .6s cubic-bezier(.7,0,.2,1), width .6s cubic-bezier(.7,0,.2,1), opacity .3s ease; }
+  .fold[data-fold="photo"] { left: 0; width: 33.333%; --tint: 255,120,60; }
+  .fold[data-fold="video"] { left: 33.333%; width: 33.333%; border-left: 1px solid var(--rule); --tint: 150,80,215; }
+  .fold[data-fold="gd"] { left: 66.666%; width: 33.334%; border-left: 1px solid var(--rule); --tint: 225,90,120; }
+  .stage.is-open .fold:not(.open) { opacity: 0; pointer-events: none; }
+  .stage.is-open .fold.open { left: 0; width: 100%; z-index: 2; border-left-color: transparent; cursor: default; }
+
+  .phead { flex: 0 0 auto; padding: 44px 18px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .titlebox { position: relative; overflow: hidden; display: inline-block; padding: 14px 28px; border-radius: 8px; border: 1.5px solid rgba(var(--tint),.65); background-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; transition: border-color .25s, transform .2s, box-shadow .25s; animation: glow 4s ease-in-out infinite; }
+  .titlebox::before { content: ''; position: absolute; top: 0; left: -140%; width: 55%; height: 100%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); transform: skewX(-18deg); animation: sheen 5s ease-in-out infinite; pointer-events: none; }
+  .fold[data-fold="video"] .titlebox, .fold[data-fold="video"] .titlebox::before { animation-delay: 1.3s; }
+  .fold[data-fold="gd"] .titlebox, .fold[data-fold="gd"] .titlebox::before { animation-delay: 2.6s; }
+  .title { position: relative; z-index: 1; font-size: clamp(20px,3vw,36px); font-weight: 800; letter-spacing: -.02em; line-height: 1; color: var(--ink); }
+  .fold:hover .titlebox { border-color: rgba(var(--tint),.95); box-shadow: 0 8px 20px rgba(0,0,0,.13); transform: translateY(-3px); }
+  @keyframes glow { 0%,100% { box-shadow: 0 0 0 0 rgba(var(--tint),0); } 50% { box-shadow: 0 0 16px 0 rgba(var(--tint),.22); } }
+  @keyframes sheen { 0% { left: -140%; } 40% { left: 150%; } 100% { left: 150%; } }
+  .sub { font-style: italic; font-size: 13px; letter-spacing: .01em; color: var(--mute); margin-top: 12px; min-height: 16px; }
+  .hint { font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); margin-top:8px; }
+  .stage.is-open .fold.open .hint { display:none; }
+
+  .preview { flex: 1 1 auto; padding: 6px 16px 22px; overflow: hidden; }
+  .stage.is-open .fold.open .preview { overflow-y: auto; padding: 6px 24px 30px; scrollbar-width: thin; }
+  .stage.is-open .fold.open .phead { padding-top: 30px; }
+
+  /* Empty (cleared) folds — Photo + Graphic Design */
+  .empty-note { display: flex; height: 100%; min-height: 90px; align-items: center; justify-content: center;
+    font-family:'Geist Mono',monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(0,0,0,.28); }
+
+  /* tile fade-in */
   @keyframes tin { to { opacity: 1; transform: translateY(0); } }
-  .reel:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(0,0,0,.16); }
-  .reel video, .reel iframe {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    border: 0; object-fit: cover; background: #000; display: block;
-  }
-  /* IG embeds are a touch taller than 9:16; nudge to fill the card cleanly */
-  .reel.ig iframe { height: calc(100% + 56px); top: -28px; }
-  .reel.local::after {
-    content: '\25B6'; position: absolute; inset: 0; margin: auto;
-    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-    font-size: 16px; color: #fff; background: rgba(0,0,0,.4);
-    border: 1.5px solid rgba(255,255,255,.85); border-radius: 50%;
-    z-index: 2; pointer-events: none; transition: opacity .25s, transform .25s;
-  }
+
+  /* VIDEO / REELS — mixed collection, no labels.
+     Closed teaser = 2-col grid of local posters.
+     Open = masonry columns so Instagram embeds keep their own natural height
+     (no 9:16 crop) and local 9:16 clips pack alongside with no voids. */
+  .reels { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+  .stage.is-open .fold.open .reels { display: block; column-count: 3; column-gap: 14px; }
+  .reel { position: relative; aspect-ratio: 9/16; border-radius: 11px; overflow: hidden; background: #000;
+    border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 6px rgba(0,0,0,.07); cursor: pointer;
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+    opacity: 0; transform: translateY(10px); animation: tin .5s forwards; }
+  .stage.is-open .fold.open .reel { break-inside: avoid; width: 100%; margin: 0 0 14px; }
+  .reel:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,0,0,.16); }
+  .reel video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background:#000; display:block; }
+  /* Instagram cards: render the embed at its true proportions */
+  .reel.ig { aspect-ratio: auto; background: #fff; border-color: rgba(0,0,0,.12); }
+  .reel.ig iframe { width: 100%; height: 560px; border: 0; display: block; background: #fff; }
+  .stage.is-open .fold.open .reel.ig iframe { height: 720px; }
+  .reel.local::after { content:'\25B6'; position:absolute; inset:0; margin:auto; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; background:rgba(0,0,0,.4); border:1.5px solid rgba(255,255,255,.85); border-radius:50%; z-index:2; pointer-events:none; transition:opacity .25s, transform .25s; }
   .reel.local:hover::after { transform: scale(1.08); background: rgba(0,0,0,.55); }
   .reel.local.playing::after { opacity: 0; }
+
+  .close { position: absolute; top: 18px; right: 22px; z-index: 5; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); background-color: rgba(255,255,255,.8); display: none; align-items: center; justify-content: center; font-size: 17px; color: #333; cursor: pointer; }
+  .stage.is-open .close { display: flex; }
 
   /* FOOTER */
   footer {
@@ -129,22 +140,25 @@
   footer a { border-bottom: 1px solid transparent; transition: border-color 150ms; }
   footer a:hover { border-bottom-color: var(--ink); }
 
-  @media (max-width: 1080px) { .reels-grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (max-width: 860px)  { .reels-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
   @media (max-width: 980px) {
     header { grid-template-columns: auto 1fr; gap: 14px; }
     .typer-wrap { display: none; }
     nav.primary { justify-self: end; gap: 12px; }
     nav.primary a { font-size: 12px; }
+    .stage.is-open .fold.open .reels { column-count: 2; }
   }
   @media (max-width: 560px) {
     header { padding: 14px 18px; }
     nav.primary .pipe { display: none; }
     nav.primary a { font-size: 11px; }
     footer { padding: 12px 18px; font-size: 10px; }
-    .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .title { font-size: clamp(16px,5vw,24px); }
+    .titlebox { padding: 11px 16px; }
+    .stage.is-open .fold.open .reels { column-count: 1; }
+    .stage.is-open .fold.open .reel.ig iframe { height: 640px; }
   }
   @media (prefers-reduced-motion: reduce) {
+    .titlebox, .titlebox::before { animation: none !important; }
     .reel { animation: none !important; opacity: 1; transform: none; }
   }
 </style>
@@ -166,12 +180,35 @@
   </nav>
 </header>
 
-<main class="gallery" aria-label="Reels">
-  <div class="ghead">
-    <span class="kicker">Live Work</span>
-    <h1>Reels</h1>
+<main class="stage" id="stage" aria-label="Gallery">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="close mono" id="close" role="button" tabindex="0" aria-label="Fold back">&times;</div>
+
+  <div class="fold" data-fold="photo">
+    <div class="phead">
+      <div class="titlebox" role="button" tabindex="0" aria-label="Photo"><span class="title">Photo</span></div>
+      <div class="sub">Showcasing Projects</div>
+    </div>
+    <div class="preview" data-grid="photo"></div>
   </div>
-  <div class="reels-grid" id="grid"></div>
+
+  <div class="fold" data-fold="video">
+    <div class="phead">
+      <div class="titlebox" role="button" tabindex="0" aria-label="Open Video"><span class="title">Video</span></div>
+      <div class="sub">Influencer &amp; Company Reels</div>
+      <div class="hint">Tap to view</div>
+    </div>
+    <div class="preview" data-grid="video"></div>
+  </div>
+
+  <div class="fold" data-fold="gd">
+    <div class="phead">
+      <div class="titlebox" role="button" tabindex="0" aria-label="Graphic Design"><span class="title">Graphic Design</span></div>
+      <div class="sub">Thumbnails, Brand &amp; Print</div>
+    </div>
+    <div class="preview" data-grid="gd"></div>
+  </div>
 </main>
 
 <footer>
@@ -196,8 +233,9 @@
     el.textContent=''; setTimeout(tick,600);
   })();
 
-  /* One mixed collection — Instagram reels interleaved with local mp4s.
-     No labels, no sorting. Order is intentionally varied. */
+  /* Video fold — one mixed collection. Instagram reels interleaved with local
+     mp4s. No labels, no sorting. Photo + Graphic Design folds are intentionally
+     cleared (awaiting curated uploads). */
   const REELS = [
     {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},
     {t:'local', v:'reels/bull-boulder/bb-reel-1.mp4',   p:'reels/bull-boulder/bb-reel-1-poster.jpg'},
@@ -216,25 +254,65 @@
     {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},
   ];
 
+  function reelCard(r, i){
+    const card = document.createElement('div');
+    card.style.animationDelay = (i*45) + 'ms';
+    if (r.t === 'local') {
+      card.className = 'reel local';
+      card.innerHTML = '<video preload="none" playsinline loop poster="'+r.p+'"><source src="'+r.v+'" type="video/mp4"></video>';
+      const vid = card.querySelector('video');
+      card.addEventListener('click', function(){
+        if (vid.paused) {
+          // pause any other reel that's playing, so audio never overlaps
+          document.querySelectorAll('.reel.local.playing video').forEach(function(o){ if(o!==vid){ o.pause(); o.closest('.reel').classList.remove('playing'); } });
+          vid.play(); card.classList.add('playing');
+        } else { vid.pause(); card.classList.remove('playing'); }
+      });
+    } else {
+      card.className = 'reel ig';
+      card.innerHTML = '<iframe src="https://www.instagram.com/reel/'+r.id+'/embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram reel"></iframe>';
+    }
+    return card;
+  }
+
+  function renderVideo(grid, open){
+    const wrap = document.createElement('div'); wrap.className='reels';
+    // teaser shows local posters only (IG embeds need width — they appear when opened)
+    const list = open ? REELS : REELS.filter(function(r){return r.t==='local';}).slice(0,4);
+    list.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
+    grid.innerHTML=''; grid.appendChild(wrap);
+  }
+  function renderEmpty(grid){
+    grid.innerHTML = '<div class="empty-note">Coming soon</div>';
+  }
+
+  /* ===================== TRI-FOLD OPEN / CLOSE ===================== */
   (function(){
-    const grid = document.getElementById('grid');
-    REELS.forEach(function(r, i){
-      const card = document.createElement('div');
-      card.style.animationDelay = (i*45) + 'ms';
-      if (r.t === 'local') {
-        card.className = 'reel local';
-        card.innerHTML = '<video preload="none" playsinline muted loop poster="'+r.p+'"><source src="'+r.v+'" type="video/mp4"></video>';
-        const vid = card.querySelector('video');
-        card.addEventListener('click', function(){
-          if (vid.paused) { vid.play(); card.classList.add('playing'); }
-          else { vid.pause(); card.classList.remove('playing'); }
-        });
-      } else {
-        card.className = 'reel ig';
-        card.innerHTML = '<iframe src="https://www.instagram.com/reel/'+r.id+'/embed/" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram reel"></iframe>';
-      }
-      grid.appendChild(card);
+    var stage=document.getElementById('stage');
+    var closeBtn=document.getElementById('close');
+    var folds=Array.prototype.slice.call(stage.querySelectorAll('.fold'));
+    function renderFold(f, open){
+      var grid=f.querySelector('.preview');
+      var kind=f.getAttribute('data-fold');
+      var isOpen=f.classList.contains('open');
+      if(open && !isOpen){ grid.innerHTML=''; return; }
+      if(kind==='video') renderVideo(grid, open && isOpen);
+      else renderEmpty(grid);   // photo + gd are cleared
+    }
+    function fillAll(open){ folds.forEach(function(f){ renderFold(f, open); }); }
+    function openFold(f){ folds.forEach(function(x){ x.classList.toggle('open',x===f); }); stage.classList.add('is-open'); fillAll(true); }
+    function reset(){
+      stage.querySelectorAll('video').forEach(function(v){ try{v.pause();}catch(e){} });
+      folds.forEach(function(x){ x.classList.remove('open'); }); stage.classList.remove('is-open'); fillAll(false);
+    }
+    function toggle(f){ if(f.classList.contains('open')) reset(); else openFold(f); }
+    folds.forEach(function(f){
+      f.querySelector('.titlebox').addEventListener('click',function(e){ e.stopPropagation(); toggle(f); });
+      f.addEventListener('click',function(){ if(!stage.classList.contains('is-open')) openFold(f); });
     });
+    closeBtn.addEventListener('click',function(e){ e.stopPropagation(); reset(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && stage.classList.contains('is-open')) reset(); });
+    fillAll(false);
   })();
 </script>
 
