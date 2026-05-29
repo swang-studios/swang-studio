@@ -650,20 +650,14 @@
         grid.appendChild(m);
       } else if(kind==='gd'){
         var m=document.createElement('div'); m.className='gdm';
-        GD.slice(0,8).forEach(function(item){
-          var gi=document.createElement('div');
-          if(item && typeof item === 'object' && item.pair){
-            gi.className='gi gi-pair';
-            var pairAlt=item.alt||'Graphic design';
-            gi.innerHTML=item.pair.map(function(src){
-              return '<img loading="lazy" src="'+src+'" alt="'+pairAlt+'">';
-            }).join('');
-          } else {
-            gi.className='gi';
-            gi.innerHTML='<img loading="lazy" src="'+item+'" alt="Graphic design">';
-          }
-          m.appendChild(gi);
-        });
+        // Teaser shows single images only — the front/back pairs look cramped
+        // at thumbnail size, so they're reserved for the expanded view.
+        GD.filter(function(item){ return typeof item === 'string'; })
+          .slice(0,8).forEach(function(src){
+            var gi=document.createElement('div'); gi.className='gi';
+            gi.innerHTML='<img loading="lazy" src="'+src+'" alt="Graphic design">';
+            m.appendChild(gi);
+          });
         grid.appendChild(m);
       } else if(kind==='video'){
         // Carousel uses local-only posters (IG embeds hidden via CSS for performance)
