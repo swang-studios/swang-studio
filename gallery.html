@@ -135,12 +135,11 @@
   /* Featured row — 3 big reels */
   .reels-featured { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
     max-width: 1040px; margin: 0 auto 26px; }
-  .stage.is-open .fold.open .reels-featured .reel { aspect-ratio: auto; height: auto; }
+  /* Featured row: keep default 9:16 aspect for local mp4s (.reel inherits aspect-ratio:9/16) */
   .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip { height: 470px; }
   .stage.is-open .fold.open .reels-featured .reel.ig iframe { height: 1100px; }
   /* The rest, smaller masonry */
   .stage.is-open .fold.open .reels { display: block; column-count: 4; column-gap: 12px; }
-  .stage.is-open .fold.open .reels .reel.ig { height: auto; }
   .stage.is-open .fold.open .reels .reel.ig .ig-clip { height: 430px; }
   .stage.is-open .fold.open .reels .reel.ig iframe { height: 1000px; }
   .reel { position: relative; aspect-ratio: 9/16; border-radius: 11px; overflow: hidden; background: #000;
