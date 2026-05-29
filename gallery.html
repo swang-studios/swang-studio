@@ -221,10 +221,16 @@
     footer { padding: 12px 18px; font-size: 10px; }
     .title { font-size: clamp(16px,5vw,24px); }
     .titlebox { padding: 11px 16px; }
-    .stage.is-open .fold.open .reels { column-count: 2; }
-    .stage.is-open .fold.open .reels-featured { grid-template-columns: 1fr 1fr; }
-    .stage.is-open .fold.open .reels-featured .reel { height: 360px; }
-    .stage.is-open .fold.open .reel.ig iframe { height: 1000px; }
+    /* Video fold mobile: featured 3 stack full-width portrait, then 2-col masonry rest.
+       Subtle divider between the two so the "top 3" feels intentional. */
+    .stage.is-open .fold.open .reels-featured {
+      display: flex; flex-direction: column; gap: 14px;
+      max-width: 100%; margin: 0 auto 22px;
+      padding-bottom: 22px; border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .stage.is-open .fold.open .reels { column-count: 2; column-gap: 8px; }
+    .stage.is-open .fold.open .reels .reel { margin-bottom: 8px; }
+    .stage.is-open .fold.open .gdm { column-count: 2; }
   }
   @media (prefers-reduced-motion: reduce) {
     .titlebox, .titlebox::before { animation: none !important; }
