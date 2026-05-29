@@ -132,9 +132,10 @@
      Open = masonry columns so Instagram embeds keep their own natural height
      (no 9:16 crop) and local 9:16 clips pack alongside with no voids. */
   .reels { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-  /* Featured row — 3 big reels */
-  .reels-featured { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
-    max-width: 1040px; margin: 0 auto 26px; }
+  /* Featured row — 3 big reels. Full-width (no centered cap) so it lines up
+     edge-to-edge with the masonry below — no empty "liminal" gutters. */
+  .reels-featured { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+    max-width: none; margin: 0 0 12px; }
   /* Featured row: keep default 9:16 aspect for local mp4s (.reel inherits aspect-ratio:9/16) */
   .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip { height: 470px; }
   .stage.is-open .fold.open .reels-featured .reel.ig iframe { height: 1100px; }
@@ -649,9 +650,18 @@
         grid.appendChild(m);
       } else if(kind==='gd'){
         var m=document.createElement('div'); m.className='gdm';
-        GD.slice(0,8).forEach(function(src){
-          var gi=document.createElement('div'); gi.className='gi';
-          gi.innerHTML='<img loading="lazy" src="'+src+'" alt="Graphic design">';
+        GD.slice(0,8).forEach(function(item){
+          var gi=document.createElement('div');
+          if(item && typeof item === 'object' && item.pair){
+            gi.className='gi gi-pair';
+            var pairAlt=item.alt||'Graphic design';
+            gi.innerHTML=item.pair.map(function(src){
+              return '<img loading="lazy" src="'+src+'" alt="'+pairAlt+'">';
+            }).join('');
+          } else {
+            gi.className='gi';
+            gi.innerHTML='<img loading="lazy" src="'+item+'" alt="Graphic design">';
+          }
           m.appendChild(gi);
         });
         grid.appendChild(m);
