@@ -176,6 +176,10 @@
   .stage.is-open .fold.open .gdm .gi { margin-bottom: 12px; }
   .gdm .gi img { width: 100%; height: auto; display: block; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
   .gdm .gi:hover img { transform: scale(1.04); }
+  /* Paired pieces (e.g. mailer front + back) render side-by-side as a single item */
+  .gdm .gi-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    overflow: hidden; border: 1px solid rgba(0,0,0,.07); background: rgba(0,0,0,.04); }
+  .gdm .gi-pair img { border-radius: 0; }
 
   .close { position: absolute; top: 18px; right: 22px; z-index: 5; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); background-color: rgba(255,255,255,.8); display: none; align-items: center; justify-content: center; font-size: 17px; color: #333; cursor: pointer; }
   .stage.is-open .close { display: flex; }
@@ -531,10 +535,13 @@
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */
   const PHOTOS = ['img/gallery/photo-01.jpg', 'img/gallery/photo-02.jpg', 'img/gallery/photo-08.jpg', 'img/gallery/photo-03.jpg', 'img/gallery/photo-04.jpg', 'img/gallery/photo-14.jpg', 'img/gallery/photo-05.jpg', 'img/gallery/photo-06.jpg', 'img/gallery/photo-15.jpg', 'img/gallery/photo-07.jpg', 'img/gallery/photo-09.jpg', 'img/gallery/photo-16.jpg', 'img/gallery/photo-10.jpg', 'img/gallery/photo-11.jpg', 'img/gallery/photo-18.jpg', 'img/gallery/photo-12.jpg', 'img/gallery/photo-19.jpg', 'img/gallery/photo-17.jpg', 'img/gallery/photo-22.jpg', 'img/gallery/photo-20.jpg', 'img/gallery/photo-26.jpg', 'img/gallery/photo-27.jpg', 'img/gallery/photo-21.jpg', 'img/gallery/photo-28.jpg', 'img/gallery/photo-30.jpg', 'img/gallery/photo-23.jpg', 'img/gallery/photo-31.jpg', 'img/gallery/photo-32.jpg', 'img/gallery/photo-24.jpg', 'img/gallery/photo-33.jpg', 'img/gallery/photo-34.jpg', 'img/gallery/photo-25.jpg', 'img/gallery/photo-35.jpg', 'img/gallery/photo-36.jpg', 'img/gallery/photo-29.jpg', 'img/gallery/photo-37.jpg', 'img/gallery/photo-38.jpg', 'img/gallery/photo-42.jpg', 'img/gallery/photo-39.jpg', 'img/gallery/photo-40.jpg', 'img/gallery/photo-41.jpg', 'img/gallery/photo-43.jpg', 'img/gallery/photo-44.jpg', 'img/gallery/photo-45.jpg', 'img/gallery/photo-46.jpg', 'img/gallery/photo-47.jpg'];
 
-  /* Graphic Design — one mixed grid, no sorting (vertical promos + horizontal thumbnails) */
+  /* Graphic Design — one mixed grid. Pairs (front+back of a single piece) render
+     side-by-side via .gi-pair so the two halves stay linked visually. */
   const GD = [
-    'gd/pto-prices.jpg', 'gd/bng-customer.jpg', 'gd/thumb-1.jpg',
-    'gd/pto-resolutions.jpg', 'gd/thumb-2.jpg', 'gd/bng-transformation.jpg',
+    'gd/pto-prices.jpg',
+    { pair: ['gd/bng-customer.jpg', 'gd/bng-transformation.jpg'], alt: 'Back Nine Greens customer mailer (front + back)' },
+    'gd/thumb-1.jpg',
+    'gd/pto-resolutions.jpg', 'gd/thumb-2.jpg',
     'gd/pto-testimonial.jpg', 'gd/thumb-3.jpg', 'gd/ncga-bring-green-home.jpg',
     'gd/thumb-4.jpg', 'gd/thumb-5.jpg', 'gd/thumb-6.jpg', 'gd/thumb-7.jpg',
   ];
@@ -583,9 +590,19 @@
   }
   function renderMasonry(grid, list, alt){
     const m = document.createElement('div'); m.className='gdm';
-    list.forEach(function(src,i){
-      const gi = document.createElement('div'); gi.className='gi'; gi.style.animationDelay=(Math.min(i,16)*40)+'ms';
-      gi.innerHTML = '<img loading="lazy" src="'+src+'" alt="'+alt+'">';
+    list.forEach(function(item,i){
+      const gi = document.createElement('div');
+      gi.style.animationDelay = (Math.min(i,16)*40) + 'ms';
+      if (item && typeof item === 'object' && item.pair) {
+        gi.className = 'gi gi-pair';
+        var pairAlt = item.alt || alt;
+        gi.innerHTML = item.pair.map(function(src){
+          return '<img loading="lazy" src="'+src+'" alt="'+pairAlt+'">';
+        }).join('');
+      } else {
+        gi.className = 'gi';
+        gi.innerHTML = '<img loading="lazy" src="'+item+'" alt="'+alt+'">';
+      }
       m.appendChild(gi);
     });
     grid.innerHTML=''; grid.appendChild(m);
