@@ -221,15 +221,6 @@
     footer { padding: 12px 18px; font-size: 10px; }
     .title { font-size: clamp(16px,5vw,24px); }
     .titlebox { padding: 11px 16px; }
-    /* Video fold mobile: featured 3 stack full-width portrait, then 2-col masonry rest.
-       Subtle divider between the two so the "top 3" feels intentional. */
-    .stage.is-open .fold.open .reels-featured {
-      display: flex; flex-direction: column; gap: 14px;
-      max-width: 100%; margin: 0 auto 22px;
-      padding-bottom: 22px; border-bottom: 1px solid rgba(0,0,0,.08);
-    }
-    .stage.is-open .fold.open .reels { column-count: 2; column-gap: 8px; }
-    .stage.is-open .fold.open .reels .reel { margin-bottom: 8px; }
     .stage.is-open .fold.open .gdm { column-count: 2; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -386,26 +377,33 @@
     .gdm .gi { margin-bottom: 8px !important; }
     /* Hide the floating close X — accordion has its own dismiss (re-tap) */
     .close, .stage.is-open .close { display: none !important; }
-    /* OPEN-state reels: stack 1-up vertically, full readable height */
+    /* OPEN-state Video fold on mobile: keep the 3-up featured row + 2-col masonry rest,
+       matching desktop structure just scaled to phone width. */
+    .stage.is-open .fold.open .reels-featured {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 8px !important;
+      max-width: 100% !important;
+      margin: 0 auto 18px !important;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
     .stage.is-open .fold.open .reels {
-      column-count: 1 !important;
-      column-gap: 0 !important;
+      column-count: 2 !important;
+      column-gap: 8px !important;
       display: block !important;
     }
-    .stage.is-open .fold.open .reels-featured {
-      grid-template-columns: 1fr !important;
-      gap: 12px !important;
-    }
-    /* Local mp4 reels — 9:16 portrait, sized to phone width without crop */
+    /* Local mp4 reels — 9:16 portrait, fill their grid/column cell */
     .stage.is-open .fold.open .reel,
     .stage.is-open .fold.open .reels-featured .reel,
     .stage.is-open .fold.open .reels .reel.local {
       height: auto !important;
       aspect-ratio: 9 / 16;
       width: 100% !important;
-      max-width: 380px;
-      margin: 0 auto 12px !important;
+      max-width: 100% !important;
+      margin: 0 0 8px !important;
     }
+    .stage.is-open .fold.open .reels-featured .reel { margin: 0 !important; }
     .stage.is-open .fold.open .reel video { width: 100% !important; height: 100% !important; object-fit: cover; }
     /* IG embed reels — iframe and container heights MUST match so nothing crops.
        720px is enough for the IG header (~50px) + 9:16 reel video + bottom bar (~50px) on a ~360px-wide phone. */
@@ -510,6 +508,8 @@
      mp4s. No labels, no sorting. Photo + Graphic Design folds are intentionally
      cleared (awaiting curated uploads). */
   const REELS = [
+    {t:'local', v:'reels/reel-sage-rutty-generational-wealth.mp4', p:'reels/posters/reel-sage-rutty-generational-wealth.jpg'},
+    {t:'local', v:'reels/reel-sage-rutty-gold-captions.mp4',       p:'reels/posters/reel-sage-rutty-gold-captions.jpg'},
     {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},
     {t:'local', v:'reels/ig/ig-shaadiefit.mp4',         p:'reels/ig/posters/ig-shaadiefit.jpg'},
     {t:'local', v:'reels/bull-boulder/bb-reel-1.mp4',   p:'reels/bull-boulder/bb-reel-1-poster.jpg'},
@@ -545,6 +545,7 @@
      side-by-side via .gi-pair so the two halves stay linked visually. */
   const GD = [
     'gd/pto-prices.jpg',
+    { pair: ['gd/sage-rutty-mailer-1.jpg', 'gd/sage-rutty-mailer-2.jpg'], alt: 'Sage Rutty B2B mailer (front + back)' },
     { pair: ['gd/bng-customer.jpg', 'gd/bng-transformation.jpg'], alt: 'Back Nine Greens customer mailer (front + back)' },
     'gd/thumb-1.jpg',
     'gd/pto-resolutions.jpg', 'gd/thumb-2.jpg',
