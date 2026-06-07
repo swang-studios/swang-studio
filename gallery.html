@@ -583,6 +583,9 @@
     if(open){
       // one clean, uniform 4-across grid — all reels, same size, no featured row
       const all = FEATURED.concat(REST);
+      // ShaadieFit reel pinned to the top-left slot
+      const si = all.findIndex(function(r){ return r.v && r.v.indexOf('ig-shaadiefit') !== -1; });
+      if (si > 0){ all.unshift(all.splice(si,1)[0]); }
       const wrap=document.createElement('div'); wrap.className='reels';
       all.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
       grid.appendChild(wrap);
