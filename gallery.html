@@ -139,15 +139,16 @@
   /* Featured row: keep default 9:16 aspect for local mp4s (.reel inherits aspect-ratio:9/16) */
   .stage.is-open .fold.open .reels-featured .reel.ig .ig-clip { height: 470px; }
   .stage.is-open .fold.open .reels-featured .reel.ig iframe { height: 1100px; }
-  /* The rest, smaller masonry */
-  .stage.is-open .fold.open .reels { display: block; column-count: 4; column-gap: 12px; }
+  /* Open state: one clean, uniform 4-across grid (no featured row, no masonry).
+     All reels are 9:16 so rows line up perfectly; a partial last row left-aligns. */
+  .stage.is-open .fold.open .reels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   .stage.is-open .fold.open .reels .reel.ig .ig-clip { height: 430px; }
   .stage.is-open .fold.open .reels .reel.ig iframe { height: 1000px; }
   .reel { position: relative; aspect-ratio: 9/16; border-radius: 11px; overflow: hidden; background: #000;
     border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 6px rgba(0,0,0,.07); cursor: pointer;
     transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
     opacity: 0; transform: translateY(10px); animation: tin .5s forwards; }
-  .stage.is-open .fold.open .reel { break-inside: avoid; width: 100%; margin: 0 0 14px; }
+  .stage.is-open .fold.open .reel { width: 100%; margin: 0; }
   .reel:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,0,0,.16); }
   .reel video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background:#000; display:block; }
   /* Instagram cards: clip the embed at the end of the video so the action bar
@@ -212,7 +213,7 @@
       grid-column: 1 / -1; grid-row: 2;
       justify-self: center; font-size: 12px;
     }
-    .stage.is-open .fold.open .reels { column-count: 2; }
+    .stage.is-open .fold.open .reels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .stage.is-open .fold.open .gdm { column-count: 2; }
   }
   @media (max-width: 560px) {
@@ -390,21 +391,19 @@
       border-bottom: 1px solid rgba(0,0,0,.08);
     }
     .stage.is-open .fold.open .reels {
-      column-count: 2 !important;
-      column-gap: 8px !important;
-      display: block !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
     }
     /* Local mp4 reels — 9:16 portrait, fill their grid/column cell */
     .stage.is-open .fold.open .reel,
-    .stage.is-open .fold.open .reels-featured .reel,
     .stage.is-open .fold.open .reels .reel.local {
       height: auto !important;
       aspect-ratio: 9 / 16;
       width: 100% !important;
       max-width: 100% !important;
-      margin: 0 0 8px !important;
+      margin: 0 !important;
     }
-    .stage.is-open .fold.open .reels-featured .reel { margin: 0 !important; }
     .stage.is-open .fold.open .reel video { width: 100% !important; height: 100% !important; object-fit: cover; }
     /* IG embed reels — iframe and container heights MUST match so nothing crops.
        720px is enough for the IG header (~50px) + 9:16 reel video + bottom bar (~50px) on a ~360px-wide phone. */
@@ -582,13 +581,11 @@
   function renderVideo(grid, open){
     grid.innerHTML='';
     if(open){
-      // three featured (big) reels, then the rest smaller
-      const feat=document.createElement('div'); feat.className='reels-featured';
-      FEATURED.forEach(function(r,i){ feat.appendChild(reelCard(r,i)); });
-      grid.appendChild(feat);
-      const rest=document.createElement('div'); rest.className='reels';
-      REST.forEach(function(r,i){ rest.appendChild(reelCard(r,i+3)); });
-      grid.appendChild(rest);
+      // one clean, uniform 4-across grid — all reels, same size, no featured row
+      const all = FEATURED.concat(REST);
+      const wrap=document.createElement('div'); wrap.className='reels';
+      all.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
+      grid.appendChild(wrap);
     } else {
       // teaser shows local posters only (IG embeds need width — they appear when opened)
       const wrap=document.createElement('div'); wrap.className='reels';
