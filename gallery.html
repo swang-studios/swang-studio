@@ -507,36 +507,29 @@
   /* Video fold — one mixed collection. Instagram reels interleaved with local
      mp4s. No labels, no sorting. Photo + Graphic Design folds are intentionally
      cleared (awaiting curated uploads). */
+  /* Video fold — curated order (Mason's picker, exact sequence). */
   const REELS = [
-    {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},
-    {t:'local', v:'reels/ig/ig-shaadiefit.mp4',         p:'reels/ig/posters/ig-shaadiefit.jpg'},
-    {t:'local', v:'reels/bull-boulder/bb-reel-1.mp4',   p:'reels/bull-boulder/bb-reel-1-poster.jpg'},
-    {t:'local', v:'reels/reel-putting-green.mp4',       p:'reels/posters/reel-putting-green.jpg'},
-    {t:'local', v:'reels/ig/ig-sandra-zaniewska.mp4',   p:'reels/ig/posters/ig-sandra-zaniewska.jpg'},
-    {t:'local', v:'reels/reel-sage-rutty-generational-wealth.mp4', p:'reels/posters/reel-sage-rutty-generational-wealth.jpg'},
-    {t:'local', v:'reels/bull-boulder/bb-reel-2.mp4',   p:'reels/bull-boulder/bb-reel-2-poster.jpg'},
-    {t:'local', v:'reels/reel-dirt-to-turf.mp4',        p:'reels/posters/reel-dirt-to-turf.jpg'},
-    {t:'local', v:'reels/ig/ig-kristof-vliegen.mp4',    p:'reels/ig/posters/ig-kristof-vliegen.jpg'},
-    {t:'local', v:'reels/bull-boulder/bb-reel-3.mp4',   p:'reels/bull-boulder/bb-reel-3-poster.jpg'},
-    {t:'local', v:'reels/reel-paver-build.mp4',         p:'reels/posters/reel-paver-build.jpg'},
-    {t:'local', v:'reels/ig/ig-sketch.mp4',             p:'reels/ig/posters/ig-sketch.jpg'},
-    {t:'local', v:'reels/reel-sage-rutty-gold-captions.mp4',       p:'reels/posters/reel-sage-rutty-gold-captions.jpg'},
-    {t:'local', v:'reels/bull-boulder/bb-reel-4.mp4',   p:'reels/bull-boulder/bb-reel-4-poster.jpg'},
-    {t:'local', v:'reels/reel-turf-bbq-pavers.mp4',     p:'reels/posters/reel-turf-bbq-pavers.jpg'},
-    {t:'local', v:'reels/ig/ig-im8.mp4',                p:'reels/ig/posters/ig-im8.jpg'},
-    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},
-    {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},
+    {t:'local', v:'reels/ig/ig-jewell-loyd.mp4',        p:'reels/ig/posters/ig-jewell-loyd.jpg'},               // 1  IM8 x Jewell Loyd
+    {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},        // 2  Putting green transformation
+    {t:'local', v:'reels/ig/ig-kristof-vliegen.mp4',    p:'reels/ig/posters/ig-kristof-vliegen.jpg'},           // 3  Kristof Vliegen (IM8)
+    {t:'local', v:'reels/ig/ig-shaadiefit.mp4',         p:'reels/ig/posters/ig-shaadiefit.jpg'},                // 4  ShaadieFit
+    {t:'local', v:'reels/ig/ig-im8.mp4',                p:'reels/ig/posters/ig-im8.jpg'},                       // 5  IM8 'JUST'
+    {t:'local', v:'reels/reel-bethel-island.mp4',       p:'reels/posters/reel-bethel-island.jpg'},              // 6  Bethel Island
+    {t:'local', v:'reels/reel-sage-rutty-gold-captions.mp4', p:'reels/posters/reel-sage-rutty-gold-captions.jpg'}, // 7  Sage Rutty - gold
+    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},           // 8  Bull Boulder 5
+    {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},                       // 9  Putting green (finished)
+    {t:'local', v:'reels/ig/ig-sketch.mp4',             p:'reels/ig/posters/ig-sketch.jpg'},                    // 10 Sketch reel
+    {t:'local', v:'reels/reel-dirt-to-turf.mp4',        p:'reels/posters/reel-dirt-to-turf.jpg'},               // 11 Dirt to turf
+    {t:'local', v:'reels/ig/ig-sandra-zaniewska.mp4',   p:'reels/ig/posters/ig-sandra-zaniewska.jpg'},          // 12 Sandra Zaniewska
+    {t:'local', v:'reels/reel-turf-bbq-pavers.mp4',     p:'reels/posters/reel-turf-bbq-pavers.jpg'},            // 13 Turf + BBQ pavers
+    {t:'local', v:'reels/bull-boulder/bb-reel-4.mp4',   p:'reels/bull-boulder/bb-reel-4-poster.jpg'},           // 14 Bull Boulder 4
+    {t:'local', v:'reels/reel-paver-build.mp4',         p:'reels/posters/reel-paver-build.jpg'},                // 15 Paver build
+    {t:'local', v:'reels/bull-boulder/bb-reel-3.mp4',   p:'reels/bull-boulder/bb-reel-3-poster.jpg'},           // 16 Bull Boulder 3
   ];
 
-  /* Front row — pushed to the front of the open grid (Mason's pick) */
-  const FEATURED = [
-    {t:'local', v:'reels/reel-bethel-island.mp4',       p:'reels/posters/reel-bethel-island.jpg'},              // NEW: Bethel Island
-    {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},                       // putting green (aerial, finished)
-    {t:'local', v:'reels/ig/ig-sandra-zaniewska.mp4',   p:'reels/ig/posters/ig-sandra-zaniewska.jpg'},          // Sandra Zaniewska
-    {t:'local', v:'reels/ig/ig-kristof-vliegen.mp4',    p:'reels/ig/posters/ig-kristof-vliegen.jpg'},           // Kristof Vliegen
-    {t:'local', v:'reels/ig/ig-im8.mp4',                p:'reels/ig/posters/ig-im8.jpg'},                       // IM8 "JUST" fitness
-  ];
-  const FEATKEYS = ['reels/reel-bethel-island.mp4','reels/reel-golf.mp4','reels/ig/ig-sandra-zaniewska.mp4','reels/ig/ig-kristof-vliegen.mp4','reels/ig/ig-im8.mp4'];
+  /* No separate featured row — REELS is already in the exact display order. */
+  const FEATURED = [];
+  const FEATKEYS = [];
   const REST = REELS.filter(function(r){ return FEATKEYS.indexOf(r.v)===-1; });
 
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */
