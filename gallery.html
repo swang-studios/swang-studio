@@ -526,16 +526,17 @@
     {t:'local', v:'reels/ig/ig-im8.mp4',                p:'reels/ig/posters/ig-im8.jpg'},
     {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},
     {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},
-    {t:'local', v:'reels/ig/ig-pto-aerial.mp4',         p:'reels/ig/posters/ig-pto-aerial.jpg'},
   ];
 
-  /* Three featured (big) reels up top, variety: athlete · landscape · product */
+  /* Front row — pushed to the front of the open grid (Mason's pick) */
   const FEATURED = [
-    {t:'local', v:'reels/ig/ig-jewell-loyd.mp4',        p:'reels/ig/posters/ig-jewell-loyd.jpg'},               // athlete: Jewell Loyd x IM8
-    {t:'local', v:'reels/reel-golf-transformation.mp4', p:'reels/posters/reel-golf-transformation.jpg'},        // landscape: aerial concrete to turf
-    {t:'local', v:'reels/bull-boulder/bb-reel-5.mp4',   p:'reels/bull-boulder/bb-reel-5-poster.jpg'},           // product: Bull Boulder
+    {t:'local', v:'reels/reel-bethel-island.mp4',       p:'reels/posters/reel-bethel-island.jpg'},              // NEW: Bethel Island
+    {t:'local', v:'reels/reel-golf.mp4',                p:'reels/posters/reel-golf.jpg'},                       // putting green (aerial, finished)
+    {t:'local', v:'reels/ig/ig-sandra-zaniewska.mp4',   p:'reels/ig/posters/ig-sandra-zaniewska.jpg'},          // Sandra Zaniewska
+    {t:'local', v:'reels/ig/ig-kristof-vliegen.mp4',    p:'reels/ig/posters/ig-kristof-vliegen.jpg'},           // Kristof Vliegen
+    {t:'local', v:'reels/ig/ig-im8.mp4',                p:'reels/ig/posters/ig-im8.jpg'},                       // IM8 "JUST" fitness
   ];
-  const FEATKEYS = ['reels/ig/ig-jewell-loyd.mp4','reels/reel-golf-transformation.mp4','reels/bull-boulder/bb-reel-5.mp4'];
+  const FEATKEYS = ['reels/reel-bethel-island.mp4','reels/reel-golf.mp4','reels/ig/ig-sandra-zaniewska.mp4','reels/ig/ig-kristof-vliegen.mp4','reels/ig/ig-im8.mp4'];
   const REST = REELS.filter(function(r){ return FEATKEYS.indexOf(r.v)===-1; });
 
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */
@@ -583,9 +584,6 @@
     if(open){
       // one clean, uniform 4-across grid — all reels, same size, no featured row
       const all = FEATURED.concat(REST);
-      // ShaadieFit reel pinned to the top-left slot
-      const si = all.findIndex(function(r){ return r.v && r.v.indexOf('ig-shaadiefit') !== -1; });
-      if (si > 0){ all.unshift(all.splice(si,1)[0]); }
       const wrap=document.createElement('div'); wrap.className='reels';
       all.forEach(function(r,i){ wrap.appendChild(reelCard(r,i)); });
       grid.appendChild(wrap);
