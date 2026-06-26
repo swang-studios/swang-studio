@@ -97,9 +97,8 @@
   .b2 { width: 320px; height: 320px; bottom: -90px; left: -60px; background: radial-gradient(circle,rgba(150,80,215,.5),rgba(255,255,255,0) 70%); }
 
   .fold { position: absolute; top: 0; bottom: 0; z-index: 1; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: left .6s cubic-bezier(.7,0,.2,1), width .6s cubic-bezier(.7,0,.2,1), opacity .3s ease; }
-  .fold[data-fold="photo"] { left: 0; width: 33.333%; --tint: 255,120,60; }
-  .fold[data-fold="video"] { left: 33.333%; width: 33.333%; border-left: 1px solid var(--rule); --tint: 150,80,215; }
-  .fold[data-fold="gd"] { left: 66.666%; width: 33.334%; border-left: 1px solid var(--rule); --tint: 225,90,120; }
+  .fold[data-fold="photo"] { left: 0; width: 50%; --tint: 255,120,60; }
+  .fold[data-fold="video"] { left: 50%; width: 50%; border-left: 1px solid var(--rule); --tint: 150,80,215; }
   .stage.is-open .fold:not(.open) { opacity: 0; pointer-events: none; }
   .stage.is-open .fold.open { left: 0; width: 100%; z-index: 2; border-left-color: transparent; cursor: default; }
 
@@ -430,6 +429,32 @@
     /* Hide decorative background blobs (visual noise on phones) */
     .blob { display: none !important; }
   }
+
+  /* ============================================================
+     LIGHTBOX — click any photo / GD image / reel to zoom in.
+     Full-screen overlay, arrow + keyboard nav across siblings,
+     click-backdrop / X / Esc to close.
+     ============================================================ */
+  .lb { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.93);
+    display: none; align-items: center; justify-content: center; padding: 40px; }
+  .lb.open { display: flex; }
+  .lb-stage { display: flex; align-items: center; justify-content: center; max-width: 92vw; max-height: 88vh; }
+  .lb-media { max-width: 92vw; max-height: 88vh; display: block; border-radius: 6px;
+    box-shadow: 0 12px 50px rgba(0,0,0,.55); background: #000; }
+  .lb-close { position: absolute; top: 18px; right: 22px; width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.45); color: #fff; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; }
+  .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.45); color: #fff; font-size: 26px; line-height: 1;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; transition: background .2s; }
+  .lb-prev { left: 18px; } .lb-next { right: 18px; }
+  .lb-close:hover, .lb-nav:hover { background: rgba(0,0,0,.78); }
+  .gdm .gi, .reel { cursor: zoom-in; }
+  @media (max-width: 560px) {
+    .lb { padding: 14px; } .lb-nav { width: 40px; height: 40px; font-size: 22px; }
+    .lb-prev { left: 8px; } .lb-next { right: 8px; }
+    .lb-close { top: 10px; right: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -457,7 +482,7 @@
   <div class="fold" data-fold="photo">
     <div class="phead">
       <div class="titlebox" role="button" tabindex="0" aria-label="Photo"><span class="title">Photo</span></div>
-      <div class="sub">Showcasing Projects</div>
+      <div class="sub">Projects, Brand &amp; Design</div>
       <div class="hint">Tap to view</div>
     </div>
     <div class="preview" data-grid="photo"></div>
@@ -472,14 +497,6 @@
     <div class="preview" data-grid="video"></div>
   </div>
 
-  <div class="fold" data-fold="gd">
-    <div class="phead">
-      <div class="titlebox" role="button" tabindex="0" aria-label="Graphic Design"><span class="title">Graphic Design</span></div>
-      <div class="sub">Thumbnails, Brand &amp; Print</div>
-      <div class="hint">Tap to view</div>
-    </div>
-    <div class="preview" data-grid="gd"></div>
-  </div>
 </main>
 
 <footer>
@@ -533,7 +550,7 @@
   const REST = REELS.filter(function(r){ return FEATKEYS.indexOf(r.v)===-1; });
 
   /* Photos — mixed grid, verticals + horizontals interleaved (greens, grass, builds) */
-  const PHOTOS = ['img/gallery/photo-01.jpg', 'img/gallery/photo-02.jpg', 'img/gallery/photo-08.jpg', 'img/gallery/photo-03.jpg', 'img/gallery/photo-04.jpg', 'img/gallery/photo-14.jpg', 'img/gallery/photo-05.jpg', 'img/gallery/photo-06.jpg', 'img/gallery/photo-15.jpg', 'img/gallery/photo-07.jpg', 'img/gallery/photo-09.jpg', 'img/gallery/photo-16.jpg', 'img/gallery/photo-10.jpg', 'img/gallery/photo-11.jpg', 'img/gallery/photo-18.jpg', 'img/gallery/photo-12.jpg', 'img/gallery/photo-19.jpg', 'img/gallery/photo-17.jpg', 'img/gallery/photo-22.jpg', 'img/gallery/photo-20.jpg', 'img/gallery/photo-26.jpg', 'img/gallery/photo-27.jpg', 'img/gallery/photo-21.jpg', 'img/gallery/photo-28.jpg', 'img/gallery/photo-30.jpg', 'img/gallery/photo-23.jpg', 'img/gallery/photo-31.jpg', 'img/gallery/photo-32.jpg', 'img/gallery/photo-24.jpg', 'img/gallery/photo-33.jpg', 'img/gallery/photo-34.jpg', 'img/gallery/photo-25.jpg', 'img/gallery/photo-35.jpg', 'img/gallery/photo-36.jpg', 'img/gallery/photo-29.jpg', 'img/gallery/photo-37.jpg', 'img/gallery/photo-38.jpg', 'img/gallery/photo-42.jpg', 'img/gallery/photo-39.jpg', 'img/gallery/photo-40.jpg', 'img/gallery/photo-41.jpg', 'img/gallery/photo-43.jpg', 'img/gallery/photo-44.jpg', 'img/gallery/photo-45.jpg', 'img/gallery/photo-46.jpg', 'img/gallery/photo-47.jpg'];
+  const PHOTOS = ['img/gallery/photo-01.jpg', 'img/gallery/photo-02.jpg', 'img/gallery/photo-08.jpg', 'img/gallery/photo-03.jpg', 'img/gallery/photo-04.jpg', 'img/gallery/photo-05.jpg', 'img/gallery/photo-06.jpg', 'img/gallery/photo-15.jpg', 'img/gallery/photo-07.jpg', 'img/gallery/photo-09.jpg', 'img/gallery/photo-10.jpg', 'img/gallery/photo-11.jpg', 'img/gallery/photo-18.jpg', 'img/gallery/photo-12.jpg', 'img/gallery/photo-19.jpg', 'img/gallery/photo-17.jpg', 'img/gallery/photo-22.jpg', 'img/gallery/photo-20.jpg', 'img/gallery/photo-26.jpg', 'img/gallery/photo-27.jpg', 'img/gallery/photo-21.jpg', 'img/gallery/photo-28.jpg', 'img/gallery/photo-30.jpg', 'img/gallery/photo-23.jpg', 'img/gallery/photo-31.jpg', 'img/gallery/photo-32.jpg', 'img/gallery/photo-24.jpg', 'img/gallery/photo-33.jpg', 'img/gallery/photo-34.jpg', 'img/gallery/photo-25.jpg', 'img/gallery/photo-35.jpg', 'img/gallery/photo-36.jpg', 'img/gallery/photo-29.jpg', 'img/gallery/photo-37.jpg', 'img/gallery/photo-38.jpg', 'img/gallery/photo-42.jpg', 'img/gallery/photo-39.jpg', 'img/gallery/photo-44.jpg', 'img/gallery/photo-45.jpg', 'img/gallery/photo-46.jpg', 'img/gallery/photo-48.jpg', 'img/gallery/photo-49.jpg', 'img/gallery/photo-50.jpg', 'img/gallery/photo-51.jpg', 'img/gallery/photo-52.jpg', 'img/gallery/photo-53.jpg', 'img/gallery/photo-54.jpg', 'img/gallery/photo-55.jpg', 'img/gallery/photo-56.jpg', 'img/gallery/photo-57.jpg', 'img/gallery/photo-58.jpg', 'img/gallery/photo-59.jpg'];
 
   /* Graphic Design — one mixed grid. Pairs (front+back of a single piece) render
      side-by-side via .gi-pair so the two halves stay linked visually. */
@@ -541,10 +558,9 @@
     'gd/pto-prices.jpg',
     { pair: ['gd/sage-rutty-mailer-1.jpg', 'gd/sage-rutty-mailer-2.jpg'], alt: 'Sage Rutty B2B mailer (front + back)' },
     { pair: ['gd/bng-customer.jpg', 'gd/bng-transformation.jpg'], alt: 'Back Nine Greens customer mailer (front + back)' },
-    'gd/thumb-1.jpg',
-    'gd/pto-resolutions.jpg', 'gd/thumb-2.jpg',
-    'gd/pto-testimonial.jpg', 'gd/thumb-3.jpg', 'gd/ncga-bring-green-home.jpg',
-    'gd/thumb-4.jpg', 'gd/thumb-5.jpg', 'gd/thumb-6.jpg', 'gd/thumb-7.jpg',
+    'gd/pto-resolutions.jpg',
+    'gd/thumb-3.jpg', 'gd/ncga-bring-green-home.jpg',
+    'gd/thumb-4.jpg', 'gd/thumb-5.jpg', 'gd/thumb-6.jpg',
   ];
 
   function reelCard(r, i){
@@ -552,14 +568,14 @@
     card.style.animationDelay = (i*45) + 'ms';
     if (r.t === 'local') {
       card.className = 'reel local';
+      card.dataset.vsrc = r.v;
       card.innerHTML = '<video preload="none" playsinline loop poster="'+r.p+'"><source src="'+r.v+'" type="video/mp4"></video>';
-      const vid = card.querySelector('video');
-      card.addEventListener('click', function(){
-        if (vid.paused) {
-          // pause any other reel that's playing, so audio never overlaps
-          document.querySelectorAll('.reel.local.playing video').forEach(function(o){ if(o!==vid){ o.pause(); o.closest('.reel').classList.remove('playing'); } });
-          vid.play(); card.classList.add('playing');
-        } else { vid.pause(); card.classList.remove('playing'); }
+      card.addEventListener('click', function(e){
+        e.stopPropagation();
+        var grid = card.closest('.reels');
+        var cards = Array.prototype.slice.call((grid || document).querySelectorAll('.reel.local'));
+        var items = cards.map(function(c){ return { type:'video', src:c.dataset.vsrc }; });
+        if (window.__lb) window.__lb.open(items, cards.indexOf(card));
       });
     } else {
       card.className = 'reel ig';
@@ -607,7 +623,7 @@
     grid.innerHTML=''; grid.appendChild(m);
   }
   function renderGD(grid, open){ renderMasonry(grid, open ? GD : GD.slice(0,10), 'Graphic design'); }
-  function renderPhotos(grid, open){ renderMasonry(grid, open ? PHOTOS : PHOTOS.slice(0,14), 'Project photo'); }
+  function renderPhotos(grid, open){ var all = PHOTOS.concat(GD); renderMasonry(grid, open ? all : all.slice(0,14), 'Project photo'); }
   function renderEmpty(grid){
     grid.innerHTML = '<div class="empty-note">Coming soon</div>';
   }
@@ -712,6 +728,62 @@
     closeBtn.addEventListener('click',function(e){ e.stopPropagation(); reset(); });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && stage.classList.contains('is-open')) reset(); });
     fillAll(false);
+  })();
+</script>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <div class="lb-close" id="lbClose" role="button" tabindex="0" aria-label="Close">&times;</div>
+  <div class="lb-nav lb-prev" id="lbPrev" role="button" tabindex="0" aria-label="Previous">&#8249;</div>
+  <div class="lb-stage" id="lbStage"></div>
+  <div class="lb-nav lb-next" id="lbNext" role="button" tabindex="0" aria-label="Next">&#8250;</div>
+</div>
+
+<script>
+  /* Lightbox: zoom photos / graphic design / reels. Shared image+video viewer. */
+  (function(){
+    var lb=document.getElementById('lb'), stageEl=document.getElementById('lbStage');
+    var list=[], idx=0;
+    function render(){
+      var it=list[idx]; if(!it) return;
+      stageEl.innerHTML='';
+      var el;
+      if(it.type==='video'){
+        el=document.createElement('video');
+        el.src=it.src; el.controls=true; el.autoplay=true; el.loop=true; el.playsInline=true;
+      } else {
+        el=document.createElement('img'); el.src=it.src; el.alt=it.alt||'';
+      }
+      el.className='lb-media';
+      stageEl.appendChild(el);
+      var multi=list.length>1;
+      document.getElementById('lbPrev').style.display=multi?'flex':'none';
+      document.getElementById('lbNext').style.display=multi?'flex':'none';
+    }
+    function open(items, i){ list=items||[]; idx=i<0?0:i; if(!list.length) return; lb.classList.add('open'); document.body.style.overflow='hidden'; render(); }
+    function close(){ lb.classList.remove('open'); stageEl.innerHTML=''; document.body.style.overflow=''; }
+    function nav(d){ if(list.length<2) return; idx=(idx+d+list.length)%list.length; render(); }
+    document.getElementById('lbClose').addEventListener('click', close);
+    document.getElementById('lbPrev').addEventListener('click', function(e){ e.stopPropagation(); nav(-1); });
+    document.getElementById('lbNext').addEventListener('click', function(e){ e.stopPropagation(); nav(1); });
+    lb.addEventListener('click', function(e){ if(e.target===lb || e.target===stageEl) close(); });
+    document.addEventListener('keydown', function(e){
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') close();
+      else if(e.key==='ArrowLeft') nav(-1);
+      else if(e.key==='ArrowRight') nav(1);
+    });
+    window.__lb={ open:open, close:close };
+
+    /* Click any photo / GD image to zoom (delegated, captures siblings in the same grid) */
+    document.addEventListener('click', function(e){
+      var img = e.target.closest ? e.target.closest('.gdm .gi img') : null;
+      if(!img) return;
+      e.stopPropagation();
+      var gdm = img.closest('.gdm');
+      var imgs = Array.prototype.slice.call(gdm.querySelectorAll('.gi img'));
+      var items = imgs.map(function(im){ return { type:'image', src:im.getAttribute('src'), alt:im.alt }; });
+      open(items, imgs.indexOf(img));
+    }, true);
   })();
 </script>
 
