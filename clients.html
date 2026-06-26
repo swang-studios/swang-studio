@@ -108,8 +108,10 @@
     font-size: clamp(26px, 4vw, 40px); font-weight: 800;
     letter-spacing: -0.03em; margin-top: 8px; color: var(--ink);
   }
-  .feat { width: 100%; max-width: 840px; margin: 0 auto 20px; position: relative; background: #ffffff; border: 1px solid var(--rule); border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); display: flex; align-items: center; justify-content: center; gap: 22px; padding: 30px 28px; }
-  .feat img { height: 84px; width: auto; }
+  .feat { width: 100%; max-width: 840px; margin: 0 auto 20px; position: relative; background: #ffffff; border: 1px solid var(--rule); border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); display: flex; align-items: center; justify-content: center; gap: 22px; padding: 30px 28px; cursor: pointer; transition: transform 260ms cubic-bezier(.2,.7,.2,1), box-shadow 260ms ease, border-color 260ms ease; will-change: transform; }
+  .feat:hover, .feat:focus-visible { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 38px rgba(0,0,0,0.13); border-color: rgba(0,0,0,0.18); outline: none; }
+  .feat img { height: 84px; width: auto; transition: transform 260ms cubic-bezier(.2,.7,.2,1); }
+  .feat:hover img, .feat:focus-visible img { transform: scale(1.06); }
   .feat .wm { display: flex; flex-direction: column; line-height: 1; }
   .feat .wm .t { font-size: clamp(26px, 3.4vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
   .feat .wm .s { margin-top: 7px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); }
@@ -154,7 +156,7 @@
   .logo-tile:focus-visible img { transform: scale(1.06); }
 
   @media (prefers-reduced-motion: reduce) {
-    .logo-tile, .logo-tile img { transition: none !important; }
+    .logo-tile, .logo-tile img, .feat, .feat img { transition: none !important; }
   }
 
   /* FOOTER */
@@ -213,7 +215,7 @@
     <span class="eyebrow">Selected Clients</span>
     <h1>Brands I've worked with</h1>
   </div>
-  <div class="feat">
+  <div class="feat" tabindex="0">
     <img src="./client-logos/galley-wheel.png" alt="The Galley" loading="lazy" />
     <div class="wm"><span class="t">The Galley</span><span class="s">Santa Monica</span></div>
   </div>
