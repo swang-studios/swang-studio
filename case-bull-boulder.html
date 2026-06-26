@@ -37,7 +37,7 @@
   .prose p { font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.7; margin-bottom: 18px; color: #161616; }
   .prose p .hl { background: var(--accent-soft); color: var(--accent); font-weight: 600; padding: 0 4px; border-radius: 3px; }
 
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 40px 0 8px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 40px 0 8px; }
   .stat { border: 1px solid var(--rule); border-radius: 14px; padding: 20px 18px; background: #fcfcfb; }
   .stat.accent { background: var(--accent-soft); border-color: rgba(31,122,61,0.28); }
   .stat .v { font-size: clamp(24px, 2.8vw, 34px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
@@ -84,18 +84,18 @@
 
 <header>
   <a href="./index.html" class="name"><span class="arrow">←</span> Mason Swanger</a>
-  <span class="crumb">Case Study</span>
+  <span class="crumb">Project</span>
   <nav class="primary">
     <a href="./gallery.html">Gallery</a>
     <span class="pipe">|</span>
-    <a href="./case-studies.html" class="active">Case Studies</a>
+    <a href="./case-studies.html" class="active">Projects</a>
     <span class="pipe">|</span>
     <a href="./clients.html">Clients</a>
   </nav>
 </header>
 
 <main class="wrap">
-  <p class="kicker">Case Study<span class="dot">·</span>Creative Testing<span class="dot">·</span>Repurposed Content</p>
+  <p class="kicker">Project<span class="dot">·</span>Creative Testing<span class="dot">·</span>Repurposed Content</p>
   <h1 class="title">Creative Testing That Beat Bull Boulder's Meta Benchmarks</h1>
   <p class="subtitle">Using content that already existed, repurposed into proven, scalable ad winners.</p>
 
@@ -113,58 +113,11 @@
   </div>
 
   <div class="stats">
-    <div class="stat accent"><div class="v">2 / 6</div><div class="l">Winners found</div><div class="s">vs ~1 in 15 typical</div></div>
-    <div class="stat"><div class="v">2.65×</div><div class="l">Top ROAS</div><div class="s">Record for the account</div></div>
-    <div class="stat"><div class="v">122</div><div class="l">Purchases</div><div class="s">High-volume winner</div></div>
-    <div class="stat"><div class="v">52.45%</div><div class="l">Best hook rate</div><div class="s">945K+ impressions</div></div>
+    <div class="stat accent"><div class="v">2 / 6</div><div class="l">Winning ads created</div><div class="s">vs ~1 in 15 typical</div></div>
+    <div class="stat"><div class="v">2.65×</div><div class="l">Return on ad spend</div></div>
+    <div class="stat"><div class="v">52.45%</div><div class="l">Average hook rate</div><div class="s">1.27M+ impressions</div></div>
   </div>
 
-  <div class="success">
-    <h2>The two winners</h2>
-    <p>Straight from the account, the volume play and the efficiency play.</p>
-  </div>
-
-  <div class="cards">
-    <!-- Video 6 -->
-    <div class="vcard v6">
-      <div class="bar"></div>
-      <div class="vhead">
-        <div class="vt">Holy ****, Video 6<small>High-volume performer</small></div>
-        <span class="badge win">● Active</span>
-      </div>
-      <div class="mgrid">
-        <div class="m"><div class="ml">Amount Spent</div><div class="mv">$18,730</div></div>
-        <div class="m"><div class="ml">Purchase ROAS</div><div class="mv warn">1.79×</div></div>
-        <div class="m"><div class="ml">CVR</div><div class="mv warn">0.84%</div></div>
-        <div class="m"><div class="ml">Cost / Purchase</div><div class="mv">$153.53</div></div>
-        <div class="m"><div class="ml">Impressions</div><div class="mv">945,356</div></div>
-        <div class="m"><div class="ml">Hook Rate</div><div class="mv good">52.45%</div><div class="ms">Top hook performer</div></div>
-        <div class="m"><div class="ml">Results</div><div class="mv">122</div><div class="ms" style="color:var(--mute)">Purchases</div></div>
-        <div class="m"><div class="ml">Cost / Click</div><div class="mv">$1.30</div></div>
-      </div>
-      <div class="vnote"><p>Highest spend &amp; impressions. Strong hook (52%). CVR has room to improve, possible offer or landing-page opportunity.</p></div>
-    </div>
-
-    <!-- Video 4 -->
-    <div class="vcard v4">
-      <div class="bar"></div>
-      <div class="vhead">
-        <div class="vt">Flash Sale 1, Video 4<small>Efficiency winner</small></div>
-        <span class="badge win">● Best performer</span>
-      </div>
-      <div class="mgrid">
-        <div class="m"><div class="ml">Amount Spent</div><div class="mv">$7,985</div></div>
-        <div class="m"><div class="ml">Purchase ROAS</div><div class="mv good">2.65×</div></div>
-        <div class="m"><div class="ml">CVR</div><div class="mv good">1.68%</div></div>
-        <div class="m"><div class="ml">Cost / Purchase</div><div class="mv good">$99.82</div></div>
-        <div class="m"><div class="ml">Impressions</div><div class="mv">325,972</div></div>
-        <div class="m"><div class="ml">Hook Rate</div><div class="mv warn">19.25%</div></div>
-        <div class="m"><div class="ml">Results</div><div class="mv">80</div><div class="ms" style="color:var(--mute)">Purchases</div></div>
-        <div class="m"><div class="ml">Cost / Click</div><div class="mv">$1.67</div></div>
-      </div>
-      <div class="vnote"><p>Best performer. Highest ROAS (2.65×), lowest CPA ($99.82), strongest CVR (1.68%). Benchmark to beat, hook rate is the weakest link, and improving it could scale this further.</p></div>
-    </div>
-  </div>
 </main>
 
 <footer>
